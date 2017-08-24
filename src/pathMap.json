@@ -1,0 +1,9 @@
+{
+	"bs-js":"bootstrap/dist/js/bootstrap.min.js",
+	"bs-css":"bootstrap/dist/css/bootstrap.min.css",
+	"app-css":"./src/css/application.css",
+	"icheck-js":"./src/lib/iCheck/all.css",
+	"icheck-css":"./src/lib/iCheck/iCheck.js",
+	"alertify-js":"./src/lib/alertify/js/alertify.js",
+	"alertify-css":"./src/lib/alertify/css/alertify.bootstrap.css"
+}

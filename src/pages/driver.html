@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>driver</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="$t('message.driver.box.title')"></h3>
+        </div>
+        <div class="box-body">
+            <div class="form-inline pull-right">
+                <div class="form-group">
+                    <label v-text="$t('message.driver.search.licenseNo')"></label>
+                    <input id="driver-licenseNo-value" class="form-control" type="text"/>
+                    <button id="driver-licenseNo-search" class="btn btn-app-primary" v-text="$t('message.button.search')"></button>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-app-primary" id="driver-show-add" onclick="driver.create();"><i class="fa fa-plus"></i>
+                    <span  v-text="$t('message.driver.button.driver')"></span>
+                </button>
+
+            </div>
+            <table id="driver-table" class="table table-bordered table-striped table-layout">
+                <thead>
+                <tr>
+                    <th v-text="$t('message.driver.table.licenseNo')"></th>
+                    <th v-text="$t('message.driver.table.name')"></th>
+                    <th v-text="$t('message.driver.table.mobile')"></th>
+                    <th v-text="$t('message.driver.table.rating')"></th>
+                    <th v-text="$t('message.table.function')"></th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--add tag-->
+    <div class="modal" id="addDriver" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.driver.box.createTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="driver-create-form" class="form-horizontal" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.portrait')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="portrait-frame pull-left valid-frame">
+                                    <img id="image" src="../img/init.png" style="max-width: 100%;height:100%"/>
+                                    <input type="hidden" name="image" id="por-data"/>
+                                    <input type="hidden" name="imageName" id="imageName"/>
+                                </div>
+                                <div class="margin-left-15 pull-left">
+                                    <button class="btn btn-sm btn-app-primary portrait-upload-btn" v-text="$t('message.button.upload')"></button>
+                                    <input type="file" class="upload-file"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.firstName')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input name="firstName" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.lastName')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input name="lastName" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.licenseNo')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input name="licenseNo" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.mobile')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input name="mobile" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.rating')"></span>
+                            </label>
+                            <div class="col-sm-9 valid-frame">
+                                <!--<input name="rating" class="rating" type="number" min=0 max=5 step=0.5/>-->
+                                <div id="create-rating" class="rating margin-top-5"></div>
+                                <input id="create-rating-value" name="rating" type="hidden" value="0"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.attachment')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input id="create-attachmentImages" name="attachmentImages[]" type="file" multiple class="file-loading"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="driver-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--update tag-->
+    <div class="modal" id="editDriver" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.driver.box.editTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="driver-edit-form" class="form-horizontal"  enctype="multipart/form-data">
+                        <input v-model="driverInfo.id" name="id" type="hidden"/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.portrait')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="portrait-frame pull-left valid-frame">
+                                    <img id="edit-show-portrait" src="../img/init.png" style="max-width: 100%;height:100%"/>
+                                    <input type="hidden" name="image" id="edit-por-data" value="-1"/>
+                                    <input type="hidden" name="imageName" id="edit-imageName"/>
+                                </div>
+                                <div class="margin-left-15 pull-left">
+                                    <button class="btn btn-sm btn-app-primary portrait-upload-btn" v-text="$t('message.button.upload')"></button>
+                                    <input type="file" class="upload-file"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.firstName')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input v-model="driverInfo.firstName" name="firstName" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.lastName')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input v-model="driverInfo.lastName" name="lastName" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.licenseNo')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input v-model="driverInfo.licenseNo" name="licenseNo" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.mobile')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input v-model="driverInfo.mobile" name="mobile" class="form-control" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.rating')"></span>
+                            </label>
+                            <div class="col-sm-9 valid-frame">
+                                <div id="edit-rating" class="rating margin-top-5"></div>
+                                <input v-model="driverInfo.rating" id="edit-rating-value" name="rating" type="hidden"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">
+                                <span v-text="$t('message.driver.form.attachment')"></span>
+                                <span class="color-error">*</span></label>
+                            <div class="col-sm-9 valid-frame">
+                                <input id="edit-attachmentImages" name="attachmentImages[]" type="file" multiple class="file-loading"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="driver-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteDriver" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.driver.box.deleteTitle')"></h4>
+                </div>
+                <div class="modal-body" v-text="$t('message.deleteInfo')">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                    <button id="driver-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="pro-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 500px;min-height: 400px;">
+                <div class="modal-header">
+                    <a class="close close-pro-modal">×</a>
+                    <label class="font-16-unbold" v-text="$t('message.driver.box.uploadPortrait')"></label>
+                </div>
+                <div id="cropper-body" class="modal-body" style="width: 500px;height: 400px;">
+                    <div>
+                        <img id="cropper-img" src="" style="max-width: 100%;"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left close-pro-modal" v-text="$t('message.button.no')"></button>
+                    <button id="portrait-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

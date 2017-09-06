@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vehicle Type Create</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+    <section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.vehicleTypeCreate.box.title')"></h3>
+                </div>
+                <div class="box-body">
+                    <form id="vehicleType-create-form" class="form-horizontal">
+                        <input type="hidden" v-model="vehicleTypeInfo.id" name="id"/>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                    <span v-text="$t('message.vehicleTypeCreate.form.vehicleType')"></span>
+                                    <span class="color-error">*</span></label>
+                                <div class="col-sm-6 valid-frame">
+ 									<input v-model="vehicleTypeInfo.type" class="form-control" type="text" name="type" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4 padding-left-0 padding-right-0" v-text="$t('message.vehicleTypeCreate.form.description')"></label>
+                                <div class="col-sm-6 valid-frame">
+ 									<input v-model="vehicleTypeInfo.description" class="form-control" type="text" name="description" />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-8 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.weight')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.weight" class="form-control" type="text" name="weight"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.weightUom')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <select v-model="vehicleTypeInfo.weightUom" class="form-control" name="weightUom">
+                                            <option value="kg">kg</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-8 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.volume')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.volume" class="form-control" type="text" name="volume"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.volumeUom')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <select v-model="vehicleTypeInfo.volumeUom" class="form-control" name="volumeUom">
+                                            <option value="m3">m3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-8 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.basePrice')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.vehicleTypeBasePrice" class="form-control" type="text" name="vehicleTypeBasePrice"/>
+                                    </div>
+                                </div>
+                                <!--<div class="col-sm-6">-->
+                                    <!--<label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                    <span v-text="$t('message.vehicleTypeCreate.form.transporterBasePrice')"></span>
+                                    <span class="color-error">*</span></label>-->
+                                    <!--<div class="col-sm-4 valid-frame">-->
+                                        <!--<input v-model="vehicleTypeInfo.transporterBasePrice" class="form-control" type="text" name="transporterBasePrice"/>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.distancePriceGuide')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.distancePriceGuide" class="form-control" type="text" name="distancePriceGuide"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                         <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-8 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.weightPriceGuide')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.weightPriceGuide" class="form-control" type="text" name="weightPriceGuide"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-4 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.volumnPriceGuide')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+										<input v-model="vehicleTypeInfo.volumnPriceGuide" class="form-control" type="text" name="volumnPriceGuide"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="control-label col-sm-8 padding-left-0 padding-right-0">
+                                        <span v-text="$t('message.vehicleTypeCreate.form.dimensions')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-4 valid-frame">
+                                        <input v-model="vehicleTypeInfo.dimensions" class="form-control" type="text" name="dimensions"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                    </form>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button class="btn btn-app-primary" type="button" onclick="price.create()">
+                                    <i class="fa fa-plus"></i>
+                                    <span v-text="$t('message.vehicleTypeCreate.button.price')"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <table id="price-table" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th v-text="$t('message.vehicleTypeCreate.table.dayOfWeek')"></th>
+                                        <th v-text="$t('message.vehicleTypeCreate.table.priceMaxVol')"></th>
+                                        <th v-text="$t('message.vehicleTypeCreate.table.priceMaxKg')"></th>
+                                        <th v-text="$t('message.vehicleTypeCreate.table.pricePerVol')"></th>
+                                        <th v-text="$t('message.vehicleTypeCreate.table.pricePerKg')"></th>
+                                        <th v-text="$t('message.table.function')"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button class="btn btn-app-danger" onclick="window.location.href='vehicleTypeView.html?sspi='+appOption.getQueryParam('sspi')" v-text="$t('message.button.cancel')"></button>
+                                <button id="vehicleType-create-save" class="btn btn-app-primary" disabled="disabled" v-text="$t('message.button.submit')"></button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+             <!--add price-->
+            <div class="modal" id="addPrice" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.vehicleTypeCreate.box.createTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="price-create-form" class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.priceMaxVol')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input name="priceMaxM3" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.priceMaxKg')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input name="priceMaxKg" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.pricePerVol')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input name="pricePerM3" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.pricePerVol')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input name="pricePerKg" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.dayOfWeek')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <table class="table table-bordered text-center">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.mon')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.tue')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.wed')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.thur')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.fri')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.sat')"></td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.sun')"></td>
+                                                        <!--<td v-text="$t('message.vehicleTypeCreate.form.publicHoliday')"></td>-->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                        </td>
+                                                        <!--<td>-->
+                                                            <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                        <!--</td>-->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <input id="create-dayOfWeek" type="hidden" name="validDayOfWeek" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger" data-dismiss="modal"  v-text="$t('message.button.cancel')"></button>
+                            <button id="price-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!--edit price-->
+            <div class="modal" id="editPrice" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.vehicleTypeCreate.box.editTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="price-edit-form" class="form-horizontal">
+                                <input v-model="priceInfo.id" name="id" type="hidden"/>
+                                <input v-model="priceInfo.vehicleTypeId" name="vehicleTypeId" type="hidden"/>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.priceMaxVol')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input v-model="priceInfo.priceMaxM3" name="priceMaxM3" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.priceMaxKg')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input v-model="priceInfo.priceMaxKg" name="priceMaxKg" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.pricePerVol')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input v-model="priceInfo.pricePerM3" name="pricePerM3" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.pricePerKg')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <input v-model="priceInfo.pricePerKg" name="pricePerKg" type="text" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <label class="control-label">
+                                                <span v-text="$t('message.vehicleTypeCreate.form.dayOfWeek')"></span>
+                                                <span class="color-error">*</span></label>
+                                            <div class="valid-frame">
+                                                <table class="table table-bordered text-center">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.mon')">Mon</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.tue')">Tue</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.wed')">Wed</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.thur')">Thur</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.fri')">Fri</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.sat')">Sat</td>
+                                                        <td v-text="$t('message.vehicleTypeCreate.form.sun')">Sun</td>
+                                                        <!--<td v-text="$t('message.vehicleTypeCreate.form.publicHoliday')">Public Holiday</td>-->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                        </td>
+                                                        <td>
+                                                            <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                        </td>
+                                                        <!--<td>-->
+                                                            <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                        <!--</td>-->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <input id="edit-dayOfWeek" type="hidden" name="validDayOfWeek" disabled/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.cancel')">cancel</button>
+                            <button id="price-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')">submit</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!--delete price-->
+            <div class="modal" id="deletePrice" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" v-text="$t('message.vehicleTypeCreate.box.deleteTitle')">Delete Price</h4>
+                    </div>
+                    <div class="modal-body" v-text="$t('message.deleteInfo')">
+                        The deletion is permanent. Confirm to delete?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')">NO</button>
+                        <button id="price-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')">YES</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/vehicleTypeCreate.bundle.js"></script> 
+</body>
+</html>

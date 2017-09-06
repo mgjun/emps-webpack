@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Zones</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.zone.box.title')">View All Zones(s)</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-inline pull-right">
+                        <div class="form-group">
+                            <label v-text="$t('message.zone.search.postalCode')">Postal Code:</label>
+                            <input id="postal-code-value" class="form-control" type="text"/>
+                            <button id="postal-code-search" class="btn btn-app-primary" v-text="$t('message.button.search')">search</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-app-primary" id="zone-show-add" onclick="zone.create();">
+                            <i class="fa fa-plus"></i>{{ $t("message.zone.button.create") }}</button>
+
+                    </div>
+                    <table id="zone-table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th v-text="$t('message.zone.table.zoneId')">Zone Id</th>
+                            <th v-text="$t('message.zone.table.name')">Name</th>
+                            <th v-text="$t('message.zone.table.postal')">Postal</th>
+                            <th v-text="$t('message.zone.table.address')">Address</th>
+                            <th v-text="$t('message.table.function')">Function(s)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--add tag-->
+            <div class="modal" id="addZone" aria-hidden="true">
+  		 	 <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" v-text="$t('message.zone.box.createTitle')">Add Zone</h4>
+		            </div>
+		            <div class="modal-body">
+		                <form id="zone-create-form" class="form-horizontal">
+		                	<div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.zoneId') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                            <input name="zoneId" class="form-control" type="text"/>
+		                        </div>
+		                    </div>
+		                
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.name') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                            <input name="name" class="form-control" type="text"/>
+		                        </div>
+		                    </div>
+		
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.postal') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="postal" class="form-control"/>
+		                        </div>
+		                    </div>
+		                     <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.address') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+                                    <textarea name="address" class="form-control"></textarea>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.boundary') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+                                    <textarea name="boundary" class="form-control"></textarea>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.latitude') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="latitude" class="form-control"/>
+		                        </div>
+		                    </div>	
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.longitude') }}
+									<span class="color-error">*</span>
+								</label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="longitude" class="form-control"/>
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')">cancel</button>
+		                <button id="zone-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')">submit</button>
+		            </div>
+		        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+            <!--update zone-->
+            <div class="modal" id="editZone" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.zone.box.editTitle')">Edit Zone</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="zone-edit-form" class="form-horizontal">
+                                <input v-model="zoneInfo.id" name="id" type="hidden"/>
+                                <div class="form-group">
+			                        <label class="control-label col-sm-3">
+			                        	{{ $t('message.zone.form.zoneId') }}
+			                        	<span class="color-error">*</span>
+			                        </label>
+			                        <div class="col-sm-9">
+			                            <input v-model="zoneInfo.zoneId" name="zoneId" class="form-control" type="text"/>
+			                        </div>
+			                    </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+			                        	{{ $t('message.zone.form.name') }}
+			                        	<span class="color-error">*</span>
+			                        </label>
+                                    <div class="col-sm-9">
+                                        <input v-model="zoneInfo.name" name="name" class="form-control" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+			                        	{{ $t('message.zone.form.postal') }}
+			                        	<span class="color-error">*</span>
+			                        </label>
+                                    <div class="col-sm-9">
+                                   		 <input v-model="zoneInfo.postal" name="postal" class="form-control" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+		                        <label class="control-label col-sm-3">
+			                        	{{ $t('message.zone.form.address') }}
+			                        	<span class="color-error">*</span>
+			                        </label>
+		                        <div class="col-sm-9">
+		                         	<textarea v-model="zoneInfo.address" name="address" class="form-control"></textarea>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.boundary') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                           <textarea v-model="zoneInfo.boundary" name="boundary" class="form-control"></textarea>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.latitude') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                            <input v-model="zoneInfo.latitude" name="latitude" class="form-control" type="text"/>
+		                        </div>
+		                    </div>	
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+		                        	{{ $t('message.zone.form.longitude') }}
+		                        	<span class="color-error">*</span>
+		                        </label>
+		                        <div class="col-sm-9">
+		                           <input v-model="zoneInfo.longitude" name="longitude" class="form-control" type="text"/>
+		                        </div>
+		                    </div>
+                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')">cancel</button>
+                            <button id="zone-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')">submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="deleteZone" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.zone.box.deleteTitle')">Delete Zone</h4>
+                        </div>
+                        <div class="modal-body" v-text="$t('message.deleteInfo')">
+                            The deletion is permanent. Confirm to delete?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')">NO</button>
+                            <button id="zone-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')">YES</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/zone.bundle.js"></script>
+
+</body>
+</html>

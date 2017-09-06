@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shipper Create Job</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<section class="content" style="height: 100%;overflow: hidden;">
+        <div id="content-wrapper" @scroll="movePop()" class="col-sm-6 padding-left-0 padding-right-0" style="height: 100%;overflow-y: scroll;overflow-x: hidden">
+            <div class="box">
+                <div class="box-body">
+                    <form id="shipper-createJob-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" v-model="bidVersion" name="createFlag"/>
+                        <input type="hidden" v-model="updateJobInfo.id" name="id"/>
+                        <input type="hidden" v-model="updateJobInfo.bidId" name="bidId"/>
+                        <!--delivery item-->
+                        <div class="job-frame">
+                            <fieldset>
+                                <div id="weight-title" class="col-sm-12 padding-r-l-0" :class="{'has-error':!weightValidationHide}">
+                                    <div class="label-title valid-frame">
+                                        <label class="font-second-color"><span v-text="$t('message.shipperCreateJob.form.packageType')"></span><span class="color-error">*</span></label>
+                                    </div>
+                                    <div class="package-wrapper col-sm-12 padding-right-0 padding-left-10 hide">
+                                        <div v-if="initAllPackages.length > 0" v-for="(item,index) in initAllPackages" v-bind:id="'package-' + item.id" :class="{'border-right' : ((index+1) % 5 !== 0),'border-top' : (index > 4)}" class="weight-item parent-detail">
+                                            <div v-text="item.name"></div>
+                                            <div class="weight-item-title">
+                                                <span class="showDetail" @click="showPackageDetail(item)" v-text="item.minWeight + '≤' + item.maxWeight + 'kg'"></span>
+                                                <input type="hidden" name="jobPackageDtoPackageNames" v-bind:value="item.name"/>
+                                                <input type="hidden" name="jobPackageDtoIds" v-bind:value="item.id"/>
+                                            </div>
+                                            <div>
+                                                <select v-model="item.quantity" name="jobPackageDtoQuantities" class="form-control" @change="getVehicleType(item)">
+                                                    <option value="0" v-text="$t('message.shipperCreateJob.form.select')"></option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div v-if="initAllPackages == null || initAllPackages.length == 0" class="text-center">
+                                            <span v-text="$t('message.shipperCreateJob.form.loadingPackage')"></span><img src="../img/loading-sm.gif">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 margin-top-10">
+                                        <div class="pull-left">
+                                            <i class="fa fa-truck fa-4x" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="pull-left margin-left-15">
+                                            <div v-if="vehicleTypeInfo == null || vehicleTypeInfo.type == null" class="margin-top-10" v-text="$t('message.shipperCreateJob.form.choosePackage')">
+
+                                            </div>
+                                            <div v-else="vehicleTypeInfo.type != null" class="margin-top-10">
+                                                <span v-text="$t('message.shipperCreateJob.form.weRecommend')"></span>
+                                                <br/>
+                                                <span class="vehicle-type-value font-16" v-text="vehicleTypeInfo.type"></span>
+                                            </div>
+                                            <input type="hidden" :value="vehicleTypeInfo.id" name="vehicleTypeId"/>
+                                            <input type="hidden" :value="vehicleTypeInfo.type" name="vehicleTypeName"/>
+                                        </div>
+
+                                        <div class="pull-right additional-services-item parent-detail">
+                                            <div>
+                                                <button type="button" id="additional-services" class="showDetail btn btn-app-danger margin-top-10" v-text="message.shipperCreateJob.button.additionalService + '(' + formatPrice(asTotalPrice) + ')'" style="width: 230px;">
+                                                </button>
+                                            </div>
+                                            <div class="text-center margin-top-10">
+                                                <a id="service-guidelines" class="margin-top-10" onclick="shipperCreate.downloadPdf()" style="cursor: pointer;text-decoration: underline;" v-text="$t('message.shipperCreateJob.form.serviceGuidelines')">
+
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="col-sm-12 padding-r-l-0">
+                                    <label class="label-title font-second-color" v-text="$t('message.shipperCreateJob.form.instructionsToDriver')"></label>
+                                    <div  class="col-sm-12 valid-frame">
+                                        <textarea v-model="updateJobInfo.cargoDescription" name="cargoDescription" class="form-control textarea-x-none" :placeholder="$t('message.shipperCreateJob.form.instructionsToDriverContent')"></textarea>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="col-sm-12 padding-r-l-0">
+                                    <label class="label-title font-second-color"><span v-text="$t('message.shipperCreateJob.form.addImages')"></span><span class="color-error">*</span></label>
+                                    <div  class="col-sm-12 valid-frame" id="image-div">
+                                        <input id="jobImages" name="jobImages[]" type="file" multiple class="file-loading"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="job-frame">
+                            <fieldset>
+                                <div class="col-sm-6 padding-r-l-0">
+                                    <label class="label-title font-second-color"><span v-text="$t('message.shipperCreateJob.form.transportDate')"></span><span class="color-error">*</span></label>
+                                    <div class="valid-frame col-sm-12">
+                                        <div class="input-group col-sm-10">
+                                            <input v-model="transportDate" class="form_datetime form-control" name="transporterDate" placeholder="dd-mm-yyyy"/>
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="col-sm-6 padding-r-l-0 parent-detail">
+                                    <label class="label-title font-second-color showDetail">
+                                        <span v-text="$t('message.shipperCreateJob.form.pickUpLocation')"></span><span class="color-error">*</span>
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <div class="valid-frame">
+                                            <input  v-model="updateJobInfo.pickupAddress" id="pickUpAddress" name="pickupAddress" class="form-control" :placeholder="$t('message.shipperCreateJob.form.postalCode')" maxlength="6" onKeyPress="return shipperCreate.inputNumberOnly(event);"
+                                                    data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupPostalCode')"/>
+                                        </div>
+                                            <div class="margin-top-10 valid-frame">
+                                                <!--<input v-model="pickUpLocation" type="text" class="form-control" name="pickupLocation" placeholder="Location"-->
+                                                       <!--data-toggle="tooltip"  data-placement="top" title="Pick Up location"/>-->
+                                                <!--<select v-model="pickUpLocation" class="form-control" name="pickupLocation" placeholder="Location" data-toggle="tooltip"  data-placement="top" title="Pick Up location">-->
+                                                    <!--<option v-for="(index,pl) in geocode.pickupLocationList" :value="pl" v-text="pl" track-by="$index"></option>-->
+                                                <!--</select>-->
+                                                <div class="input-group">
+                                                    <input v-model="pickUpLocation" type="text" class="form-control" name="pickupLocation" :placeholder="$t('message.shipperCreateJob.form.location')"
+                                                                data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupLocation')"/>
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu pull-right ul-width">
+                                                            <li v-for="(index,pl) in geocode.pickupLocationList" :value="pl" v-text="pl" track-by="$index"
+                                                                role="presentation" style="padding: 5px;" class="geocode-address ellipsis" @click="displaySelectedAddress(pl,true)">
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="margin-top-10">
+                                                <div class="col-sm-6 padding-left-0 bootstrap-timepicker valid-frame">
+                                                    <!--<input v-model="updateJobInfo.pickupFromTime" name="pickupFromTime" type="text" class="form_time form-control" placeholder="hh:mm"-->
+                                                           <!--data-toggle="tooltip"  data-placement="top" title="Pick Up start time"/>-->
+                                                    <select v-model="updateJobInfo.pickupFromTime" name="pickupFromTime" class="form-control"
+                                                            data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupStartTime')" @change="timeChange(updateJobInfo.pickupFromTime,true,true)" track-by="$index">
+                                                        <option v-for="time in pickFromInitTimeData" :value="time" v-text="time"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 padding-right-0 bootstrap-timepicker valid-frame">
+                                                    <!--<input v-model="updateJobInfo.pickupEndTime" name="pickupEndTime" class="form_time form-control" type="text" placeholder="hh:mm"-->
+                                                           <!--data-toggle="tooltip"  data-placement="top" title="Pick Up end time"/>-->
+                                                    <select v-model="updateJobInfo.pickupEndTime" name="pickupEndTime" class="form-control"
+                                                            data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupEndTime')" @change="timeChange(updateJobInfo.pickupEndTime,false,true)" track-by="$index">
+                                                        <option v-for="time in pickEndInitTimeData" :value="time" v-text="time"></option>
+                                                    </select>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                            <div class="margin-top-10 margin-bottom valid-frame">
+                                                <input v-model="updateJobInfo.senderContactName" name="senderContactName" class="form-control" type="text" :placeholder="$t('message.shipperCreateJob.form.contactPerson')"
+                                                       data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupContactPerson')"/>
+                                            </div>
+                                            <div class="margin-top-10 margin-bottom valid-frame">
+                                                <input v-model="updateJobInfo.senderContactMobile" name="senderContactMobile" class="form-control" type="text" :placeholder="$t('message.shipperCreateJob.form.mobileNumber')"
+                                                       data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.pickupMobileNumber')"/>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 padding-r-l-0 parent-detail">
+                                    <label class="label-title font-second-color showDetail">
+                                        <span v-text="$t('message.shipperCreateJob.form.dropOffLocation')"></span><span class="color-error">*</span>
+                                    </label>
+                                    <div class="col-sm-12">
+                                        <div class="valid-frame">
+                                            <input v-model="updateJobInfo.dropoffAddress" id="dropOffAddress" name="dropoffAddress" class="form-control" :placeholder="$t('message.shipperCreateJob.form.postalCode')" maxlength="6" onKeyPress="return shipperCreate.inputNumberOnly(event);"
+                                                   data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffPostalCode')"/>
+                                        </div>
+                                            <div class="margin-top-10 valid-frame">
+                                                <!--<input v-model="dropOffLocation" type="text" class="form-control" name="dropoffLocation" placeholder="Location"-->
+                                                       <!--data-toggle="tooltip"  data-placement="top" title="Drop Off location"/>-->
+                                                <!--<select v-model="dropOffLocation" class="form-control" name="dropoffLocation" data-toggle="tooltip"  data-placement="top" title="Drop Off location">-->
+                                                    <!--<option v-for="dl in geocode.dropoffLocationList" :value="dl" v-text="dl" track-by="$index"></option>-->
+                                                <!--</select>-->
+                                                <div class="input-group">
+                                                    <input v-model="dropOffLocation" type="text" class="form-control" name="dropoffLocation" :placeholder="$t('message.shipperCreateJob.form.postalCode')"
+                                                                data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffLocation')"/>
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                            <span class="caret"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu pull-right ul-width">
+                                                            <li v-for="dl in geocode.dropoffLocationList" v-text="dl" track-by="$index"
+                                                                 role="presentation" style="padding: 5px;" class="geocode-address ellipsis" @click="displaySelectedAddress(dl,false)">
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="margin-top-10">
+                                                <div class="col-sm-6 padding-left-0 bootstrap-timepicker valid-frame">
+                                                    <!--<input v-model="updateJobInfo.dropoffFromTime" name="dropoffFromTime" type="text" class="form_time form-control" placeholder="hh:mm"-->
+                                                           <!--data-toggle="tooltip"  data-placement="top" title="Drop Off start time"/>-->
+                                                    <select v-model="updateJobInfo.dropoffFromTime" name="dropoffFromTime" class="form-control"
+                                                            data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffStartTime')" @change="timeChange(updateJobInfo.dropoffFromTime,true,false)" track-by="$index">
+                                                        <option v-for="time in dropoffFromInitTimeData" :value="time" v-text="time"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6 padding-right-0 bootstrap-timepicker valid-frame">
+                                                    <!--<input v-model="updateJobInfo.dropoffEndTime" name="dropoffEndTime" class="form_time form-control" type="text" placeholder="hh:mm"-->
+                                                           <!--data-toggle="tooltip"  data-placement="top" title="Drop Off end time"/>-->
+                                                    <select v-model="updateJobInfo.dropoffEndTime" name="dropoffEndTime" class="form-control"
+                                                            data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffEndTime')" @change="timeChange(updateJobInfo.dropoffEndTime,false,false)" track-by="$index">
+                                                        <option v-for="time in dropoffEndInitTimeData" :value="time" v-text="time"></option>
+                                                    </select>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                            <div class="margin-top-10 margin-bottom valid-frame">
+                                                <input v-model="updateJobInfo.recipientContactName" name="recipientContactName" class="form-control" type="text" :placeholder="$t('message.shipperCreateJob.form.contactPerson')"
+                                                       data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffContactPerson')"/>
+                                            </div>
+                                            <div class="margin-top-10 margin-bottom valid-frame">
+                                                <input v-model="updateJobInfo.recipientContactMobile" name="recipientContactMobile" class="form-control" type="text" :placeholder="$t('message.shipperCreateJob.form.mobileNumber')"
+                                                       data-toggle="tooltip"  data-placement="top" :title="$t('message.shipperCreateJob.form.dropoffMobileNumber')"/>
+                                            </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="job-frame">
+                            <fieldset>
+                                <div class="detail-item border-right">
+                                    <label class="label-title font-second-color height-50" v-text="$t('message.shipperCreateJob.form.distance')"></label>
+                                    <div class="text-center">
+                                        <span class="font-16-unbold" v-text="(distance == null ? 0 : distance) + 'km'"></span>
+                                        <input v-model="distance" type="hidden" name="distance"/>
+                                    </div>
+                                </div>
+                                <div class="detail-item border-right">
+                                    <label class="label-title font-second-color height-50">
+                                        <span v-text="$t('message.shipperCreateJob.form.volume')"></span>
+                                        <br/>
+                                        <span v-text="$t('message.shipperCreateJob.form.weight')"></span>
+                                    </label>
+                                    <div class="text-center">
+                                        <span class="font-16-unbold" v-text="weightInfo.volumn + 'm³/' + weightInfo.weight + 'kg'"></span>
+                                        <input name="volume" type="hidden" :value="weightInfo.volumn"/>
+                                        <input name="volumeUom" type="hidden" :value="weightInfo.volumnUom == null ? 'm³' : weightInfo.volumnUom"/>
+                                        <input name="weight" type="hidden" :value="weightInfo.weight"/>
+                                        <input name="weightUom" type="hidden" :value="weightInfo.weightUom == null ? 'kg' : weightInfo.weightUom"/>
+                                    </div>
+                                </div>
+                                <div class="detail-item border-right">
+                                    <label class="label-title font-second-color height-50">
+                                        <span v-text="$t('message.shipperCreateJob.form.vehicle')"></span>
+                                        <br/>
+                                        <span v-text="$t('message.shipperCreateJob.form.price')"></span>
+                                    </label>
+                                    <div class="text-center">
+                                        <span class="font-16-unbold" v-text="formatPrice(jobPrice)"></span>
+                                        <input v-bind:value="jobPrice" type="hidden" name="jobPrice"/>
+                                    </div>
+                                </div>
+                                <div class="detail-item">
+                                    <label class="label-title font-second-color height-50">
+                                        <span v-text="$t('message.shipperCreateJob.form.additional')"></span>
+                                        <br/>
+                                        <span v-text="$t('message.shipperCreateJob.form.services')"></span>
+                                    </label>
+                                    <div class="text-center">
+                                        <span class="font-16-unbold" v-text="formatPrice(asTotalPrice)"></span>
+                                        <input v-bind:value="asTotalPrice" type="hidden" name="sellingTotalPrice"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="job-frame">
+                            <fieldset>
+                                <div class="form-group margin-r-l-0">
+                                    <div class="col-sm-12 padding-r-l-0">
+                                        <div class="col-sm-7 padding-r-l-0">
+                                            <span class="label-title font-second-color font-20 margin-r-l-5" v-text="$t('message.shipperCreateJob.form.totalPrice')"></span>
+                                            <span class="font-16-unbold" v-text="formatPrice(countTotalPrice)"></span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <button class="btn col-sm-5 btn-app-danger" type="button" onclick="shipperCreate.backToBid();" v-text="$t('message.button.cancel')"></button>
+                                            <button id="job-create-save" type="button" class="btn btn-app-primary col-sm-5 col-sm-offset-2" v-text="$t('message.button.save')"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="map-wrapper" class="col-sm-offset-6 padding-left-0 padding-right-0" style="height: 100%;">
+            <div id="map" style="width: 100%;height: 100%;"></div>
+        </div>
+        <div style="clear: both;"></div>
+
+    <div id="additional-popover" class="pop-item hide">
+        <div style="padding-right: 10px;">
+            <a class="pull-right close-button">&times;</a>
+        </div>
+        <div>
+            <table class="table">
+                <tbody>
+                <tr v-if="additionalSettings.length == 0" >
+                    <td colspan="2">
+                        <span v-text="$t('message.shipperCreateJob.table.noAdditionalServiceFound')"></span>
+                    </td>
+                </tr>
+                <tr v-for="as in additionalSettings">
+                    <td style="width: 20%">
+                        <input  type="checkbox" class="checkbox minimal" v-bind:value="as.sellingPrice" v-bind="{'id':as.additionalId}"/>
+                    </td>
+                    <td class="text-inline" v-text="as.name">
+                    </tdcl>
+                    <td class="text-inline" v-text="formatPrice(as.sellingPrice)">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pop-item hide package-popover">
+        <div style="padding-right: 10px;">
+            <a class="pull-right close-button">&times;</a>
+        </div>
+        <div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td class="width-90" v-text="$t('message.shipperCreateJob.table.weight')">
+
+                    </td>
+                    <td v-text="currentPackage.minWeight + '≤' + currentPackage.maxWeight + 'kg'"></td>
+                </tr>
+                <tr>
+                    <td class="width-90" v-text="$t('message.shipperCreateJob.table.description')">
+
+                    </td>
+                    <td v-text="currentPackage.description"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTbD-LfkIk1Ayn9ce2nXfhdqacU2ld38A&language=en"></script>
+
+</body>
+</html>

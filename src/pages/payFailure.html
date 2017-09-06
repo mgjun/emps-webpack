@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title> Pay Failure</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	</head>
+	<body class="pay-body">
+	<div class="content">
+		<div id="pay-failure-div" class="box hide pay-box">
+			<div class="box-content">
+				<div class="box-body pay-box-body">
+					<div class="congratulation">
+						<div class="head clearfix">
+							<div class="head-logo">
+								<img src="../img/quickie_bg_48.png"/>
+							</div>
+						</div>
+						<div class="congratulation-body">
+							<h1 v-text="$t('message.payFailure.title')"></h1>
+							<p v-text="$t('message.payFailure.content')"></p>
+						</div>
+						<div class="pay-foot">
+							<span><input type="button" id="OK" value="OK"></span>
+						</div>
+					</div>
+				</div>
+				<div class="box-foot pay-box-foot clearfix">
+					<span v-text="$t('message.payFailure.footer')"></span>
+					<a href="javascript:;"><img src="../img/logo.png"/></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+
+</html>

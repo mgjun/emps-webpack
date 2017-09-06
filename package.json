@@ -1,24 +1,50 @@
 {
-  "name": "emps-webpack",
+  "name": "emps",
   "version": "1.0.0",
-  "description": "",
+  "description": "this is emps frontend",
   "main": "index.js",
-  "dependencies": {
-    "webpack": "^3.5.5"
-  },
-  "devDependencies": {
-    "babel-loader": "^7.1.2",
-    "bootstrap": "^3.3.6",
-    "css-loader": "^0.28.5",
-    "expose-loader": "^0.7.3",
-    "file-loader": "^0.11.2",
-    "jquery": "^2.1.4",
-    "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9"
-  },
   "scripts": {
-    "start": "webpack"
+    "start": "webpack",
+    "build": "webpack-dev-server",
+    "dev":"webpack -p --progress --config webpack.config.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "bootstrap": "^3.3.7",
+    "compression-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.7",
+    "datatables.net": "^1.10.16",
+    "datatables.net-bs": "^1.10.16",
+    "datatables.net-buttons": "^1.4.1",
+    "datatables.net-buttons-bs": "^1.4.1",
+    "del": "^3.0.0",
+    "exports-loader": "^0.6.4",
+    "expose-loader": "^0.7.3",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "glob": "^7.1.2",
+    "globby": "^6.1.0",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "imports-loader": "^0.7.1",
+    "jquery": "^3.2.1",
+    "less-loader": "^4.0.5",
+    "postcss-loader": "^2.0.6",
+    "style-loader": "^0.18.2",
+    "toastr": "^2.1.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-require-http": "^0.4.3"
+  },
+  "dependencies": {
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  }
 }

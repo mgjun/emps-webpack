@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shipper Create Bid</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="$t('message.company.box.title')"></h3>
+        </div>
+        <div class="box-body">
+            <form id="edit-form" class="form-horizontal">
+            <input v-model="company.id" name="id" type="hidden"/>
+            <input v-model="company.tenantId" name="tenantId" type="hidden"/>
+            <input v-model="company.companyType" name="companyType" type="hidden"/>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.companyName')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="companyName" v-model="company.companyName" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.companyRegNo')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="companyRegNo" v-model="company.companyRegNo" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.contactName')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="contactName" v-model="company.contactName" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.email')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="email" v-model="company.email" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.phone')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="phone" v-model="company.phone" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.fax')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="fax" v-model="company.fax" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.paypalAccount')"></span>
+                    <span class="color-error">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="paypalAccount" v-model="company.paypalAccount" class="form-control" type="text"/>
+                </div>
+            </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-3">
+                     <span v-text="$t('message.company.form.xfersAccount')"></span>
+                     <span class="color-error">*</span>
+                 </label>
+                <div class="col-sm-9">
+                    <input name="xfersAccount" v-model="company.xfersAccount" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.bankName')"></span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="bankName" v-model="company.bankName" maxlength="50" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.bankAccountNo')"></span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="bankAccountNo" v-model="company.bankAccountNo" maxlength="50" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">
+                    <span v-text="$t('message.company.form.payeeName')"></span>
+                </label>
+                <div class="col-sm-9">
+                    <input name="payeeName" v-model="company.payeeName" maxlength="50" class="form-control" type="text"/>
+                </div>
+            </div>
+            <fieldset>
+                <div class="form-group margin-r-l-0">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12">
+                            <button id="edit-save" type="button" class="btn btn-app-primary col-sm-offset-6" v-text="$t('message.button.save')"></button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        </div>
+    </div>
+</section>
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/company.bundle.js"></script>
+</body>
+</html>

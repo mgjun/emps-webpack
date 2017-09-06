@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Transporter bid Match Result</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="$t('message.transporterMatchBidResult.box.title')"></h3>
+ <!--            <button id="showTest" class="btn btn-app-primary">showTest</button> -->
+        </div>
+        <div class="box-body">
+            <div class="pull-right">
+                <div class="form-inline pull-left">
+                    <div class="form-group">
+                        <label v-text="$t('message.transporterMatchBidResult.search.bidNo')"></label>
+                        <input id="bid-no-value" class="form-control" type="text"/>
+                    </div>
+                </div>
+                <div class="form-inline pull-left margin-left-15">
+                    <div class="input-group">
+                        <input id="status-display" type="text" class="form-control" readonly/>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span v-text="$t('message.transporterMatchBidResult.search.status')"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="match_success" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.matchFound')"></span>
+                                </li>
+                                <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="accept_job" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.jobAccepted')"></span>
+                                </li>
+  <!--                               <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="wait_payment" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.pendingPayment')"></span>
+                                </li> -->
+                                <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="shipper_paid" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.shipperPaid')"></span>
+                                </li>
+                                <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="complete" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.completed')"></span>
+                                </li>
+                                <!--<li role="presentation" style="padding: 5px">-->
+                                    <!--<input type="checkbox" class="form-control minimal" value="shipper_reject" name="status"  style="margin: 5px;"/>-->
+                                    <!--<span class="margin-left-5" v-text="$t('message.status.shipperRejected')"></span>-->
+                                <!--</li>-->
+                                <!--<li role="presentation" style="padding: 5px">-->
+                                    <!--<input type="checkbox" class="form-control minimal" value="transporter_reject" name="status"  style="margin: 5px;"/>-->
+                                    <!--<span class="margin-left-5" v-text="$t('message.status.transporterRejected')"></span>-->
+                                <!--</li>-->
+<!--                                 <li role="presentation" style="padding: 5px">
+                                    <input type="checkbox" class="form-control minimal" value="shipper_refund" name="status"  style="margin: 5px;"/>
+                                    <span class="margin-left-5" v-text="$t('message.status.shipperRefund')"></span>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button id="search" class="btn btn-app-primary margin-left-15" v-text="$t('message.button.search')"></button>
+            </div>
+            <table id="mbr-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                    	<th v-text="$t('message.transporterMatchBidResult.table.transporterBidNo')"></th>
+                        <th v-text="$t('message.transporterMatchBidResult.table.auctionNo')"></th>
+                        <th v-text="$t('message.transporterMatchBidResult.table.vehNo')"></th>
+                        <th v-text="$t('message.transporterMatchBidResult.table.driver')"></th>
+                        <!--<th v-text="$t('message.transporterMatchBidResult.table.cost')"></th>-->
+                        <th v-text="$t('message.transporterMatchBidResult.table.finalCost')"></th>
+                        <th v-text="$t('message.transporterMatchBidResult.table.status')"></th>
+                        <th v-text="$t('message.table.function')"></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+<!--upload picture-->
+    <div class="modal" id="uploadPics" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterMatchBidResult.box.selectPicture')"></h4>
+                </div>
+                <div class="modal-body">
+                    <!--<div class="has-error text-center hide" id="upload-error">-->
+                        <!--<label class="error">upload image failed,please try again.</label>-->
+                    <!--</div>-->
+                    <div id="image-div" class="valid-frame">
+                        <input id="transporterImages" name="jobImages[]" type="file" multiple class="file-loading"/>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="tImages-cancel" type="button" class="btn btn-app-danger pull-left" v-text="$t('message.button.cancel')"></button>
+                    <button id="transporter-save-images" type="button" class="btn btn-app-primary" v-text="$t('message.button.ok')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="acceptJobModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterMatchBidResult.box.assignDriver')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="accept-job-form" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <select v-model="driverInfo.driverId" id="rule-create-driver" name="driverId" class="form-control">
+	                                <option value="" v-text="$t('message.transporterMatchBidResult.form.selectDriver')"></option>
+	                                <option v-for="driver in drivers" v-bind:value="driver.id" v-text="displayDriverName(driver)"></option>
+	                            </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="accept-job-cancel" type="button" class="btn btn-app-danger pull-left" v-text="$t('message.button.cancel')"></button>
+                    <button id="accept-job-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.ok')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--view picture-->
+    <div class="modal" id="viewPicture">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterMatchBidResult.box.showPicture')"></h4>
+                </div>
+                <div class="modal-body">
+                    <input id="showImage" type="file"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--vie job info-->
+    <div class="modal" id="viewJobInfo">
+        <div class="modal-dialog" style="width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterMatchBidResult.box.jobInfo')"></h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="col-sm-12 padding-r-l-0 border-bottom">
+                            <!--<div class="pull-right">-->
+                            <!--<span v-text="'Additional Charges: ' + formatPrice(jobInfo.sellingTotalPrice)"></span>-->
+                            <!--</div>-->
+                            <div class="col-sm-6 padding-left-0">
+                                <label class="control-label" v-text="$t('message.transporterMatchBidResult.form.additionalDetail')"></label>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr v-for="additional in jobInfo.jobAdditionalDtoList">
+                                        <td v-text="additional.name"></td>
+                                        <td v-text="formatPrice(additional.costPrice)" class="text-right text-inline"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 padding-r-l-0 border-bottom padding-top-10">
+                            <div class="col-sm-6 padding-left-0">
+                                <div>
+                                    <label class="control-label" v-text="$t('message.transporterMatchBidResult.form.pickup')"></label>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td v-text="$t('message.transporterMatchBidResult.form.postal')"></td>
+                                            <td v-text="jobInfo.pickupAddress"></td>
+                                        </tr>
+                                        <tr style="height: 100px;">
+                                            <td v-text="$t('message.transporterMatchBidResult.form.address')"></td>
+                                            <td v-text="jobInfo.pickupLocation" style="word-break: break-all;"></td>
+                                        </tr>
+                                        <tr style="height: 50px;">
+                                            <td v-text="$t('message.transporterMatchBidResult.form.contact')"></td>
+                                            <td v-text="jobInfo.senderContactName + '('+ jobInfo.senderContactMobile +')'" style="word-break: break-all"></td>
+                                        </tr>
+                                        <tr>
+                                            <td v-text="$t('message.transporterMatchBidResult.form.date')"></td>
+                                            <td v-text="jobInfo.transporterDate + ' ' + timeFormat(jobInfo.pickupFromTime) + ' - ' + timeFormat(jobInfo.pickupEndTime)"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 padding-right-0">
+                                <div>
+                                    <label class="control-label" v-text="$t('message.transporterMatchBidResult.form.dropoff')"></label>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr>
+                                            <td v-text="$t('message.transporterMatchBidResult.form.postal')"></td>
+                                            <td v-text="jobInfo.dropoffAddress"></td>
+                                        </tr>
+                                        <tr style="height: 100px;">
+                                            <td v-text="$t('message.transporterMatchBidResult.form.address')"></td>
+                                            <td v-text="jobInfo.dropoffLocation" style="word-break: break-all;"></td>
+                                        </tr>
+                                        <tr style="height: 50px;">
+                                            <td v-text="$t('message.transporterMatchBidResult.form.contact')"></td>
+                                            <td v-text="jobInfo.recipientContactName + '('+ jobInfo.recipientContactMobile +')'" style="word-break: break-all"></td>
+                                        </tr>
+                                        <tr>
+                                            <td v-text="$t('message.transporterMatchBidResult.form.date')"></td>
+                                            <td v-text="jobInfo.transporterDate + ' ' + timeFormat(jobInfo.dropoffFromTime) + ' - ' + timeFormat(jobInfo.dropoffEndTime)"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 padding-r-l-0 border-bottom padding-top-10">
+                            <div class="col-sm-12 padding-r-l-0">
+                                <label class="control-label" v-text="$t('message.transporterMatchBidResult.form.cargoDescription')"></label>
+                                <span v-text="jobInfo.cargoDescription"></span>
+                            </div>
+                        </div>
+                        <div  style="clear: both"></div>
+                    </div>
+                    <div>
+                        <div class="padding-top-10">
+                            <label class="control-label" v-text="$t('message.transporterMatchBidResult.form.images')"></label>
+                            <div id="showJobImageLoading" v-text="$t('message.transporterMatchBidResult.form.loading')"></div>
+                            <input id="showJobImage" type="file" class="hide"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" id="close-job-info" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--view driver modal -->
+    <div class="modal" id="viewDriverModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterMatchBidResult.box.assignedDriver')"></h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="portrait-frame pull-right valid-frame" style="width: 100px;height: 100px;">
+                            <img id="show-portrait" src="../img/init.png" style="max-width: 100%;height:100%"/>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.transporterMatchBidResult.form.name')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="displayDriverName(driverInfo)"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.transporterMatchBidResult.form.mobile')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="driverInfo.mobile"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.transporterMatchBidResult.form.licenseNo')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="driverInfo.licenseNo"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.transporterMatchBidResult.form.rating')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span id="edit-rating"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.transporterMatchBidResult.form.attachments')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <input id="driver-attachmentImages" type="file"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/transporterMatchResult.bundle.js"></script>
+</body>
+</html>

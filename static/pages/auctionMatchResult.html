@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>auction Match Result</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.auctionMatchResult.box.title')"></h3>
+                </div>
+                <div class="box-body">
+                   <div>
+                        <button class="btn btn-app-primary pull-left hide" id="sendMsg" onclick="auction.send();">
+                            <i class="fa fa-plus"></i>
+                            <span v-text="$t('message.auctionMatchResult.button.send')"></span>
+                        </button>
+
+                       <div class="hide">
+                           <form id="testFile-form">
+                               <div class="pull-left margin-left-15">
+                                   <input type="file" name="testFile"/>
+                               </div>
+                               <div class="pull-left">
+                                   <input type="button" value="Upload request json"  onclick="doUpload()"/>
+                               </div>
+                           </form>
+                       </div>
+                        <button class="btn btn-app-danger" onclick="auctionResult.delete();" v-text="$t('message.auctionMatchResult.button.deleteAllAuction')">
+                        </button>
+                    </div>
+                    <table id="auction-table" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th v-text="$t('message.auctionMatchResult.table.auctionNo')"></th>
+                                <th v-text="$t('message.auctionMatchResult.table.bidNo')"></th>
+                                <th v-text="$t('message.auctionMatchResult.table.successBid')"></th>
+                                <th v-text="$t('message.auctionMatchResult.table.unSuccessBid')"></th>
+                                <th v-text="$t('message.auctionMatchResult.table.status')"></th>
+                                <th v-text="$t('message.auctionMatchResult.table.startDate')"></th>
+                                <th v-text="$t('message.table.function')"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+    <!--view picture-->
+    <div class="modal" id="viewResult">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.auctionMatchResult.box.resultTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <div id="result-content">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+        </section>
+
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/auctionMatchResult.bundle.js"></script>
+</body>
+</html>

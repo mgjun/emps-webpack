@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Distance Matrix</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.distanceMatrix.box.title')"></h3>
+                </div>
+                <div class="box-body">
+ <!--                    <div class="form-inline pull-right">
+                        <div class="form-group">
+                            <label>Tag Name:</label>
+                            <input id="tag-name-value" class="form-control" type="text"/>
+                            <button id="tag-name-search" class="btn btn-success">search</button>
+                        </div>
+                    </div> -->
+                    <div>
+                        <button class="btn btn-app-primary" id="distanceMatrix-show-add" onclick="distanceMatrix.create();">
+                            <i class="fa fa-plus"></i>
+                            <span v-text="$t('message.distanceMatrix.button.distanceMatrix')"></span>
+                        </button>
+
+                    </div>
+                    <table id="distanceMatrix-table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th v-text="$t('message.distanceMatrix.table.destCentralAddress')"></th>
+                            <th v-text="$t('message.distanceMatrix.table.destCentralPostalcode')"></th>
+                            <th v-text="$t('message.distanceMatrix.table.distance')"></th>
+                            <th v-text="$t('message.distanceMatrix.table.srcCentralAddress')"></th>
+                            <th v-text="$t('message.distanceMatrix.table.srcCentralPostalcode')"></th>
+                            <th v-text="$t('message.distanceMatrix.table.travelTime')"></th>
+                            <th v-text="$t('message.table.function')"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--add DistanceMatrix-->
+            <div class="modal" id="addDistanceMatrix" aria-hidden="true">
+  		 	 <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span></button>
+		                <h4 class="modal-title" v-text="$t('message.distanceMatrix.box.createTitle')"></h4>
+		            </div>
+		            <div class="modal-body">
+		                <form id="distanceMatrix-create-form" class="form-horizontal">
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.destCentralAddress')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input name="destCentralAddress" class="form-control" type="text"/>
+		                        </div>
+		                    </div>
+		
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.destCentralPostalcode')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="destCentralPostalcode" class="form-control"/>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.selectDestZone')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select id="destId" name="destId" class="form-control select2" style="width: 100%">
+                                            <!--<option value="1">36 Punggol Field, Singapore 828814</option>-->
+                                            <option value="" v-text="$t('message.distanceMatrix.form.selectZone')"></option>
+                                            <option v-for="zone in distanceMatrixInfo.zones" v-bind:value="zone.id" v-text="zone.postal + '(' + zone.name + ')'"></option>
+                                        </select>
+                                    </div>
+                             </div>
+		                     <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.distance')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="distance" class="form-control"/>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.srcCentralAddress')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="srcCentralAddress" class="form-control"/>
+		                        </div>
+		                    </div>
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.srcCentralPostalcode')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="srcCentralPostalcode" class="form-control"/>
+		                        </div>
+		                    </div>	
+		               		<div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.selectSrcZone')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select id="srcId" name="srcId" class="form-control select2" style="width: 100%">
+                                            <option value="" v-text="$t('message.distanceMatrix.form.selectZone')"></option>
+                                            <option v-for="zone in distanceMatrixInfo.zones" v-bind:value="zone.id" v-text="zone.postal + '(' + zone.name + ')'"></option>
+                                        </select>
+                                    </div>
+                             </div>     
+		                    <div class="form-group">
+		                        <label class="control-label col-sm-3">
+                                    <span v-text="$t('message.distanceMatrix.form.travelTime')"></span>
+                                    <span class="color-error">*</span></label>
+		                        <div class="col-sm-9">
+		                            <input type="text" name="travelTime" class="form-control"/>
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+		                <button id="distanceMatrix-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+		            </div>
+		        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+            <!--update distanceMatrix-->
+            <div class="modal" id="editDistanceMatrix" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.distanceMatrix.box.editTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="distanceMatrix-edit-form" class="form-horizontal">
+                                <input v-model="distanceMatrixInfo.id" name="id" type="hidden"/>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.destCentralAddress')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.destCentralAddress" name="destCentralAddress" class="form-control" type="text"/>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.destCentralPostalcode')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.destCentralPostalcode" type="text" name="destCentralPostalcode" class="form-control"/>
+			                        </div>
+			                    </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.selectDestZone')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select v-model="distanceMatrixInfo.destId" id="edit-destId" name="destId" class="form-control select2" style="width: 100%;">
+                                            <option value="" v-text="$t('message.distanceMatrix.form.selectZone')"></option>
+                                            <option v-for="zone in distanceMatrixInfo.zones" v-bind:value="zone.id" v-text="zone.postal + '(' + zone.name + ')'"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.travelTime')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.distance" type="text" name="distance" class="form-control"/>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.srcCentralAddress')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.srcCentralAddress" type="text" name="srcCentralAddress" class="form-control"/>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.srcCentralPostalcode')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.srcCentralPostalcode" type="text" name="srcCentralPostalcode" class="form-control"/>
+			                        </div>
+			                    </div>	
+			                    <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.selectSrcZone')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select v-model="distanceMatrixInfo.srcId" id="edit-srcId" name="srcId" class="form-control select2" style="width: 100%;">
+                                            <option value="" v-text="$t('message.distanceMatrix.form.selectZone')"></option>
+                                            <option v-for="zone in distanceMatrixInfo.zones" v-bind:value="zone.id" v-text="zone.postal + '(' + zone.name + ')'"></option>
+                                        </select>
+                                    </div>
+                            	 </div>  
+                                <div class="form-group">
+			                        <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.distanceMatrix.form.travelTime')"></span>
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-9">
+			                            <input v-model="distanceMatrixInfo.travelTime" type="text" name="travelTime" class="form-control"/>
+			                        </div>
+			                    </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                            <button id="distanceMatrix-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="deleteDistanceMatrix" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.distanceMatrix.box.deleteTitle')"></h4>
+                        </div>
+                        <div class="modal-body" v-text="$t('message.deleteInfo')">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                            <button id="distanceMatrix-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/distanceMatrix.bundle.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Availability</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title" v-text="$t('message.transporterCreateBidAvailability.box.title')"></h3>
+        </div>
+        <div class="box-body">
+             <form id="tcb-date-form" class="form-horizontal">
+                <div class="form-group col-sm-8">
+                    <label class="control-label pull-left" id="view1"></label>
+                </div>
+                <div style="clear: both"></div>
+            </form>
+            <div>
+                <button class="btn btn-app-primary" onclick="av.create();">
+                    <i class="fa fa-plus"></i>
+                    <span v-text="$t('message.transporterCreateBidAvailability.button.availability')"></span>
+                </button>
+            </div>
+            <table id="av-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th v-text="$t('message.transporterCreateBidAvailability.table.dayOfWeek')"></th>
+                        <th v-text="$t('message.transporterCreateBidAvailability.table.fromTime')"></th>
+                        <th v-text="$t('message.transporterCreateBidAvailability.table.toTime')"></th>
+                        <th v-text="$t('message.transporterCreateBidAvailability.table.zoneFlag')"></th>
+                        <th v-text="$t('message.transporterCreateBidAvailability.table.zones')"></th>
+                        <th v-text="$t('message.table.function')"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <div>
+                <button class="btn btn-app-danger" onclick="av.backToBid()" v-text="$t('message.button.previous')"></button>
+                <button class="btn btn-app-primary" onclick="window.location.href='transporterCreateBidPrice.html?transporterBidId='+appOption.getQueryParam('transporterBidId')+'&vehicleTypeId='+appOption.getQueryParam('vehicleTypeId')+'&from='+appOption.getQueryParam('from')+'&end='+appOption.getQueryParam('end')+'&vehicleName='+appOption.getQueryParam('vehicleName')+'&bidNo='+appOption.getQueryParam('bidNo')+'&sspi='+appOption.getQueryParam('sspi')"  v-text="$t('message.button.next')"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="addAv" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidAvailability.box.createTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="av-create-form" class="form-horizontal">
+                        <input type="hidden" id="create-vehicleId" name="vehicleId"/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.dayOfWeek')"></label>
+                                    <div class="valid-frame">
+                                        <table class="table table-bordered text-center margin-bottom-none">
+                                            <tbody>
+                                            <tr>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.mon')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.tue')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.wed')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.thur')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.fri')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.sat')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.sun')"></td>
+                                                <!--<td v-text="$t('message.transporterCreateBidAvailability.form.publicHoliday')"></td>-->
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                </td>
+                                                <!--<td>-->
+                                                    <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                <!--</td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6 bootstrap-timepicker valid-frame">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.fromTime')"></label>
+                                    <!--<input name="fromTime" type="text" class="form_time form-control">-->
+                                    <select id="create-fromTime" name="fromTime" class="form-control time-window"></select>
+                                </div>
+                                <div class="col-sm-6 bootstrap-timepicker valid-frame">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.toTime')"></label>
+                                    <!--<input name="toTime" type="text" class="form_time form-control">-->
+                                    <select id="create-toTime" name="toTime" class="form-control time-window"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label margin-left-30" v-text="$t('message.transporterCreateBidAvailability.form.zones')"></label>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6 valid-frame">
+                                    <select name="zoneFlag" class="form-control">
+                                        <option value="exclude" v-text="$t('message.transporterCreateBidAvailability.form.exclude')"></option>
+                                        <option value="allowed" v-text="$t('message.transporterCreateBidAvailability.form.allowed')"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 valid-frame option-white-space">
+                                    <select name="zonesTemp" class="form-control select2" multiple style="width: 100%;" data-placeholder="Select">
+                                        <option v-for="zone in zones" v-bind:value="zone.id" v-text="zone.name"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="av-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="editAv" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidAvailability.box.editTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="av-edit-form" class="form-horizontal">
+                        <input type="hidden" name="id" v-model="avInfo.id"/>
+                        <input type="hidden" id="edit-vehicleId" name="vehicleId"/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.dayOfWeek')"></label>
+                                    <div class="valid-frame">
+                                        <table class="table table-bordered text-center margin-bottom-none">
+                                            <tbody>
+                                            <tr>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.mon')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.tue')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.wed')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.thur')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.fri')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.sat')"></td>
+                                                <td v-text="$t('message.transporterCreateBidAvailability.form.sun')"></td>
+                                                <!--<td v-text="$t('message.transporterCreateBidAvailability.form.publicHoliday')"></td>-->
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                </td>
+                                                <!--<td>-->
+                                                    <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                <!--</td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6 bootstrap-timepicker valid-frame">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.fromTime')"></label>
+                                    <!--<input v-model="avInfo.fromTime" name="fromTime" type="text" class="form_time form-control">-->
+                                    <select v-model="avInfo.fromTime" id="edit-fromTime" name="fromTime" class="form-control time-window"></select>
+                                </div>
+                                <div class="col-sm-6 bootstrap-timepicker valid-frame">
+                                    <label class="control-label" v-text="$t('message.transporterCreateBidAvailability.form.toTime')"></label>
+                                    <!--<input v-model="avInfo.toTime" name="toTime" type="text" class="form_time form-control">-->
+                                    <select v-model="avInfo.toTime" id="edit-toTime" name="toTime" class="form-control time-window"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label margin-left-30" v-text="$t('message.transporterCreateBidAvailability.form.zones')"></label>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6 valid-frame">
+                                    <select v-model="avInfo.zoneFlag" name="zoneFlag" class="form-control">
+                                        <option value="exclude" v-text="$t('message.transporterCreateBidAvailability.form.exclude')"></option>
+                                        <option value="allowed" v-text="$t('message.transporterCreateBidAvailability.form.allowed')"></option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 valid-frame option-white-space">
+                                    <select v-model="avInfo.zonesTemp" id="edit-availability-zones" name="zonesTemp" class="form-control select2" multiple style="width: 100%;" data-placeholder="Select">
+                                        <option value="" v-text="$t('message.transporterCreateBidAvailability.form.select')"></option>
+                                        <option v-for="zone in zones" v-bind:value="zone.id" v-text="zone.name"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="av-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteAv" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidAvailability.box.deleteTitle')"></h4>
+                </div>
+                <div class="modal-body" v-text="$t('message.deleteInfo')">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                    <button id="av-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/transporterCreateBidAvailability.bundle.js"></script>
+</body>
+</html>

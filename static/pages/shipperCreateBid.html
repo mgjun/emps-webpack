@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shipper Create Bid</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<body>
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="bidId == null ? message.bidCreate.box.createTitle : message.bidCreate.box.editTitle"></h3>
+        </div>
+        <div class="box-body">
+            <form id="bid-create-form" class="form-horizontal">
+                <input type="hidden" id="id" name="id" v-model="bidId"/>
+                <div class="form-group charges-wrapper">
+                    <div class="charges-item">
+                        <div class="text-left charges-title" v-text="$t('message.bidCreate.form.transporterCharges')"></div>
+                        <input v-model="bidPrice" name="bidPrice" type="text" class="form-control"/>
+                    </div>
+                    <span class="charge-cal">+</span>
+                    <div class="charges-item">
+                        <div class="text-left charges-title" v-text="$t('message.bidCreate.form.additionalCharges')"></div>
+                        <input v-model="additionalServicePrice" type="text" class="form-control" readonly/>
+                    </div>
+                    <span class="charge-cal">=</span>
+                    <div class="charges-item">
+                        <div class="text-left charges-title" v-text="$t('message.bidCreate.form.totalCost')"></div>
+                        <input v-model="countTotalPrice" type="text" class="form-control" readonly/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button id="add-job" class="btn btn-app-primary" type="button">
+                            <i class="fa fa-plus"></i>
+                            {{$t('message.bidCreate.button.job')}}
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <table id="job-table" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th v-text="$t('message.bidCreate.table.jobId')"></th>
+                                <th v-text="$t('message.bidCreate.table.pickupPostalCode')"></th>
+                                <th v-text="$t('message.bidCreate.table.dropoffPostalCode')"></th>
+                                <th v-text="$t('message.bidCreate.table.transportationCharges')"></th>
+                                <th v-text="$t('message.bidCreate.table.additionalCharges')"></th>
+                                <th v-text="$t('message.table.detail')"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button id="bid-cancel-button" type="button" class="btn btn-app-danger" onclick="bid.backToBidView();"  v-text="$t('message.button.cancel')"></button>
+                        <button id="bid-create-save" class="btn btn-app-primary" type="button" v-text="$t('message.bidCreate.button.saveDraft')"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="showDetailModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12 padding-left-0 margin-bottom font-14-unbold">
+                        <div class="col-sm-4 padding-left-0 padding-right-0">
+                            {{$t('message.bidCreate.form.jobId')}}<span class="margin-left-15" v-text="currentJob.id < 0 ? '-' : currentJob.id"></span>
+                        </div>
+                        <div class="col-sm-4 padding-r-l-0">
+                            {{$t('message.bidCreate.form.distance')}}<span class="margin-left-15" v-text="currentJob.distance + 'km'"></span>
+                        </div>
+                    
+                        <div class="col-sm-4 padding-r-l-0">
+                            {{$t('message.bidCreate.form.weightVolume')}}<span class="margin-left-15" v-text="currentJob.weight + '' + currentJob.weightUom + '/' + currentJob.volume + '' + currentJob.volumeUom"></span>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>{{$t('message.bidCreate.form.size')}}</th>
+                                <th>{{$t('message.bidCreate.form.quantity')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in currentJob.jobPackageDtoList">
+                                <td v-text="item.packageName"></td>
+                                <td v-text="item.quantity"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal" id="deleteJobModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" v-text="$t('message.bidCreate.box.deleteTitle')"></h4>
+                </div>
+                <div class="modal-body" v-text="$t('message.deleteInfo')">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                    <button id="job-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</section>
+
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/shipperCreateBid.bundle.js"></script>
+</body>
+</html>

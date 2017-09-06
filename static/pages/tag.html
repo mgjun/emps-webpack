@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>tag</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.tag.box.title')"></h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-inline pull-right">
+                        <div class="form-group">
+                            <label v-text="$t('message.tag.search.tagName')"></label>
+                            <input id="tag-name-value" class="form-control" type="text"/>
+                            <button id="tag-name-search" class="btn btn-app-primary" v-text="$t('message.button.search')"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-app-primary" id="tag-show-add" onclick="tag.create();">
+                            <i class="fa fa-plus"></i>
+                            <span v-text="$t('message.tag.button.tag')"></span>
+                        </button>
+
+                    </div>
+                    <table id="tag-table" class="table table-bordered table-striped table-layout">
+                        <thead>
+                        <tr>
+                            <th v-text="$t('message.tag.table.name')"></th>
+                            <th v-text="$t('message.tag.table.type')"></th>
+                            <th v-text="$t('message.tag.table.description')"></th>
+                            <th v-text="$t('message.table.function')"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--add tag-->
+            <div class="modal" id="addTag" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" v-text="$t('message.tag.box.createTitle')"></h4>
+            </div>
+            <div class="modal-body">
+                <form id="tag-create-form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">
+                            <span v-text="$t('message.tag.form.name')"></span>
+                            <span class="color-error">*</span></label>
+                        <div class="col-sm-9">
+                            <input name="name" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">
+                            <span v-text="$t('message.tag.form.type')"></span>
+                            <span class="color-error">*</span></label>
+                        <div class="col-sm-9">
+                            <select name="type" class="form-control">
+                                <option value="" v-text="$t('message.tag.form.selectType')"></option>
+                                <option value="vehicle" v-text="$t('message.tag.form.vehicle')"></option>
+                                <option value="cargo" v-text="$t('message.tag.form.cargo')"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" v-text="$t('message.tag.form.description')"></label>
+                        <div class="col-sm-9">
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                <button id="tag-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+            <!--update tag-->
+            <div class="modal" id="editTag" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.tag.box.editTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="tag-edit-form" class="form-horizontal">
+                                <input v-model="tagInfo.id" name="id" type="hidden"/>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.tag.form.name')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <input v-model="tagInfo.name" name="name" class="form-control" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">
+                                        <span v-text="$t('message.tag.form.type')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select v-model="tagInfo.type" name="type" class="form-control">
+                                            <option value="" v-text="$t('message.tag.form.selectType')"></option>
+                                            <option value="vehicle" v-text="$t('message.tag.form.vehicle')"></option>
+                                            <option value="cargo" v-text="$t('message.tag.form.cargo')"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" v-text="$t('message.tag.form.description')"></label>
+                                    <div class="col-sm-9">
+                                        <textarea v-model="tagInfo.description" name="description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                            <button id="tag-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="deleteTag" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.tag.box.deleteTitle')"></h4>
+                        </div>
+                        <div class="modal-body" v-text="$t('message.deleteInfo')">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                            <button id="tag-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<script src="../js/manifest.bundle.js"></script>
+<script src="../js/vendor.bundle.js"></script>
+<script src="../js/tag.bundle.js"></script>
+
+</body>
+</html>

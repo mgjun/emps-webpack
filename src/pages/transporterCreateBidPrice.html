@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Price</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="$t('message.transporterCreateBidPrice.box.title')"></h3>
+        </div>
+        <div class="box-body">
+                     <form id="tcb-date-form" class="form-horizontal">
+                <div class="form-group col-sm-8">
+                    <label class="control-label pull-left" id="view1"></label>
+                </div>
+                <div style="clear: both"></div>
+            </form>
+            <div>
+                <button class="btn btn-app-primary" onclick="price.create();"><i class="fa fa-plus"></i>
+                    <span v-text="$t('message.transporterCreateBidPrice.button.price')"></span>
+                    </button>
+                <!--<input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime">-->
+            </div>
+            <table id="price-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th v-text="$t('message.transporterCreateBidPrice.table.dayOfWeek')"></th>
+                        <th v-text="$t('message.transporterCreateBidPrice.table.priceMaxVol')"></th>
+                        <th v-text="$t('message.transporterCreateBidPrice.table.priceMaxKg')"></th>
+                        <th v-text="$t('message.transporterCreateBidPrice.table.pricePerVol')"></th>
+                        <th v-text="$t('message.transporterCreateBidPrice.table.pricePerKg')"></th>
+                        <th v-text="$t('message.table.function')"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <div>
+                <button class="btn btn-app-danger" onclick="window.history.go(-1);" v-text="$t('message.button.previous')"></button>
+                <button id="price-next" class="btn btn-app-primary" v-text="$t('message.button.saveBid')"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="addPrice" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidPrice.box.createTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="price-create-form" class="form-horizontal">
+                    <input type="hidden" id="create-vehicleTypeId" name="vehicleTypeId"/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.priceMaxVol')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input name="priceMaxM3" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.priceMaxKg')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input name="priceMaxKg" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.pricePerVol')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input name="pricePerM3" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.pricePerKg')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input name="pricePerKg" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.dayOfWeek')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <table class="table table-bordered text-center">
+                                            <tbody>
+                                                <tr>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.mon')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.tue')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.wed')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.thur')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.fri')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.sat')"></th>
+                                                    <th v-text="$t('message.transporterCreateBidPrice.form.sun')"></th>
+                                                    <!--<th v-text="$t('message.transporterCreateBidPrice.form.publicHoliday')"></th>-->
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                    </td>
+                                                    <td>
+                                                        <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                    </td>
+                                                    <!--<td>-->
+                                                        <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                    <!--</td>-->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <input id="create-dayOfWeek" type="hidden" name="validDayOfWeek" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="price-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="editPrice" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidPrice.box.editTitle')"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="price-edit-form" class="form-horizontal">
+                     <input type="hidden" id="update-vehicleTypeId" name="vehicleTypeId"/>
+                        <input v-model="priceInfo.id" name="id" type="hidden"/>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.priceMaxVol')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input v-model="priceInfo.priceMaxM3" name="priceMaxM3" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.priceMaxKg')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input v-model="priceInfo.priceMaxKg" name="priceMaxKg" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.pricePerVol')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input v-model="priceInfo.pricePerM3" name="pricePerM3" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.pricePerKg')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <input v-model="priceInfo.pricePerKg" name="pricePerKg" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    <label class="control-label">
+                                        <span v-text="$t('message.transporterCreateBidPrice.form.dayOfWeek')"></span>
+                                        <span class="color-error">*</span></label>
+                                    <div class="valid-frame">
+                                        <table class="table table-bordered text-center">
+                                            <tbody>
+                                            <tr>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.mon')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.tue')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.wed')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.thur')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.fri')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.sat')"></th>
+                                                <th v-text="$t('message.transporterCreateBidPrice.form.sun')"></th>
+                                                <!--<th v-text="$t('message.transporterCreateBidPrice.form.publicHoliday')"></th>-->
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Monday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Tuesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Wednesday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Thursday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Friday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Saturday"/>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="minimal" name="dayOfWeek" value="Sunday"/>
+                                                </td>
+                                                <!--<td>-->
+                                                    <!--<input type="radio" class="minimal" name="dayOfWeek" value="PublicHoliday"/>-->
+                                                <!--</td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <input id="edit-dayOfWeek" type="hidden" name="validDayOfWeek" disabled/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                    <button id="price-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal" id="deletePrice" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.transporterCreateBidPrice.box.deleteTitle')"></h4>
+                </div>
+                <div class="modal-body" v-text="$t('message.deleteInfo')">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-danger" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                    <button id="price-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

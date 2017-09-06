@@ -1,0 +1,11 @@
+var api_version = "v1";
+var aas_url ='http://192.168.99.100:7101/aas';
+var api_url='http://192.168.99.100:7101/aas/api/v1/';
+var login_url='http://192.168.99.100:7101/aas/login';
+var quickegateway='http://192.168.99.100:7105/app/';
+var dts_url = 'http://192.168.99.100:7104/dataservice';
+var quickegatewayImages = 'http://192.168.99.100:7105/app/images';
+var quickegatewayViews = 'http://192.168.99.100:7105/app/views';
+var emps_api_url='http://localhost:8080/emps/';//'https://test2.y3quick-e.com/emps/';//
+var mds_api_url='https://test2.y3quick-e.com/mds/';
+var tawk_src = 'https://embed.tawk.to/599e2f8db6e907673de09375/default';//'https://embed.tawk.to/599d3cdb4fe3a1168ead959f/default';//

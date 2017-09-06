@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Additional Service</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title" v-text="$t('message.additional.box.title')"></h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-inline pull-right">
+                        <div class="form-group">
+                            <label v-text="$t('message.additional.search.additionalName')"></label>
+                            <input id="additional-name-value" class="form-control" type="text"/>
+                            <button id="additional-name-search" class="btn btn-app-primary" v-text="$t('message.button.search')"></button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-app-primary" id="additional-show-add" onclick="additional.create();">
+                            <i class="fa fa-plus"></i>{{ $t("message.additional.button.create") }}</button>
+
+                    </div>
+                    <table id="additional-table" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                        	<th v-text="$t('message.additional.table.vehicleType')"></th>
+                            <th v-text="$t('message.additional.table.name')"></th>
+                            <th v-text="$t('message.additional.table.sellingPrice')"></th>
+                            <th v-text="$t('message.additional.table.costPrice')"></th>
+                            <th v-text="$t('message.table.function')"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--add additional-->
+            <div class="modal" id="addAdditional" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.additional.box.createTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="additional-create-form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.vehicleType') }}
+                                        <span class="color-error">*</span>
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <select name="vehicleTypeId" class="form-control">
+                                            <option value="" v-text="$t('message.additional.form.selectVehicleType')"></option>
+                                            <option v-for="vehicle in vehicleTypes" :value="vehicle.id" v-text="vehicle.type"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.name') }}
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-8">
+                                        <input name="name" class="form-control" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.sellingPrice') }}
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-8">
+                                        <input name="sellingPrice" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.costPrice') }}
+                                        <span class="color-error">*</span></label>
+                                    <div class="col-sm-8">
+                                        <input name="costPrice" type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                            <button id="additional-create-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--update tag-->
+            <div class="modal" id="editAdditional" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.additional.box.editTitle')"></h4>
+                        </div>
+                        <div class="modal-body">
+			                <form id="additional-edit-form" class="form-horizontal">
+                                <input type="hidden" name="id" v-model="editInfo.id"/>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.vehicleType') }}
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-8">
+			                            <select v-model="editInfo.vehicleTypeId" name="vehicleTypeId" class="form-control">
+			                                <option value="" v-text="$t('message.additional.form.selectVehicleType')"></option>
+                                            <option v-for="vehicle in vehicleTypes" :value="vehicle.id" v-text="vehicle.type"></option>
+			                            </select>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.name') }}
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-8">
+			                            <input v-model="editInfo.name" name="name" class="form-control" type="text"/>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.sellingPrice') }}
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-8">
+			                            <input v-model="editInfo.sellingPrice" name="sellingPrice" type="text" class="form-control"/>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="control-label col-sm-4">
+                                        {{ $t('message.additional.form.costPrice') }}
+                                        <span class="color-error">*</span></label>
+			                        <div class="col-sm-8">
+			                            <input v-model="editInfo.costPrice" name="costPrice" type="text" class="form-control"/>
+			                        </div>
+			                    </div>                    
+			                </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.cancel')"></button>
+                            <button id="additional-edit-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.submit')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="deleteAdditional" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" v-text="$t('message.additional.box.deleteTitle')"></h4>
+                        </div>
+                        <div class="modal-body" v-text="$t('message.deleteInfo')">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-app-danger pull-left" data-dismiss="modal" v-text="$t('message.button.no')"></button>
+                            <button id="additional-delete-save" type="button" class="btn btn-app-primary" v-text="$t('message.button.yes')"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+</body>
+</html>

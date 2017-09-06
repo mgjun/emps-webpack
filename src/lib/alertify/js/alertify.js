@@ -2,7 +2,7 @@
 (function (global, undefined) {
 	"use strict";
 
-	var document = global.document,
+	var document = global.document ? global.document : window.document,
 	    Alertify;
 
 	Alertify = function () {

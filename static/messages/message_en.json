@@ -1,0 +1,1166 @@
+{
+  "aasConnectionError":"Connection aas error",
+  "PostalcodeError":"srcPostalcode or destPostalcode is error",
+  "SaveSameDataError":"can not save the same data",
+  "TagAlreadyExistedError":"The Tag Name: {0} or Type:{1},already existed",
+  "VehicleTypeMatchError":"No match of the vehicleType! Please split cargo to another job",
+  "WeightError":"weight is null",
+  "VolumnError":"volumn is null",
+  "JobPriceCalculateError":"The Job Price Calculate Failure!",
+  "CreateBidError":"can not create bid without job!",
+  "SubmitBidError":"The current time is greater than the first job time,Please submit again after the modification job time !",
+  "RejectError":"Reject Failure !",
+  "ShipperRevokeError":"The shipperBid: {0} has send to engine, Revoke failure!",
+  "TransporterRevokeError":"The transporter bid: {0} has sent to engine, Revoke failure!",
+  "PayOutError":"User has inadequate funds!",
+  "ChargeStatusError":"The charge status is not paid.",
+  "sameVehicleError":"The same vehicle participating date can`t overlap!",
+  "updateWithoutDraftError":"can not update bid , because the status is not draft",
+  "waiting":"waiting",
+  "timeout":"time out",
+  "systemError":"System Error",
+  "success":"success",
+  "error":"error",
+  "loadingInfo":"Loading data,This may take some time.",
+  "deleteInfo":"The deletion is permanent. Confirm to delete?",
+  "noResultFound":"No results found.",
+  "noImageInfo":"no image found for this job!",
+  "noVehicleInfo":"No vehicles.You should add your vehicle first.",
+  "invalidImageInfo":"Invalid image,please upload one image!",
+  "refundInfo":"Will Refund Job Id:{jobId}, Job Price:{jobPrice},Confirm to Refund?",
+  "vehicleCreateSuccessInfo":"Saved successfully,vehicle#:{vehicleNo}",
+  "refundSuccess":"Refund successful!",
+  "payConfirmInfo":"will pay bid:{bidNo} permanently,go on or not?",
+  "payInfo":"Pay for bid#:{bidNo}",
+  "revokeInfo":"The revoking is permanent. Confirm to revoke?",
+  "revokeSuccess":"Revoked successfully.",
+  "transporterCreateBidTitleInfo":"Participating From {from} to {end} Vehicle {vehicleName}",
+  "bidSaveSuccessInfo":"Saved successfully,bid#:{bidNo}",
+  "sendEmailConfirm":"Confirm to send email?",
+  "sendEmailSuccess":"Send successfully.",
+  "directionFailed":"Directions request failed due to {status}",
+  "inputDestPostalCode":"please input destination postal code",
+  "inputSrcPostalCode":"please input origin postal code",
+  "geocodeAddressFailed":"geocode address failed due to {status},please contact the administrator",
+  "dropOr":"drop or",
+  "browse":"browse",
+  "button":{
+    "ok":"OK",
+    "yes":"YES",
+    "no":"NO",
+    "save":"save",
+    "cancel":"Cancel",
+    "submit":"Submit",
+    "back":"Back",
+    "close":"Close",
+    "delete":"Delete",
+    "next":"Next",
+    "previous":"Previous",
+    "edit":"Edit",
+    "create":"Create",
+    "view":"View",
+    "search":"Search",
+    "upload":"Upload",
+    "download":"DownLoad",
+    "refund":"Refund",
+    "pay":"Pay",
+    "revoke":"revoke",
+    "exportExcel":"Export Excel",
+    "exportPdf":"Export Pdf",
+    "accept":"Accept",
+    "reject":"Reject",
+    "viewJob":"View Job",
+    "assignedDriver":"Assigned Driver",
+    "complete":"Complete",
+    "pod":"POD",
+    "reSubmit":"Re-Submit",
+    "viewResult":"View Result",
+    "viewBid":"View Bid",
+    "editPrice":"Edit Price",
+    "saveBid":"Save Bid"
+  },
+  "table":{
+    "function":"Function(s)",
+    "detail":"Detail(s)",
+    "emptyTable":"No data available in table",
+    "zeroRecords":"No matching records found",
+    "first":"First",
+    "last":"Last",
+    "next":"Next",
+    "previous":"Previous"
+  },
+  "validate":{
+    "require":"this field is required!",
+    "invalid":"invalid value!",
+    "number":"only number is allowed!",
+    "email":"invalid email!",
+    "mobile":"invalid phone number!",
+    "maxlength":"field length must less than {0}!",
+    "digits":"only digits is allowed!",
+    "bigZero":"{0} must bigger than zero!",
+    "dupTypeAndName":"duplicated vehicleType and name!",
+    "dupPostalCode":"duplicated destCentralPostalcode and srcCentralPostalcode!",
+    "leadCrossTime":"leadDayBegin and leadDayEnd can not be crossed!",
+    "dupLeadDay":"duplicated leadDayBegin and leadDayEnd!",
+    "leadBigThan":"leadDayEnd must bigger than leadDayBegin!",
+    "dupWeightAndVolume":"duplicated weight and volumn!",
+    "weightLessThan":"minWeight must smaller than maxWeight!",
+    "jobLaterHour":"origin start time must 3 hours later than current time",
+    "jobLaterThan":"{begin} should at least 1 hour later than {end}",
+    "jobLaterDate":"The date of selection must be greater than or equal to today!",
+    "dupNameAndType":"duplicated name and type!",
+    "pLaterDateThanCurrent":"Participating from time must later than or equal to current date!",
+    "transporterCreateLaterDate":"Participating to time must later than participating from time",
+    "availabilityOverlap":"availability overlap!",
+    "availabilityLaterThan":"Availability to time should be 1 hour later than Availability from time",
+    "vehicleNameValidate":"only letters or numbers are allowed!",
+    "dupVehicleNo":"duplicated vehicle#!",
+    "dupType":"duplicated type!",
+    "dayOfWeekOverlap":"Day of week overlap!",
+    "fileCountBetweenError":"The number of images selected must be between {minCount} and {maxCount}",
+    "fileCountLessError":"{minCount} images should be selected",
+    "noAddressFound":"No address found by geocoder!",
+    "invalidPostalCode":"invalid postal code!"
+  },
+  "status":{
+    "draft":"Draft",
+    "submitted":"Submitted",
+    "revoked":"Revoked",
+    "matchFound":"Match Found",
+    "noMatchFound":"No Match Found",
+    "jobAccepted":"Job Accepted",
+    "pendingPayment":"Pending Payment",
+    "shipperPaid":"Shipper Paid",
+    "completed":"Completed",
+    "shipperRejected":"Shipper Rejected",
+    "transporterRejected":"Transporter Rejected",
+    "shipperRefunded":"Shipper Refunded",
+    "refunded":"Refunded",
+    "refundApplied":"Refund Applied",
+    "platformPaid":"Platform Paid"
+  },
+  "additional":{
+    "box":{
+      "title":"View All Additional Service(s)",
+      "createTitle":"Add Additional",
+      "editTitle":"Edit Additional",
+      "deleteTitle":"Delete Additional"
+    },
+    "search":{
+      "additionalName":"Additional Name:"
+    },
+    "button":{
+      "create":"Additional"
+    },
+    "table":{
+      "vehicleType":"Vehicle Type",
+      "name":"Name",
+      "sellingPrice":"Selling Price",
+      "costPrice":"Cost Price",
+      "additionalName":"Additional Name"
+    },
+    "form":{
+      "vehicleType":"Select Vehicle Type",
+      "name":"Name",
+      "sellingPrice":"Selling Price",
+      "costPrice":"Cost Price",
+      "selectVehicleType":"Select Vehicle Type"
+    }
+  },
+  "auctionMatchResult":{
+    "box":{
+      "title":"View Auction(s)",
+      "resultTitle":"Result"
+    },
+    "button":{
+      "send":"Send Message To Engine",
+      "deleteAllAuction":"Delete All Auction",
+      "viewResult":"View Result"
+    },
+    "table":{
+      "auctionNo":"Auction#",
+      "bidNo":"No of Bid(s)",
+      "successBid":"Successful Bid(s)",
+      "unSuccessBid":"Unsuccessful Bid(s)",
+      "status":"Status",
+      "startDate":"Start Date"
+    }
+  },
+  "auctionProfitReport":{
+    "box":{
+      "title":"View Auction(s)"
+    },
+    "search":{
+      "auctionNo":"Auction#:"
+    },
+    "button":{
+
+    },
+    "table":{
+      "auctionNo":"Auction#",
+      "shipperTotal":"Shipper Total",
+      "transporterTotal":"Transporter Total",
+      "profitAmount":"Profit Amount",
+      "margin":"Margin"
+    }
+  },
+  "bidCreate":{
+    "box":{
+      "createTitle":"Create Bid",
+      "editTitle":"Edit Bid",
+      "deleteTitle":"Delete Job"
+    },
+    "search":{
+
+    },
+    "button":{
+      "job":"Job",
+      "saveDraft":"save draft"
+    },
+    "table":{
+      "jobId":"Job Id",
+      "pickupPostalCode":"Pick Up Postal Code",
+      "dropoffPostalCode":"Drop Off Postal Code",
+      "transportationCharges":"Transportation Charges",
+      "additionalCharges":"Additional Charges"
+    },
+    "form":{
+      "transporterCharges":"Transportation Charges",
+      "additionalCharges":"Additional Charges",
+      "totalCost":"Total Cost",
+      "jobId":"Job id:",
+      "distance":"Distance:",
+      "weightVolume":"Weight/Volume:",
+      "size":"Size",
+      "quantity":"Quantity"
+    }
+  },
+  "company":{
+    "box":{
+      "title":"Company Info"
+    },
+    "search":{
+
+    },
+    "button":{
+
+    },
+    "table":{
+
+    },
+    "form":{
+      "companyName":"Company Name",
+      "companyRegNo":"Company Reg#",
+      "contactName":"Contact Name",
+      "email":"Email",
+      "phone":"Phone",
+      "fax":"Fax",
+      "paypalAccount":"Paypal Account",
+      "xfersAccount":"Xfers Account",
+      "bankName":"Bank Name",
+      "bankAccountNo":"Bank Account#",
+      "payeeName":"Payee Name"
+    }
+  },
+  "distanceMatrix":{
+    "box":{
+      "title":"View All Distance Matrix(s)",
+      "createTitle":"Add DistanceMatrix",
+      "editTitle":"Edit DistanceMatrix",
+      "deleteTitle":"Delete DistanceMatrix"
+    },
+    "search":{
+
+    },
+    "button":{
+      "distanceMatrix":"DistanceMatrix"
+    },
+    "table":{
+      "destCentralAddress":"Dest Central Address",
+      "destCentralPostalcode":"Dest Central Postalcode",
+      "distance":"Distance",
+      "srcCentralAddress":"Src Central Address",
+      "srcCentralPostalcode":"Src Central Postalcode",
+      "travelTime":"Travel Time"
+    },
+    "form":{
+      "destCentralAddress":"Dest Central Address",
+      "destCentralPostalcode":"Dest Central Postalcode",
+      "selectDestZone":"Select Dest Zone",
+      "distance":"Distance",
+      "srcCentralAddress":"Src Central Address",
+      "srcCentralPostalcode":"Src Central Postalcode",
+      "selectSrcZone":"Select Src Zone",
+      "travelTime":"Travel Time",
+      "selectZone":"Select Zone"
+    }
+  },
+  "driver":{
+    "box":{
+      "title":"View All Driver(s)",
+      "createTitle":"Add Driver",
+      "editTitle":"Edit Driver",
+      "deleteTitle":"Delete Driver",
+      "uploadPortrait":"Upload Portrait"
+    },
+    "search":{
+      "licenseNo":"License#:"
+    },
+    "button":{
+      "driver":"Driver"
+    },
+    "table":{
+      "licenseNo":"License#",
+      "name":"Name",
+      "mobile":"Mobile",
+      "rating":"Rating"
+    },
+    "form":{
+      "portrait":"Portrait",
+      "firstName":"First Name",
+      "lastName":"Last Name",
+      "licenseNo":"License No",
+      "mobile":"Mobile",
+      "rating":"Rating",
+      "attachment":"Attachment"
+    }
+  },
+  "leadTime":{
+    "box":{
+      "title":"View All LeadTime(s)",
+      "createTitle":"Add LeadTime",
+      "editTitle":"Edit LeadTime",
+      "deleteTitle":"Delete LeadTime"
+    },
+    "search":{
+
+    },
+    "button":{
+      "leadTime":"LeadTime"
+    },
+    "table":{
+      "leadDayBegin":"Lead Day Begin",
+      "leadDayEnd":"Lead Day End",
+      "rate":"Rate"
+    },
+    "form":{
+      "leadDayBegin":"Lead Day Begin",
+      "leadDayEnd":"Lead Day End",
+      "rate":"Rate"
+    }
+  },
+  "package":{
+    "box":{
+      "title":"View All Package(s)",
+      "createTitle":"Add Package",
+      "editTitle":"Edit Package",
+      "deleteTitle":"Delete Package"
+    },
+    "search":{
+
+    },
+    "button":{
+      "package":"Package"
+    },
+    "table":{
+      "name":"Name",
+      "lwh":"Length Width Height",
+      "maxWeight":"Max Weight",
+      "minWeight":"Min Weight",
+      "volume":"Volume",
+      "description":"Description"
+    },
+    "form":{
+      "name":"Name",
+      "length":"Length",
+      "width":"Width",
+      "height":"Height",
+      "maxWeight":"Max Weight",
+      "minWeight":"Min Weight",
+      "volume":"Volume",
+      "description":"Description"
+    }
+  },
+  "padminBidList":{
+    "box":{
+      "title":"View All Payment Job(s)",
+      "refund":"Refund"
+    },
+    "search":{
+      "bidNo":"Bid#:"
+    },
+    "button":{
+
+    },
+    "table":{
+      "jobId":"Job Id",
+      "bidNo":"Bid#",
+      "finalPrice":"Final Price",
+      "sellingPrice":"Selling Price",
+      "cargoDescription":"Cargo Description",
+      "status":"Status"
+    },
+    "form":{
+
+    }
+  },
+  "payFailure":{
+    "title":"Payment is Unsuccessful",
+    "content":"Your payment is unsuccessful. To complete this payment, you need to log in to your PayPal account and accept the payment. Please try again.  ",
+    "footer":"Simplify Complexity"
+  },
+  "paySuccess":{
+    "title":"Payment is Successful",
+    "content":"Your payment is successful.Your cargo will be transported by the matched transporter.Now youcan just click \"OK\" to handle other businesses.",
+    "footer":"Simplify Complexity"
+  },
+  "rule":{
+    "box":{
+      "title":"View All Rules(s)",
+      "createTitle":"Add Rule",
+      "editTitle":"Edit Rule",
+      "deleteTitle":"Delete Rule"
+    },
+    "search":{
+
+    },
+    "button":{
+        "rule":"Rule"
+    },
+    "table":{
+      "group1":"Group1",
+      "group2":"Group2",
+      "constraint":"Constraint"
+    },
+    "form":{
+      "selectTagType":"Select Tag Type",
+      "selectTag":"Select Tag",
+      "select":"Select ",
+      "vehicleVSCargo":"Vehicle VS Cargo",
+      "vehicle":"Vehicle",
+      "cargo":"Cargo",
+      "constraint":"Constraint",
+      "selectConstraint":"Select Constraint",
+      "can":"Can",
+      "canNot":"Can Not",
+      "canPutTogether":"Can Put Together"
+    }
+  },
+  "shipperBidDetail":{
+    "box":{
+      "title":"Shipper Bid Detail",
+      "assignedDriver":"Assigned Driver",
+      "showPicture":"Show Picture"
+    },
+    "search":{
+
+    },
+    "button":{
+      "assignedDriver":"Assigned Driver",
+      "cargoInfo":"Cargo Info",
+      "pod":"POD"
+    },
+    "table":{
+      "bidNo":"Bid#",
+      "actionNo":"Action#",
+      "bidType":"Bid Type",
+      "status":"Status",
+      "auctionResultDate":"Auction Result Date",
+      "bidPrice":"Bid Price",
+      "finalPrice":"Final Price",
+      "vehicleType":"Vehicle Type",
+      "weight":"Weight",
+      "volume":"Volume",
+      "requestType":"RequestType",
+      "jobPrice":"Job Price",
+      "additionalPrice":"Additional Price",
+      "totalPrice":"Total Price",
+      "transporterBidNo":"Transporter Bid#",
+      "assignedDriver":"Assigned Driver",
+      "cargoInfo":"Cargo Info",
+      "pod":"POD",
+      "transport":"Transport",
+      "packageInfo":"Package Info",
+      "additionalService":"Additional Service",
+      "date":"Date",
+      "distance":"Distance",
+      "pickup":"Pick Up",
+      "postalCode":"Postal Code",
+      "location":"Location",
+      "time":"Time",
+      "contact":"Contact",
+      "dropoff":"Drop Off",
+      "name":"Name",
+      "quantity":"Quantity",
+      "noAdditionalService":"No additional services selected.",
+      "price":"Price"
+    },
+    "form":{
+      "cargoDescription":"Cargo Description:",
+      "attachments":"Attachments",
+      "rating":"Rating",
+      "licenseNo":"LicenseNo",
+      "mobile":"Mobile",
+      "name":"Name"
+    }
+  },
+  "shipperBidsReport":{
+    "box":{
+      "title":"View Bid(s)"
+    },
+    "search":{
+      "pickup":"Pickup",
+      "to":"to",
+      "status":"Status",
+      "shipper":"Shipper",
+      "bidNo":"Bid#"
+    },
+    "button":{
+
+    },
+    "table":{
+      "select":"Select",
+      "auctionNo":"Auction#",
+      "bidNo":"Bid#",
+      "bidPrice":"Bid Price",
+      "finalPrice":"Final Price",
+      "additionalPrice":"Additional Price",
+      "status":"Status",
+      "auctionRunDate":"Auction run date",
+      "scheduleTime":"Schedule Time"
+    },
+    "form":{
+
+    }
+  },
+  "shipperBidsView":{
+    "box":{
+      "title":"View Bid(s)",
+      "deleteTitle":"Delete Bid",
+      "pay":"Pay"
+    },
+    "search":{
+      "bidNo":"Bid#",
+      "status":"Status"
+    },
+    "button":{
+      "bid":"Bid",
+      "payFail":"Pay Failed",
+      "paySuccess":"Pay Success"
+    },
+    "table":{
+      "auctionNo":"Auction#",
+      "bidNo":"Bid#",
+      "bidPrice":"Bid Price",
+      "finalPrice":"Final Price",
+      "additionalPrice":"Additional Price",
+      "gst":"GST",
+      "status":"Status",
+      "auctionRunDate":"Auction run date",
+      "auctionResultDate":"Auction Result date",
+      "scheduleTime":"Schedule Time",
+      "scheduleDate":"Schedule Date"
+    },
+    "form":{
+
+    }
+  },
+  "shipperCreateJob":{
+    "box":{
+
+    },
+    "search":{
+
+    },
+    "button":{
+      "additionalService":"Additional Services"
+    },
+    "table":{
+      "noAdditionalServiceFound":"No additional services found or you may choose a package.",
+      "weight":"Weight",
+      "description":"Description"
+    },
+    "form":{
+      "packageType":"Package Type",
+      "select":"Select",
+      "loadingPackage":"Loading packages ",
+      "choosePackage":"Please choose a package first",
+      "weRecommend":"We recommend ",
+      "serviceGuidelines":"Service Guidelines",
+      "instructionsToDriver":"Instructions To Driver",
+      "instructionsToDriverContent":"e.g. Cargo description,pickup at Lobby A etc.",
+      "addImages":"Add Images",
+      "transportDate":"Transport Date",
+      "pickUpLocation":"Pick Up Location",
+      "dropOffLocation":"Drop Off Location",
+      "distance":"Distance",
+      "volume":"Volume/",
+      "weight":"Weight",
+      "vehicle":"Vehicle",
+      "price":"Price",
+      "additional":"Additional",
+      "services":"Services",
+      "totalPrice":"Total Price",
+      "contactPerson":"Contact Person",
+      "mobileNumber":"Mobile number",
+      "postalCode":"Postal Code",
+      "location":"Location",
+      "pickupPostalCode":"Pickup Postal Code",
+      "pickupLocation":"Pickup Location",
+      "pickupContactPerson":"Pickup Contact Person",
+      "pickupMobileNumber":"Pickup Mobile Number",
+      "pickupStartTime":"Pickup Start Time",
+      "pickupEndTime":"Pickup End Time",
+      "dropoffPostalCode":"Dropoff Postal Code",
+      "dropoffLocation":"Dropoff Location",
+      "dropoffContactPerson":"Dropoff Contact Person",
+      "dropoffMobileNumber":"Dropoff Mobile Number",
+      "dropoffStartTime":"Dropoff Start Time",
+      "dropoffEndTime":"Dropoff End Time"
+    }
+  },
+  "systemConfigure":{
+    "box":{
+      "title":"View All Country(s)",
+      "createTitle":"Add Country",
+      "editTitle":"Edit Country",
+      "deleteTitle":"Delete Country"
+    },
+    "search":{
+      "countryName":"Country Name:"
+    },
+    "button":{
+      "country":"Country"
+    },
+    "table":{
+      "countryName":"Country Name",
+      "countryCode":"Country Code"
+    },
+    "form":{
+      "countryName":"Country Name",
+      "countryCode":"Country Code"
+    }
+  },
+  "systemSettings":{
+    "box":{
+      "title":"View All Setting(s)",
+      "createTitle":"Add Setting",
+      "editTitle":"Edit Setting",
+      "deleteTitle":"Delete Setting",
+      "upload":"Upload"
+    },
+    "search":{
+
+    },
+    "button":{
+
+    },
+    "table":{
+      "name":"Name",
+      "type":"Type",
+      "value":"Value"
+    },
+    "form":{
+      "name":"Name",
+      "type":"Type",
+      "value":"Value",
+      "description":"Description",
+      "uploadPdf":"upload Pdf"
+    }
+  },
+  "tag":{
+    "box":{
+      "title":"View All Tag(s)",
+      "createTitle":"Add Tag",
+      "editTitle":"Edit Tag",
+      "deleteTitle":"Delete Tag"
+    },
+    "search":{
+      "tagName":"Tag Name:"
+    },
+    "button":{
+      "tag":"Tag"
+    },
+    "table":{
+      "name":"Name",
+      "type":"Type",
+      "description":"Description"
+    },
+    "form":{
+      "name":"Tag Name",
+      "type":"Select Type",
+      "description":"Description",
+      "selectType":"Select Type",
+      "vehicle":"vehicle",
+      "cargo":"cargo"
+    }
+  },
+  "transporterBidDetail":{
+    "box":{
+      "title":"Transporter Bid Detail",
+      "showPicture":"Show Picture"
+    },
+    "search":{
+
+    },
+    "button":{
+      "viewImage":"View Image"
+    },
+    "table":{
+      "bidNo":"Bid#",
+      "auctionNo":"Auction#",
+      "bidType":"Bid Type",
+      "status":"Status",
+      "availabilityStart":"Availability Start",
+      "availabilityEnd":"Availability End",
+      "viewImage":"View Image",
+      "cost":"Cost",
+      "finalCost":"Final Cost",
+      "vehicleDetails":"Vehicle Details",
+      "vehicleNo":"Vehicle#",
+      "type":"Type",
+      "weight":"Weight",
+      "volume":"Volume",
+      "distancePrice":"Distance Price",
+      "vehicleTypeBasePrice":"Vehicle Type Base Price",
+      "transporterBasePrice":"Transporter Base Price",
+      "weightPriceGuide":"WeightPriceGuide",
+      "volumePriceGuide":"VolumePriceGuide",
+      "dimensions":"Dimensions",
+      "availability":"Availability",
+      "dayOfWeek":"Day Of Week",
+      "fromTime":"From Time",
+      "toTime":"To Time",
+      "zoneFlag":"ZoneFlag",
+      "zones":"Zones",
+      "price":"Price",
+      "priceMaxKg":"Price max kg",
+      "pricePerKg":"Price per kg",
+      "priceMaxVol":"Price max m³",
+      "pricePerVol":"Price per m³"
+    },
+    "form":{
+
+    }
+  },
+  "transporterBidView":{
+    "box":{
+      "title":"Bid Management",
+      "deleteTitle":"Delete TransporterBid"
+    },
+    "search":{
+      "bidNo":"Bid#",
+      "status":"Status"
+    },
+    "button":{
+      "create":"Create Capacity-based Bid"
+    },
+    "table":{
+      "bidNo":"Bid#",
+      "schedule":"Schedule",
+      "bidType":"Bid Type",
+      "vehicle":"Vehicle",
+      "status":"Status"
+    },
+    "form":{
+
+    }
+  },
+  "transporterCreateBid":{
+    "box":{
+      "title":"Capacity-base Bid",
+      "editPriceTitle":"Edit Price & Assign Driver"
+    },
+    "search":{
+      "vehicleNo":"Vehicle#:"
+    },
+    "button":{
+
+    },
+    "table":{
+      "select":"Select",
+      "sNo":"S/#",
+      "vehicleNo":"Vehicle#",
+      "vehicleType":"Vehicle Type",
+      "defaultDriver":"Default Driver",
+      "distancePrice":"Distance Price",
+      "basePrice":"Base Price"
+    },
+    "form":{
+      "from":"Participating From",
+      "to":"to",
+      "distancePrice":"Distance Price",
+      "basePrice":"Base Price",
+      "assignDriver":"Assign Driver",
+      "selectDriver":"Select Driver"
+    }
+  },
+  "transporterCreateBidAvailability":{
+    "box":{
+      "title":"Confirm Vehicle Availability",
+      "createTitle":"Add Availability",
+      "editTitle":"Edit Availability",
+      "deleteTitle":"Delete Availability"
+    },
+    "search":{
+
+    },
+    "button":{
+      "availability":"Availability"
+    },
+    "table":{
+      "dayOfWeek":"Day Of Week",
+      "fromTime":"From Time",
+      "toTime":"To Time",
+      "zoneFlag":"Zone Flag",
+      "zones":"Zones"
+    },
+    "form":{
+      "dayOfWeek":"Day Of Week",
+      "fromTime":"Availability From",
+      "toTime":"Availability To",
+      "zones":"Zones",
+      "mon":"Mon",
+      "tue":"Tue",
+      "wed":"Wed",
+      "thur":"Thur",
+      "fri":"Fri",
+      "sat":"Sat",
+      "sun":"Sun",
+      "publicHoliday":"Public Holiday",
+      "exclude":"Exclude",
+      "allowed":"Allowed",
+      "select":"Select"
+    }
+  },
+  "transporterCreateBidPrice":{
+    "box":{
+      "title":"Confirm Vehicle Price",
+      "createTitle":"Add Price",
+      "editTitle":"Edit Price",
+      "deleteTitle":"Delete Price"
+    },
+    "search":{
+
+    },
+    "button":{
+        "price":"Price"
+    },
+    "table":{
+      "dayOfWeek":"Day Of Week",
+      "priceMaxVol":"Price max m³",
+      "priceMaxKg":"Price max kg",
+      "pricePerVol":"Price per m³",
+      "pricePerKg":"Price per kg"
+    },
+    "form":{
+      "dayOfWeek":"Day Of Week",
+      "priceMaxVol":"Price max m³",
+      "priceMaxKg":"Price max kg",
+      "pricePerVol":"Price per m³",
+      "pricePerKg":"Price per kg",
+      "mon":"Mon",
+      "tue":"Tue",
+      "wed":"Wed",
+      "thur":"Thur",
+      "fri":"Fri",
+      "sat":"Sat",
+      "sun":"Sun",
+      "publicHoliday":"Public Holiday"
+    }
+  },
+  "transporterMatchBidResult":{
+    "box":{
+      "title":"Bid Match Job(s)",
+      "selectPicture":"Select Picture",
+      "showPicture":"Show Picture",
+      "assignDriver":"Assign Driver",
+      "jobInfo":"Job Info",
+      "assignedDriver":"Assigned Driver"
+    },
+    "search":{
+      "bidNo":"Bid#",
+      "status":"Status"
+    },
+    "button":{
+
+    },
+    "table":{
+      "transporterBidNo":"Transporter Bid#",
+      "auctionNo":"Auction#",
+      "vehNo":"Veh#",
+      "driver":"Driver",
+      "cost":"Cost",
+      "finalCost":"Final Cost",
+      "status":"Status",
+      "jobId":"Job Id",
+      "postalCodeOrigin":"Postal Code Origin",
+      "postalCodeDestination":"Postal Code Destination"
+    },
+    "form":{
+      "selectDriver":"Select Driver",
+      "additionalDetail":"Additional Detail",
+      "pickup":"Pick Up",
+      "dropoff":"Drop Off",
+      "postal":"Postal",
+      "address":"Address",
+      "contact":"Contact",
+      "date":"Date",
+      "cargoDescription":"Cargo Description",
+      "images":"Images",
+      "loading":"loading...",
+      "name":"Name",
+      "mobile":"Mobile",
+      "licenseNo":"LicenseNo",
+      "rating":"Rating",
+      "attachments":"Attachments"
+    }
+  },
+  "vehicleCreate":{
+    "box":{
+      "title":"Vehicle Create",
+      "createTitle":"Add Availability",
+      "editTitle":"Edit Availability",
+      "deleteTitle":"Delete Availability"
+    },
+    "search":{
+
+    },
+    "button":{
+      "vehicleAvailability":"Vehicle Availability"
+    },
+    "table":{
+      "dayOfWeek":"Day Of Week",
+      "fromTime":"From Time",
+      "toTime":"To Time",
+      "zoneFlag":"Zone Flag",
+      "zones":"Zones"
+    },
+    "form":{
+      "vehicleNo":"Vehicle#",
+      "vehicleType":"Vehicle Type",
+      "selectVehicleType":"Select Vehicle Type",
+      "defaultDriver":"Default Driver",
+      "selectDriver":"Select Driver",
+      "distancePrice":"Distance Price",
+      "basePrice":"Base Price",
+      "dayOfWeek":"Day Of Week",
+      "fromTime":"Availability From",
+      "toTime":"Availability To",
+      "zones":"Zones",
+      "exclude":"Exclude",
+      "allowed":"Allowed",
+      "mon":"Mon",
+      "tue":"Tue",
+      "wed":"Wed",
+      "thur":"Thur",
+      "fri":"Fri",
+      "sat":"Sat",
+      "sun":"Sun",
+      "publicHoliday":"Public Holiday",
+      "select":"Select"
+    }
+  },
+  "vehicleTypeCreate":{
+    "box":{
+      "title":"Vehicle Type Create",
+      "createTitle":"Add Price",
+      "editTitle":"Edit Price",
+      "deleteTitle":"Delete Price"
+    },
+    "search":{
+
+    },
+    "button":{
+      "price":"Price"
+    },
+    "table":{
+      "dayOfWeek":"Day Of Week",
+      "priceMaxVol":"Price max m³",
+      "priceMaxKg":"Price max kg",
+      "pricePerVol":"Price per m³",
+      "pricePerKg":"Price per kg"
+    },
+    "form":{
+      "vehicleType":"Vehicle Type",
+      "description":"Description",
+      "weight":"Weight",
+      "weightUom":"UOM(weight)",
+      "volume":"Volume",
+      "volumeUom":"UOM(vol)",
+      "basePrice":"Base Price",
+      "transporterBasePrice":"Transporter Base Price",
+      "distancePriceGuide":"Distance Price Guide",
+      "weightPriceGuide":"Weight Price Guide",
+      "volumnPriceGuide":"Volumn Price Guide",
+      "dimensions":"Dimensions",
+      "dayOfWeek":"Day Of Week",
+      "priceMaxVol":"Price max m³",
+      "priceMaxKg":"Price max kg",
+      "pricePerVol":"Price per m³",
+      "pricePerKg":"Price per kg",
+      "exclude":"Exclude",
+      "allowed":"Allowed",
+      "mon":"Mon",
+      "tue":"Tue",
+      "wed":"Wed",
+      "thur":"Thur",
+      "fri":"Fri",
+      "sat":"Sat",
+      "sun":"Sun",
+      "publicHoliday":"Public Holiday"
+    }
+  },
+  "vehicleTypeView":{
+    "box":{
+      "title":"View All Vehicle Type(s)",
+      "editTitle":"Edit VehicleType",
+      "deleteTitle":"Delete VehicleType"
+    },
+    "search":{
+      "vehicleType":"Vehicle Type:"
+    },
+    "button":{
+      "vehicleType":"Vehicle Type"
+    },
+    "table":{
+      "vehicleType":"Vehicle Type",
+      "weight":"Weight",
+      "volume":"Volume",
+      "description":"Description"
+    },
+    "form":{
+      "vehicleType":"Vehicle Type",
+      "weight":"Weight",
+      "weightUom":"UOM(weight)",
+      "volume":"Volume",
+      "volumeUom":"UOM(vol)",
+      "description":"Description"
+    }
+  },
+  "vehicleView":{
+    "box":{
+      "title":"View All Vehicle(s)"
+    },
+    "search":{
+      "vehicleNo":"Vehicle#:"
+    },
+    "button":{
+      "vehicle":"Vehicle"
+    },
+    "table":{
+      "vehicleNo":"Vehicle#",
+      "vehicleType":"Vehicle Type",
+      "availability":"Availability",
+      "driver":"Driver",
+      "distancePrice":"Distance Price",
+      "basePrice":"Base Price"
+    },
+    "form":{
+
+    }
+  },
+  "viewTransporterComplete":{
+    "box":{
+      "title":"Transporter Report(s)"
+    },
+    "search":{
+      "paid":"paid",
+      "unpaid":"unpaid"
+    },
+    "button":{
+      "pay":"pay",
+      "exportExcel":"Export Excel",
+      "exportPdf":"Export Pdf"
+    },
+    "table":{
+      "companyName":"companyName",
+      "transporterBidNo":"Transporter Bid#",
+      "auctionNo":"Auction#",
+      "vehicleNo":"Vehicle#",
+      "finalCost":"Final Cost",
+      "status":"Status",
+      "shipperBidNo":"Shipper Bid#",
+      "shipper":"Shipper",
+      "jobId":"Job Id",
+      "postalCodeOrigin":"Postal Code Origin",
+      "postalCodeDestination":"Postal Code Destination",
+      "distance":"Distance",
+      "weight":"Weight",
+      "volume":"Volume"
+    },
+    "form":{
+
+    }
+  },
+  "viewTransporterCompleteDetail":{
+    "box":{
+      "title":"Transporter Bid Detail",
+      "shipperJobs":"Shipper Jobs",
+      "jobInfo":"Job Info",
+      "showPicture":"Show Picture"
+    },
+    "search":{
+
+    },
+    "button":{
+      "pay":"pay",
+      "signImage":"Sign Image"
+    },
+    "table":{
+      "transporterBidNo":"Transporter Bid#",
+      "auctionNo":"Auction#",
+      "vehNo":"Veh#",
+      "bidType":"Bid Type",
+      "finalPrice":"Final Price",
+      "servicePrice":"Service Price",
+      "schedule":"Schedule",
+      "shipperBidNo":"Shipper Bid#",
+      "pickupPostalCode":"Pickup Postal Code",
+      "dropoffPostalCode":"Dropoff Postal Code",
+      "transportDate":"Transport Date",
+      "volumeAndWeight":"Volume/Weight",
+      "additionalCharges":"Additional Charges"
+    },
+    "form":{
+      "additionalDetail":"Additional Detail",
+      "pickup":"Pickup",
+      "dropoff":"Dropoff",
+      "postal":"Postal",
+      "address":"Address",
+      "contact":"Contact",
+      "date":"Date",
+      "cargoDescription":"Cargo Description",
+      "images":"Images"
+    }
+  },
+  "zone":{
+    "box":{
+      "title":"View All Zones(s)",
+      "createTitle":"Add Zone",
+      "editTitle":"Edit Zone",
+      "deleteTitle":"Delete Zone"
+    },
+    "search":{
+      "postalCode":"postalCode"
+    },
+    "button":{
+      "create":"Add Zone"
+    },
+    "table":{
+      "zoneId":"Zone Id",
+      "name":"Name",
+      "postal":"Postal",
+      "address":"Address"
+    },
+    "form":{
+      "zoneId":"Zone Id",
+      "name":"Name",
+      "postal":"Postal",
+      "address":"Address",
+      "boundary":"Boundary",
+      "latitude":"Latitude",
+      "longitude":"Longitude"
+    }
+  }
+}

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>shipperBidDetail</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+</head>
+<body>
+
+<section class="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title" v-text="$t('message.shipperBidDetail.box.title')"></h3>
+        </div>
+        <div class="box-body">
+            <div v-if="item != null" >
+                <div class="col-sm-12 padding-r-l-0">
+                    <table class="table table-bordered margin-bottom-none">
+                        <thead>
+                        <tr>
+                            <th v-text="$t('message.shipperBidDetail.table.bidNo')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.actionNo')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.bidType')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.status')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.auctionResultDate')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.bidPrice')"></th>
+                            <th v-text="$t('message.shipperBidDetail.table.finalPrice')"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td v-text="item.bidNo"></td>
+                            <td v-text="item.actionNo"></td>
+                            <td v-text="item.bidType == 1 ? 'CAPACITY-BASED' : ''"></td>
+                            <td v-text="displayStatus(item.status)"></td>
+                            <td v-text="item.auctionResultDate"></td>
+                            <td v-text="formatPrice(item.bidPrice)" class="text-right text-inline"></td>
+                            <td v-text="formatPrice(item.finalPrice)" class="text-right text-inline"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12 padding-r-l-0 margin-top-10">
+                    <div v-for="(bidJob,index) in item.bidJobDtoList" class="col-sm-12 padding-r-l-0 bid-job-wrapper">
+                        <div class="col-sm-12 padding-r-l-0 bid-job-title">
+                            <table class="table table-bordered margin-bottom-none">
+                                <caption class="text-center" v-text="'Job Id '+bidJob.id"></caption>
+                                <thead>
+                                <tr>
+                                    <th v-text="$t('message.shipperBidDetail.table.vehicleType')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.weight')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.volume')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.requestType')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.status')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.jobPrice')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.finalPrice')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.additionalPrice')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.totalPrice')"></th>
+                                    <th v-if="!(bidJob.status == 'submitted' || bidJob.status == 'draft' || bidJob.status == null)" v-text="$t('message.shipperBidDetail.table.transporterBidNo')"></th>
+                                    <!--<th v-if="item.status == 'shipper_paid' && bidJob.status == 'shipper_paid'">Apply Refund</th>-->
+                                    <th v-if="!isEmpty(bidJob.vehicleDto)" v-text="$t('message.shipperBidDetail.table.assignedDriver')"></th>
+                                    <th v-text="$t('message.shipperBidDetail.table.cargoInfo')"></th>
+                                    <th v-if="bidJob.status == 'complete'" v-text="$t('message.shipperBidDetail.table.pod')"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td v-text="bidJob.vehicleTypeName"></td>
+                                    <td v-text="bidJob.weight + '( ' + bidJob.weightUom + ' )'" class="text-inline"></td>
+                                    <td v-text="bidJob.volume + '( ' + bidJob.volumeUom + ' )'" class="text-inline"></td>
+                                    <td v-text="bidJob.requestType"></td>
+                                    <td v-text="displayStatus(bidJob.status)"></td>
+                                    <td v-text="formatPrice(bidJob.jobPrice)" class="text-right text-inline"></td>
+                                    <td v-text="formatPrice(bidJob.finalPrice)" class="text-right text-inline"></td>
+                                    <td v-text="formatPrice(bidJob.sellingTotalPrice)" class="text-right text-inline"></td>
+                                    <td v-text="formatPrice(bidJob.jobPrice + bidJob.sellingTotalPrice)" class="text-right text-inline"></td>
+                                    <td v-if="!(bidJob.status == 'submitted' || bidJob.status == 'draft' || bidJob.status == null)">
+                                        <button class="btn btn-app-danger"  @click="showTransporterBid(bidJob.transporterBidId,bidJob.id)" v-text="bidJob.transporterBidNo" v-if="bidJob.transporterBidNo != null"></button>
+                                    </td>
+                                    <!--<td v-if="item.status == 'shipper_paid' && bidJob.status == 'shipper_paid'">-->
+                                        <!--<button id="refund-button" class="btn btn-app-danger"  @click="refund(bidJob)">ApplyRefund</button>-->
+                                    <!--</td>-->
+                                    <td v-if="!isEmpty(bidJob.vehicleDto)">
+                                        <button class="btn btn-app-danger" @click="viewDriver(bidJob)" v-text="$t('message.shipperBidDetail.button.assignedDriver')"></button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-app-danger" @click="viewImage(bidJob)" v-text="$t('message.shipperBidDetail.button.cargoInfo')"></button>
+                                    </td>
+                                    <td v-if="bidJob.status == 'complete'">
+                                        <button class="btn btn-app-danger" @click="viewPODImage(bidJob.id)" v-text="$t('message.shipperBidDetail.button.pod')"></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a v-bind:href="'#transportTab'+index" data-toggle="tab" v-text="$t('message.shipperBidDetail.table.transport')">
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a v-bind:href="'#packageTab'+index" data-toggle="tab" v-text="$t('message.shipperBidDetail.table.packageInfo')">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a v-bind:href="'#additionalService'+index" data-toggle="tab" v-text="$t('message.shipperBidDetail.table.additionalService')">
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" v-bind:id="'transportTab'+index">
+                                    <table class="table">
+                                        <caption class="font-20-unbold">
+                                            <div class="pull-left">
+                                                <span class="margin-left-15" v-text="$t('message.shipperBidDetail.table.date')"></span>
+                                                <span class="padding-left-10 font-second-color" v-text="bidJob.transporterDate"></span>
+                                            </div>
+                                            <div class="pull-right">
+                                                <span class="margin-left-15"v-text="$t('message.shipperBidDetail.table.distance')"></span>
+                                                <span class="padding-left-10 font-second-color" v-text="bidJob.distance + 'km'"></span>
+                                            </div>
+                                        </caption>
+                                        <tbody>
+                                        <tr>
+                                            <td class="width-50-percent">
+                                                <div class="bid-info-box height-150">
+                                                    <span class="bid-info-icon back-main font-20-unbold" v-text="$t('message.shipperBidDetail.table.pickup')">
+                                                    </span>
+                                                    <div class="bid-info-content">
+                                                        <table class="bid-info-detail table-bordered">
+                                                            <tbody>
+                                                            <tr class="height-30">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.postalCode')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.pickupAddress"></td>
+                                                            </tr>
+                                                            <tr class="height-50">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.location')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.pickupLocation"></td>
+                                                            </tr>
+                                                            <tr class="height-30">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.time')"></td>
+                                                                <td class="padding-left-10" v-text="timeFormat(bidJob.pickupFromTime) + ' - ' + timeFormat(bidJob.pickupEndTime)"></td>
+                                                            </tr>
+                                                            <tr class="height-40">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.contact')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.senderContactName + '( ' + bidJob.senderContactMobile + ' )'"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="width-50-percent">
+                                                <div class="bid-info-box height-150">
+                                                    <div class="bid-info-icon back-second font-20-unbold" v-text="$t('message.shipperBidDetail.table.dropoff')">
+
+                                                    </div>
+                                                    <div class="bid-info-content">
+                                                        <table class="bid-info-detail table-bordered">
+                                                            <tbody>
+                                                            <tr class="height-30">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.postalCode')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.dropoffAddress"></td>
+                                                            </tr>
+                                                            <tr class="height-50">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.location')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.dropoffLocation"></td>
+                                                            </tr>
+                                                            <tr class="height-30">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.time')"></td>
+                                                                <td class="padding-left-10" v-text="timeFormat(bidJob.dropoffFromTime) + ' - ' + timeFormat(bidJob.dropoffEndTime)"></td>
+                                                            </tr>
+                                                            <tr class="height-40">
+                                                                <td class="width-90 text-right" v-text="$t('message.shipperBidDetail.table.contact')"></td>
+                                                                <td class="padding-left-10" v-text="bidJob.recipientContactName + '( ' + bidJob.recipientContactMobile + ' )'"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane fade" v-bind:id="'packageTab'+index">
+                                    <div>
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="bid-info-box" style="width: 300px;">
+                                                        <table class="table text-center">
+                                                            <thead>
+                                                            <tr>
+                                                                <th v-text="$t('message.shipperBidDetail.table.name')"></th>
+                                                                <th v-text="$t('message.shipperBidDetail.table.quantity')"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="p in bidJob.jobPackageDtoList">
+                                                                <td v-text="p.packageName"></td>
+                                                                <td v-text="p.quantity"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" v-bind:id="'additionalService'+index">
+                                    <div>
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="bid-info-box" style="width: 300px;">
+                                                        <div v-if="bidJob.jobAdditionalDtoList == null || bidJob.jobAdditionalDtoList.length <= 0" v-text="$t('message.shipperBidDetail.table.noAdditionalService')">
+                                                        </div>
+                                                        <table v-if="bidJob.jobAdditionalDtoList.length > 0" class="table text-center">
+                                                            <thead>
+                                                            <tr>
+                                                                <th v-text="$t('message.shipperBidDetail.table.name')"></th>
+                                                                <th v-text="$t('message.shipperBidDetail.table.price')"></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr v-for="s in bidJob.jobAdditionalDtoList">
+                                                                <td v-text="s.name"></td>
+                                                                <td v-text="formatPrice(s.sellingPrice)" class="text-right text-inline"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-12 padding-r-l-0 margin-top-10">
+                    <button type="button" class="btn btn-app-danger" onclick="window.history.go(-1);" v-text="$t('message.button.back')"></button>
+                </div>
+            </div>
+            <div v-if="item == null" v-text="$t('message.loadingInfo')">
+
+            </div>
+        </div>
+    </div>
+
+    <!--view driver modal -->
+    <div class="modal" id="viewDriverModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.shipperBidDetail.box.assignedDriver')"></h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="portrait-frame pull-right valid-frame" style="width: 100px;height: 100px;">
+                            <img id="show-portrait" src="../img/init.png" style="max-width: 100%;height:100%"/>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.shipperBidDetail.form.name')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="displayDriverName(driverInfo)"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.shipperBidDetail.form.mobile')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="driverInfo.mobile"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.shipperBidDetail.form.licenseNo')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span v-text="driverInfo.licenseNo"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.shipperBidDetail.form.rating')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <span id="edit-rating"></span>
+                            </div>
+                        </div>
+                        <div class="margin-left-15 margin-top-10">
+                            <label class="control-label pull-left width-90" v-text="$t('message.shipperBidDetail.form.attachments')"></label>
+                            <div class="valid-frame" style="margin-left: 105px;">
+                                <input id="driver-attachmentImages" type="file"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--view picture-->
+    <div class="modal" id="viewCargoPic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.shipperBidDetail.box.showPicture')"></h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input id="showCargoPic" type="file"/>
+                    </div>
+                    <div class="margin-top-10" style="border:1px solid #eeeeee;padding: 5px;">
+                        <span v-text="$t('message.shipperBidDetail.form.cargoDescription')"></span>
+                        <span class="margin-left-15" v-text="jobCargoDescription"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="viewPODPic">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" v-text="$t('message.shipperBidDetail.box.showPicture')"></h4>
+                </div>
+                <div class="modal-body">
+                    <input id="showPODPic" type="file"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-app-primary" data-dismiss="modal" v-text="$t('message.button.close')"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script src="../js/manifest.bundle.js"></script>
+    <script src="../js/vendor.bundle.js"></script>
+    <script src="../js/shipperBidDetail.bundle.js"></script>
+</body>
+</html>

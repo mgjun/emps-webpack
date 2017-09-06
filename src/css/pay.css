@@ -1,12 +1,9 @@
-html,body,.content{
-    height: 100%;
-}
-body{
+.pay-body{
     background: url("../img/retailstore.jpg");
     font-family: Roboto-Regular,Arial;
     background-size: cover;
 }
-.box{
+.pay-box{
     width: 780px;
     height: 540px;
     position: absolute;
@@ -17,17 +14,17 @@ body{
     background: #fff;
     opacity: 0.9;
 }
-.box-body{
-    height: 474px;
+.pay-box-body{
+    height: 497px;
     border: 1px solid rgb(213,213,213);
     padding: 12px 35px;
 }
-.box-foot{
+.pay-box-foot{
     height: 40px;
     background: rgb(12,60,134);
     line-height: 40px;
 }
-.box-foot span{
+.pay-box-foot span{
     float: left;
     display: inline-block;
     margin-left: 20px;
@@ -35,14 +32,14 @@ body{
     color: #fff;
     font-size: 10pt;
 }
-.box-foot a{
+.pay-box-foot a{
     float: right;
     display: inline-block;
     height: 40px;
     line-height: 40px;
 
 }
-.box-foot a img{
+.pay-box-foot a img{
     height: 23px;
     margin-top: 8.5px;
     margin-right: 20px;
@@ -232,7 +229,7 @@ body{
     line-height: 29px;
     padding-left: 14px;
     color: rgb(73,59,177);
-    background: url("../images/discription.png") no-repeat left;
+    background: url("../img/discription.png") no-repeat left;
     background-size: 9px;
 }
 .produce p:first-child{
@@ -242,23 +239,23 @@ body{
     left: -105px;
     color: rgb(0,191,179);
 }
-.foot{
-    margin-top: 5px;
+.pay-foot{
+    margin-top: 85px;
     text-align: right;
 }
-.foot a{
+.pay-foot a{
     display: inline-block;
     height: 39px;
     line-height: 39px;
     float: left;
     font-size: 10pt;
 }
-.foot span{
+.pay-foot span{
     position: relative;
     display: inline-block;
     margin-top: 8px;
 }
-.foot span input{
+.pay-foot span input{
     width: 68px;
     height: 31px;
     text-align: center;
@@ -270,7 +267,7 @@ body{
     border: none;
     cursor: pointer;
 }
-.foot span::after{
+.pay-foot span::after{
     content: "";
     position: absolute;
     right: -20px;
@@ -281,14 +278,14 @@ body{
     border-left: 20px solid rgb(12,60,134);
     border-bottom: 15px solid transparent;
 }
-.foot .prevous::after{
+.pay-foot .prevous::after{
     left: -20px;
     border-left:none;
     border-top: 16px solid transparent;
     border-right: 20px solid rgb(12,60,134);
     border-bottom: 15px solid transparent;
 }
-.foot span:last-child{
+.pay-foot span:last-child{
     margin-right: 20px;
 }
 
@@ -663,10 +660,10 @@ input:-ms-input-placeholder { /* Internet Explorer 10+ */
     font-family: Roboto-Regular,Arial;
     color: #333333;
 }
-.dalog-foot{
+.dalog-pay-foot{
     text-align: right;
 }
-.dalog-foot input{
+.dalog-pay-foot input{
     margin-left: 10px;
     padding: 5px 10px;
     background: rgb(12,60,134);

@@ -65,7 +65,7 @@ function deepCopy(obj) {
 function load(type,callback) {
     // path.resolve(__dirname,"./static/messages/") + "/" + url+"?sspi="+getQueryParam("sspi"),
     $.ajax({
-        url:"http://10.210.36.74:8080/i18n/static/messages/message-0-EMPS_"+type+".json",
+        url:path.resolve(__dirname,"./static/messages/") + "/message_" + type+"?sspi="+getQueryParam("sspi"),
         type:"get",
         data:"",
         dataType:'json',

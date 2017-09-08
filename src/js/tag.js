@@ -1,7 +1,7 @@
 /**
  * Created by MENGJUN on 2017/2/14.
  */
-var tagTable;
+var tagTable;alert(1);alert(2);
 $(document).ready( function () {
     tagTable = $("#tag-table").dataTable($.fn.extend(true,{},app.appOption.datatables.defaultOptions,{
         "ajax":function (data,callback,settings) {

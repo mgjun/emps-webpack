@@ -4,9 +4,10 @@
   "description": "this is emps frontend",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
-    "build": "webpack-dev-server",
-    "dev":"webpack -p --progress --config webpack.config.js"
+    "build": "webpack --progress --config webpack.config.js --colors",
+    "serverDev": "webpack-dev-server --hot --config webpack.dev.config.js --colors",
+    "server":"webpack-dev-server --hot --config webpack.config.js --colors",
+    "dev":"webpack --progress --hot --config webpack.dev.config.js --colors"
   },
   "author": "",
   "license": "ISC",

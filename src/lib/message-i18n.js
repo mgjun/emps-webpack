@@ -1,5 +1,6 @@
 var apiLink = require("exports-loader?emps_api_url!./apiLink.js");
 var emps_api_url = apiLink.emps_api_url;
+require("./jquery.jsonp.js");
 
 var path = require("path");
 var Vue = require("./vue.js");
@@ -61,19 +62,20 @@ function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
 
-function load(url,callback) {
+function load(type,callback) {
+    // path.resolve(__dirname,"./static/messages/") + "/" + url+"?sspi="+getQueryParam("sspi"),
     $.ajax({
-        url : path.resolve(__dirname,"./static/messages/") + "/" + url+"?sspi="+getQueryParam("sspi"),
+        url:"http://10.210.36.74:8080/i18n/static/messages/message-0-EMPS_"+type+".json",
         type:"get",
         data:"",
-        dataType:"json",
+        dataType:'json',
         async:false,
         success:callback,
         error:function (error) {
             alert("request json error");
             console.log(error);
         }
-    })
+    });
 }
 var locale;
 function getLocale() {
@@ -92,7 +94,7 @@ function getLocale() {
     })
 }
 var messageEn,messageZh;
-load("message_en.json",function (result) {
+load("en",function (result) {
     if(result && result.responseText) {
         messageEn = JSON.parse(result);
     }
@@ -100,7 +102,7 @@ load("message_en.json",function (result) {
         messageEn = result;
     }
 });
-load("message_zh.json",function (result) {
+load("zh",function (result) {
     if(result && result.responseText) {
         messageZh = JSON.parse(result.responseText);
     }
@@ -112,7 +114,7 @@ load("message_zh.json",function (result) {
 // getLocale();
 Vue.use(VueI18n);
 var i18n = new VueI18n({
-    locale: 'zh',
+    locale: 'en',
     messages:{
         en: {
             message: messageEn
@@ -125,7 +127,7 @@ var i18n = new VueI18n({
 // var tempArr = [];
 var messages = getLocaleData();
 function getLocaleData() {
-    return i18n.messages['zh'].message
+    return i18n.messages['en'].message
 }
 module.exports = {
     messages:messages,

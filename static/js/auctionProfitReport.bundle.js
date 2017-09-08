@@ -1,4 +1,4 @@
-webpackJsonp([5],[
+webpackJsonp([2],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -9,40 +9,36 @@ webpackJsonp([5],[
  * Released under the MIT License.
  */
 (function (global, factory) {
-     true ? module.exports = factory() :
-        typeof define === 'function' && define.amd ? define(factory) :
-            (global.Vue = factory());
-}(this, (function () { 'use strict';
+     true ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : global.Vue = factory();
+})(this, function () {
+    'use strict';
 
     /*  */
 
-// these helpers produces better vm code in JS engines due to their
-// explicitness and function inlining
-    function isUndef (v) {
-        return v === undefined || v === null
+    // these helpers produces better vm code in JS engines due to their
+    // explicitness and function inlining
+
+    function isUndef(v) {
+        return v === undefined || v === null;
     }
 
-    function isDef (v) {
-        return v !== undefined && v !== null
+    function isDef(v) {
+        return v !== undefined && v !== null;
     }
 
-    function isTrue (v) {
-        return v === true
+    function isTrue(v) {
+        return v === true;
     }
 
-    function isFalse (v) {
-        return v === false
+    function isFalse(v) {
+        return v === false;
     }
 
     /**
      * Check if value is primitive
      */
-    function isPrimitive (value) {
-        return (
-            typeof value === 'string' ||
-            typeof value === 'number' ||
-            typeof value === 'boolean'
-        )
+    function isPrimitive(value) {
+        return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean';
     }
 
     /**
@@ -50,8 +46,8 @@ webpackJsonp([5],[
      * Objects from primitive values when we know the value
      * is a JSON-compliant type.
      */
-    function isObject (obj) {
-        return obj !== null && typeof obj === 'object'
+    function isObject(obj) {
+        return obj !== null && typeof obj === 'object';
     }
 
     var _toString = Object.prototype.toString;
@@ -60,58 +56,53 @@ webpackJsonp([5],[
      * Strict object type check. Only returns true
      * for plain JavaScript objects.
      */
-    function isPlainObject (obj) {
-        return _toString.call(obj) === '[object Object]'
+    function isPlainObject(obj) {
+        return _toString.call(obj) === '[object Object]';
     }
 
-    function isRegExp (v) {
-        return _toString.call(v) === '[object RegExp]'
+    function isRegExp(v) {
+        return _toString.call(v) === '[object RegExp]';
     }
 
     /**
      * Check if val is a valid array index.
      */
-    function isValidArrayIndex (val) {
+    function isValidArrayIndex(val) {
         var n = parseFloat(val);
-        return n >= 0 && Math.floor(n) === n && isFinite(val)
+        return n >= 0 && Math.floor(n) === n && isFinite(val);
     }
 
     /**
      * Convert a value to a string that is actually rendered.
      */
-    function toString (val) {
-        return val == null
-            ? ''
-            : typeof val === 'object'
-                ? JSON.stringify(val, null, 2)
-                : String(val)
+    function toString(val) {
+        return val == null ? '' : typeof val === 'object' ? JSON.stringify(val, null, 2) : String(val);
     }
 
     /**
      * Convert a input value to a number for persistence.
      * If the conversion fails, return original string.
      */
-    function toNumber (val) {
+    function toNumber(val) {
         var n = parseFloat(val);
-        return isNaN(n) ? val : n
+        return isNaN(n) ? val : n;
     }
 
     /**
      * Make a map and return a function for checking if a key
      * is in that map.
      */
-    function makeMap (
-        str,
-        expectsLowerCase
-    ) {
+    function makeMap(str, expectsLowerCase) {
         var map = Object.create(null);
         var list = str.split(',');
         for (var i = 0; i < list.length; i++) {
             map[list[i]] = true;
         }
-        return expectsLowerCase
-            ? function (val) { return map[val.toLowerCase()]; }
-            : function (val) { return map[val]; }
+        return expectsLowerCase ? function (val) {
+            return map[val.toLowerCase()];
+        } : function (val) {
+            return map[val];
+        };
     }
 
     /**
@@ -127,11 +118,11 @@ webpackJsonp([5],[
     /**
      * Remove an item from an array
      */
-    function remove (arr, item) {
+    function remove(arr, item) {
         if (arr.length) {
             var index = arr.indexOf(item);
             if (index > -1) {
-                return arr.splice(index, 1)
+                return arr.splice(index, 1);
             }
         }
     }
@@ -140,19 +131,19 @@ webpackJsonp([5],[
      * Check whether the object has the property.
      */
     var hasOwnProperty = Object.prototype.hasOwnProperty;
-    function hasOwn (obj, key) {
-        return hasOwnProperty.call(obj, key)
+    function hasOwn(obj, key) {
+        return hasOwnProperty.call(obj, key);
     }
 
     /**
      * Create a cached version of a pure function.
      */
-    function cached (fn) {
+    function cached(fn) {
         var cache = Object.create(null);
-        return (function cachedFn (str) {
+        return function cachedFn(str) {
             var hit = cache[str];
-            return hit || (cache[str] = fn(str))
-        })
+            return hit || (cache[str] = fn(str));
+        };
     }
 
     /**
@@ -160,14 +151,16 @@ webpackJsonp([5],[
      */
     var camelizeRE = /-(\w)/g;
     var camelize = cached(function (str) {
-        return str.replace(camelizeRE, function (_, c) { return c ? c.toUpperCase() : ''; })
+        return str.replace(camelizeRE, function (_, c) {
+            return c ? c.toUpperCase() : '';
+        });
     });
 
     /**
      * Capitalize a string.
      */
     var capitalize = cached(function (str) {
-        return str.charAt(0).toUpperCase() + str.slice(1)
+        return str.charAt(0).toUpperCase() + str.slice(1);
     });
 
     /**
@@ -175,63 +168,56 @@ webpackJsonp([5],[
      */
     var hyphenateRE = /([^-])([A-Z])/g;
     var hyphenate = cached(function (str) {
-        return str
-            .replace(hyphenateRE, '$1-$2')
-            .replace(hyphenateRE, '$1-$2')
-            .toLowerCase()
+        return str.replace(hyphenateRE, '$1-$2').replace(hyphenateRE, '$1-$2').toLowerCase();
     });
 
     /**
      * Simple bind, faster than native
      */
-    function bind (fn, ctx) {
-        function boundFn (a) {
+    function bind(fn, ctx) {
+        function boundFn(a) {
             var l = arguments.length;
-            return l
-                ? l > 1
-                    ? fn.apply(ctx, arguments)
-                    : fn.call(ctx, a)
-                : fn.call(ctx)
+            return l ? l > 1 ? fn.apply(ctx, arguments) : fn.call(ctx, a) : fn.call(ctx);
         }
         // record original fn length
         boundFn._length = fn.length;
-        return boundFn
+        return boundFn;
     }
 
     /**
      * Convert an Array-like object to a real Array.
      */
-    function toArray (list, start) {
+    function toArray(list, start) {
         start = start || 0;
         var i = list.length - start;
         var ret = new Array(i);
         while (i--) {
             ret[i] = list[i + start];
         }
-        return ret
+        return ret;
     }
 
     /**
      * Mix properties into target object.
      */
-    function extend (to, _from) {
+    function extend(to, _from) {
         for (var key in _from) {
             to[key] = _from[key];
         }
-        return to
+        return to;
     }
 
     /**
      * Merge an Array of Objects into a single Object.
      */
-    function toObject (arr) {
+    function toObject(arr) {
         var res = {};
         for (var i = 0; i < arr.length; i++) {
             if (arr[i]) {
                 extend(res, arr[i]);
             }
         }
-        return res
+        return res;
     }
 
     /**
@@ -239,33 +225,39 @@ webpackJsonp([5],[
      * Stubbing args to make Flow happy without leaving useless transpiled code
      * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/)
      */
-    function noop (a, b, c) {}
+    function noop(a, b, c) {}
 
     /**
      * Always return false.
      */
-    var no = function (a, b, c) { return false; };
+    var no = function (a, b, c) {
+        return false;
+    };
 
     /**
      * Return same value
      */
-    var identity = function (_) { return _; };
+    var identity = function (_) {
+        return _;
+    };
 
     /**
      * Generate a static keys string from compiler modules.
      */
-    function genStaticKeys (modules) {
+    function genStaticKeys(modules) {
         return modules.reduce(function (keys, m) {
-            return keys.concat(m.staticKeys || [])
-        }, []).join(',')
+            return keys.concat(m.staticKeys || []);
+        }, []).join(',');
     }
 
     /**
      * Check if two values are loosely equal - that is,
      * if they are plain objects, do they have the same shape?
      */
-    function looseEqual (a, b) {
-        if (a === b) { return true }
+    function looseEqual(a, b) {
+        if (a === b) {
+            return true;
+        }
         var isObjectA = isObject(a);
         var isObjectB = isObject(b);
         if (isObjectA && isObjectB) {
@@ -274,73 +266,60 @@ webpackJsonp([5],[
                 var isArrayB = Array.isArray(b);
                 if (isArrayA && isArrayB) {
                     return a.length === b.length && a.every(function (e, i) {
-                        return looseEqual(e, b[i])
-                    })
+                        return looseEqual(e, b[i]);
+                    });
                 } else if (!isArrayA && !isArrayB) {
                     var keysA = Object.keys(a);
                     var keysB = Object.keys(b);
                     return keysA.length === keysB.length && keysA.every(function (key) {
-                        return looseEqual(a[key], b[key])
-                    })
+                        return looseEqual(a[key], b[key]);
+                    });
                 } else {
                     /* istanbul ignore next */
-                    return false
+                    return false;
                 }
             } catch (e) {
                 /* istanbul ignore next */
-                return false
+                return false;
             }
         } else if (!isObjectA && !isObjectB) {
-            return String(a) === String(b)
+            return String(a) === String(b);
         } else {
-            return false
+            return false;
         }
     }
 
-    function looseIndexOf (arr, val) {
+    function looseIndexOf(arr, val) {
         for (var i = 0; i < arr.length; i++) {
-            if (looseEqual(arr[i], val)) { return i }
+            if (looseEqual(arr[i], val)) {
+                return i;
+            }
         }
-        return -1
+        return -1;
     }
 
     /**
      * Ensure a function is called only once.
      */
-    function once (fn) {
+    function once(fn) {
         var called = false;
         return function () {
             if (!called) {
                 called = true;
                 fn.apply(this, arguments);
             }
-        }
+        };
     }
 
     var SSR_ATTR = 'data-server-rendered';
 
-    var ASSET_TYPES = [
-        'component',
-        'directive',
-        'filter'
-    ];
+    var ASSET_TYPES = ['component', 'directive', 'filter'];
 
-    var LIFECYCLE_HOOKS = [
-        'beforeCreate',
-        'created',
-        'beforeMount',
-        'mounted',
-        'beforeUpdate',
-        'updated',
-        'beforeDestroy',
-        'destroyed',
-        'activated',
-        'deactivated'
-    ];
+    var LIFECYCLE_HOOKS = ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'beforeDestroy', 'destroyed', 'activated', 'deactivated'];
 
     /*  */
 
-    var config = ({
+    var config = {
         /**
          * Option merge strategies (used in core/util/options)
          */
@@ -424,7 +403,7 @@ webpackJsonp([5],[
          * Exposed for legacy reasons
          */
         _lifecycleHooks: LIFECYCLE_HOOKS
-    });
+    };
 
     /*  */
 
@@ -433,15 +412,15 @@ webpackJsonp([5],[
     /**
      * Check if a string starts with $ or _
      */
-    function isReserved (str) {
+    function isReserved(str) {
         var c = (str + '').charCodeAt(0);
-        return c === 0x24 || c === 0x5F
+        return c === 0x24 || c === 0x5F;
     }
 
     /**
      * Define a property.
      */
-    function def (obj, key, val, enumerable) {
+    function def(obj, key, val, enumerable) {
         Object.defineProperty(obj, key, {
             value: val,
             enumerable: !!enumerable,
@@ -454,62 +433,58 @@ webpackJsonp([5],[
      * Parse simple path.
      */
     var bailRE = /[^\w.$]/;
-    function parsePath (path) {
+    function parsePath(path) {
         if (bailRE.test(path)) {
-            return
+            return;
         }
         var segments = path.split('.');
         return function (obj) {
             for (var i = 0; i < segments.length; i++) {
-                if (!obj) { return }
+                if (!obj) {
+                    return;
+                }
                 obj = obj[segments[i]];
             }
-            return obj
-        }
+            return obj;
+        };
     }
 
     /*  */
 
     var warn = noop;
     var tip = noop;
-    var formatComponentName = (null); // work around flow check
+    var formatComponentName = null; // work around flow check
 
     {
         var hasConsole = typeof console !== 'undefined';
         var classifyRE = /(?:^|[-_])(\w)/g;
-        var classify = function (str) { return str
-            .replace(classifyRE, function (c) { return c.toUpperCase(); })
-            .replace(/[-_]/g, ''); };
+        var classify = function (str) {
+            return str.replace(classifyRE, function (c) {
+                return c.toUpperCase();
+            }).replace(/[-_]/g, '');
+        };
 
         warn = function (msg, vm) {
             var trace = vm ? generateComponentTrace(vm) : '';
 
             if (config.warnHandler) {
                 config.warnHandler.call(null, msg, vm, trace);
-            } else if (hasConsole && (!config.silent)) {
-                console.error(("[Vue warn]: " + msg + trace));
+            } else if (hasConsole && !config.silent) {
+                console.error("[Vue warn]: " + msg + trace);
             }
         };
 
         tip = function (msg, vm) {
-            if (hasConsole && (!config.silent)) {
-                console.warn("[Vue tip]: " + msg + (
-                    vm ? generateComponentTrace(vm) : ''
-                ));
+            if (hasConsole && !config.silent) {
+                console.warn("[Vue tip]: " + msg + (vm ? generateComponentTrace(vm) : ''));
             }
         };
 
         formatComponentName = function (vm, includeFile) {
             if (vm.$root === vm) {
-                return '<Root>'
+                return '<Root>';
             }
-            var name = typeof vm === 'string'
-                ? vm
-                : typeof vm === 'function' && vm.options
-                    ? vm.options.name
-                    : vm._isVue
-                        ? vm.$options.name || vm.$options._componentTag
-                        : vm.name;
+            var name = typeof vm === 'string' ? vm : typeof vm === 'function' && vm.options ? vm.options.name : vm._isVue ? vm.$options.name || vm.$options._componentTag : vm.name;
 
             var file = vm._isVue && vm.$options.__file;
             if (!name && file) {
@@ -517,20 +492,21 @@ webpackJsonp([5],[
                 name = match && match[1];
             }
 
-            return (
-                (name ? ("<" + (classify(name)) + ">") : "<Anonymous>") +
-                (file && includeFile !== false ? (" at " + file) : '')
-            )
+            return (name ? "<" + classify(name) + ">" : "<Anonymous>") + (file && includeFile !== false ? " at " + file : '');
         };
 
         var repeat = function (str, n) {
             var res = '';
             while (n) {
-                if (n % 2 === 1) { res += str; }
-                if (n > 1) { str += str; }
+                if (n % 2 === 1) {
+                    res += str;
+                }
+                if (n > 1) {
+                    str += str;
+                }
                 n >>= 1;
             }
-            return res
+            return res;
         };
 
         var generateComponentTrace = function (vm) {
@@ -543,7 +519,7 @@ webpackJsonp([5],[
                         if (last.constructor === vm.constructor) {
                             currentRecursiveSequence++;
                             vm = vm.$parent;
-                            continue
+                            continue;
                         } else if (currentRecursiveSequence > 0) {
                             tree[tree.length - 1] = [last, currentRecursiveSequence];
                             currentRecursiveSequence = 0;
@@ -552,31 +528,29 @@ webpackJsonp([5],[
                     tree.push(vm);
                     vm = vm.$parent;
                 }
-                return '\n\nfound in\n\n' + tree
-                    .map(function (vm, i) { return ("" + (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) + (Array.isArray(vm)
-                        ? ((formatComponentName(vm[0])) + "... (" + (vm[1]) + " recursive calls)")
-                        : formatComponentName(vm))); })
-                    .join('\n')
+                return '\n\nfound in\n\n' + tree.map(function (vm, i) {
+                    return "" + (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) + (Array.isArray(vm) ? formatComponentName(vm[0]) + "... (" + vm[1] + " recursive calls)" : formatComponentName(vm));
+                }).join('\n');
             } else {
-                return ("\n\n(found in " + (formatComponentName(vm)) + ")")
+                return "\n\n(found in " + formatComponentName(vm) + ")";
             }
         };
     }
 
     /*  */
 
-    function handleError (err, vm, info) {
+    function handleError(err, vm, info) {
         if (config.errorHandler) {
             config.errorHandler.call(null, err, vm, info);
         } else {
             {
-                warn(("Error in " + info + ": \"" + (err.toString()) + "\""), vm);
+                warn("Error in " + info + ": \"" + err.toString() + "\"", vm);
             }
             /* istanbul ignore else */
             if (inBrowser && typeof console !== 'undefined') {
                 console.error(err);
             } else {
-                throw err
+                throw err;
             }
         }
     }
@@ -584,10 +558,10 @@ webpackJsonp([5],[
     /*  */
     /* globals MutationObserver */
 
-// can we use __proto__?
+    // can we use __proto__?
     var hasProto = '__proto__' in {};
 
-// Browser environment sniffing
+    // Browser environment sniffing
     var inBrowser = typeof window !== 'undefined';
     var UA = inBrowser && window.navigator.userAgent.toLowerCase();
     var isIE = UA && /msie|trident/.test(UA);
@@ -597,25 +571,25 @@ webpackJsonp([5],[
     var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
     var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
 
-// Firefix has a "watch" function on Object.prototype...
-    var nativeWatch = ({}).watch;
+    // Firefix has a "watch" function on Object.prototype...
+    var nativeWatch = {}.watch;
 
     var supportsPassive = false;
     if (inBrowser) {
         try {
             var opts = {};
-            Object.defineProperty(opts, 'passive', ({
-                get: function get () {
+            Object.defineProperty(opts, 'passive', {
+                get: function get() {
                     /* istanbul ignore next */
                     supportsPassive = true;
                 }
-            })); // https://github.com/facebook/flow/issues/285
+            }); // https://github.com/facebook/flow/issues/285
             window.addEventListener('test-passive', null, opts);
         } catch (e) {}
     }
 
-// this needs to be lazy-evaled because vue may be required before
-// vue-server-renderer can set VUE_ENV
+    // this needs to be lazy-evaled because vue may be required before
+    // vue-server-renderer can set VUE_ENV
     var _isServer;
     var isServerRendering = function () {
         if (_isServer === undefined) {
@@ -628,30 +602,28 @@ webpackJsonp([5],[
                 _isServer = false;
             }
         }
-        return _isServer
+        return _isServer;
     };
 
-// detect devtools
+    // detect devtools
     var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
     /* istanbul ignore next */
-    function isNative (Ctor) {
-        return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+    function isNative(Ctor) {
+        return typeof Ctor === 'function' && /native code/.test(Ctor.toString());
     }
 
-    var hasSymbol =
-        typeof Symbol !== 'undefined' && isNative(Symbol) &&
-        typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
+    var hasSymbol = typeof Symbol !== 'undefined' && isNative(Symbol) && typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
 
     /**
      * Defer a task to execute it asynchronously.
      */
-    var nextTick = (function () {
+    var nextTick = function () {
         var callbacks = [];
         var pending = false;
         var timerFunc;
 
-        function nextTickHandler () {
+        function nextTickHandler() {
             pending = false;
             var copies = callbacks.slice(0);
             callbacks.length = 0;
@@ -669,7 +641,9 @@ webpackJsonp([5],[
         /* istanbul ignore if */
         if (typeof Promise !== 'undefined' && isNative(Promise)) {
             var p = Promise.resolve();
-            var logError = function (err) { console.error(err); };
+            var logError = function (err) {
+                console.error(err);
+            };
             timerFunc = function () {
                 p.then(nextTickHandler).catch(logError);
                 // in problematic UIWebViews, Promise.then doesn't completely break, but
@@ -677,13 +651,13 @@ webpackJsonp([5],[
                 // microtask queue but the queue isn't being flushed, until the browser
                 // needs to do some other work, e.g. handle a timer. Therefore we can
                 // "force" the microtask queue to be flushed by adding an empty timer.
-                if (isIOS) { setTimeout(noop); }
+                if (isIOS) {
+                    setTimeout(noop);
+                }
             };
-        } else if (typeof MutationObserver !== 'undefined' && (
-                isNative(MutationObserver) ||
-                // PhantomJS and iOS 7.x
-                MutationObserver.toString() === '[object MutationObserverConstructor]'
-            )) {
+        } else if (typeof MutationObserver !== 'undefined' && (isNative(MutationObserver) ||
+        // PhantomJS and iOS 7.x
+        MutationObserver.toString() === '[object MutationObserverConstructor]')) {
             // use MutationObserver where native Promise is not available,
             // e.g. PhantomJS IE11, iOS7, Android 4.4
             var counter = 1;
@@ -704,7 +678,7 @@ webpackJsonp([5],[
             };
         }
 
-        return function queueNextTick (cb, ctx) {
+        return function queueNextTick(cb, ctx) {
             var _resolve;
             callbacks.push(function () {
                 if (cb) {
@@ -724,10 +698,10 @@ webpackJsonp([5],[
             if (!cb && typeof Promise !== 'undefined') {
                 return new Promise(function (resolve, reject) {
                     _resolve = resolve;
-                })
+                });
             }
-        }
-    })();
+        };
+    }();
 
     var _Set;
     /* istanbul ignore if */
@@ -736,26 +710,25 @@ webpackJsonp([5],[
         _Set = Set;
     } else {
         // a non-standard Set polyfill that only works with primitive keys.
-        _Set = (function () {
-            function Set () {
+        _Set = function () {
+            function Set() {
                 this.set = Object.create(null);
             }
-            Set.prototype.has = function has (key) {
-                return this.set[key] === true
+            Set.prototype.has = function has(key) {
+                return this.set[key] === true;
             };
-            Set.prototype.add = function add (key) {
+            Set.prototype.add = function add(key) {
                 this.set[key] = true;
             };
-            Set.prototype.clear = function clear () {
+            Set.prototype.clear = function clear() {
                 this.set = Object.create(null);
             };
 
             return Set;
-        }());
+        }();
     }
 
     /*  */
-
 
     var uid = 0;
 
@@ -763,26 +736,26 @@ webpackJsonp([5],[
      * A dep is an observable that can have multiple
      * directives subscribing to it.
      */
-    var Dep = function Dep () {
+    var Dep = function Dep() {
         this.id = uid++;
         this.subs = [];
     };
 
-    Dep.prototype.addSub = function addSub (sub) {
+    Dep.prototype.addSub = function addSub(sub) {
         this.subs.push(sub);
     };
 
-    Dep.prototype.removeSub = function removeSub (sub) {
+    Dep.prototype.removeSub = function removeSub(sub) {
         remove(this.subs, sub);
     };
 
-    Dep.prototype.depend = function depend () {
+    Dep.prototype.depend = function depend() {
         if (Dep.target) {
             Dep.target.addDep(this);
         }
     };
 
-    Dep.prototype.notify = function notify () {
+    Dep.prototype.notify = function notify() {
         // stabilize the subscriber list first
         var subs = this.subs.slice();
         for (var i = 0, l = subs.length; i < l; i++) {
@@ -790,61 +763,57 @@ webpackJsonp([5],[
         }
     };
 
-// the current target watcher being evaluated.
-// this is globally unique because there could be only one
-// watcher being evaluated at any time.
+    // the current target watcher being evaluated.
+    // this is globally unique because there could be only one
+    // watcher being evaluated at any time.
     Dep.target = null;
     var targetStack = [];
 
-    function pushTarget (_target) {
-        if (Dep.target) { targetStack.push(Dep.target); }
+    function pushTarget(_target) {
+        if (Dep.target) {
+            targetStack.push(Dep.target);
+        }
         Dep.target = _target;
     }
 
-    function popTarget () {
+    function popTarget() {
         Dep.target = targetStack.pop();
     }
 
     /*
- * not type checking this file because flow doesn't play well with
- * dynamically accessing methods on Array prototype
- */
+    * not type checking this file because flow doesn't play well with
+    * dynamically accessing methods on Array prototype
+    */
 
     var arrayProto = Array.prototype;
-    var arrayMethods = Object.create(arrayProto);[
-        'push',
-        'pop',
-        'shift',
-        'unshift',
-        'splice',
-        'sort',
-        'reverse'
-    ]
-        .forEach(function (method) {
-            // cache original method
-            var original = arrayProto[method];
-            def(arrayMethods, method, function mutator () {
-                var args = [], len = arguments.length;
-                while ( len-- ) args[ len ] = arguments[ len ];
+    var arrayMethods = Object.create(arrayProto);['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
+        // cache original method
+        var original = arrayProto[method];
+        def(arrayMethods, method, function mutator() {
+            var args = [],
+                len = arguments.length;
+            while (len--) args[len] = arguments[len];
 
-                var result = original.apply(this, args);
-                var ob = this.__ob__;
-                var inserted;
-                switch (method) {
-                    case 'push':
-                    case 'unshift':
-                        inserted = args;
-                        break
-                    case 'splice':
-                        inserted = args.slice(2);
-                        break
-                }
-                if (inserted) { ob.observeArray(inserted); }
-                // notify change
-                ob.dep.notify();
-                return result
-            });
+            var result = original.apply(this, args);
+            var ob = this.__ob__;
+            var inserted;
+            switch (method) {
+                case 'push':
+                case 'unshift':
+                    inserted = args;
+                    break;
+                case 'splice':
+                    inserted = args.slice(2);
+                    break;
+            }
+            if (inserted) {
+                ob.observeArray(inserted);
+            }
+            // notify change
+            ob.dep.notify();
+            return result;
         });
+    });
 
     /*  */
 
@@ -866,15 +835,13 @@ webpackJsonp([5],[
      * object's property keys into getter/setters that
      * collect dependencies and dispatches updates.
      */
-    var Observer = function Observer (value) {
+    var Observer = function Observer(value) {
         this.value = value;
         this.dep = new Dep();
         this.vmCount = 0;
         def(value, '__ob__', this);
         if (Array.isArray(value)) {
-            var augment = hasProto
-                ? protoAugment
-                : copyAugment;
+            var augment = hasProto ? protoAugment : copyAugment;
             augment(value, arrayMethods, arrayKeys);
             this.observeArray(value);
         } else {
@@ -887,7 +854,7 @@ webpackJsonp([5],[
      * getter/setters. This method should only be called when
      * value type is Object.
      */
-    Observer.prototype.walk = function walk (obj) {
+    Observer.prototype.walk = function walk(obj) {
         var keys = Object.keys(obj);
         for (var i = 0; i < keys.length; i++) {
             defineReactive$$1(obj, keys[i], obj[keys[i]]);
@@ -897,19 +864,19 @@ webpackJsonp([5],[
     /**
      * Observe a list of Array items.
      */
-    Observer.prototype.observeArray = function observeArray (items) {
+    Observer.prototype.observeArray = function observeArray(items) {
         for (var i = 0, l = items.length; i < l; i++) {
             observe(items[i]);
         }
     };
 
-// helpers
+    // helpers
 
     /**
      * Augment an target Object or Array by intercepting
      * the prototype chain using __proto__
      */
-    function protoAugment (target, src, keys) {
+    function protoAugment(target, src, keys) {
         /* eslint-disable no-proto */
         target.__proto__ = src;
         /* eslint-enable no-proto */
@@ -920,7 +887,7 @@ webpackJsonp([5],[
      * hidden properties.
      */
     /* istanbul ignore next */
-    function copyAugment (target, src, keys) {
+    function copyAugment(target, src, keys) {
         for (var i = 0, l = keys.length; i < l; i++) {
             var key = keys[i];
             def(target, key, src[key]);
@@ -932,43 +899,31 @@ webpackJsonp([5],[
      * returns the new observer if successfully observed,
      * or the existing observer if the value already has one.
      */
-    function observe (value, asRootData) {
+    function observe(value, asRootData) {
         if (!isObject(value)) {
-            return
+            return;
         }
         var ob;
         if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
             ob = value.__ob__;
-        } else if (
-            observerState.shouldConvert &&
-            !isServerRendering() &&
-            (Array.isArray(value) || isPlainObject(value)) &&
-            Object.isExtensible(value) &&
-            !value._isVue
-        ) {
+        } else if (observerState.shouldConvert && !isServerRendering() && (Array.isArray(value) || isPlainObject(value)) && Object.isExtensible(value) && !value._isVue) {
             ob = new Observer(value);
         }
         if (asRootData && ob) {
             ob.vmCount++;
         }
-        return ob
+        return ob;
     }
 
     /**
      * Define a reactive property on an Object.
      */
-    function defineReactive$$1 (
-        obj,
-        key,
-        val,
-        customSetter,
-        shallow
-    ) {
+    function defineReactive$$1(obj, key, val, customSetter, shallow) {
         var dep = new Dep();
 
         var property = Object.getOwnPropertyDescriptor(obj, key);
         if (property && property.configurable === false) {
-            return
+            return;
         }
 
         // cater for pre-defined getter/setters
@@ -979,7 +934,7 @@ webpackJsonp([5],[
         Object.defineProperty(obj, key, {
             enumerable: true,
             configurable: true,
-            get: function reactiveGetter () {
+            get: function reactiveGetter() {
                 var value = getter ? getter.call(obj) : val;
                 if (Dep.target) {
                     dep.depend();
@@ -990,13 +945,13 @@ webpackJsonp([5],[
                         dependArray(value);
                     }
                 }
-                return value
+                return value;
             },
-            set: function reactiveSetter (newVal) {
+            set: function reactiveSetter(newVal) {
                 var value = getter ? getter.call(obj) : val;
                 /* eslint-disable no-self-compare */
-                if (newVal === value || (newVal !== newVal && value !== value)) {
-                    return
+                if (newVal === value || newVal !== newVal && value !== value) {
+                    return;
                 }
                 /* eslint-enable no-self-compare */
                 if ("development" !== 'production' && customSetter) {
@@ -1018,55 +973,49 @@ webpackJsonp([5],[
      * triggers change notification if the property doesn't
      * already exist.
      */
-    function set (target, key, val) {
+    function set(target, key, val) {
         if (Array.isArray(target) && isValidArrayIndex(key)) {
             target.length = Math.max(target.length, key);
             target.splice(key, 1, val);
-            return val
+            return val;
         }
         if (hasOwn(target, key)) {
             target[key] = val;
-            return val
+            return val;
         }
-        var ob = (target).__ob__;
-        if (target._isVue || (ob && ob.vmCount)) {
-            "development" !== 'production' && warn(
-                'Avoid adding reactive properties to a Vue instance or its root $data ' +
-                'at runtime - declare it upfront in the data option.'
-            );
-            return val
+        var ob = target.__ob__;
+        if (target._isVue || ob && ob.vmCount) {
+            "development" !== 'production' && warn('Avoid adding reactive properties to a Vue instance or its root $data ' + 'at runtime - declare it upfront in the data option.');
+            return val;
         }
         if (!ob) {
             target[key] = val;
-            return val
+            return val;
         }
         defineReactive$$1(ob.value, key, val);
         ob.dep.notify();
-        return val
+        return val;
     }
 
     /**
      * Delete a property and trigger change if necessary.
      */
-    function del (target, key) {
+    function del(target, key) {
         if (Array.isArray(target) && isValidArrayIndex(key)) {
             target.splice(key, 1);
-            return
+            return;
         }
-        var ob = (target).__ob__;
-        if (target._isVue || (ob && ob.vmCount)) {
-            "development" !== 'production' && warn(
-                'Avoid deleting properties on a Vue instance or its root $data ' +
-                '- just set it to null.'
-            );
-            return
+        var ob = target.__ob__;
+        if (target._isVue || ob && ob.vmCount) {
+            "development" !== 'production' && warn('Avoid deleting properties on a Vue instance or its root $data ' + '- just set it to null.');
+            return;
         }
         if (!hasOwn(target, key)) {
-            return
+            return;
         }
         delete target[key];
         if (!ob) {
-            return
+            return;
         }
         ob.dep.notify();
     }
@@ -1075,8 +1024,8 @@ webpackJsonp([5],[
      * Collect dependencies on array elements when the array is touched, since
      * we cannot intercept array element access like property getters.
      */
-    function dependArray (value) {
-        for (var e = (void 0), i = 0, l = value.length; i < l; i++) {
+    function dependArray(value) {
+        for (var e = void 0, i = 0, l = value.length; i < l; i++) {
             e = value[i];
             e && e.__ob__ && e.__ob__.dep.depend();
             if (Array.isArray(e)) {
@@ -1100,20 +1049,19 @@ webpackJsonp([5],[
     {
         strats.el = strats.propsData = function (parent, child, vm, key) {
             if (!vm) {
-                warn(
-                    "option \"" + key + "\" can only be used during instance " +
-                    'creation with the `new` keyword.'
-                );
+                warn("option \"" + key + "\" can only be used during instance " + 'creation with the `new` keyword.');
             }
-            return defaultStrat(parent, child)
+            return defaultStrat(parent, child);
         };
     }
 
     /**
      * Helper that recursively merges two data objects together.
      */
-    function mergeData (to, from) {
-        if (!from) { return to }
+    function mergeData(to, from) {
+        if (!from) {
+            return to;
+        }
         var key, toVal, fromVal;
         var keys = Object.keys(from);
         for (var i = 0; i < keys.length; i++) {
@@ -1126,90 +1074,61 @@ webpackJsonp([5],[
                 mergeData(toVal, fromVal);
             }
         }
-        return to
+        return to;
     }
 
     /**
      * Data
      */
-    function mergeDataOrFn (
-        parentVal,
-        childVal,
-        vm
-    ) {
+    function mergeDataOrFn(parentVal, childVal, vm) {
         if (!vm) {
             // in a Vue.extend merge, both should be functions
             if (!childVal) {
-                return parentVal
+                return parentVal;
             }
             if (!parentVal) {
-                return childVal
+                return childVal;
             }
             // when parentVal & childVal are both present,
             // we need to return a function that returns the
             // merged result of both functions... no need to
             // check if parentVal is a function here because
             // it has to be a function to pass previous merges.
-            return function mergedDataFn () {
-                return mergeData(
-                    typeof childVal === 'function' ? childVal.call(this) : childVal,
-                    typeof parentVal === 'function' ? parentVal.call(this) : parentVal
-                )
-            }
+            return function mergedDataFn() {
+                return mergeData(typeof childVal === 'function' ? childVal.call(this) : childVal, typeof parentVal === 'function' ? parentVal.call(this) : parentVal);
+            };
         } else if (parentVal || childVal) {
-            return function mergedInstanceDataFn () {
+            return function mergedInstanceDataFn() {
                 // instance merge
-                var instanceData = typeof childVal === 'function'
-                    ? childVal.call(vm)
-                    : childVal;
-                var defaultData = typeof parentVal === 'function'
-                    ? parentVal.call(vm)
-                    : undefined;
+                var instanceData = typeof childVal === 'function' ? childVal.call(vm) : childVal;
+                var defaultData = typeof parentVal === 'function' ? parentVal.call(vm) : undefined;
                 if (instanceData) {
-                    return mergeData(instanceData, defaultData)
+                    return mergeData(instanceData, defaultData);
                 } else {
-                    return defaultData
+                    return defaultData;
                 }
-            }
+            };
         }
     }
 
-    strats.data = function (
-        parentVal,
-        childVal,
-        vm
-    ) {
+    strats.data = function (parentVal, childVal, vm) {
         if (!vm) {
             if (childVal && typeof childVal !== 'function') {
-                "development" !== 'production' && warn(
-                    'The "data" option should be a function ' +
-                    'that returns a per-instance value in component ' +
-                    'definitions.',
-                    vm
-                );
+                "development" !== 'production' && warn('The "data" option should be a function ' + 'that returns a per-instance value in component ' + 'definitions.', vm);
 
-                return parentVal
+                return parentVal;
             }
-            return mergeDataOrFn.call(this, parentVal, childVal)
+            return mergeDataOrFn.call(this, parentVal, childVal);
         }
 
-        return mergeDataOrFn(parentVal, childVal, vm)
+        return mergeDataOrFn(parentVal, childVal, vm);
     };
 
     /**
      * Hooks and props are merged as arrays.
      */
-    function mergeHook (
-        parentVal,
-        childVal
-    ) {
-        return childVal
-            ? parentVal
-                ? parentVal.concat(childVal)
-                : Array.isArray(childVal)
-                    ? childVal
-                    : [childVal]
-            : parentVal
+    function mergeHook(parentVal, childVal) {
+        return childVal ? parentVal ? parentVal.concat(childVal) : Array.isArray(childVal) ? childVal : [childVal] : parentVal;
     }
 
     LIFECYCLE_HOOKS.forEach(function (hook) {
@@ -1223,11 +1142,9 @@ webpackJsonp([5],[
      * a three-way merge between constructor options, instance
      * options and parent options.
      */
-    function mergeAssets (parentVal, childVal) {
+    function mergeAssets(parentVal, childVal) {
         var res = Object.create(parentVal || null);
-        return childVal
-            ? extend(res, childVal)
-            : res
+        return childVal ? extend(res, childVal) : res;
     }
 
     ASSET_TYPES.forEach(function (type) {
@@ -1242,11 +1159,19 @@ webpackJsonp([5],[
      */
     strats.watch = function (parentVal, childVal) {
         // work around Firefox's Object.prototype.watch...
-        if (parentVal === nativeWatch) { parentVal = undefined; }
-        if (childVal === nativeWatch) { childVal = undefined; }
+        if (parentVal === nativeWatch) {
+            parentVal = undefined;
+        }
+        if (childVal === nativeWatch) {
+            childVal = undefined;
+        }
         /* istanbul ignore if */
-        if (!childVal) { return Object.create(parentVal || null) }
-        if (!parentVal) { return childVal }
+        if (!childVal) {
+            return Object.create(parentVal || null);
+        }
+        if (!parentVal) {
+            return childVal;
+        }
         var ret = {};
         extend(ret, parentVal);
         for (var key in childVal) {
@@ -1255,48 +1180,42 @@ webpackJsonp([5],[
             if (parent && !Array.isArray(parent)) {
                 parent = [parent];
             }
-            ret[key] = parent
-                ? parent.concat(child)
-                : Array.isArray(child) ? child : [child];
+            ret[key] = parent ? parent.concat(child) : Array.isArray(child) ? child : [child];
         }
-        return ret
+        return ret;
     };
 
     /**
      * Other object hashes.
      */
-    strats.props =
-        strats.methods =
-            strats.inject =
-                strats.computed = function (parentVal, childVal) {
-                    if (!parentVal) { return childVal }
-                    var ret = Object.create(null);
-                    extend(ret, parentVal);
-                    if (childVal) { extend(ret, childVal); }
-                    return ret
-                };
+    strats.props = strats.methods = strats.inject = strats.computed = function (parentVal, childVal) {
+        if (!parentVal) {
+            return childVal;
+        }
+        var ret = Object.create(null);
+        extend(ret, parentVal);
+        if (childVal) {
+            extend(ret, childVal);
+        }
+        return ret;
+    };
     strats.provide = mergeDataOrFn;
 
     /**
      * Default strategy.
      */
     var defaultStrat = function (parentVal, childVal) {
-        return childVal === undefined
-            ? parentVal
-            : childVal
+        return childVal === undefined ? parentVal : childVal;
     };
 
     /**
      * Validate component names
      */
-    function checkComponents (options) {
+    function checkComponents(options) {
         for (var key in options.components) {
             var lower = key.toLowerCase();
             if (isBuiltInTag(lower) || config.isReservedTag(lower)) {
-                warn(
-                    'Do not use built-in or reserved HTML elements as component ' +
-                    'id: ' + key
-                );
+                warn('Do not use built-in or reserved HTML elements as component ' + 'id: ' + key);
             }
         }
     }
@@ -1305,9 +1224,11 @@ webpackJsonp([5],[
      * Ensure all props option syntax are normalized into the
      * Object-based format.
      */
-    function normalizeProps (options) {
+    function normalizeProps(options) {
         var props = options.props;
-        if (!props) { return }
+        if (!props) {
+            return;
+        }
         var res = {};
         var i, val, name;
         if (Array.isArray(props)) {
@@ -1325,9 +1246,7 @@ webpackJsonp([5],[
             for (var key in props) {
                 val = props[key];
                 name = camelize(key);
-                res[name] = isPlainObject(val)
-                    ? val
-                    : { type: val };
+                res[name] = isPlainObject(val) ? val : { type: val };
             }
         }
         options.props = res;
@@ -1336,7 +1255,7 @@ webpackJsonp([5],[
     /**
      * Normalize all injections into Object-based format
      */
-    function normalizeInject (options) {
+    function normalizeInject(options) {
         var inject = options.inject;
         if (Array.isArray(inject)) {
             var normalized = options.inject = {};
@@ -1349,7 +1268,7 @@ webpackJsonp([5],[
     /**
      * Normalize raw function directives into object format.
      */
-    function normalizeDirectives (options) {
+    function normalizeDirectives(options) {
         var dirs = options.directives;
         if (dirs) {
             for (var key in dirs) {
@@ -1365,11 +1284,7 @@ webpackJsonp([5],[
      * Merge two option objects into a new one.
      * Core utility used in both instantiation and inheritance.
      */
-    function mergeOptions (
-        parent,
-        child,
-        vm
-    ) {
+    function mergeOptions(parent, child, vm) {
         {
             checkComponents(child);
         }
@@ -1400,11 +1315,11 @@ webpackJsonp([5],[
                 mergeField(key);
             }
         }
-        function mergeField (key) {
+        function mergeField(key) {
             var strat = strats[key] || defaultStrat;
             options[key] = strat(parent[key], child[key], vm, key);
         }
-        return options
+        return options;
     }
 
     /**
@@ -1412,42 +1327,35 @@ webpackJsonp([5],[
      * This function is used because child instances need access
      * to assets defined in its ancestor chain.
      */
-    function resolveAsset (
-        options,
-        type,
-        id,
-        warnMissing
-    ) {
+    function resolveAsset(options, type, id, warnMissing) {
         /* istanbul ignore if */
         if (typeof id !== 'string') {
-            return
+            return;
         }
         var assets = options[type];
         // check local registration variations first
-        if (hasOwn(assets, id)) { return assets[id] }
+        if (hasOwn(assets, id)) {
+            return assets[id];
+        }
         var camelizedId = camelize(id);
-        if (hasOwn(assets, camelizedId)) { return assets[camelizedId] }
+        if (hasOwn(assets, camelizedId)) {
+            return assets[camelizedId];
+        }
         var PascalCaseId = capitalize(camelizedId);
-        if (hasOwn(assets, PascalCaseId)) { return assets[PascalCaseId] }
+        if (hasOwn(assets, PascalCaseId)) {
+            return assets[PascalCaseId];
+        }
         // fallback to prototype chain
         var res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
         if ("development" !== 'production' && warnMissing && !res) {
-            warn(
-                'Failed to resolve ' + type.slice(0, -1) + ': ' + id,
-                options
-            );
+            warn('Failed to resolve ' + type.slice(0, -1) + ': ' + id, options);
         }
-        return res
+        return res;
     }
 
     /*  */
 
-    function validateProp (
-        key,
-        propOptions,
-        propsData,
-        vm
-    ) {
+    function validateProp(key, propOptions, propsData, vm) {
         var prop = propOptions[key];
         var absent = !hasOwn(propsData, key);
         var value = propsData[key];
@@ -1472,61 +1380,42 @@ webpackJsonp([5],[
         {
             assertProp(prop, key, value, vm, absent);
         }
-        return value
+        return value;
     }
 
     /**
      * Get the default value of a prop.
      */
-    function getPropDefaultValue (vm, prop, key) {
+    function getPropDefaultValue(vm, prop, key) {
         // no default, return undefined
         if (!hasOwn(prop, 'default')) {
-            return undefined
+            return undefined;
         }
         var def = prop.default;
         // warn against non-factory defaults for Object & Array
         if ("development" !== 'production' && isObject(def)) {
-            warn(
-                'Invalid default value for prop "' + key + '": ' +
-                'Props with type Object/Array must use a factory function ' +
-                'to return the default value.',
-                vm
-            );
+            warn('Invalid default value for prop "' + key + '": ' + 'Props with type Object/Array must use a factory function ' + 'to return the default value.', vm);
         }
         // the raw prop value was also undefined from previous render,
         // return previous default value to avoid unnecessary watcher trigger
-        if (vm && vm.$options.propsData &&
-            vm.$options.propsData[key] === undefined &&
-            vm._props[key] !== undefined
-        ) {
-            return vm._props[key]
+        if (vm && vm.$options.propsData && vm.$options.propsData[key] === undefined && vm._props[key] !== undefined) {
+            return vm._props[key];
         }
         // call factory function for non-Function types
         // a value is Function if its prototype is function even across different execution context
-        return typeof def === 'function' && getType(prop.type) !== 'Function'
-            ? def.call(vm)
-            : def
+        return typeof def === 'function' && getType(prop.type) !== 'Function' ? def.call(vm) : def;
     }
 
     /**
      * Assert whether a prop is valid.
      */
-    function assertProp (
-        prop,
-        name,
-        value,
-        vm,
-        absent
-    ) {
+    function assertProp(prop, name, value, vm, absent) {
         if (prop.required && absent) {
-            warn(
-                'Missing required prop: "' + name + '"',
-                vm
-            );
-            return
+            warn('Missing required prop: "' + name + '"', vm);
+            return;
         }
         if (value == null && !prop.required) {
-            return
+            return;
         }
         var type = prop.type;
         var valid = !type || type === true;
@@ -1542,28 +1431,20 @@ webpackJsonp([5],[
             }
         }
         if (!valid) {
-            warn(
-                'Invalid prop: type check failed for prop "' + name + '".' +
-                ' Expected ' + expectedTypes.map(capitalize).join(', ') +
-                ', got ' + Object.prototype.toString.call(value).slice(8, -1) + '.',
-                vm
-            );
-            return
+            warn('Invalid prop: type check failed for prop "' + name + '".' + ' Expected ' + expectedTypes.map(capitalize).join(', ') + ', got ' + Object.prototype.toString.call(value).slice(8, -1) + '.', vm);
+            return;
         }
         var validator = prop.validator;
         if (validator) {
             if (!validator(value)) {
-                warn(
-                    'Invalid prop: custom validator check failed for prop "' + name + '".',
-                    vm
-                );
+                warn('Invalid prop: custom validator check failed for prop "' + name + '".', vm);
             }
         }
     }
 
     var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
 
-    function assertType (value, type) {
+    function assertType(value, type) {
         var valid;
         var expectedType = getType(type);
         if (simpleCheckRE.test(expectedType)) {
@@ -1578,7 +1459,7 @@ webpackJsonp([5],[
         return {
             valid: valid,
             expectedType: expectedType
-        }
+        };
     }
 
     /**
@@ -1586,22 +1467,22 @@ webpackJsonp([5],[
      * because a simple equality check will fail when running
      * across different vms / iframes.
      */
-    function getType (fn) {
+    function getType(fn) {
         var match = fn && fn.toString().match(/^\s*function (\w+)/);
-        return match ? match[1] : ''
+        return match ? match[1] : '';
     }
 
-    function isType (type, fn) {
+    function isType(type, fn) {
         if (!Array.isArray(fn)) {
-            return getType(fn) === getType(type)
+            return getType(fn) === getType(type);
         }
         for (var i = 0, len = fn.length; i < len; i++) {
             if (getType(fn[i]) === getType(type)) {
-                return true
+                return true;
             }
         }
         /* istanbul ignore next */
-        return false
+        return false;
     }
 
     /*  */
@@ -1612,14 +1493,10 @@ webpackJsonp([5],[
     {
         var perf = inBrowser && window.performance;
         /* istanbul ignore if */
-        if (
-            perf &&
-            perf.mark &&
-            perf.measure &&
-            perf.clearMarks &&
-            perf.clearMeasures
-        ) {
-            mark = function (tag) { return perf.mark(tag); };
+        if (perf && perf.mark && perf.measure && perf.clearMarks && perf.clearMeasures) {
+            mark = function (tag) {
+                return perf.mark(tag);
+            };
             measure = function (name, startTag, endTag) {
                 perf.measure(name, startTag, endTag);
                 perf.clearMarks(startTag);
@@ -1634,68 +1511,55 @@ webpackJsonp([5],[
     var initProxy;
 
     {
-        var allowedGlobals = makeMap(
-            'Infinity,undefined,NaN,isFinite,isNaN,' +
-            'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' +
-            'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' +
-            'require' // for Webpack/Browserify
+        var allowedGlobals = makeMap('Infinity,undefined,NaN,isFinite,isNaN,' + 'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' + 'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' + 'require' // for Webpack/Browserify
         );
 
         var warnNonPresent = function (target, key) {
-            warn(
-                "Property or method \"" + key + "\" is not defined on the instance but " +
-                "referenced during render. Make sure to declare reactive data " +
-                "properties in the data option.",
-                target
-            );
+            warn("Property or method \"" + key + "\" is not defined on the instance but " + "referenced during render. Make sure to declare reactive data " + "properties in the data option.", target);
         };
 
-        var hasProxy =
-            typeof Proxy !== 'undefined' &&
-            Proxy.toString().match(/native code/);
+        var hasProxy = typeof Proxy !== 'undefined' && Proxy.toString().match(/native code/);
 
         if (hasProxy) {
             var isBuiltInModifier = makeMap('stop,prevent,self,ctrl,shift,alt,meta');
             config.keyCodes = new Proxy(config.keyCodes, {
-                set: function set (target, key, value) {
+                set: function set(target, key, value) {
                     if (isBuiltInModifier(key)) {
-                        warn(("Avoid overwriting built-in modifier in config.keyCodes: ." + key));
-                        return false
+                        warn("Avoid overwriting built-in modifier in config.keyCodes: ." + key);
+                        return false;
                     } else {
                         target[key] = value;
-                        return true
+                        return true;
                     }
                 }
             });
         }
 
         var hasHandler = {
-            has: function has (target, key) {
+            has: function has(target, key) {
                 var has = key in target;
                 var isAllowed = allowedGlobals(key) || key.charAt(0) === '_';
                 if (!has && !isAllowed) {
                     warnNonPresent(target, key);
                 }
-                return has || !isAllowed
+                return has || !isAllowed;
             }
         };
 
         var getHandler = {
-            get: function get (target, key) {
+            get: function get(target, key) {
                 if (typeof key === 'string' && !(key in target)) {
                     warnNonPresent(target, key);
                 }
-                return target[key]
+                return target[key];
             }
         };
 
-        initProxy = function initProxy (vm) {
+        initProxy = function initProxy(vm) {
             if (hasProxy) {
                 // determine which proxy handler to use
                 var options = vm.$options;
-                var handlers = options.render && options.render._withStripped
-                    ? getHandler
-                    : hasHandler;
+                var handlers = options.render && options.render._withStripped ? getHandler : hasHandler;
                 vm._renderProxy = new Proxy(vm, handlers);
             } else {
                 vm._renderProxy = vm;
@@ -1705,16 +1569,7 @@ webpackJsonp([5],[
 
     /*  */
 
-    var VNode = function VNode (
-        tag,
-        data,
-        children,
-        text,
-        elm,
-        context,
-        componentOptions,
-        asyncFactory
-    ) {
+    var VNode = function VNode(tag, data, children, text, elm, context, componentOptions, asyncFactory) {
         this.tag = tag;
         this.data = data;
         this.children = children;
@@ -1740,57 +1595,48 @@ webpackJsonp([5],[
 
     var prototypeAccessors = { child: {} };
 
-// DEPRECATED: alias for componentInstance for backwards compat.
+    // DEPRECATED: alias for componentInstance for backwards compat.
     /* istanbul ignore next */
     prototypeAccessors.child.get = function () {
-        return this.componentInstance
+        return this.componentInstance;
     };
 
-    Object.defineProperties( VNode.prototype, prototypeAccessors );
+    Object.defineProperties(VNode.prototype, prototypeAccessors);
 
     var createEmptyVNode = function (text) {
-        if ( text === void 0 ) text = '';
+        if (text === void 0) text = '';
 
         var node = new VNode();
         node.text = text;
         node.isComment = true;
-        return node
+        return node;
     };
 
-    function createTextVNode (val) {
-        return new VNode(undefined, undefined, undefined, String(val))
+    function createTextVNode(val) {
+        return new VNode(undefined, undefined, undefined, String(val));
     }
 
-// optimized shallow clone
-// used for static nodes and slot nodes because they may be reused across
-// multiple renders, cloning them avoids errors when DOM manipulations rely
-// on their elm reference.
-    function cloneVNode (vnode) {
-        var cloned = new VNode(
-            vnode.tag,
-            vnode.data,
-            vnode.children,
-            vnode.text,
-            vnode.elm,
-            vnode.context,
-            vnode.componentOptions,
-            vnode.asyncFactory
-        );
+    // optimized shallow clone
+    // used for static nodes and slot nodes because they may be reused across
+    // multiple renders, cloning them avoids errors when DOM manipulations rely
+    // on their elm reference.
+    function cloneVNode(vnode) {
+        var cloned = new VNode(vnode.tag, vnode.data, vnode.children, vnode.text, vnode.elm, vnode.context, vnode.componentOptions, vnode.asyncFactory);
         cloned.ns = vnode.ns;
         cloned.isStatic = vnode.isStatic;
         cloned.key = vnode.key;
         cloned.isComment = vnode.isComment;
         cloned.isCloned = true;
-        return cloned
+        return cloned;
     }
 
-    function cloneVNodes (vnodes) {
+    function cloneVNodes(vnodes) {
         var len = vnodes.length;
         var res = new Array(len);
         for (var i = 0; i < len; i++) {
             res[i] = cloneVNode(vnodes[i]);
         }
-        return res
+        return res;
     }
 
     /*  */
@@ -1807,11 +1653,11 @@ webpackJsonp([5],[
             once: once$$1,
             capture: capture,
             passive: passive
-        }
+        };
     });
 
-    function createFnInvoker (fns) {
-        function invoker () {
+    function createFnInvoker(fns) {
+        function invoker() {
             var arguments$1 = arguments;
 
             var fns = invoker.fns;
@@ -1822,30 +1668,21 @@ webpackJsonp([5],[
                 }
             } else {
                 // return handler return value for single handlers
-                return fns.apply(null, arguments)
+                return fns.apply(null, arguments);
             }
         }
         invoker.fns = fns;
-        return invoker
+        return invoker;
     }
 
-    function updateListeners (
-        on,
-        oldOn,
-        add,
-        remove$$1,
-        vm
-    ) {
+    function updateListeners(on, oldOn, add, remove$$1, vm) {
         var name, cur, old, event;
         for (name in on) {
             cur = on[name];
             old = oldOn[name];
             event = normalizeEvent(name);
             if (isUndef(cur)) {
-                "development" !== 'production' && warn(
-                    "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
-                    vm
-                );
+                "development" !== 'production' && warn("Invalid handler for event \"" + event.name + "\": got " + String(cur), vm);
             } else if (isUndef(old)) {
                 if (isUndef(cur.fns)) {
                     cur = on[name] = createFnInvoker(cur);
@@ -1866,11 +1703,11 @@ webpackJsonp([5],[
 
     /*  */
 
-    function mergeVNodeHook (def, hookKey, hook) {
+    function mergeVNodeHook(def, hookKey, hook) {
         var invoker;
         var oldHook = def[hookKey];
 
-        function wrappedHook () {
+        function wrappedHook() {
             hook.apply(this, arguments);
             // important: remove merged hook to ensure it's called only once
             // and prevent memory leak
@@ -1898,17 +1735,13 @@ webpackJsonp([5],[
 
     /*  */
 
-    function extractPropsFromVNodeData (
-        data,
-        Ctor,
-        tag
-    ) {
+    function extractPropsFromVNodeData(data, Ctor, tag) {
         // we are only extracting raw values here.
         // validation and default values are handled in the child
         // component itself.
         var propOptions = Ctor.options.props;
         if (isUndef(propOptions)) {
-            return
+            return;
         }
         var res = {};
         var attrs = data.attrs;
@@ -1918,107 +1751,88 @@ webpackJsonp([5],[
                 var altKey = hyphenate(key);
                 {
                     var keyInLowerCase = key.toLowerCase();
-                    if (
-                        key !== keyInLowerCase &&
-                        attrs && hasOwn(attrs, keyInLowerCase)
-                    ) {
-                        tip(
-                            "Prop \"" + keyInLowerCase + "\" is passed to component " +
-                            (formatComponentName(tag || Ctor)) + ", but the declared prop name is" +
-                            " \"" + key + "\". " +
-                            "Note that HTML attributes are case-insensitive and camelCased " +
-                            "props need to use their kebab-case equivalents when using in-DOM " +
-                            "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\"."
-                        );
+                    if (key !== keyInLowerCase && attrs && hasOwn(attrs, keyInLowerCase)) {
+                        tip("Prop \"" + keyInLowerCase + "\" is passed to component " + formatComponentName(tag || Ctor) + ", but the declared prop name is" + " \"" + key + "\". " + "Note that HTML attributes are case-insensitive and camelCased " + "props need to use their kebab-case equivalents when using in-DOM " + "templates. You should probably use \"" + altKey + "\" instead of \"" + key + "\".");
                     }
                 }
-                checkProp(res, props, key, altKey, true) ||
-                checkProp(res, attrs, key, altKey, false);
+                checkProp(res, props, key, altKey, true) || checkProp(res, attrs, key, altKey, false);
             }
         }
-        return res
+        return res;
     }
 
-    function checkProp (
-        res,
-        hash,
-        key,
-        altKey,
-        preserve
-    ) {
+    function checkProp(res, hash, key, altKey, preserve) {
         if (isDef(hash)) {
             if (hasOwn(hash, key)) {
                 res[key] = hash[key];
                 if (!preserve) {
                     delete hash[key];
                 }
-                return true
+                return true;
             } else if (hasOwn(hash, altKey)) {
                 res[key] = hash[altKey];
                 if (!preserve) {
                     delete hash[altKey];
                 }
-                return true
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     /*  */
 
-// The template compiler attempts to minimize the need for normalization by
-// statically analyzing the template at compile time.
-//
-// For plain HTML markup, normalization can be completely skipped because the
-// generated render function is guaranteed to return Array<VNode>. There are
-// two cases where extra normalization is needed:
+    // The template compiler attempts to minimize the need for normalization by
+    // statically analyzing the template at compile time.
+    //
+    // For plain HTML markup, normalization can be completely skipped because the
+    // generated render function is guaranteed to return Array<VNode>. There are
+    // two cases where extra normalization is needed:
 
-// 1. When the children contains components - because a functional component
-// may return an Array instead of a single root. In this case, just a simple
-// normalization is needed - if any child is an Array, we flatten the whole
-// thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
-// because functional components already normalize their own children.
-    function simpleNormalizeChildren (children) {
+    // 1. When the children contains components - because a functional component
+    // may return an Array instead of a single root. In this case, just a simple
+    // normalization is needed - if any child is an Array, we flatten the whole
+    // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
+    // because functional components already normalize their own children.
+    function simpleNormalizeChildren(children) {
         for (var i = 0; i < children.length; i++) {
             if (Array.isArray(children[i])) {
-                return Array.prototype.concat.apply([], children)
+                return Array.prototype.concat.apply([], children);
             }
         }
-        return children
+        return children;
     }
 
-// 2. When the children contains constructs that always generated nested Arrays,
-// e.g. <template>, <slot>, v-for, or when the children is provided by user
-// with hand-written render functions / JSX. In such cases a full normalization
-// is needed to cater to all possible types of children values.
-    function normalizeChildren (children) {
-        return isPrimitive(children)
-            ? [createTextVNode(children)]
-            : Array.isArray(children)
-                ? normalizeArrayChildren(children)
-                : undefined
+    // 2. When the children contains constructs that always generated nested Arrays,
+    // e.g. <template>, <slot>, v-for, or when the children is provided by user
+    // with hand-written render functions / JSX. In such cases a full normalization
+    // is needed to cater to all possible types of children values.
+    function normalizeChildren(children) {
+        return isPrimitive(children) ? [createTextVNode(children)] : Array.isArray(children) ? normalizeArrayChildren(children) : undefined;
     }
 
-    function isTextNode (node) {
-        return isDef(node) && isDef(node.text) && isFalse(node.isComment)
+    function isTextNode(node) {
+        return isDef(node) && isDef(node.text) && isFalse(node.isComment);
     }
 
-    function normalizeArrayChildren (children, nestedIndex) {
+    function normalizeArrayChildren(children, nestedIndex) {
         var res = [];
         var i, c, last;
         for (i = 0; i < children.length; i++) {
             c = children[i];
-            if (isUndef(c) || typeof c === 'boolean') { continue }
+            if (isUndef(c) || typeof c === 'boolean') {
+                continue;
+            }
             last = res[res.length - 1];
             //  nested
             if (Array.isArray(c)) {
-                res.push.apply(res, normalizeArrayChildren(c, ((nestedIndex || '') + "_" + i)));
+                res.push.apply(res, normalizeArrayChildren(c, (nestedIndex || '') + "_" + i));
             } else if (isPrimitive(c)) {
                 if (isTextNode(last)) {
                     // merge adjacent text nodes
                     // this is necessary for SSR hydration because text nodes are
                     // essentially merged when rendered to HTML strings
-                    (last).text += String(c);
+                    last.text += String(c);
                 } else if (c !== '') {
                     // convert primitive to vnode
                     res.push(createTextVNode(c));
@@ -2029,58 +1843,43 @@ webpackJsonp([5],[
                     res[res.length - 1] = createTextVNode(last.text + c.text);
                 } else {
                     // default key for nested array children (likely generated by v-for)
-                    if (isTrue(children._isVList) &&
-                        isDef(c.tag) &&
-                        isUndef(c.key) &&
-                        isDef(nestedIndex)) {
+                    if (isTrue(children._isVList) && isDef(c.tag) && isUndef(c.key) && isDef(nestedIndex)) {
                         c.key = "__vlist" + nestedIndex + "_" + i + "__";
                     }
                     res.push(c);
                 }
             }
         }
-        return res
+        return res;
     }
 
     /*  */
 
-    function ensureCtor (comp, base) {
+    function ensureCtor(comp, base) {
         if (comp.__esModule && comp.default) {
             comp = comp.default;
         }
-        return isObject(comp)
-            ? base.extend(comp)
-            : comp
+        return isObject(comp) ? base.extend(comp) : comp;
     }
 
-    function createAsyncPlaceholder (
-        factory,
-        data,
-        context,
-        children,
-        tag
-    ) {
+    function createAsyncPlaceholder(factory, data, context, children, tag) {
         var node = createEmptyVNode();
         node.asyncFactory = factory;
         node.asyncMeta = { data: data, context: context, children: children, tag: tag };
-        return node
+        return node;
     }
 
-    function resolveAsyncComponent (
-        factory,
-        baseCtor,
-        context
-    ) {
+    function resolveAsyncComponent(factory, baseCtor, context) {
         if (isTrue(factory.error) && isDef(factory.errorComp)) {
-            return factory.errorComp
+            return factory.errorComp;
         }
 
         if (isDef(factory.resolved)) {
-            return factory.resolved
+            return factory.resolved;
         }
 
         if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
-            return factory.loadingComp
+            return factory.loadingComp;
         }
 
         if (isDef(factory.contexts)) {
@@ -2107,10 +1906,7 @@ webpackJsonp([5],[
             });
 
             var reject = once(function (reason) {
-                "development" !== 'production' && warn(
-                    "Failed to resolve async component: " + (String(factory)) +
-                    (reason ? ("\nReason: " + reason) : '')
-                );
+                "development" !== 'production' && warn("Failed to resolve async component: " + String(factory) + (reason ? "\nReason: " + reason : ''));
                 if (isDef(factory.errorComp)) {
                     factory.error = true;
                     forceRender();
@@ -2149,9 +1945,7 @@ webpackJsonp([5],[
                     if (isDef(res.timeout)) {
                         setTimeout(function () {
                             if (isUndef(factory.resolved)) {
-                                reject(
-                                    "timeout (" + (res.timeout) + "ms)"
-                                );
+                                reject("timeout (" + res.timeout + "ms)");
                             }
                         }, res.timeout);
                     }
@@ -2160,20 +1954,18 @@ webpackJsonp([5],[
 
             sync = false;
             // return in case resolved synchronously
-            return factory.loading
-                ? factory.loadingComp
-                : factory.resolved
+            return factory.loading ? factory.loadingComp : factory.resolved;
         }
     }
 
     /*  */
 
-    function getFirstComponentChild (children) {
+    function getFirstComponentChild(children) {
         if (Array.isArray(children)) {
             for (var i = 0; i < children.length; i++) {
                 var c = children[i];
                 if (isDef(c) && isDef(c.componentOptions)) {
-                    return c
+                    return c;
                 }
             }
         }
@@ -2183,7 +1975,7 @@ webpackJsonp([5],[
 
     /*  */
 
-    function initEvents (vm) {
+    function initEvents(vm) {
         vm._events = Object.create(null);
         vm._hasHookEvent = false;
         // init parent attached events
@@ -2195,7 +1987,7 @@ webpackJsonp([5],[
 
     var target;
 
-    function add (event, fn, once$$1) {
+    function add(event, fn, once$$1) {
         if (once$$1) {
             target.$once(event, fn);
         } else {
@@ -2203,20 +1995,16 @@ webpackJsonp([5],[
         }
     }
 
-    function remove$1 (event, fn) {
+    function remove$1(event, fn) {
         target.$off(event, fn);
     }
 
-    function updateComponentListeners (
-        vm,
-        listeners,
-        oldListeners
-    ) {
+    function updateComponentListeners(vm, listeners, oldListeners) {
         target = vm;
         updateListeners(listeners, oldListeners || {}, add, remove$1, vm);
     }
 
-    function eventsMixin (Vue) {
+    function eventsMixin(Vue) {
         var hookRE = /^hook:/;
         Vue.prototype.$on = function (event, fn) {
             var this$1 = this;
@@ -2234,18 +2022,18 @@ webpackJsonp([5],[
                     vm._hasHookEvent = true;
                 }
             }
-            return vm
+            return vm;
         };
 
         Vue.prototype.$once = function (event, fn) {
             var vm = this;
-            function on () {
+            function on() {
                 vm.$off(event, on);
                 fn.apply(vm, arguments);
             }
             on.fn = fn;
             vm.$on(event, on);
-            return vm
+            return vm;
         };
 
         Vue.prototype.$off = function (event, fn) {
@@ -2255,23 +2043,23 @@ webpackJsonp([5],[
             // all
             if (!arguments.length) {
                 vm._events = Object.create(null);
-                return vm
+                return vm;
             }
             // array of events
             if (Array.isArray(event)) {
                 for (var i$1 = 0, l = event.length; i$1 < l; i$1++) {
                     this$1.$off(event[i$1], fn);
                 }
-                return vm
+                return vm;
             }
             // specific event
             var cbs = vm._events[event];
             if (!cbs) {
-                return vm
+                return vm;
             }
             if (arguments.length === 1) {
                 vm._events[event] = null;
-                return vm
+                return vm;
             }
             // specific handler
             var cb;
@@ -2280,10 +2068,10 @@ webpackJsonp([5],[
                 cb = cbs[i];
                 if (cb === fn || cb.fn === fn) {
                     cbs.splice(i, 1);
-                    break
+                    break;
                 }
             }
-            return vm
+            return vm;
         };
 
         Vue.prototype.$emit = function (event) {
@@ -2291,13 +2079,7 @@ webpackJsonp([5],[
             {
                 var lowerCaseEvent = event.toLowerCase();
                 if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
-                    tip(
-                        "Event \"" + lowerCaseEvent + "\" is emitted in component " +
-                        (formatComponentName(vm)) + " but the handler is registered for \"" + event + "\". " +
-                        "Note that HTML attributes are case-insensitive and you cannot use " +
-                        "v-on to listen to camelCase events when using in-DOM templates. " +
-                        "You should probably use \"" + (hyphenate(event)) + "\" instead of \"" + event + "\"."
-                    );
+                    tip("Event \"" + lowerCaseEvent + "\" is emitted in component " + formatComponentName(vm) + " but the handler is registered for \"" + event + "\". " + "Note that HTML attributes are case-insensitive and you cannot use " + "v-on to listen to camelCase events when using in-DOM templates. " + "You should probably use \"" + hyphenate(event) + "\" instead of \"" + event + "\".");
                 }
             }
             var cbs = vm._events[event];
@@ -2308,11 +2090,11 @@ webpackJsonp([5],[
                     try {
                         cbs[i].apply(vm, args);
                     } catch (e) {
-                        handleError(e, vm, ("event handler for \"" + event + "\""));
+                        handleError(e, vm, "event handler for \"" + event + "\"");
                     }
                 }
             }
-            return vm
+            return vm;
         };
     }
 
@@ -2321,24 +2103,19 @@ webpackJsonp([5],[
     /**
      * Runtime helper for resolving raw children VNodes into a slot object.
      */
-    function resolveSlots (
-        children,
-        context
-    ) {
+    function resolveSlots(children, context) {
         var slots = {};
         if (!children) {
-            return slots
+            return slots;
         }
         var defaultSlot = [];
         for (var i = 0, l = children.length; i < l; i++) {
             var child = children[i];
             // named slots should only be respected if the vnode was rendered in the
             // same context.
-            if ((child.context === context || child.functionalContext === context) &&
-                child.data && child.data.slot != null
-            ) {
+            if ((child.context === context || child.functionalContext === context) && child.data && child.data.slot != null) {
                 var name = child.data.slot;
-                var slot = (slots[name] || (slots[name] = []));
+                var slot = slots[name] || (slots[name] = []);
                 if (child.tag === 'template') {
                     slot.push.apply(slot, child.children);
                 } else {
@@ -2352,17 +2129,15 @@ webpackJsonp([5],[
         if (!defaultSlot.every(isWhitespace)) {
             slots.default = defaultSlot;
         }
-        return slots
+        return slots;
     }
 
-    function isWhitespace (node) {
-        return node.isComment || node.text === ' '
+    function isWhitespace(node) {
+        return node.isComment || node.text === ' ';
     }
 
-    function resolveScopedSlots (
-        fns, // see flow/vnode
-        res
-    ) {
+    function resolveScopedSlots(fns, // see flow/vnode
+    res) {
         res = res || {};
         for (var i = 0; i < fns.length; i++) {
             if (Array.isArray(fns[i])) {
@@ -2371,7 +2146,7 @@ webpackJsonp([5],[
                 res[fns[i].key] = fns[i].fn;
             }
         }
-        return res
+        return res;
     }
 
     /*  */
@@ -2379,7 +2154,7 @@ webpackJsonp([5],[
     var activeInstance = null;
     var isUpdatingChildComponent = false;
 
-    function initLifecycle (vm) {
+    function initLifecycle(vm) {
         var options = vm.$options;
 
         // locate first non-abstract parent
@@ -2405,7 +2180,7 @@ webpackJsonp([5],[
         vm._isBeingDestroyed = false;
     }
 
-    function lifecycleMixin (Vue) {
+    function lifecycleMixin(Vue) {
         Vue.prototype._update = function (vnode, hydrating) {
             var vm = this;
             if (vm._isMounted) {
@@ -2420,11 +2195,8 @@ webpackJsonp([5],[
             // based on the rendering backend used.
             if (!prevVnode) {
                 // initial render
-                vm.$el = vm.__patch__(
-                    vm.$el, vnode, hydrating, false /* removeOnly */,
-                    vm.$options._parentElm,
-                    vm.$options._refElm
-                );
+                vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */
+                , vm.$options._parentElm, vm.$options._refElm);
                 // no need for the ref nodes after initial patch
                 // this prevents keeping a detached DOM tree in memory (#5851)
                 vm.$options._parentElm = vm.$options._refElm = null;
@@ -2458,7 +2230,7 @@ webpackJsonp([5],[
         Vue.prototype.$destroy = function () {
             var vm = this;
             if (vm._isBeingDestroyed) {
-                return
+                return;
             }
             callHook(vm, 'beforeDestroy');
             vm._isBeingDestroyed = true;
@@ -2495,29 +2267,16 @@ webpackJsonp([5],[
         };
     }
 
-    function mountComponent (
-        vm,
-        el,
-        hydrating
-    ) {
+    function mountComponent(vm, el, hydrating) {
         vm.$el = el;
         if (!vm.$options.render) {
             vm.$options.render = createEmptyVNode;
             {
                 /* istanbul ignore if */
-                if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
-                    vm.$options.el || el) {
-                    warn(
-                        'You are using the runtime-only build of Vue where the template ' +
-                        'compiler is not available. Either pre-compile the templates into ' +
-                        'render functions, or use the compiler-included build.',
-                        vm
-                    );
+                if (vm.$options.template && vm.$options.template.charAt(0) !== '#' || vm.$options.el || el) {
+                    warn('You are using the runtime-only build of Vue where the template ' + 'compiler is not available. Either pre-compile the templates into ' + 'render functions, or use the compiler-included build.', vm);
                 } else {
-                    warn(
-                        'Failed to mount component: template or render function not defined.',
-                        vm
-                    );
+                    warn('Failed to mount component: template or render function not defined.', vm);
                 }
             }
         }
@@ -2535,12 +2294,12 @@ webpackJsonp([5],[
                 mark(startTag);
                 var vnode = vm._render();
                 mark(endTag);
-                measure((name + " render"), startTag, endTag);
+                measure(name + " render", startTag, endTag);
 
                 mark(startTag);
                 vm._update(vnode, hydrating);
                 mark(endTag);
-                measure((name + " patch"), startTag, endTag);
+                measure(name + " patch", startTag, endTag);
             };
         } else {
             updateComponent = function () {
@@ -2557,33 +2316,27 @@ webpackJsonp([5],[
             vm._isMounted = true;
             callHook(vm, 'mounted');
         }
-        return vm
+        return vm;
     }
 
-    function updateChildComponent (
-        vm,
-        propsData,
-        listeners,
-        parentVnode,
-        renderChildren
-    ) {
+    function updateChildComponent(vm, propsData, listeners, parentVnode, renderChildren) {
         {
             isUpdatingChildComponent = true;
         }
 
         // determine whether component has slot children
         // we need to do this before overwriting $options._renderChildren
-        var hasChildren = !!(
-            renderChildren ||               // has new static slots
-            vm.$options._renderChildren ||  // has old static slots
-            parentVnode.data.scopedSlots || // has new scoped slots
-            vm.$scopedSlots !== emptyObject // has old scoped slots
+        var hasChildren = !!(renderChildren || // has new static slots
+        vm.$options._renderChildren || // has old static slots
+        parentVnode.data.scopedSlots || // has new scoped slots
+        vm.$scopedSlots !== emptyObject // has old scoped slots
         );
 
         vm.$options._parentVnode = parentVnode;
         vm.$vnode = parentVnode; // update vm's placeholder node without re-render
 
-        if (vm._vnode) { // update child tree's parent
+        if (vm._vnode) {
+            // update child tree's parent
             vm._vnode.parent = parentVnode;
         }
         vm.$options._renderChildren = renderChildren;
@@ -2625,21 +2378,23 @@ webpackJsonp([5],[
         }
     }
 
-    function isInInactiveTree (vm) {
+    function isInInactiveTree(vm) {
         while (vm && (vm = vm.$parent)) {
-            if (vm._inactive) { return true }
+            if (vm._inactive) {
+                return true;
+            }
         }
-        return false
+        return false;
     }
 
-    function activateChildComponent (vm, direct) {
+    function activateChildComponent(vm, direct) {
         if (direct) {
             vm._directInactive = false;
             if (isInInactiveTree(vm)) {
-                return
+                return;
             }
         } else if (vm._directInactive) {
-            return
+            return;
         }
         if (vm._inactive || vm._inactive === null) {
             vm._inactive = false;
@@ -2650,11 +2405,11 @@ webpackJsonp([5],[
         }
     }
 
-    function deactivateChildComponent (vm, direct) {
+    function deactivateChildComponent(vm, direct) {
         if (direct) {
             vm._directInactive = true;
             if (isInInactiveTree(vm)) {
-                return
+                return;
             }
         }
         if (!vm._inactive) {
@@ -2666,14 +2421,14 @@ webpackJsonp([5],[
         }
     }
 
-    function callHook (vm, hook) {
+    function callHook(vm, hook) {
         var handlers = vm.$options[hook];
         if (handlers) {
             for (var i = 0, j = handlers.length; i < j; i++) {
                 try {
                     handlers[i].call(vm);
                 } catch (e) {
-                    handleError(e, vm, (hook + " hook"));
+                    handleError(e, vm, hook + " hook");
                 }
             }
         }
@@ -2683,7 +2438,6 @@ webpackJsonp([5],[
     }
 
     /*  */
-
 
     var MAX_UPDATE_COUNT = 100;
 
@@ -2698,7 +2452,7 @@ webpackJsonp([5],[
     /**
      * Reset the scheduler's state.
      */
-    function resetSchedulerState () {
+    function resetSchedulerState() {
         index = queue.length = activatedChildren.length = 0;
         has = {};
         {
@@ -2710,7 +2464,7 @@ webpackJsonp([5],[
     /**
      * Flush both queues and run the watchers.
      */
-    function flushSchedulerQueue () {
+    function flushSchedulerQueue() {
         flushing = true;
         var watcher, id;
 
@@ -2722,7 +2476,9 @@ webpackJsonp([5],[
         //    user watchers are created before the render watcher)
         // 3. If a component is destroyed during a parent component's watcher run,
         //    its watchers can be skipped.
-        queue.sort(function (a, b) { return a.id - b.id; });
+        queue.sort(function (a, b) {
+            return a.id - b.id;
+        });
 
         // do not cache length because more watchers might be pushed
         // as we run existing watchers
@@ -2735,15 +2491,8 @@ webpackJsonp([5],[
             if ("development" !== 'production' && has[id] != null) {
                 circular[id] = (circular[id] || 0) + 1;
                 if (circular[id] > MAX_UPDATE_COUNT) {
-                    warn(
-                        'You may have an infinite update loop ' + (
-                            watcher.user
-                                ? ("in watcher with expression \"" + (watcher.expression) + "\"")
-                                : "in a component render function."
-                        ),
-                        watcher.vm
-                    );
-                    break
+                    warn('You may have an infinite update loop ' + (watcher.user ? "in watcher with expression \"" + watcher.expression + "\"" : "in a component render function."), watcher.vm);
+                    break;
                 }
             }
         }
@@ -2765,7 +2514,7 @@ webpackJsonp([5],[
         }
     }
 
-    function callUpdatedHooks (queue) {
+    function callUpdatedHooks(queue) {
         var i = queue.length;
         while (i--) {
             var watcher = queue[i];
@@ -2780,14 +2529,14 @@ webpackJsonp([5],[
      * Queue a kept-alive component that was activated during patch.
      * The queue will be processed after the entire tree has been patched.
      */
-    function queueActivatedComponent (vm) {
+    function queueActivatedComponent(vm) {
         // setting _inactive to false here so that a render function can
         // rely on checking whether it's in an inactive tree (e.g. router-view)
         vm._inactive = false;
         activatedChildren.push(vm);
     }
 
-    function callActivatedHooks (queue) {
+    function callActivatedHooks(queue) {
         for (var i = 0; i < queue.length; i++) {
             queue[i]._inactive = true;
             activateChildComponent(queue[i], true /* true */);
@@ -2799,7 +2548,7 @@ webpackJsonp([5],[
      * Jobs with duplicate IDs will be skipped unless it's
      * pushed when the queue is being flushed.
      */
-    function queueWatcher (watcher) {
+    function queueWatcher(watcher) {
         var id = watcher.id;
         if (has[id] == null) {
             has[id] = true;
@@ -2831,12 +2580,7 @@ webpackJsonp([5],[
      * and fires callback when the expression value changes.
      * This is used for both the $watch() api and directives.
      */
-    var Watcher = function Watcher (
-        vm,
-        expOrFn,
-        cb,
-        options
-    ) {
+    var Watcher = function Watcher(vm, expOrFn, cb, options) {
         this.vm = vm;
         vm._watchers.push(this);
         // options
@@ -2864,23 +2608,16 @@ webpackJsonp([5],[
             this.getter = parsePath(expOrFn);
             if (!this.getter) {
                 this.getter = function () {};
-                "development" !== 'production' && warn(
-                    "Failed watching path: \"" + expOrFn + "\" " +
-                    'Watcher only accepts simple dot-delimited paths. ' +
-                    'For full control, use a function instead.',
-                    vm
-                );
+                "development" !== 'production' && warn("Failed watching path: \"" + expOrFn + "\" " + 'Watcher only accepts simple dot-delimited paths. ' + 'For full control, use a function instead.', vm);
             }
         }
-        this.value = this.lazy
-            ? undefined
-            : this.get();
+        this.value = this.lazy ? undefined : this.get();
     };
 
     /**
      * Evaluate the getter, and re-collect dependencies.
      */
-    Watcher.prototype.get = function get () {
+    Watcher.prototype.get = function get() {
         pushTarget(this);
         var value;
         var vm = this.vm;
@@ -2888,9 +2625,9 @@ webpackJsonp([5],[
             value = this.getter.call(vm, vm);
         } catch (e) {
             if (this.user) {
-                handleError(e, vm, ("getter for watcher \"" + (this.expression) + "\""));
+                handleError(e, vm, "getter for watcher \"" + this.expression + "\"");
             } else {
-                throw e
+                throw e;
             }
         } finally {
             // "touch" every property so they are all tracked as
@@ -2901,13 +2638,13 @@ webpackJsonp([5],[
             popTarget();
             this.cleanupDeps();
         }
-        return value
+        return value;
     };
 
     /**
      * Add a dependency to this directive.
      */
-    Watcher.prototype.addDep = function addDep (dep) {
+    Watcher.prototype.addDep = function addDep(dep) {
         var id = dep.id;
         if (!this.newDepIds.has(id)) {
             this.newDepIds.add(id);
@@ -2921,7 +2658,7 @@ webpackJsonp([5],[
     /**
      * Clean up for dependency collection.
      */
-    Watcher.prototype.cleanupDeps = function cleanupDeps () {
+    Watcher.prototype.cleanupDeps = function cleanupDeps() {
         var this$1 = this;
 
         var i = this.deps.length;
@@ -2945,7 +2682,7 @@ webpackJsonp([5],[
      * Subscriber interface.
      * Will be called when a dependency changes.
      */
-    Watcher.prototype.update = function update () {
+    Watcher.prototype.update = function update() {
         /* istanbul ignore else */
         if (this.lazy) {
             this.dirty = true;
@@ -2960,17 +2697,14 @@ webpackJsonp([5],[
      * Scheduler job interface.
      * Will be called by the scheduler.
      */
-    Watcher.prototype.run = function run () {
+    Watcher.prototype.run = function run() {
         if (this.active) {
             var value = this.get();
-            if (
-                value !== this.value ||
-                // Deep watchers and watchers on Object/Arrays should fire even
-                // when the value is the same, because the value may
-                // have mutated.
-                isObject(value) ||
-                this.deep
-            ) {
+            if (value !== this.value ||
+            // Deep watchers and watchers on Object/Arrays should fire even
+            // when the value is the same, because the value may
+            // have mutated.
+            isObject(value) || this.deep) {
                 // set new value
                 var oldValue = this.value;
                 this.value = value;
@@ -2978,7 +2712,7 @@ webpackJsonp([5],[
                     try {
                         this.cb.call(this.vm, value, oldValue);
                     } catch (e) {
-                        handleError(e, this.vm, ("callback for watcher \"" + (this.expression) + "\""));
+                        handleError(e, this.vm, "callback for watcher \"" + this.expression + "\"");
                     }
                 } else {
                     this.cb.call(this.vm, value, oldValue);
@@ -2991,7 +2725,7 @@ webpackJsonp([5],[
      * Evaluate the value of the watcher.
      * This only gets called for lazy watchers.
      */
-    Watcher.prototype.evaluate = function evaluate () {
+    Watcher.prototype.evaluate = function evaluate() {
         this.value = this.get();
         this.dirty = false;
     };
@@ -2999,7 +2733,7 @@ webpackJsonp([5],[
     /**
      * Depend on all deps collected by this watcher.
      */
-    Watcher.prototype.depend = function depend () {
+    Watcher.prototype.depend = function depend() {
         var this$1 = this;
 
         var i = this.deps.length;
@@ -3011,7 +2745,7 @@ webpackJsonp([5],[
     /**
      * Remove self from all dependencies' subscriber list.
      */
-    Watcher.prototype.teardown = function teardown () {
+    Watcher.prototype.teardown = function teardown() {
         var this$1 = this;
 
         if (this.active) {
@@ -3035,31 +2769,35 @@ webpackJsonp([5],[
      * is collected as a "deep" dependency.
      */
     var seenObjects = new _Set();
-    function traverse (val) {
+    function traverse(val) {
         seenObjects.clear();
         _traverse(val, seenObjects);
     }
 
-    function _traverse (val, seen) {
+    function _traverse(val, seen) {
         var i, keys;
         var isA = Array.isArray(val);
-        if ((!isA && !isObject(val)) || !Object.isExtensible(val)) {
-            return
+        if (!isA && !isObject(val) || !Object.isExtensible(val)) {
+            return;
         }
         if (val.__ob__) {
             var depId = val.__ob__.dep.id;
             if (seen.has(depId)) {
-                return
+                return;
             }
             seen.add(depId);
         }
         if (isA) {
             i = val.length;
-            while (i--) { _traverse(val[i], seen); }
+            while (i--) {
+                _traverse(val[i], seen);
+            }
         } else {
             keys = Object.keys(val);
             i = keys.length;
-            while (i--) { _traverse(val[keys[i]], seen); }
+            while (i--) {
+                _traverse(val[keys[i]], seen);
+            }
         }
     }
 
@@ -3072,43 +2810,46 @@ webpackJsonp([5],[
         set: noop
     };
 
-    function proxy (target, sourceKey, key) {
-        sharedPropertyDefinition.get = function proxyGetter () {
-            return this[sourceKey][key]
+    function proxy(target, sourceKey, key) {
+        sharedPropertyDefinition.get = function proxyGetter() {
+            return this[sourceKey][key];
         };
-        sharedPropertyDefinition.set = function proxySetter (val) {
+        sharedPropertyDefinition.set = function proxySetter(val) {
             this[sourceKey][key] = val;
         };
         Object.defineProperty(target, key, sharedPropertyDefinition);
     }
 
-    function initState (vm) {
+    function initState(vm) {
         vm._watchers = [];
         var opts = vm.$options;
-        if (opts.props) { initProps(vm, opts.props); }
-        if (opts.methods) { initMethods(vm, opts.methods); }
+        if (opts.props) {
+            initProps(vm, opts.props);
+        }
+        if (opts.methods) {
+            initMethods(vm, opts.methods);
+        }
         if (opts.data) {
             initData(vm);
         } else {
             observe(vm._data = {}, true /* asRootData */);
         }
-        if (opts.computed) { initComputed(vm, opts.computed); }
+        if (opts.computed) {
+            initComputed(vm, opts.computed);
+        }
         if (opts.watch && opts.watch !== nativeWatch) {
             initWatch(vm, opts.watch);
         }
     }
 
-    function checkOptionType (vm, name) {
+    function checkOptionType(vm, name) {
         var option = vm.$options[name];
         if (!isPlainObject(option)) {
-            warn(
-                ("component option \"" + name + "\" should be an object."),
-                vm
-            );
+            warn("component option \"" + name + "\" should be an object.", vm);
         }
     }
 
-    function initProps (vm, propsOptions) {
+    function initProps(vm, propsOptions) {
         var propsData = vm.$options.propsData || {};
         var props = vm._props = {};
         // cache prop keys so that future props updates can iterate using Array
@@ -3117,26 +2858,17 @@ webpackJsonp([5],[
         var isRoot = !vm.$parent;
         // root instance props should be converted
         observerState.shouldConvert = isRoot;
-        var loop = function ( key ) {
+        var loop = function (key) {
             keys.push(key);
             var value = validateProp(key, propsOptions, propsData, vm);
             /* istanbul ignore else */
             {
                 if (isReservedAttribute(key) || config.isReservedAttr(key)) {
-                    warn(
-                        ("\"" + key + "\" is a reserved attribute and cannot be used as component prop."),
-                        vm
-                    );
+                    warn("\"" + key + "\" is a reserved attribute and cannot be used as component prop.", vm);
                 }
                 defineReactive$$1(props, key, value, function () {
                     if (vm.$parent && !isUpdatingChildComponent) {
-                        warn(
-                            "Avoid mutating a prop directly since the value will be " +
-                            "overwritten whenever the parent component re-renders. " +
-                            "Instead, use a data or computed property based on the prop's " +
-                            "value. Prop being mutated: \"" + key + "\"",
-                            vm
-                        );
+                        warn("Avoid mutating a prop directly since the value will be " + "overwritten whenever the parent component re-renders. " + "Instead, use a data or computed property based on the prop's " + "value. Prop being mutated: \"" + key + "\"", vm);
                     }
                 });
             }
@@ -3148,22 +2880,16 @@ webpackJsonp([5],[
             }
         };
 
-        for (var key in propsOptions) loop( key );
+        for (var key in propsOptions) loop(key);
         observerState.shouldConvert = true;
     }
 
-    function initData (vm) {
+    function initData(vm) {
         var data = vm.$options.data;
-        data = vm._data = typeof data === 'function'
-            ? getData(data, vm)
-            : data || {};
+        data = vm._data = typeof data === 'function' ? getData(data, vm) : data || {};
         if (!isPlainObject(data)) {
             data = {};
-            "development" !== 'production' && warn(
-                'data functions should return an object:\n' +
-                'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function',
-                vm
-            );
+            "development" !== 'production' && warn('data functions should return an object:\n' + 'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function', vm);
         }
         // proxy data on instance
         var keys = Object.keys(data);
@@ -3174,18 +2900,11 @@ webpackJsonp([5],[
             var key = keys[i];
             {
                 if (methods && hasOwn(methods, key)) {
-                    warn(
-                        ("method \"" + key + "\" has already been defined as a data property."),
-                        vm
-                    );
+                    warn("method \"" + key + "\" has already been defined as a data property.", vm);
                 }
             }
             if (props && hasOwn(props, key)) {
-                "development" !== 'production' && warn(
-                    "The data property \"" + key + "\" is already declared as a prop. " +
-                    "Use prop default value instead.",
-                    vm
-                );
+                "development" !== 'production' && warn("The data property \"" + key + "\" is already declared as a prop. " + "Use prop default value instead.", vm);
             } else if (!isReserved(key)) {
                 proxy(vm, "_data", key);
             }
@@ -3194,18 +2913,18 @@ webpackJsonp([5],[
         observe(data, true /* asRootData */);
     }
 
-    function getData (data, vm) {
+    function getData(data, vm) {
         try {
-            return data.call(vm)
+            return data.call(vm);
         } catch (e) {
             handleError(e, vm, "data()");
-            return {}
+            return {};
         }
     }
 
     var computedWatcherOptions = { lazy: true };
 
-    function initComputed (vm, computed) {
+    function initComputed(vm, computed) {
         "development" !== 'production' && checkOptionType(vm, 'computed');
         var watchers = vm._computedWatchers = Object.create(null);
 
@@ -3213,10 +2932,7 @@ webpackJsonp([5],[
             var userDef = computed[key];
             var getter = typeof userDef === 'function' ? userDef : userDef.get;
             if ("development" !== 'production' && getter == null) {
-                warn(
-                    ("Getter is missing for computed property \"" + key + "\"."),
-                    vm
-                );
+                warn("Getter is missing for computed property \"" + key + "\".", vm);
             }
             // create internal watcher for the computed property.
             watchers[key] = new Watcher(vm, getter || noop, noop, computedWatcherOptions);
@@ -3228,42 +2944,32 @@ webpackJsonp([5],[
                 defineComputed(vm, key, userDef);
             } else {
                 if (key in vm.$data) {
-                    warn(("The computed property \"" + key + "\" is already defined in data."), vm);
+                    warn("The computed property \"" + key + "\" is already defined in data.", vm);
                 } else if (vm.$options.props && key in vm.$options.props) {
-                    warn(("The computed property \"" + key + "\" is already defined as a prop."), vm);
+                    warn("The computed property \"" + key + "\" is already defined as a prop.", vm);
                 }
             }
         }
     }
 
-    function defineComputed (target, key, userDef) {
+    function defineComputed(target, key, userDef) {
         if (typeof userDef === 'function') {
             sharedPropertyDefinition.get = createComputedGetter(key);
             sharedPropertyDefinition.set = noop;
         } else {
-            sharedPropertyDefinition.get = userDef.get
-                ? userDef.cache !== false
-                    ? createComputedGetter(key)
-                    : userDef.get
-                : noop;
-            sharedPropertyDefinition.set = userDef.set
-                ? userDef.set
-                : noop;
+            sharedPropertyDefinition.get = userDef.get ? userDef.cache !== false ? createComputedGetter(key) : userDef.get : noop;
+            sharedPropertyDefinition.set = userDef.set ? userDef.set : noop;
         }
-        if ("development" !== 'production' &&
-            sharedPropertyDefinition.set === noop) {
+        if ("development" !== 'production' && sharedPropertyDefinition.set === noop) {
             sharedPropertyDefinition.set = function () {
-                warn(
-                    ("Computed property \"" + key + "\" was assigned to but it has no setter."),
-                    this
-                );
+                warn("Computed property \"" + key + "\" was assigned to but it has no setter.", this);
             };
         }
         Object.defineProperty(target, key, sharedPropertyDefinition);
     }
 
-    function createComputedGetter (key) {
-        return function computedGetter () {
+    function createComputedGetter(key) {
+        return function computedGetter() {
             var watcher = this._computedWatchers && this._computedWatchers[key];
             if (watcher) {
                 if (watcher.dirty) {
@@ -3272,35 +2978,28 @@ webpackJsonp([5],[
                 if (Dep.target) {
                     watcher.depend();
                 }
-                return watcher.value
+                return watcher.value;
             }
-        }
+        };
     }
 
-    function initMethods (vm, methods) {
+    function initMethods(vm, methods) {
         "development" !== 'production' && checkOptionType(vm, 'methods');
         var props = vm.$options.props;
         for (var key in methods) {
             vm[key] = methods[key] == null ? noop : bind(methods[key], vm);
             {
                 if (methods[key] == null) {
-                    warn(
-                        "method \"" + key + "\" has an undefined value in the component definition. " +
-                        "Did you reference the function correctly?",
-                        vm
-                    );
+                    warn("method \"" + key + "\" has an undefined value in the component definition. " + "Did you reference the function correctly?", vm);
                 }
                 if (props && hasOwn(props, key)) {
-                    warn(
-                        ("method \"" + key + "\" has already been defined as a prop."),
-                        vm
-                    );
+                    warn("method \"" + key + "\" has already been defined as a prop.", vm);
                 }
             }
         }
     }
 
-    function initWatch (vm, watch) {
+    function initWatch(vm, watch) {
         "development" !== 'production' && checkOptionType(vm, 'watch');
         for (var key in watch) {
             var handler = watch[key];
@@ -3314,12 +3013,7 @@ webpackJsonp([5],[
         }
     }
 
-    function createWatcher (
-        vm,
-        keyOrFn,
-        handler,
-        options
-    ) {
+    function createWatcher(vm, keyOrFn, handler, options) {
         if (isPlainObject(handler)) {
             options = handler;
             handler = handler.handler;
@@ -3327,24 +3021,24 @@ webpackJsonp([5],[
         if (typeof handler === 'string') {
             handler = vm[handler];
         }
-        return vm.$watch(keyOrFn, handler, options)
+        return vm.$watch(keyOrFn, handler, options);
     }
 
-    function stateMixin (Vue) {
+    function stateMixin(Vue) {
         // flow somehow has problems with directly declared definition object
         // when using Object.defineProperty, so we have to procedurally build up
         // the object here.
         var dataDef = {};
-        dataDef.get = function () { return this._data };
+        dataDef.get = function () {
+            return this._data;
+        };
         var propsDef = {};
-        propsDef.get = function () { return this._props };
+        propsDef.get = function () {
+            return this._props;
+        };
         {
             dataDef.set = function (newData) {
-                warn(
-                    'Avoid replacing instance root $data. ' +
-                    'Use nested data properties instead.',
-                    this
-                );
+                warn('Avoid replacing instance root $data. ' + 'Use nested data properties instead.', this);
             };
             propsDef.set = function () {
                 warn("$props is readonly.", this);
@@ -3356,14 +3050,10 @@ webpackJsonp([5],[
         Vue.prototype.$set = set;
         Vue.prototype.$delete = del;
 
-        Vue.prototype.$watch = function (
-            expOrFn,
-            cb,
-            options
-        ) {
+        Vue.prototype.$watch = function (expOrFn, cb, options) {
             var vm = this;
             if (isPlainObject(cb)) {
-                return createWatcher(vm, expOrFn, cb, options)
+                return createWatcher(vm, expOrFn, cb, options);
             }
             options = options || {};
             options.user = true;
@@ -3371,24 +3061,22 @@ webpackJsonp([5],[
             if (options.immediate) {
                 cb.call(vm, watcher.value);
             }
-            return function unwatchFn () {
+            return function unwatchFn() {
                 watcher.teardown();
-            }
+            };
         };
     }
 
     /*  */
 
-    function initProvide (vm) {
+    function initProvide(vm) {
         var provide = vm.$options.provide;
         if (provide) {
-            vm._provided = typeof provide === 'function'
-                ? provide.call(vm)
-                : provide;
+            vm._provided = typeof provide === 'function' ? provide.call(vm) : provide;
         }
     }
 
-    function initInjections (vm) {
+    function initInjections(vm) {
         var result = resolveInject(vm.$options.inject, vm);
         if (result) {
             observerState.shouldConvert = false;
@@ -3396,12 +3084,7 @@ webpackJsonp([5],[
                 /* istanbul ignore else */
                 {
                     defineReactive$$1(vm, key, result[key], function () {
-                        warn(
-                            "Avoid mutating an injected value directly since the changes will be " +
-                            "overwritten whenever the provided component re-renders. " +
-                            "injection being mutated: \"" + key + "\"",
-                            vm
-                        );
+                        warn("Avoid mutating an injected value directly since the changes will be " + "overwritten whenever the provided component re-renders. " + "injection being mutated: \"" + key + "\"", vm);
                     });
                 }
             });
@@ -3409,13 +3092,11 @@ webpackJsonp([5],[
         }
     }
 
-    function resolveInject (inject, vm) {
+    function resolveInject(inject, vm) {
         if (inject) {
             // inject is :any because flow is not smart enough to figure out cached
             var result = Object.create(null);
-            var keys = hasSymbol
-                ? Reflect.ownKeys(inject)
-                : Object.keys(inject);
+            var keys = hasSymbol ? Reflect.ownKeys(inject) : Object.keys(inject);
 
             for (var i = 0; i < keys.length; i++) {
                 var key = keys[i];
@@ -3424,27 +3105,21 @@ webpackJsonp([5],[
                 while (source) {
                     if (source._provided && provideKey in source._provided) {
                         result[key] = source._provided[provideKey];
-                        break
+                        break;
                     }
                     source = source.$parent;
                 }
                 if ("development" !== 'production' && !source) {
-                    warn(("Injection \"" + key + "\" not found"), vm);
+                    warn("Injection \"" + key + "\" not found", vm);
                 }
             }
-            return result
+            return result;
         }
     }
 
     /*  */
 
-    function createFunctionalComponent (
-        Ctor,
-        propsData,
-        data,
-        context,
-        children
-    ) {
+    function createFunctionalComponent(Ctor, propsData, data, context, children) {
         var props = {};
         var propOptions = Ctor.options.props;
         if (isDef(propOptions)) {
@@ -3452,13 +3127,19 @@ webpackJsonp([5],[
                 props[key] = validateProp(key, propOptions, propsData || {});
             }
         } else {
-            if (isDef(data.attrs)) { mergeProps(props, data.attrs); }
-            if (isDef(data.props)) { mergeProps(props, data.props); }
+            if (isDef(data.attrs)) {
+                mergeProps(props, data.attrs);
+            }
+            if (isDef(data.props)) {
+                mergeProps(props, data.props);
+            }
         }
         // ensure the createElement function in functional components
         // gets a unique context - this is necessary for correct named slot check
         var _context = Object.create(context);
-        var h = function (a, b, c, d) { return createElement(_context, a, b, c, d, true); };
+        var h = function (a, b, c, d) {
+            return createElement(_context, a, b, c, d, true);
+        };
         var vnode = Ctor.options.render.call(null, h, {
             data: data,
             props: props,
@@ -3466,7 +3147,9 @@ webpackJsonp([5],[
             parent: context,
             listeners: data.on || {},
             injections: resolveInject(Ctor.options.inject, context),
-            slots: function () { return resolveSlots(children, context); }
+            slots: function () {
+                return resolveSlots(children, context);
+            }
         });
         if (vnode instanceof VNode) {
             vnode.functionalContext = context;
@@ -3475,10 +3158,10 @@ webpackJsonp([5],[
                 (vnode.data || (vnode.data = {})).slot = data.slot;
             }
         }
-        return vnode
+        return vnode;
     }
 
-    function mergeProps (to, from) {
+    function mergeProps(to, from) {
         for (var key in from) {
             to[camelize(key)] = from[key];
         }
@@ -3486,21 +3169,11 @@ webpackJsonp([5],[
 
     /*  */
 
-// hooks to be invoked on component VNodes during patch
+    // hooks to be invoked on component VNodes during patch
     var componentVNodeHooks = {
-        init: function init (
-            vnode,
-            hydrating,
-            parentElm,
-            refElm
-        ) {
+        init: function init(vnode, hydrating, parentElm, refElm) {
             if (!vnode.componentInstance || vnode.componentInstance._isDestroyed) {
-                var child = vnode.componentInstance = createComponentInstanceForVnode(
-                    vnode,
-                    activeInstance,
-                    parentElm,
-                    refElm
-                );
+                var child = vnode.componentInstance = createComponentInstanceForVnode(vnode, activeInstance, parentElm, refElm);
                 child.$mount(hydrating ? vnode.elm : undefined, hydrating);
             } else if (vnode.data.keepAlive) {
                 // kept-alive components, treat as a patch
@@ -3509,19 +3182,17 @@ webpackJsonp([5],[
             }
         },
 
-        prepatch: function prepatch (oldVnode, vnode) {
+        prepatch: function prepatch(oldVnode, vnode) {
             var options = vnode.componentOptions;
             var child = vnode.componentInstance = oldVnode.componentInstance;
-            updateChildComponent(
-                child,
-                options.propsData, // updated props
-                options.listeners, // updated listeners
-                vnode, // new parent vnode
-                options.children // new children
+            updateChildComponent(child, options.propsData, // updated props
+            options.listeners, // updated listeners
+            vnode, // new parent vnode
+            options.children // new children
             );
         },
 
-        insert: function insert (vnode) {
+        insert: function insert(vnode) {
             var context = vnode.context;
             var componentInstance = vnode.componentInstance;
             if (!componentInstance._isMounted) {
@@ -3542,7 +3213,7 @@ webpackJsonp([5],[
             }
         },
 
-        destroy: function destroy (vnode) {
+        destroy: function destroy(vnode) {
             var componentInstance = vnode.componentInstance;
             if (!componentInstance._isDestroyed) {
                 if (!vnode.data.keepAlive) {
@@ -3556,15 +3227,9 @@ webpackJsonp([5],[
 
     var hooksToMerge = Object.keys(componentVNodeHooks);
 
-    function createComponent (
-        Ctor,
-        data,
-        context,
-        children,
-        tag
-    ) {
+    function createComponent(Ctor, data, context, children, tag) {
         if (isUndef(Ctor)) {
-            return
+            return;
         }
 
         var baseCtor = context.$options._base;
@@ -3578,9 +3243,9 @@ webpackJsonp([5],[
         // reject.
         if (typeof Ctor !== 'function') {
             {
-                warn(("Invalid Component definition: " + (String(Ctor))), context);
+                warn("Invalid Component definition: " + String(Ctor), context);
             }
-            return
+            return;
         }
 
         // async component
@@ -3592,13 +3257,7 @@ webpackJsonp([5],[
                 // return a placeholder node for async component, which is rendered
                 // as a comment node but preserves all the raw information for the node.
                 // the information will be used for async server-rendering and hydration.
-                return createAsyncPlaceholder(
-                    asyncFactory,
-                    data,
-                    context,
-                    children,
-                    tag
-                )
+                return createAsyncPlaceholder(asyncFactory, data, context, children, tag);
             }
         }
 
@@ -3618,7 +3277,7 @@ webpackJsonp([5],[
 
         // functional component
         if (isTrue(Ctor.options.functional)) {
-            return createFunctionalComponent(Ctor, propsData, data, context, children)
+            return createFunctionalComponent(Ctor, propsData, data, context, children);
         }
 
         // extract listeners, since these needs to be treated as
@@ -3645,21 +3304,13 @@ webpackJsonp([5],[
 
         // return a placeholder vnode
         var name = Ctor.options.name || tag;
-        var vnode = new VNode(
-            ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
-            data, undefined, undefined, undefined, context,
-            { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },
-            asyncFactory
-        );
-        return vnode
+        var vnode = new VNode("vue-component-" + Ctor.cid + (name ? "-" + name : ''), data, undefined, undefined, undefined, context, { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children }, asyncFactory);
+        return vnode;
     }
 
-    function createComponentInstanceForVnode (
-        vnode, // we know it's MountedComponentVNode but flow doesn't
-        parent, // activeInstance in lifecycle state
-        parentElm,
-        refElm
-    ) {
+    function createComponentInstanceForVnode(vnode, // we know it's MountedComponentVNode but flow doesn't
+    parent, // activeInstance in lifecycle state
+    parentElm, refElm) {
         var vnodeComponentOptions = vnode.componentOptions;
         var options = {
             _isComponent: true,
@@ -3678,10 +3329,10 @@ webpackJsonp([5],[
             options.render = inlineTemplate.render;
             options.staticRenderFns = inlineTemplate.staticRenderFns;
         }
-        return new vnodeComponentOptions.Ctor(options)
+        return new vnodeComponentOptions.Ctor(options);
     }
 
-    function mergeHooks (data) {
+    function mergeHooks(data) {
         if (!data.hook) {
             data.hook = {};
         }
@@ -3693,18 +3344,18 @@ webpackJsonp([5],[
         }
     }
 
-    function mergeHook$1 (one, two) {
+    function mergeHook$1(one, two) {
         return function (a, b, c, d) {
             one(a, b, c, d);
             two(a, b, c, d);
-        }
+        };
     }
 
-// transform component v-model info (value and callback) into
-// prop and event handler respectively.
-    function transformModel (options, data) {
-        var prop = (options.model && options.model.prop) || 'value';
-        var event = (options.model && options.model.event) || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
+    // transform component v-model info (value and callback) into
+    // prop and event handler respectively.
+    function transformModel(options, data) {
+        var prop = options.model && options.model.prop || 'value';
+        var event = options.model && options.model.event || 'input';(data.props || (data.props = {}))[prop] = data.model.value;
         var on = data.on || (data.on = {});
         if (isDef(on[event])) {
             on[event] = [data.model.callback].concat(on[event]);
@@ -3718,16 +3369,9 @@ webpackJsonp([5],[
     var SIMPLE_NORMALIZE = 1;
     var ALWAYS_NORMALIZE = 2;
 
-// wrapper function for providing a more flexible interface
-// without getting yelled at by flow
-    function createElement (
-        context,
-        tag,
-        data,
-        children,
-        normalizationType,
-        alwaysNormalize
-    ) {
+    // wrapper function for providing a more flexible interface
+    // without getting yelled at by flow
+    function createElement(context, tag, data, children, normalizationType, alwaysNormalize) {
         if (Array.isArray(data) || isPrimitive(data)) {
             normalizationType = children;
             children = data;
@@ -3736,23 +3380,13 @@ webpackJsonp([5],[
         if (isTrue(alwaysNormalize)) {
             normalizationType = ALWAYS_NORMALIZE;
         }
-        return _createElement(context, tag, data, children, normalizationType)
+        return _createElement(context, tag, data, children, normalizationType);
     }
 
-    function _createElement (
-        context,
-        tag,
-        data,
-        children,
-        normalizationType
-    ) {
-        if (isDef(data) && isDef((data).__ob__)) {
-            "development" !== 'production' && warn(
-                "Avoid using observed data object as vnode data: " + (JSON.stringify(data)) + "\n" +
-                'Always create fresh vnode data objects in each render!',
-                context
-            );
-            return createEmptyVNode()
+    function _createElement(context, tag, data, children, normalizationType) {
+        if (isDef(data) && isDef(data.__ob__)) {
+            "development" !== 'production' && warn("Avoid using observed data object as vnode data: " + JSON.stringify(data) + "\n" + 'Always create fresh vnode data objects in each render!', context);
+            return createEmptyVNode();
         }
         // object syntax in v-bind
         if (isDef(data) && isDef(data.is)) {
@@ -3760,22 +3394,14 @@ webpackJsonp([5],[
         }
         if (!tag) {
             // in case of component :is set to falsy value
-            return createEmptyVNode()
+            return createEmptyVNode();
         }
         // warn against non-primitive key
-        if ("development" !== 'production' &&
-            isDef(data) && isDef(data.key) && !isPrimitive(data.key)
-        ) {
-            warn(
-                'Avoid using non-primitive value as key, ' +
-                'use string/number value instead.',
-                context
-            );
+        if ("development" !== 'production' && isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
+            warn('Avoid using non-primitive value as key, ' + 'use string/number value instead.', context);
         }
         // support single function children as default scoped slot
-        if (Array.isArray(children) &&
-            typeof children[0] === 'function'
-        ) {
+        if (Array.isArray(children) && typeof children[0] === 'function') {
             data = data || {};
             data.scopedSlots = { default: children[0] };
             children.length = 0;
@@ -3791,10 +3417,7 @@ webpackJsonp([5],[
             ns = config.getTagNamespace(tag);
             if (config.isReservedTag(tag)) {
                 // platform built-in elements
-                vnode = new VNode(
-                    config.parsePlatformTagName(tag), data, children,
-                    undefined, undefined, context
-                );
+                vnode = new VNode(config.parsePlatformTagName(tag), data, children, undefined, undefined, context);
             } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
                 // component
                 vnode = createComponent(Ctor, data, context, children, tag);
@@ -3802,28 +3425,27 @@ webpackJsonp([5],[
                 // unknown or unlisted namespaced elements
                 // check at runtime because it may get assigned a namespace when its
                 // parent normalizes children
-                vnode = new VNode(
-                    tag, data, children,
-                    undefined, undefined, context
-                );
+                vnode = new VNode(tag, data, children, undefined, undefined, context);
             }
         } else {
             // direct component options / constructor
             vnode = createComponent(tag, data, context, children);
         }
         if (isDef(vnode)) {
-            if (ns) { applyNS(vnode, ns); }
-            return vnode
+            if (ns) {
+                applyNS(vnode, ns);
+            }
+            return vnode;
         } else {
-            return createEmptyVNode()
+            return createEmptyVNode();
         }
     }
 
-    function applyNS (vnode, ns) {
+    function applyNS(vnode, ns) {
         vnode.ns = ns;
         if (vnode.tag === 'foreignObject') {
             // use default namespace inside foreignObject
-            return
+            return;
         }
         if (isDef(vnode.children)) {
             for (var i = 0, l = vnode.children.length; i < l; i++) {
@@ -3840,10 +3462,7 @@ webpackJsonp([5],[
     /**
      * Runtime helper for rendering v-for lists.
      */
-    function renderList (
-        val,
-        render
-    ) {
+    function renderList(val, render) {
         var ret, i, l, keys, key;
         if (Array.isArray(val) || typeof val === 'string') {
             ret = new Array(val.length);
@@ -3864,9 +3483,9 @@ webpackJsonp([5],[
             }
         }
         if (isDef(ret)) {
-            (ret)._isVList = true;
+            ret._isVList = true;
         }
-        return ret
+        return ret;
     }
 
     /*  */
@@ -3874,31 +3493,23 @@ webpackJsonp([5],[
     /**
      * Runtime helper for rendering <slot>
      */
-    function renderSlot (
-        name,
-        fallback,
-        props,
-        bindObject
-    ) {
+    function renderSlot(name, fallback, props, bindObject) {
         var scopedSlotFn = this.$scopedSlots[name];
-        if (scopedSlotFn) { // scoped slot
+        if (scopedSlotFn) {
+            // scoped slot
             props = props || {};
             if (bindObject) {
                 props = extend(extend({}, bindObject), props);
             }
-            return scopedSlotFn(props) || fallback
+            return scopedSlotFn(props) || fallback;
         } else {
             var slotNodes = this.$slots[name];
             // warn duplicate slot usage
             if (slotNodes && "development" !== 'production') {
-                slotNodes._rendered && warn(
-                    "Duplicate presence of slot \"" + name + "\" found in the same render tree " +
-                    "- this will likely cause render errors.",
-                    this
-                );
+                slotNodes._rendered && warn("Duplicate presence of slot \"" + name + "\" found in the same render tree " + "- this will likely cause render errors.", this);
                 slotNodes._rendered = true;
             }
-            return slotNodes || fallback
+            return slotNodes || fallback;
         }
     }
 
@@ -3907,8 +3518,8 @@ webpackJsonp([5],[
     /**
      * Runtime helper for resolving filters
      */
-    function resolveFilter (id) {
-        return resolveAsset(this.$options, 'filters', id, true) || identity
+    function resolveFilter(id) {
+        return resolveAsset(this.$options, 'filters', id, true) || identity;
     }
 
     /*  */
@@ -3916,16 +3527,12 @@ webpackJsonp([5],[
     /**
      * Runtime helper for checking keyCodes from config.
      */
-    function checkKeyCodes (
-        eventKeyCode,
-        key,
-        builtInAlias
-    ) {
+    function checkKeyCodes(eventKeyCode, key, builtInAlias) {
         var keyCodes = config.keyCodes[key] || builtInAlias;
         if (Array.isArray(keyCodes)) {
-            return keyCodes.indexOf(eventKeyCode) === -1
+            return keyCodes.indexOf(eventKeyCode) === -1;
         } else {
-            return keyCodes !== eventKeyCode
+            return keyCodes !== eventKeyCode;
         }
     }
 
@@ -3934,53 +3541,38 @@ webpackJsonp([5],[
     /**
      * Runtime helper for merging v-bind="object" into a VNode's data.
      */
-    function bindObjectProps (
-        data,
-        tag,
-        value,
-        asProp,
-        isSync
-    ) {
+    function bindObjectProps(data, tag, value, asProp, isSync) {
         if (value) {
             if (!isObject(value)) {
-                "development" !== 'production' && warn(
-                    'v-bind without argument expects an Object or Array value',
-                    this
-                );
+                "development" !== 'production' && warn('v-bind without argument expects an Object or Array value', this);
             } else {
                 if (Array.isArray(value)) {
                     value = toObject(value);
                 }
                 var hash;
-                var loop = function ( key ) {
-                    if (
-                        key === 'class' ||
-                        key === 'style' ||
-                        isReservedAttribute(key)
-                    ) {
+                var loop = function (key) {
+                    if (key === 'class' || key === 'style' || isReservedAttribute(key)) {
                         hash = data;
                     } else {
                         var type = data.attrs && data.attrs.type;
-                        hash = asProp || config.mustUseProp(tag, type, key)
-                            ? data.domProps || (data.domProps = {})
-                            : data.attrs || (data.attrs = {});
+                        hash = asProp || config.mustUseProp(tag, type, key) ? data.domProps || (data.domProps = {}) : data.attrs || (data.attrs = {});
                     }
                     if (!(key in hash)) {
                         hash[key] = value[key];
 
                         if (isSync) {
                             var on = data.on || (data.on = {});
-                            on[("update:" + key)] = function ($event) {
+                            on["update:" + key] = function ($event) {
                                 value[key] = $event;
                             };
                         }
                     }
                 };
 
-                for (var key in value) loop( key );
+                for (var key in value) loop(key);
             }
         }
-        return data
+        return data;
     }
 
     /*  */
@@ -3988,47 +3580,33 @@ webpackJsonp([5],[
     /**
      * Runtime helper for rendering static trees.
      */
-    function renderStatic (
-        index,
-        isInFor
-    ) {
+    function renderStatic(index, isInFor) {
         var tree = this._staticTrees[index];
         // if has already-rendered static tree and not inside v-for,
         // we can reuse the same tree by doing a shallow clone.
         if (tree && !isInFor) {
-            return Array.isArray(tree)
-                ? cloneVNodes(tree)
-                : cloneVNode(tree)
+            return Array.isArray(tree) ? cloneVNodes(tree) : cloneVNode(tree);
         }
         // otherwise, render a fresh tree.
-        tree = this._staticTrees[index] =
-            this.$options.staticRenderFns[index].call(this._renderProxy);
-        markStatic(tree, ("__static__" + index), false);
-        return tree
+        tree = this._staticTrees[index] = this.$options.staticRenderFns[index].call(this._renderProxy);
+        markStatic(tree, "__static__" + index, false);
+        return tree;
     }
 
     /**
      * Runtime helper for v-once.
      * Effectively it means marking the node as static with a unique key.
      */
-    function markOnce (
-        tree,
-        index,
-        key
-    ) {
-        markStatic(tree, ("__once__" + index + (key ? ("_" + key) : "")), true);
-        return tree
+    function markOnce(tree, index, key) {
+        markStatic(tree, "__once__" + index + (key ? "_" + key : ""), true);
+        return tree;
     }
 
-    function markStatic (
-        tree,
-        key,
-        isOnce
-    ) {
+    function markStatic(tree, key, isOnce) {
         if (Array.isArray(tree)) {
             for (var i = 0; i < tree.length; i++) {
                 if (tree[i] && typeof tree[i] !== 'string') {
-                    markStaticNode(tree[i], (key + "_" + i), isOnce);
+                    markStaticNode(tree[i], key + "_" + i, isOnce);
                 }
             }
         } else {
@@ -4036,7 +3614,7 @@ webpackJsonp([5],[
         }
     }
 
-    function markStaticNode (node, key, isOnce) {
+    function markStaticNode(node, key, isOnce) {
         node.isStatic = true;
         node.key = key;
         node.isOnce = isOnce;
@@ -4044,13 +3622,10 @@ webpackJsonp([5],[
 
     /*  */
 
-    function bindObjectListeners (data, value) {
+    function bindObjectListeners(data, value) {
         if (value) {
             if (!isPlainObject(value)) {
-                "development" !== 'production' && warn(
-                    'v-on without argument expects an Object value',
-                    this
-                );
+                "development" !== 'production' && warn('v-on without argument expects an Object value', this);
             } else {
                 var on = data.on = data.on ? extend({}, data.on) : {};
                 for (var key in value) {
@@ -4060,12 +3635,12 @@ webpackJsonp([5],[
                 }
             }
         }
-        return data
+        return data;
     }
 
     /*  */
 
-    function initRender (vm) {
+    function initRender(vm) {
         vm._vnode = null; // the root of the child tree
         vm._staticTrees = null;
         var parentVnode = vm.$vnode = vm.$options._parentVnode; // the placeholder node in parent tree
@@ -4076,10 +3651,14 @@ webpackJsonp([5],[
         // so that we get proper render context inside it.
         // args order: tag, data, children, normalizationType, alwaysNormalize
         // internal version is used by render functions compiled from templates
-        vm._c = function (a, b, c, d) { return createElement(vm, a, b, c, d, false); };
+        vm._c = function (a, b, c, d) {
+            return createElement(vm, a, b, c, d, false);
+        };
         // normalization is always applied for the public version, used in
         // user-written render functions.
-        vm.$createElement = function (a, b, c, d) { return createElement(vm, a, b, c, d, true); };
+        vm.$createElement = function (a, b, c, d) {
+            return createElement(vm, a, b, c, d, true);
+        };
 
         // $attrs & $listeners are exposed for easier HOC creation.
         // they need to be reactive so that HOCs using them are always updated
@@ -4095,9 +3674,9 @@ webpackJsonp([5],[
         }
     }
 
-    function renderMixin (Vue) {
+    function renderMixin(Vue) {
         Vue.prototype.$nextTick = function (fn) {
-            return nextTick(fn, this)
+            return nextTick(fn, this);
         };
 
         Vue.prototype._render = function () {
@@ -4114,7 +3693,7 @@ webpackJsonp([5],[
                 }
             }
 
-            vm.$scopedSlots = (_parentVnode && _parentVnode.data.scopedSlots) || emptyObject;
+            vm.$scopedSlots = _parentVnode && _parentVnode.data.scopedSlots || emptyObject;
 
             if (staticRenderFns && !vm._staticTrees) {
                 vm._staticTrees = [];
@@ -4132,25 +3711,19 @@ webpackJsonp([5],[
                 // or previous vnode to prevent render error causing blank component
                 /* istanbul ignore else */
                 {
-                    vnode = vm.$options.renderError
-                        ? vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e)
-                        : vm._vnode;
+                    vnode = vm.$options.renderError ? vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e) : vm._vnode;
                 }
             }
             // return empty vnode in case the render function errored out
             if (!(vnode instanceof VNode)) {
                 if ("development" !== 'production' && Array.isArray(vnode)) {
-                    warn(
-                        'Multiple root nodes returned from render function. Render function ' +
-                        'should return a single root node.',
-                        vm
-                    );
+                    warn('Multiple root nodes returned from render function. Render function ' + 'should return a single root node.', vm);
                 }
                 vnode = createEmptyVNode();
             }
             // set parent
             vnode.parent = _parentVnode;
-            return vnode
+            return vnode;
         };
 
         // internal render helpers.
@@ -4177,7 +3750,7 @@ webpackJsonp([5],[
 
     var uid$1 = 0;
 
-    function initMixin (Vue) {
+    function initMixin(Vue) {
         Vue.prototype._init = function (options) {
             var vm = this;
             // a uid
@@ -4186,8 +3759,8 @@ webpackJsonp([5],[
             var startTag, endTag;
             /* istanbul ignore if */
             if ("development" !== 'production' && config.performance && mark) {
-                startTag = "vue-perf-init:" + (vm._uid);
-                endTag = "vue-perf-end:" + (vm._uid);
+                startTag = "vue-perf-init:" + vm._uid;
+                endTag = "vue-perf-end:" + vm._uid;
                 mark(startTag);
             }
 
@@ -4200,11 +3773,7 @@ webpackJsonp([5],[
                 // internal component options needs special treatment.
                 initInternalComponent(vm, options);
             } else {
-                vm.$options = mergeOptions(
-                    resolveConstructorOptions(vm.constructor),
-                    options || {},
-                    vm
-                );
+                vm.$options = mergeOptions(resolveConstructorOptions(vm.constructor), options || {}, vm);
             }
             /* istanbul ignore else */
             {
@@ -4225,7 +3794,7 @@ webpackJsonp([5],[
             if ("development" !== 'production' && config.performance && mark) {
                 vm._name = formatComponentName(vm, false);
                 mark(endTag);
-                measure(((vm._name) + " init"), startTag, endTag);
+                measure(vm._name + " init", startTag, endTag);
             }
 
             if (vm.$options.el) {
@@ -4234,7 +3803,7 @@ webpackJsonp([5],[
         };
     }
 
-    function initInternalComponent (vm, options) {
+    function initInternalComponent(vm, options) {
         var opts = vm.$options = Object.create(vm.constructor.options);
         // doing this because it's faster than dynamic enumeration.
         opts.parent = options.parent;
@@ -4251,7 +3820,7 @@ webpackJsonp([5],[
         }
     }
 
-    function resolveConstructorOptions (Ctor) {
+    function resolveConstructorOptions(Ctor) {
         var options = Ctor.options;
         if (Ctor.super) {
             var superOptions = resolveConstructorOptions(Ctor.super);
@@ -4272,24 +3841,26 @@ webpackJsonp([5],[
                 }
             }
         }
-        return options
+        return options;
     }
 
-    function resolveModifiedOptions (Ctor) {
+    function resolveModifiedOptions(Ctor) {
         var modified;
         var latest = Ctor.options;
         var extended = Ctor.extendOptions;
         var sealed = Ctor.sealedOptions;
         for (var key in latest) {
             if (latest[key] !== sealed[key]) {
-                if (!modified) { modified = {}; }
+                if (!modified) {
+                    modified = {};
+                }
                 modified[key] = dedupe(latest[key], extended[key], sealed[key]);
             }
         }
-        return modified
+        return modified;
     }
 
-    function dedupe (latest, extended, sealed) {
+    function dedupe(latest, extended, sealed) {
         // compare latest and sealed to ensure lifecycle hooks won't be duplicated
         // between merges
         if (Array.isArray(latest)) {
@@ -4302,16 +3873,14 @@ webpackJsonp([5],[
                     res.push(latest[i]);
                 }
             }
-            return res
+            return res;
         } else {
-            return latest
+            return latest;
         }
     }
 
-    function Vue$3 (options) {
-        if ("development" !== 'production' &&
-            !(this instanceof Vue$3)
-        ) {
+    function Vue$3(options) {
+        if ("development" !== 'production' && !(this instanceof Vue$3)) {
             warn('Vue is a constructor and should be called with the `new` keyword');
         }
         this._init(options);
@@ -4325,11 +3894,11 @@ webpackJsonp([5],[
 
     /*  */
 
-    function initUse (Vue) {
+    function initUse(Vue) {
         Vue.use = function (plugin) {
-            var installedPlugins = (this._installedPlugins || (this._installedPlugins = []));
+            var installedPlugins = this._installedPlugins || (this._installedPlugins = []);
             if (installedPlugins.indexOf(plugin) > -1) {
-                return this
+                return this;
             }
 
             // additional parameters
@@ -4341,22 +3910,22 @@ webpackJsonp([5],[
                 plugin.apply(null, args);
             }
             installedPlugins.push(plugin);
-            return this
+            return this;
         };
     }
 
     /*  */
 
-    function initMixin$1 (Vue) {
+    function initMixin$1(Vue) {
         Vue.mixin = function (mixin) {
             this.options = mergeOptions(this.options, mixin);
-            return this
+            return this;
         };
     }
 
     /*  */
 
-    function initExtend (Vue) {
+    function initExtend(Vue) {
         /**
          * Each instance constructor, including Vue, has a unique
          * cid. This enables us to create wrapped "child
@@ -4374,30 +3943,23 @@ webpackJsonp([5],[
             var SuperId = Super.cid;
             var cachedCtors = extendOptions._Ctor || (extendOptions._Ctor = {});
             if (cachedCtors[SuperId]) {
-                return cachedCtors[SuperId]
+                return cachedCtors[SuperId];
             }
 
             var name = extendOptions.name || Super.options.name;
             {
                 if (!/^[a-zA-Z][\w-]*$/.test(name)) {
-                    warn(
-                        'Invalid component name: "' + name + '". Component names ' +
-                        'can only contain alphanumeric characters and the hyphen, ' +
-                        'and must start with a letter.'
-                    );
+                    warn('Invalid component name: "' + name + '". Component names ' + 'can only contain alphanumeric characters and the hyphen, ' + 'and must start with a letter.');
                 }
             }
 
-            var Sub = function VueComponent (options) {
+            var Sub = function VueComponent(options) {
                 this._init(options);
             };
             Sub.prototype = Object.create(Super.prototype);
             Sub.prototype.constructor = Sub;
             Sub.cid = cid++;
-            Sub.options = mergeOptions(
-                Super.options,
-                extendOptions
-            );
+            Sub.options = mergeOptions(Super.options, extendOptions);
             Sub['super'] = Super;
 
             // For props and computed properties, we define the proxy getters on
@@ -4434,18 +3996,18 @@ webpackJsonp([5],[
 
             // cache constructor
             cachedCtors[SuperId] = Sub;
-            return Sub
+            return Sub;
         };
     }
 
-    function initProps$1 (Comp) {
+    function initProps$1(Comp) {
         var props = Comp.options.props;
         for (var key in props) {
             proxy(Comp.prototype, "_props", key);
         }
     }
 
-    function initComputed$1 (Comp) {
+    function initComputed$1(Comp) {
         var computed = Comp.options.computed;
         for (var key in computed) {
             defineComputed(Comp.prototype, key, computed[key]);
@@ -4454,25 +4016,19 @@ webpackJsonp([5],[
 
     /*  */
 
-    function initAssetRegisters (Vue) {
+    function initAssetRegisters(Vue) {
         /**
          * Create asset registration methods.
          */
         ASSET_TYPES.forEach(function (type) {
-            Vue[type] = function (
-                id,
-                definition
-            ) {
+            Vue[type] = function (id, definition) {
                 if (!definition) {
-                    return this.options[type + 's'][id]
+                    return this.options[type + 's'][id];
                 } else {
                     /* istanbul ignore if */
                     {
                         if (type === 'component' && config.isReservedTag(id)) {
-                            warn(
-                                'Do not use built-in or reserved HTML elements as component ' +
-                                'id: ' + id
-                            );
+                            warn('Do not use built-in or reserved HTML elements as component ' + 'id: ' + id);
                         }
                     }
                     if (type === 'component' && isPlainObject(definition)) {
@@ -4483,7 +4039,7 @@ webpackJsonp([5],[
                         definition = { bind: definition, update: definition };
                     }
                     this.options[type + 's'][id] = definition;
-                    return definition
+                    return definition;
                 }
             };
         });
@@ -4493,23 +4049,23 @@ webpackJsonp([5],[
 
     var patternTypes = [String, RegExp, Array];
 
-    function getComponentName (opts) {
-        return opts && (opts.Ctor.options.name || opts.tag)
+    function getComponentName(opts) {
+        return opts && (opts.Ctor.options.name || opts.tag);
     }
 
-    function matches (pattern, name) {
+    function matches(pattern, name) {
         if (Array.isArray(pattern)) {
-            return pattern.indexOf(name) > -1
+            return pattern.indexOf(name) > -1;
         } else if (typeof pattern === 'string') {
-            return pattern.split(',').indexOf(name) > -1
+            return pattern.split(',').indexOf(name) > -1;
         } else if (isRegExp(pattern)) {
-            return pattern.test(name)
+            return pattern.test(name);
         }
         /* istanbul ignore next */
-        return false
+        return false;
     }
 
-    function pruneCache (cache, current, filter) {
+    function pruneCache(cache, current, filter) {
         for (var key in cache) {
             var cachedNode = cache[key];
             if (cachedNode) {
@@ -4524,7 +4080,7 @@ webpackJsonp([5],[
         }
     }
 
-    function pruneCacheEntry (vnode) {
+    function pruneCacheEntry(vnode) {
         if (vnode) {
             vnode.componentInstance.$destroy();
         }
@@ -4539,11 +4095,11 @@ webpackJsonp([5],[
             exclude: patternTypes
         },
 
-        created: function created () {
+        created: function created() {
             this.cache = Object.create(null);
         },
 
-        destroyed: function destroyed () {
+        destroyed: function destroyed() {
             var this$1 = this;
 
             for (var key in this$1.cache) {
@@ -4552,31 +4108,31 @@ webpackJsonp([5],[
         },
 
         watch: {
-            include: function include (val) {
-                pruneCache(this.cache, this._vnode, function (name) { return matches(val, name); });
+            include: function include(val) {
+                pruneCache(this.cache, this._vnode, function (name) {
+                    return matches(val, name);
+                });
             },
-            exclude: function exclude (val) {
-                pruneCache(this.cache, this._vnode, function (name) { return !matches(val, name); });
+            exclude: function exclude(val) {
+                pruneCache(this.cache, this._vnode, function (name) {
+                    return !matches(val, name);
+                });
             }
         },
 
-        render: function render () {
+        render: function render() {
             var vnode = getFirstComponentChild(this.$slots.default);
             var componentOptions = vnode && vnode.componentOptions;
             if (componentOptions) {
                 // check pattern
                 var name = getComponentName(componentOptions);
-                if (name && (
-                        (this.include && !matches(this.include, name)) ||
-                        (this.exclude && matches(this.exclude, name))
-                    )) {
-                    return vnode
+                if (name && (this.include && !matches(this.include, name) || this.exclude && matches(this.exclude, name))) {
+                    return vnode;
                 }
                 var key = vnode.key == null
-                    // same constructor may get registered as different local components
-                    // so cid alone is not enough (#3269)
-                    ? componentOptions.Ctor.cid + (componentOptions.tag ? ("::" + (componentOptions.tag)) : '')
-                    : vnode.key;
+                // same constructor may get registered as different local components
+                // so cid alone is not enough (#3269)
+                ? componentOptions.Ctor.cid + (componentOptions.tag ? "::" + componentOptions.tag : '') : vnode.key;
                 if (this.cache[key]) {
                     vnode.componentInstance = this.cache[key].componentInstance;
                 } else {
@@ -4584,7 +4140,7 @@ webpackJsonp([5],[
                 }
                 vnode.data.keepAlive = true;
             }
-            return vnode
+            return vnode;
         }
     };
 
@@ -4594,15 +4150,15 @@ webpackJsonp([5],[
 
     /*  */
 
-    function initGlobalAPI (Vue) {
+    function initGlobalAPI(Vue) {
         // config
         var configDef = {};
-        configDef.get = function () { return config; };
+        configDef.get = function () {
+            return config;
+        };
         {
             configDef.set = function () {
-                warn(
-                    'Do not replace the Vue.config object, set individual fields instead.'
-                );
+                warn('Do not replace the Vue.config object, set individual fields instead.');
             };
         }
         Object.defineProperty(Vue, 'config', configDef);
@@ -4645,9 +4201,9 @@ webpackJsonp([5],[
     });
 
     Object.defineProperty(Vue$3.prototype, '$ssrContext', {
-        get: function get () {
+        get: function get() {
             /* istanbul ignore next */
-            return this.$vnode && this.$vnode.ssrContext
+            return this.$vnode && this.$vnode.ssrContext;
         }
     });
 
@@ -4655,49 +4211,37 @@ webpackJsonp([5],[
 
     /*  */
 
-// these are reserved for web because they are directly compiled away
-// during template compilation
+    // these are reserved for web because they are directly compiled away
+    // during template compilation
     var isReservedAttr = makeMap('style,class');
 
-// attributes that should be using props for binding
+    // attributes that should be using props for binding
     var acceptValue = makeMap('input,textarea,option,select');
     var mustUseProp = function (tag, type, attr) {
-        return (
-            (attr === 'value' && acceptValue(tag)) && type !== 'button' ||
-            (attr === 'selected' && tag === 'option') ||
-            (attr === 'checked' && tag === 'input') ||
-            (attr === 'muted' && tag === 'video')
-        )
+        return attr === 'value' && acceptValue(tag) && type !== 'button' || attr === 'selected' && tag === 'option' || attr === 'checked' && tag === 'input' || attr === 'muted' && tag === 'video';
     };
 
     var isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck');
 
-    var isBooleanAttr = makeMap(
-        'allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' +
-        'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
-        'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
-        'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
-        'required,reversed,scoped,seamless,selected,sortable,translate,' +
-        'truespeed,typemustmatch,visible'
-    );
+    var isBooleanAttr = makeMap('allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' + 'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' + 'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' + 'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' + 'required,reversed,scoped,seamless,selected,sortable,translate,' + 'truespeed,typemustmatch,visible');
 
     var xlinkNS = 'http://www.w3.org/1999/xlink';
 
     var isXlink = function (name) {
-        return name.charAt(5) === ':' && name.slice(0, 5) === 'xlink'
+        return name.charAt(5) === ':' && name.slice(0, 5) === 'xlink';
     };
 
     var getXlinkProp = function (name) {
-        return isXlink(name) ? name.slice(6, name.length) : ''
+        return isXlink(name) ? name.slice(6, name.length) : '';
     };
 
     var isFalsyAttrValue = function (val) {
-        return val == null || val === false
+        return val == null || val === false;
     };
 
     /*  */
 
-    function genClassForVnode (vnode) {
+    function genClassForVnode(vnode) {
         var data = vnode.data;
         var parentNode = vnode;
         var childNode = vnode;
@@ -4712,68 +4256,67 @@ webpackJsonp([5],[
                 data = mergeClassData(data, parentNode.data);
             }
         }
-        return renderClass(data.staticClass, data.class)
+        return renderClass(data.staticClass, data.class);
     }
 
-    function mergeClassData (child, parent) {
+    function mergeClassData(child, parent) {
         return {
             staticClass: concat(child.staticClass, parent.staticClass),
-            class: isDef(child.class)
-                ? [child.class, parent.class]
-                : parent.class
-        }
+            class: isDef(child.class) ? [child.class, parent.class] : parent.class
+        };
     }
 
-    function renderClass (
-        staticClass,
-        dynamicClass
-    ) {
+    function renderClass(staticClass, dynamicClass) {
         if (isDef(staticClass) || isDef(dynamicClass)) {
-            return concat(staticClass, stringifyClass(dynamicClass))
+            return concat(staticClass, stringifyClass(dynamicClass));
         }
         /* istanbul ignore next */
-        return ''
+        return '';
     }
 
-    function concat (a, b) {
-        return a ? b ? (a + ' ' + b) : a : (b || '')
+    function concat(a, b) {
+        return a ? b ? a + ' ' + b : a : b || '';
     }
 
-    function stringifyClass (value) {
+    function stringifyClass(value) {
         if (Array.isArray(value)) {
-            return stringifyArray(value)
+            return stringifyArray(value);
         }
         if (isObject(value)) {
-            return stringifyObject(value)
+            return stringifyObject(value);
         }
         if (typeof value === 'string') {
-            return value
+            return value;
         }
         /* istanbul ignore next */
-        return ''
+        return '';
     }
 
-    function stringifyArray (value) {
+    function stringifyArray(value) {
         var res = '';
         var stringified;
         for (var i = 0, l = value.length; i < l; i++) {
             if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
-                if (res) { res += ' '; }
+                if (res) {
+                    res += ' ';
+                }
                 res += stringified;
             }
         }
-        return res
+        return res;
     }
 
-    function stringifyObject (value) {
+    function stringifyObject(value) {
         var res = '';
         for (var key in value) {
             if (value[key]) {
-                if (res) { res += ' '; }
+                if (res) {
+                    res += ' ';
+                }
                 res += key;
             }
         }
-        return res
+        return res;
     }
 
     /*  */
@@ -4783,69 +4326,51 @@ webpackJsonp([5],[
         math: 'http://www.w3.org/1998/Math/MathML'
     };
 
-    var isHTMLTag = makeMap(
-        'html,body,base,head,link,meta,style,title,' +
-        'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' +
-        'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' +
-        'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' +
-        's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' +
-        'embed,object,param,source,canvas,script,noscript,del,ins,' +
-        'caption,col,colgroup,table,thead,tbody,td,th,tr,' +
-        'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
-        'output,progress,select,textarea,' +
-        'details,dialog,menu,menuitem,summary,' +
-        'content,element,shadow,template,blockquote,iframe,tfoot'
-    );
+    var isHTMLTag = makeMap('html,body,base,head,link,meta,style,title,' + 'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' + 'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' + 'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' + 's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' + 'embed,object,param,source,canvas,script,noscript,del,ins,' + 'caption,col,colgroup,table,thead,tbody,td,th,tr,' + 'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' + 'output,progress,select,textarea,' + 'details,dialog,menu,menuitem,summary,' + 'content,element,shadow,template,blockquote,iframe,tfoot');
 
-// this map is intentionally selective, only covering SVG elements that may
-// contain child elements.
-    var isSVG = makeMap(
-        'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
-        'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
-        'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
-        true
-    );
+    // this map is intentionally selective, only covering SVG elements that may
+    // contain child elements.
+    var isSVG = makeMap('svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' + 'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' + 'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view', true);
 
-    var isPreTag = function (tag) { return tag === 'pre'; };
-
-    var isReservedTag = function (tag) {
-        return isHTMLTag(tag) || isSVG(tag)
+    var isPreTag = function (tag) {
+        return tag === 'pre';
     };
 
-    function getTagNamespace (tag) {
+    var isReservedTag = function (tag) {
+        return isHTMLTag(tag) || isSVG(tag);
+    };
+
+    function getTagNamespace(tag) {
         if (isSVG(tag)) {
-            return 'svg'
+            return 'svg';
         }
         // basic support for MathML
         // note it doesn't support other MathML elements being component roots
         if (tag === 'math') {
-            return 'math'
+            return 'math';
         }
     }
 
     var unknownElementCache = Object.create(null);
-    function isUnknownElement (tag) {
+    function isUnknownElement(tag) {
         /* istanbul ignore if */
         if (!inBrowser) {
-            return true
+            return true;
         }
         if (isReservedTag(tag)) {
-            return false
+            return false;
         }
         tag = tag.toLowerCase();
         /* istanbul ignore if */
         if (unknownElementCache[tag] != null) {
-            return unknownElementCache[tag]
+            return unknownElementCache[tag];
         }
         var el = document.createElement(tag);
         if (tag.indexOf('-') > -1) {
             // http://stackoverflow.com/a/28210364/1070244
-            return (unknownElementCache[tag] = (
-                el.constructor === window.HTMLUnknownElement ||
-                el.constructor === window.HTMLElement
-            ))
+            return unknownElementCache[tag] = el.constructor === window.HTMLUnknownElement || el.constructor === window.HTMLElement;
         } else {
-            return (unknownElementCache[tag] = /HTMLUnknownElement/.test(el.toString()))
+            return unknownElementCache[tag] = /HTMLUnknownElement/.test(el.toString());
         }
     }
 
@@ -4854,79 +4379,76 @@ webpackJsonp([5],[
     /**
      * Query an element selector if it's not an element already.
      */
-    function query (el) {
+    function query(el) {
         if (typeof el === 'string') {
             var selected = document.querySelector(el);
             if (!selected) {
-                "development" !== 'production' && warn(
-                    'Cannot find element: ' + el
-                );
-                return document.createElement('div')
+                "development" !== 'production' && warn('Cannot find element: ' + el);
+                return document.createElement('div');
             }
-            return selected
+            return selected;
         } else {
-            return el
+            return el;
         }
     }
 
     /*  */
 
-    function createElement$1 (tagName, vnode) {
+    function createElement$1(tagName, vnode) {
         var elm = document.createElement(tagName);
         if (tagName !== 'select') {
-            return elm
+            return elm;
         }
         // false or null will remove the attribute but undefined will not
         if (vnode.data && vnode.data.attrs && vnode.data.attrs.multiple !== undefined) {
             elm.setAttribute('multiple', 'multiple');
         }
-        return elm
+        return elm;
     }
 
-    function createElementNS (namespace, tagName) {
-        return document.createElementNS(namespaceMap[namespace], tagName)
+    function createElementNS(namespace, tagName) {
+        return document.createElementNS(namespaceMap[namespace], tagName);
     }
 
-    function createTextNode (text) {
-        return document.createTextNode(text)
+    function createTextNode(text) {
+        return document.createTextNode(text);
     }
 
-    function createComment (text) {
-        return document.createComment(text)
+    function createComment(text) {
+        return document.createComment(text);
     }
 
-    function insertBefore (parentNode, newNode, referenceNode) {
+    function insertBefore(parentNode, newNode, referenceNode) {
         parentNode.insertBefore(newNode, referenceNode);
     }
 
-    function removeChild (node, child) {
+    function removeChild(node, child) {
         node.removeChild(child);
     }
 
-    function appendChild (node, child) {
+    function appendChild(node, child) {
         node.appendChild(child);
     }
 
-    function parentNode (node) {
-        return node.parentNode
+    function parentNode(node) {
+        return node.parentNode;
     }
 
-    function nextSibling (node) {
-        return node.nextSibling
+    function nextSibling(node) {
+        return node.nextSibling;
     }
 
-    function tagName (node) {
-        return node.tagName
+    function tagName(node) {
+        return node.tagName;
     }
 
-    function setTextContent (node, text) {
+    function setTextContent(node, text) {
         node.textContent = text;
     }
 
-    function setAttribute (node, key, val) {
+    function setAttribute(node, key, val) {
         node.setAttribute(key, val);
     }
-
 
     var nodeOps = Object.freeze({
         createElement: createElement$1,
@@ -4946,23 +4468,25 @@ webpackJsonp([5],[
     /*  */
 
     var ref = {
-        create: function create (_, vnode) {
+        create: function create(_, vnode) {
             registerRef(vnode);
         },
-        update: function update (oldVnode, vnode) {
+        update: function update(oldVnode, vnode) {
             if (oldVnode.data.ref !== vnode.data.ref) {
                 registerRef(oldVnode, true);
                 registerRef(vnode);
             }
         },
-        destroy: function destroy (vnode) {
+        destroy: function destroy(vnode) {
             registerRef(vnode, true);
         }
     };
 
-    function registerRef (vnode, isRemoval) {
+    function registerRef(vnode, isRemoval) {
         var key = vnode.data.ref;
-        if (!key) { return }
+        if (!key) {
+            return;
+        }
 
         var vm = vnode.context;
         var ref = vnode.componentInstance || vnode.elm;
@@ -4995,8 +4519,7 @@ webpackJsonp([5],[
      *
      * modified by Evan You (@yyx990803)
      *
-
-     /*
+      /*
      * Not type-checking this because this file is perf-critical and the cost
      * of making flow understand it is not worth it.
      */
@@ -5005,44 +4528,35 @@ webpackJsonp([5],[
 
     var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
-    function sameVnode (a, b) {
-        return (
-            a.key === b.key && (
-                (
-                    a.tag === b.tag &&
-                    a.isComment === b.isComment &&
-                    isDef(a.data) === isDef(b.data) &&
-                    sameInputType(a, b)
-                ) || (
-                    isTrue(a.isAsyncPlaceholder) &&
-                    a.asyncFactory === b.asyncFactory &&
-                    isUndef(b.asyncFactory.error)
-                )
-            )
-        )
+    function sameVnode(a, b) {
+        return a.key === b.key && (a.tag === b.tag && a.isComment === b.isComment && isDef(a.data) === isDef(b.data) && sameInputType(a, b) || isTrue(a.isAsyncPlaceholder) && a.asyncFactory === b.asyncFactory && isUndef(b.asyncFactory.error));
     }
 
-// Some browsers do not support dynamically changing type for <input>
-// so they need to be treated as different nodes
-    function sameInputType (a, b) {
-        if (a.tag !== 'input') { return true }
+    // Some browsers do not support dynamically changing type for <input>
+    // so they need to be treated as different nodes
+    function sameInputType(a, b) {
+        if (a.tag !== 'input') {
+            return true;
+        }
         var i;
         var typeA = isDef(i = a.data) && isDef(i = i.attrs) && i.type;
         var typeB = isDef(i = b.data) && isDef(i = i.attrs) && i.type;
-        return typeA === typeB
+        return typeA === typeB;
     }
 
-    function createKeyToOldIdx (children, beginIdx, endIdx) {
+    function createKeyToOldIdx(children, beginIdx, endIdx) {
         var i, key;
         var map = {};
         for (i = beginIdx; i <= endIdx; ++i) {
             key = children[i].key;
-            if (isDef(key)) { map[key] = i; }
+            if (isDef(key)) {
+                map[key] = i;
+            }
         }
-        return map
+        return map;
     }
 
-    function createPatchFunction (backend) {
+    function createPatchFunction(backend) {
         var i, j;
         var cbs = {};
 
@@ -5058,21 +4572,21 @@ webpackJsonp([5],[
             }
         }
 
-        function emptyNodeAt (elm) {
-            return new VNode(nodeOps.tagName(elm).toLowerCase(), {}, [], undefined, elm)
+        function emptyNodeAt(elm) {
+            return new VNode(nodeOps.tagName(elm).toLowerCase(), {}, [], undefined, elm);
         }
 
-        function createRmCb (childElm, listeners) {
-            function remove$$1 () {
+        function createRmCb(childElm, listeners) {
+            function remove$$1() {
                 if (--remove$$1.listeners === 0) {
                     removeNode(childElm);
                 }
             }
             remove$$1.listeners = listeners;
-            return remove$$1
+            return remove$$1;
         }
 
-        function removeNode (el) {
+        function removeNode(el) {
             var parent = nodeOps.parentNode(el);
             // element may have already been removed due to v-html / v-text
             if (isDef(parent)) {
@@ -5081,10 +4595,10 @@ webpackJsonp([5],[
         }
 
         var inPre = 0;
-        function createElm (vnode, insertedVnodeQueue, parentElm, refElm, nested) {
+        function createElm(vnode, insertedVnodeQueue, parentElm, refElm, nested) {
             vnode.isRootInsert = !nested; // for transition enter check
             if (createComponent(vnode, insertedVnodeQueue, parentElm, refElm)) {
-                return
+                return;
             }
 
             var data = vnode.data;
@@ -5095,23 +4609,11 @@ webpackJsonp([5],[
                     if (data && data.pre) {
                         inPre++;
                     }
-                    if (
-                        !inPre &&
-                        !vnode.ns &&
-                        !(config.ignoredElements.length && config.ignoredElements.indexOf(tag) > -1) &&
-                        config.isUnknownElement(tag)
-                    ) {
-                        warn(
-                            'Unknown custom element: <' + tag + '> - did you ' +
-                            'register the component correctly? For recursive components, ' +
-                            'make sure to provide the "name" option.',
-                            vnode.context
-                        );
+                    if (!inPre && !vnode.ns && !(config.ignoredElements.length && config.ignoredElements.indexOf(tag) > -1) && config.isUnknownElement(tag)) {
+                        warn('Unknown custom element: <' + tag + '> - did you ' + 'register the component correctly? For recursive components, ' + 'make sure to provide the "name" option.', vnode.context);
                     }
                 }
-                vnode.elm = vnode.ns
-                    ? nodeOps.createElementNS(vnode.ns, tag)
-                    : nodeOps.createElement(tag, vnode);
+                vnode.elm = vnode.ns ? nodeOps.createElementNS(vnode.ns, tag) : nodeOps.createElement(tag, vnode);
                 setScope(vnode);
 
                 /* istanbul ignore if */
@@ -5135,7 +4637,7 @@ webpackJsonp([5],[
             }
         }
 
-        function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+        function createComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
             var i = vnode.data;
             if (isDef(i)) {
                 var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
@@ -5151,12 +4653,12 @@ webpackJsonp([5],[
                     if (isTrue(isReactivated)) {
                         reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm);
                     }
-                    return true
+                    return true;
                 }
             }
         }
 
-        function initComponent (vnode, insertedVnodeQueue) {
+        function initComponent(vnode, insertedVnodeQueue) {
             if (isDef(vnode.data.pendingInsert)) {
                 insertedVnodeQueue.push.apply(insertedVnodeQueue, vnode.data.pendingInsert);
                 vnode.data.pendingInsert = null;
@@ -5174,7 +4676,7 @@ webpackJsonp([5],[
             }
         }
 
-        function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+        function reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm) {
             var i;
             // hack for #4339: a reactivated component with inner transition
             // does not trigger because the inner node's created hooks are not called
@@ -5188,7 +4690,7 @@ webpackJsonp([5],[
                         cbs.activate[i](emptyNode, innerNode);
                     }
                     insertedVnodeQueue.push(innerNode);
-                    break
+                    break;
                 }
             }
             // unlike a newly created component,
@@ -5196,7 +4698,7 @@ webpackJsonp([5],[
             insert(parentElm, vnode.elm, refElm);
         }
 
-        function insert (parent, elm, ref$$1) {
+        function insert(parent, elm, ref$$1) {
             if (isDef(parent)) {
                 if (isDef(ref$$1)) {
                     if (ref$$1.parentNode === parent) {
@@ -5208,7 +4710,7 @@ webpackJsonp([5],[
             }
         }
 
-        function createChildren (vnode, children, insertedVnodeQueue) {
+        function createChildren(vnode, children, insertedVnodeQueue) {
             if (Array.isArray(children)) {
                 for (var i = 0; i < children.length; ++i) {
                     createElm(children[i], insertedVnodeQueue, vnode.elm, null, true);
@@ -5218,28 +4720,32 @@ webpackJsonp([5],[
             }
         }
 
-        function isPatchable (vnode) {
+        function isPatchable(vnode) {
             while (vnode.componentInstance) {
                 vnode = vnode.componentInstance._vnode;
             }
-            return isDef(vnode.tag)
+            return isDef(vnode.tag);
         }
 
-        function invokeCreateHooks (vnode, insertedVnodeQueue) {
+        function invokeCreateHooks(vnode, insertedVnodeQueue) {
             for (var i$1 = 0; i$1 < cbs.create.length; ++i$1) {
                 cbs.create[i$1](emptyNode, vnode);
             }
             i = vnode.data.hook; // Reuse variable
             if (isDef(i)) {
-                if (isDef(i.create)) { i.create(emptyNode, vnode); }
-                if (isDef(i.insert)) { insertedVnodeQueue.push(vnode); }
+                if (isDef(i.create)) {
+                    i.create(emptyNode, vnode);
+                }
+                if (isDef(i.insert)) {
+                    insertedVnodeQueue.push(vnode);
+                }
             }
         }
 
         // set scope id attribute for scoped CSS.
         // this is implemented as a special case to avoid the overhead
         // of going through the normal attribute patching process.
-        function setScope (vnode) {
+        function setScope(vnode) {
             var i;
             var ancestor = vnode;
             while (ancestor) {
@@ -5249,26 +4755,27 @@ webpackJsonp([5],[
                 ancestor = ancestor.parent;
             }
             // for slot content they should also get the scopeId from the host instance.
-            if (isDef(i = activeInstance) &&
-                i !== vnode.context &&
-                isDef(i = i.$options._scopeId)
-            ) {
+            if (isDef(i = activeInstance) && i !== vnode.context && isDef(i = i.$options._scopeId)) {
                 nodeOps.setAttribute(vnode.elm, i, '');
             }
         }
 
-        function addVnodes (parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
+        function addVnodes(parentElm, refElm, vnodes, startIdx, endIdx, insertedVnodeQueue) {
             for (; startIdx <= endIdx; ++startIdx) {
                 createElm(vnodes[startIdx], insertedVnodeQueue, parentElm, refElm);
             }
         }
 
-        function invokeDestroyHook (vnode) {
+        function invokeDestroyHook(vnode) {
             var i, j;
             var data = vnode.data;
             if (isDef(data)) {
-                if (isDef(i = data.hook) && isDef(i = i.destroy)) { i(vnode); }
-                for (i = 0; i < cbs.destroy.length; ++i) { cbs.destroy[i](vnode); }
+                if (isDef(i = data.hook) && isDef(i = i.destroy)) {
+                    i(vnode);
+                }
+                for (i = 0; i < cbs.destroy.length; ++i) {
+                    cbs.destroy[i](vnode);
+                }
             }
             if (isDef(i = vnode.children)) {
                 for (j = 0; j < vnode.children.length; ++j) {
@@ -5277,21 +4784,22 @@ webpackJsonp([5],[
             }
         }
 
-        function removeVnodes (parentElm, vnodes, startIdx, endIdx) {
+        function removeVnodes(parentElm, vnodes, startIdx, endIdx) {
             for (; startIdx <= endIdx; ++startIdx) {
                 var ch = vnodes[startIdx];
                 if (isDef(ch)) {
                     if (isDef(ch.tag)) {
                         removeAndInvokeRemoveHook(ch);
                         invokeDestroyHook(ch);
-                    } else { // Text node
+                    } else {
+                        // Text node
                         removeNode(ch.elm);
                     }
                 }
             }
         }
 
-        function removeAndInvokeRemoveHook (vnode, rm) {
+        function removeAndInvokeRemoveHook(vnode, rm) {
             if (isDef(rm) || isDef(vnode.data)) {
                 var i;
                 var listeners = cbs.remove.length + 1;
@@ -5320,7 +4828,7 @@ webpackJsonp([5],[
             }
         }
 
-        function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
+        function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
             var oldStartIdx = 0;
             var newStartIdx = 0;
             var oldEndIdx = oldCh.length - 1;
@@ -5349,30 +4857,32 @@ webpackJsonp([5],[
                     patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue);
                     oldEndVnode = oldCh[--oldEndIdx];
                     newEndVnode = newCh[--newEndIdx];
-                } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+                } else if (sameVnode(oldStartVnode, newEndVnode)) {
+                    // Vnode moved right
                     patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue);
                     canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
                     oldStartVnode = oldCh[++oldStartIdx];
                     newEndVnode = newCh[--newEndIdx];
-                } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+                } else if (sameVnode(oldEndVnode, newStartVnode)) {
+                    // Vnode moved left
                     patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue);
                     canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
                     oldEndVnode = oldCh[--oldEndIdx];
                     newStartVnode = newCh[++newStartIdx];
                 } else {
-                    if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
+                    if (isUndef(oldKeyToIdx)) {
+                        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
+                    }
                     idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : null;
-                    if (isUndef(idxInOld)) { // New element
+                    if (isUndef(idxInOld)) {
+                        // New element
                         createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm);
                         newStartVnode = newCh[++newStartIdx];
                     } else {
                         elmToMove = oldCh[idxInOld];
                         /* istanbul ignore if */
                         if ("development" !== 'production' && !elmToMove) {
-                            warn(
-                                'It seems there are duplicate keys that is causing an update error. ' +
-                                'Make sure each v-for item has a unique key.'
-                            );
+                            warn('It seems there are duplicate keys that is causing an update error. ' + 'Make sure each v-for item has a unique key.');
                         }
                         if (sameVnode(elmToMove, newStartVnode)) {
                             patchVnode(elmToMove, newStartVnode, insertedVnodeQueue);
@@ -5395,9 +4905,9 @@ webpackJsonp([5],[
             }
         }
 
-        function patchVnode (oldVnode, vnode, insertedVnodeQueue, removeOnly) {
+        function patchVnode(oldVnode, vnode, insertedVnodeQueue, removeOnly) {
             if (oldVnode === vnode) {
-                return
+                return;
             }
 
             var elm = vnode.elm = oldVnode.elm;
@@ -5408,20 +4918,16 @@ webpackJsonp([5],[
                 } else {
                     vnode.isAsyncPlaceholder = true;
                 }
-                return
+                return;
             }
 
             // reuse element for static trees.
             // note we only do this if the vnode is cloned -
             // if the new node is not cloned it means the render functions have been
             // reset by the hot-reload-api and we need to do a proper re-render.
-            if (isTrue(vnode.isStatic) &&
-                isTrue(oldVnode.isStatic) &&
-                vnode.key === oldVnode.key &&
-                (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))
-            ) {
+            if (isTrue(vnode.isStatic) && isTrue(oldVnode.isStatic) && vnode.key === oldVnode.key && (isTrue(vnode.isCloned) || isTrue(vnode.isOnce))) {
                 vnode.componentInstance = oldVnode.componentInstance;
-                return
+                return;
             }
 
             var i;
@@ -5433,14 +4939,22 @@ webpackJsonp([5],[
             var oldCh = oldVnode.children;
             var ch = vnode.children;
             if (isDef(data) && isPatchable(vnode)) {
-                for (i = 0; i < cbs.update.length; ++i) { cbs.update[i](oldVnode, vnode); }
-                if (isDef(i = data.hook) && isDef(i = i.update)) { i(oldVnode, vnode); }
+                for (i = 0; i < cbs.update.length; ++i) {
+                    cbs.update[i](oldVnode, vnode);
+                }
+                if (isDef(i = data.hook) && isDef(i = i.update)) {
+                    i(oldVnode, vnode);
+                }
             }
             if (isUndef(vnode.text)) {
                 if (isDef(oldCh) && isDef(ch)) {
-                    if (oldCh !== ch) { updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly); }
+                    if (oldCh !== ch) {
+                        updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly);
+                    }
                 } else if (isDef(ch)) {
-                    if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
+                    if (isDef(oldVnode.text)) {
+                        nodeOps.setTextContent(elm, '');
+                    }
                     addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
                 } else if (isDef(oldCh)) {
                     removeVnodes(elm, oldCh, 0, oldCh.length - 1);
@@ -5451,11 +4965,13 @@ webpackJsonp([5],[
                 nodeOps.setTextContent(elm, vnode.text);
             }
             if (isDef(data)) {
-                if (isDef(i = data.hook) && isDef(i = i.postpatch)) { i(oldVnode, vnode); }
+                if (isDef(i = data.hook) && isDef(i = i.postpatch)) {
+                    i(oldVnode, vnode);
+                }
             }
         }
 
-        function invokeInsertHook (vnode, queue, initial) {
+        function invokeInsertHook(vnode, queue, initial) {
             // delay insert hooks for component root nodes, invoke them after the
             // element is really inserted
             if (isTrue(initial) && isDef(vnode.parent)) {
@@ -5473,15 +4989,15 @@ webpackJsonp([5],[
         var isRenderedModule = makeMap('attrs,style,class,staticClass,staticStyle,key');
 
         // Note: this is a browser-only function so we can assume elms are DOM nodes.
-        function hydrate (elm, vnode, insertedVnodeQueue) {
+        function hydrate(elm, vnode, insertedVnodeQueue) {
             if (isTrue(vnode.isComment) && isDef(vnode.asyncFactory)) {
                 vnode.elm = elm;
                 vnode.isAsyncPlaceholder = true;
-                return true
+                return true;
             }
             {
                 if (!assertNodeMatch(elm, vnode)) {
-                    return false
+                    return false;
                 }
             }
             vnode.elm = elm;
@@ -5489,11 +5005,13 @@ webpackJsonp([5],[
             var data = vnode.data;
             var children = vnode.children;
             if (isDef(data)) {
-                if (isDef(i = data.hook) && isDef(i = i.init)) { i(vnode, true /* hydrating */); }
+                if (isDef(i = data.hook) && isDef(i = i.init)) {
+                    i(vnode, true /* hydrating */);
+                }
                 if (isDef(i = vnode.componentInstance)) {
                     // child component. it should have hydrated its own tree.
                     initComponent(vnode, insertedVnodeQueue);
-                    return true
+                    return true;
                 }
             }
             if (isDef(tag)) {
@@ -5507,22 +5025,19 @@ webpackJsonp([5],[
                         for (var i$1 = 0; i$1 < children.length; i$1++) {
                             if (!childNode || !hydrate(childNode, children[i$1], insertedVnodeQueue)) {
                                 childrenMatch = false;
-                                break
+                                break;
                             }
                             childNode = childNode.nextSibling;
                         }
                         // if childNode is not null, it means the actual childNodes list is
                         // longer than the virtual children list.
                         if (!childrenMatch || childNode) {
-                            if ("development" !== 'production' &&
-                                typeof console !== 'undefined' &&
-                                !bailed
-                            ) {
+                            if ("development" !== 'production' && typeof console !== 'undefined' && !bailed) {
                                 bailed = true;
                                 console.warn('Parent: ', elm);
                                 console.warn('Mismatching childNodes vs. VNodes: ', elm.childNodes, children);
                             }
-                            return false
+                            return false;
                         }
                     }
                 }
@@ -5530,31 +5045,30 @@ webpackJsonp([5],[
                     for (var key in data) {
                         if (!isRenderedModule(key)) {
                             invokeCreateHooks(vnode, insertedVnodeQueue);
-                            break
+                            break;
                         }
                     }
                 }
             } else if (elm.data !== vnode.text) {
                 elm.data = vnode.text;
             }
-            return true
+            return true;
         }
 
-        function assertNodeMatch (node, vnode) {
+        function assertNodeMatch(node, vnode) {
             if (isDef(vnode.tag)) {
-                return (
-                    vnode.tag.indexOf('vue-component') === 0 ||
-                    vnode.tag.toLowerCase() === (node.tagName && node.tagName.toLowerCase())
-                )
+                return vnode.tag.indexOf('vue-component') === 0 || vnode.tag.toLowerCase() === (node.tagName && node.tagName.toLowerCase());
             } else {
-                return node.nodeType === (vnode.isComment ? 8 : 3)
+                return node.nodeType === (vnode.isComment ? 8 : 3);
             }
         }
 
-        return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
+        return function patch(oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
             if (isUndef(vnode)) {
-                if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
-                return
+                if (isDef(oldVnode)) {
+                    invokeDestroyHook(oldVnode);
+                }
+                return;
             }
 
             var isInitialPatch = false;
@@ -5581,15 +5095,9 @@ webpackJsonp([5],[
                         if (isTrue(hydrating)) {
                             if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
                                 invokeInsertHook(vnode, insertedVnodeQueue, true);
-                                return oldVnode
+                                return oldVnode;
                             } else {
-                                warn(
-                                    'The client-side rendered virtual DOM tree is not matching ' +
-                                    'server-rendered content. This is likely caused by incorrect ' +
-                                    'HTML markup, for example nesting block-level elements inside ' +
-                                    '<p>, or missing <tbody>. Bailing hydration and performing ' +
-                                    'full client-side render.'
-                                );
+                                warn('The client-side rendered virtual DOM tree is not matching ' + 'server-rendered content. This is likely caused by incorrect ' + 'HTML markup, for example nesting block-level elements inside ' + '<p>, or missing <tbody>. Bailing hydration and performing ' + 'full client-side render.');
                             }
                         }
                         // either not server-rendered, or hydration failed.
@@ -5599,15 +5107,11 @@ webpackJsonp([5],[
                     // replacing existing element
                     var oldElm = oldVnode.elm;
                     var parentElm$1 = nodeOps.parentNode(oldElm);
-                    createElm(
-                        vnode,
-                        insertedVnodeQueue,
-                        // extremely rare edge case: do not insert if old element is in a
-                        // leaving transition. Only happens when combining transition +
-                        // keep-alive + HOCs. (#4590)
-                        oldElm._leaveCb ? null : parentElm$1,
-                        nodeOps.nextSibling(oldElm)
-                    );
+                    createElm(vnode, insertedVnodeQueue,
+                    // extremely rare edge case: do not insert if old element is in a
+                    // leaving transition. Only happens when combining transition +
+                    // keep-alive + HOCs. (#4590)
+                    oldElm._leaveCb ? null : parentElm$1, nodeOps.nextSibling(oldElm));
 
                     if (isDef(vnode.parent)) {
                         // component root element replaced.
@@ -5633,8 +5137,8 @@ webpackJsonp([5],[
             }
 
             invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch);
-            return vnode.elm
-        }
+            return vnode.elm;
+        };
     }
 
     /*  */
@@ -5642,18 +5146,18 @@ webpackJsonp([5],[
     var directives = {
         create: updateDirectives,
         update: updateDirectives,
-        destroy: function unbindDirectives (vnode) {
+        destroy: function unbindDirectives(vnode) {
             updateDirectives(vnode, emptyNode);
         }
     };
 
-    function updateDirectives (oldVnode, vnode) {
+    function updateDirectives(oldVnode, vnode) {
         if (oldVnode.data.directives || vnode.data.directives) {
             _update(oldVnode, vnode);
         }
     }
 
-    function _update (oldVnode, vnode) {
+    function _update(oldVnode, vnode) {
         var isCreate = oldVnode === emptyNode;
         var isDestroy = vnode === emptyNode;
         var oldDirs = normalizeDirectives$1(oldVnode.data.directives, oldVnode.context);
@@ -5715,13 +5219,10 @@ webpackJsonp([5],[
 
     var emptyModifiers = Object.create(null);
 
-    function normalizeDirectives$1 (
-        dirs,
-        vm
-    ) {
+    function normalizeDirectives$1(dirs, vm) {
         var res = Object.create(null);
         if (!dirs) {
-            return res
+            return res;
         }
         var i, dir;
         for (i = 0; i < dirs.length; i++) {
@@ -5732,38 +5233,35 @@ webpackJsonp([5],[
             res[getRawDirName(dir)] = dir;
             dir.def = resolveAsset(vm.$options, 'directives', dir.name, true);
         }
-        return res
+        return res;
     }
 
-    function getRawDirName (dir) {
-        return dir.rawName || ((dir.name) + "." + (Object.keys(dir.modifiers || {}).join('.')))
+    function getRawDirName(dir) {
+        return dir.rawName || dir.name + "." + Object.keys(dir.modifiers || {}).join('.');
     }
 
-    function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
+    function callHook$1(dir, hook, vnode, oldVnode, isDestroy) {
         var fn = dir.def && dir.def[hook];
         if (fn) {
             try {
                 fn(vnode.elm, dir, vnode, oldVnode, isDestroy);
             } catch (e) {
-                handleError(e, vnode.context, ("directive " + (dir.name) + " " + hook + " hook"));
+                handleError(e, vnode.context, "directive " + dir.name + " " + hook + " hook");
             }
         }
     }
 
-    var baseModules = [
-        ref,
-        directives
-    ];
+    var baseModules = [ref, directives];
 
     /*  */
 
-    function updateAttrs (oldVnode, vnode) {
+    function updateAttrs(oldVnode, vnode) {
         var opts = vnode.componentOptions;
         if (isDef(opts) && opts.Ctor.options.inheritAttrs === false) {
-            return
+            return;
         }
         if (isUndef(oldVnode.data.attrs) && isUndef(vnode.data.attrs)) {
-            return
+            return;
         }
         var key, cur, old;
         var elm = vnode.elm;
@@ -5797,7 +5295,7 @@ webpackJsonp([5],[
         }
     }
 
-    function setAttr (el, key, value) {
+    function setAttr(el, key, value) {
         if (isBooleanAttr(key)) {
             // set attribute for blank value
             // e.g. <option disabled>Select one</option>
@@ -5830,20 +5328,12 @@ webpackJsonp([5],[
 
     /*  */
 
-    function updateClass (oldVnode, vnode) {
+    function updateClass(oldVnode, vnode) {
         var el = vnode.elm;
         var data = vnode.data;
         var oldData = oldVnode.data;
-        if (
-            isUndef(data.staticClass) &&
-            isUndef(data.class) && (
-                isUndef(oldData) || (
-                    isUndef(oldData.staticClass) &&
-                    isUndef(oldData.class)
-                )
-            )
-        ) {
-            return
+        if (isUndef(data.staticClass) && isUndef(data.class) && (isUndef(oldData) || isUndef(oldData.staticClass) && isUndef(oldData.class))) {
+            return;
         }
 
         var cls = genClassForVnode(vnode);
@@ -5870,7 +5360,7 @@ webpackJsonp([5],[
 
     var validDivisionCharRE = /[\w).+\-_$\]]/;
 
-    function parseFilters (exp) {
+    function parseFilters(exp) {
         var inSingle = false;
         var inDouble = false;
         var inTemplateString = false;
@@ -5885,19 +5375,23 @@ webpackJsonp([5],[
             prev = c;
             c = exp.charCodeAt(i);
             if (inSingle) {
-                if (c === 0x27 && prev !== 0x5C) { inSingle = false; }
+                if (c === 0x27 && prev !== 0x5C) {
+                    inSingle = false;
+                }
             } else if (inDouble) {
-                if (c === 0x22 && prev !== 0x5C) { inDouble = false; }
+                if (c === 0x22 && prev !== 0x5C) {
+                    inDouble = false;
+                }
             } else if (inTemplateString) {
-                if (c === 0x60 && prev !== 0x5C) { inTemplateString = false; }
+                if (c === 0x60 && prev !== 0x5C) {
+                    inTemplateString = false;
+                }
             } else if (inRegex) {
-                if (c === 0x2f && prev !== 0x5C) { inRegex = false; }
-            } else if (
-                c === 0x7C && // pipe
-                exp.charCodeAt(i + 1) !== 0x7C &&
-                exp.charCodeAt(i - 1) !== 0x7C &&
-                !curly && !square && !paren
-            ) {
+                if (c === 0x2f && prev !== 0x5C) {
+                    inRegex = false;
+                }
+            } else if (c === 0x7C && // pipe
+            exp.charCodeAt(i + 1) !== 0x7C && exp.charCodeAt(i - 1) !== 0x7C && !curly && !square && !paren) {
                 if (expression === undefined) {
                     // first filter, end of expression
                     lastFilterIndex = i + 1;
@@ -5907,23 +5401,35 @@ webpackJsonp([5],[
                 }
             } else {
                 switch (c) {
-                    case 0x22: inDouble = true; break         // "
-                    case 0x27: inSingle = true; break         // '
-                    case 0x60: inTemplateString = true; break // `
-                    case 0x28: paren++; break                 // (
-                    case 0x29: paren--; break                 // )
-                    case 0x5B: square++; break                // [
-                    case 0x5D: square--; break                // ]
-                    case 0x7B: curly++; break                 // {
-                    case 0x7D: curly--; break                 // }
+                    case 0x22:
+                        inDouble = true;break; // "
+                    case 0x27:
+                        inSingle = true;break; // '
+                    case 0x60:
+                        inTemplateString = true;break; // `
+                    case 0x28:
+                        paren++;break; // (
+                    case 0x29:
+                        paren--;break; // )
+                    case 0x5B:
+                        square++;break; // [
+                    case 0x5D:
+                        square--;break; // ]
+                    case 0x7B:
+                        curly++;break; // {
+                    case 0x7D:
+                        curly--;break; // }
                 }
-                if (c === 0x2f) { // /
+                if (c === 0x2f) {
+                    // /
                     var j = i - 1;
-                    var p = (void 0);
+                    var p = void 0;
                     // find first non-whitespace prev char
                     for (; j >= 0; j--) {
                         p = exp.charAt(j);
-                        if (p !== ' ') { break }
+                        if (p !== ' ') {
+                            break;
+                        }
                     }
                     if (!p || !validDivisionCharRE.test(p)) {
                         inRegex = true;
@@ -5938,7 +5444,7 @@ webpackJsonp([5],[
             pushFilter();
         }
 
-        function pushFilter () {
+        function pushFilter() {
             (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
             lastFilterIndex = i + 1;
         }
@@ -5949,73 +5455,52 @@ webpackJsonp([5],[
             }
         }
 
-        return expression
+        return expression;
     }
 
-    function wrapFilter (exp, filter) {
+    function wrapFilter(exp, filter) {
         var i = filter.indexOf('(');
         if (i < 0) {
             // _f: resolveFilter
-            return ("_f(\"" + filter + "\")(" + exp + ")")
+            return "_f(\"" + filter + "\")(" + exp + ")";
         } else {
             var name = filter.slice(0, i);
             var args = filter.slice(i + 1);
-            return ("_f(\"" + name + "\")(" + exp + "," + args)
+            return "_f(\"" + name + "\")(" + exp + "," + args;
         }
     }
 
     /*  */
 
-    function baseWarn (msg) {
-        console.error(("[Vue compiler]: " + msg));
+    function baseWarn(msg) {
+        console.error("[Vue compiler]: " + msg);
     }
 
-    function pluckModuleFunction (
-        modules,
-        key
-    ) {
-        return modules
-            ? modules.map(function (m) { return m[key]; }).filter(function (_) { return _; })
-            : []
+    function pluckModuleFunction(modules, key) {
+        return modules ? modules.map(function (m) {
+            return m[key];
+        }).filter(function (_) {
+            return _;
+        }) : [];
     }
 
-    function addProp (el, name, value) {
+    function addProp(el, name, value) {
         (el.props || (el.props = [])).push({ name: name, value: value });
     }
 
-    function addAttr (el, name, value) {
+    function addAttr(el, name, value) {
         (el.attrs || (el.attrs = [])).push({ name: name, value: value });
     }
 
-    function addDirective (
-        el,
-        name,
-        rawName,
-        value,
-        arg,
-        modifiers
-    ) {
+    function addDirective(el, name, rawName, value, arg, modifiers) {
         (el.directives || (el.directives = [])).push({ name: name, rawName: rawName, value: value, arg: arg, modifiers: modifiers });
     }
 
-    function addHandler (
-        el,
-        name,
-        value,
-        modifiers,
-        important,
-        warn
-    ) {
+    function addHandler(el, name, value, modifiers, important, warn) {
         // warn prevent and passive modifier
         /* istanbul ignore if */
-        if (
-            "development" !== 'production' && warn &&
-            modifiers && modifiers.prevent && modifiers.passive
-        ) {
-            warn(
-                'passive and prevent can\'t be used together. ' +
-                'Passive handler can\'t prevent default event.'
-            );
+        if ("development" !== 'production' && warn && modifiers && modifiers.prevent && modifiers.passive) {
+            warn('passive and prevent can\'t be used together. ' + 'Passive handler can\'t prevent default event.');
         }
         // check capture modifier
         if (modifiers && modifiers.capture) {
@@ -6050,36 +5535,30 @@ webpackJsonp([5],[
         }
     }
 
-    function getBindingAttr (
-        el,
-        name,
-        getStatic
-    ) {
-        var dynamicValue =
-            getAndRemoveAttr(el, ':' + name) ||
-            getAndRemoveAttr(el, 'v-bind:' + name);
+    function getBindingAttr(el, name, getStatic) {
+        var dynamicValue = getAndRemoveAttr(el, ':' + name) || getAndRemoveAttr(el, 'v-bind:' + name);
         if (dynamicValue != null) {
-            return parseFilters(dynamicValue)
+            return parseFilters(dynamicValue);
         } else if (getStatic !== false) {
             var staticValue = getAndRemoveAttr(el, name);
             if (staticValue != null) {
-                return JSON.stringify(staticValue)
+                return JSON.stringify(staticValue);
             }
         }
     }
 
-    function getAndRemoveAttr (el, name) {
+    function getAndRemoveAttr(el, name) {
         var val;
         if ((val = el.attrsMap[name]) != null) {
             var list = el.attrsList;
             for (var i = 0, l = list.length; i < l; i++) {
                 if (list[i].name === name) {
                     list.splice(i, 1);
-                    break
+                    break;
                 }
             }
         }
-        return val
+        return val;
     }
 
     /*  */
@@ -6087,11 +5566,7 @@ webpackJsonp([5],[
     /**
      * Cross-platform code generation for component v-model
      */
-    function genComponentModel (
-        el,
-        value,
-        modifiers
-    ) {
+    function genComponentModel(el, value, modifiers) {
         var ref = modifiers || {};
         var number = ref.number;
         var trim = ref.trim;
@@ -6099,10 +5574,7 @@ webpackJsonp([5],[
         var baseValueExpression = '$$v';
         var valueExpression = baseValueExpression;
         if (trim) {
-            valueExpression =
-                "(typeof " + baseValueExpression + " === 'string'" +
-                "? " + baseValueExpression + ".trim()" +
-                ": " + baseValueExpression + ")";
+            valueExpression = "(typeof " + baseValueExpression + " === 'string'" + "? " + baseValueExpression + ".trim()" + ": " + baseValueExpression + ")";
         }
         if (number) {
             valueExpression = "_n(" + valueExpression + ")";
@@ -6110,24 +5582,21 @@ webpackJsonp([5],[
         var assignment = genAssignmentCode(value, valueExpression);
 
         el.model = {
-            value: ("(" + value + ")"),
-            expression: ("\"" + value + "\""),
-            callback: ("function (" + baseValueExpression + ") {" + assignment + "}")
+            value: "(" + value + ")",
+            expression: "\"" + value + "\"",
+            callback: "function (" + baseValueExpression + ") {" + assignment + "}"
         };
     }
 
     /**
      * Cross-platform codegen helper for generating v-model value assignment code.
      */
-    function genAssignmentCode (
-        value,
-        assignment
-    ) {
+    function genAssignmentCode(value, assignment) {
         var modelRs = parseModel(value);
         if (modelRs.idx === null) {
-            return (value + "=" + assignment)
+            return value + "=" + assignment;
         } else {
-            return ("$set(" + (modelRs.exp) + ", " + (modelRs.idx) + ", " + assignment + ")")
+            return "$set(" + modelRs.exp + ", " + modelRs.idx + ", " + assignment + ")";
         }
     }
 
@@ -6152,7 +5621,7 @@ webpackJsonp([5],[
     var expressionPos;
     var expressionEndPos;
 
-    function parseModel (val) {
+    function parseModel(val) {
         str = val;
         len = str.length;
         index$1 = expressionPos = expressionEndPos = 0;
@@ -6161,7 +5630,7 @@ webpackJsonp([5],[
             return {
                 exp: val,
                 idx: null
-            }
+            };
         }
 
         while (!eof()) {
@@ -6177,45 +5646,49 @@ webpackJsonp([5],[
         return {
             exp: val.substring(0, expressionPos),
             idx: val.substring(expressionPos + 1, expressionEndPos)
-        }
+        };
     }
 
-    function next () {
-        return str.charCodeAt(++index$1)
+    function next() {
+        return str.charCodeAt(++index$1);
     }
 
-    function eof () {
-        return index$1 >= len
+    function eof() {
+        return index$1 >= len;
     }
 
-    function isStringStart (chr) {
-        return chr === 0x22 || chr === 0x27
+    function isStringStart(chr) {
+        return chr === 0x22 || chr === 0x27;
     }
 
-    function parseBracket (chr) {
+    function parseBracket(chr) {
         var inBracket = 1;
         expressionPos = index$1;
         while (!eof()) {
             chr = next();
             if (isStringStart(chr)) {
                 parseString(chr);
-                continue
+                continue;
             }
-            if (chr === 0x5B) { inBracket++; }
-            if (chr === 0x5D) { inBracket--; }
+            if (chr === 0x5B) {
+                inBracket++;
+            }
+            if (chr === 0x5D) {
+                inBracket--;
+            }
             if (inBracket === 0) {
                 expressionEndPos = index$1;
-                break
+                break;
             }
         }
     }
 
-    function parseString (chr) {
+    function parseString(chr) {
         var stringQuote = chr;
         while (!eof()) {
             chr = next();
             if (chr === stringQuote) {
-                break
+                break;
             }
         }
     }
@@ -6224,16 +5697,12 @@ webpackJsonp([5],[
 
     var warn$1;
 
-// in some cases, the event used has to be determined at runtime
-// so we used some reserved tokens during compile.
+    // in some cases, the event used has to be determined at runtime
+    // so we used some reserved tokens during compile.
     var RANGE_TOKEN = '__r';
     var CHECKBOX_RADIO_TOKEN = '__c';
 
-    function model (
-        el,
-        dir,
-        _warn
-    ) {
+    function model(el, dir, _warn) {
         warn$1 = _warn;
         var value = dir.value;
         var modifiers = dir.modifiers;
@@ -6243,25 +5712,19 @@ webpackJsonp([5],[
         {
             var dynamicType = el.attrsMap['v-bind:type'] || el.attrsMap[':type'];
             if (tag === 'input' && dynamicType) {
-                warn$1(
-                    "<input :type=\"" + dynamicType + "\" v-model=\"" + value + "\">:\n" +
-                    "v-model does not support dynamic input types. Use v-if branches instead."
-                );
+                warn$1("<input :type=\"" + dynamicType + "\" v-model=\"" + value + "\">:\n" + "v-model does not support dynamic input types. Use v-if branches instead.");
             }
             // inputs with type="file" are read only and setting the input's
             // value will throw an error.
             if (tag === 'input' && type === 'file') {
-                warn$1(
-                    "<" + (el.tag) + " v-model=\"" + value + "\" type=\"file\">:\n" +
-                    "File inputs are read only. Use a v-on:change listener instead."
-                );
+                warn$1("<" + el.tag + " v-model=\"" + value + "\" type=\"file\">:\n" + "File inputs are read only. Use a v-on:change listener instead.");
             }
         }
 
         if (el.component) {
             genComponentModel(el, value, modifiers);
             // component v-model doesn't need extra runtime
-            return false
+            return false;
         } else if (tag === 'select') {
             genSelect(el, value, modifiers);
         } else if (tag === 'input' && type === 'checkbox') {
@@ -6273,96 +5736,50 @@ webpackJsonp([5],[
         } else if (!config.isReservedTag(tag)) {
             genComponentModel(el, value, modifiers);
             // component v-model doesn't need extra runtime
-            return false
+            return false;
         } else {
-            warn$1(
-                "<" + (el.tag) + " v-model=\"" + value + "\">: " +
-                "v-model is not supported on this element type. " +
-                'If you are working with contenteditable, it\'s recommended to ' +
-                'wrap a library dedicated for that purpose inside a custom component.'
-            );
+            warn$1("<" + el.tag + " v-model=\"" + value + "\">: " + "v-model is not supported on this element type. " + 'If you are working with contenteditable, it\'s recommended to ' + 'wrap a library dedicated for that purpose inside a custom component.');
         }
 
         // ensure runtime directive metadata
-        return true
+        return true;
     }
 
-    function genCheckboxModel (
-        el,
-        value,
-        modifiers
-    ) {
+    function genCheckboxModel(el, value, modifiers) {
         var number = modifiers && modifiers.number;
         var valueBinding = getBindingAttr(el, 'value') || 'null';
         var trueValueBinding = getBindingAttr(el, 'true-value') || 'true';
         var falseValueBinding = getBindingAttr(el, 'false-value') || 'false';
-        addProp(el, 'checked',
-            "Array.isArray(" + value + ")" +
-            "?_i(" + value + "," + valueBinding + ")>-1" + (
-                trueValueBinding === 'true'
-                    ? (":(" + value + ")")
-                    : (":_q(" + value + "," + trueValueBinding + ")")
-            )
-        );
-        addHandler(el, CHECKBOX_RADIO_TOKEN,
-            "var $$a=" + value + "," +
-            '$$el=$event.target,' +
-            "$$c=$$el.checked?(" + trueValueBinding + "):(" + falseValueBinding + ");" +
-            'if(Array.isArray($$a)){' +
-            "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," +
-            '$$i=_i($$a,$$v);' +
-            "if($$el.checked){$$i<0&&(" + value + "=$$a.concat($$v))}" +
-            "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" +
-            "}else{" + (genAssignmentCode(value, '$$c')) + "}",
-            null, true
-        );
+        addProp(el, 'checked', "Array.isArray(" + value + ")" + "?_i(" + value + "," + valueBinding + ")>-1" + (trueValueBinding === 'true' ? ":(" + value + ")" : ":_q(" + value + "," + trueValueBinding + ")"));
+        addHandler(el, CHECKBOX_RADIO_TOKEN, "var $$a=" + value + "," + '$$el=$event.target,' + "$$c=$$el.checked?(" + trueValueBinding + "):(" + falseValueBinding + ");" + 'if(Array.isArray($$a)){' + "var $$v=" + (number ? '_n(' + valueBinding + ')' : valueBinding) + "," + '$$i=_i($$a,$$v);' + "if($$el.checked){$$i<0&&(" + value + "=$$a.concat($$v))}" + "else{$$i>-1&&(" + value + "=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}" + "}else{" + genAssignmentCode(value, '$$c') + "}", null, true);
     }
 
-    function genRadioModel (
-        el,
-        value,
-        modifiers
-    ) {
+    function genRadioModel(el, value, modifiers) {
         var number = modifiers && modifiers.number;
         var valueBinding = getBindingAttr(el, 'value') || 'null';
-        valueBinding = number ? ("_n(" + valueBinding + ")") : valueBinding;
-        addProp(el, 'checked', ("_q(" + value + "," + valueBinding + ")"));
+        valueBinding = number ? "_n(" + valueBinding + ")" : valueBinding;
+        addProp(el, 'checked', "_q(" + value + "," + valueBinding + ")");
         addHandler(el, CHECKBOX_RADIO_TOKEN, genAssignmentCode(value, valueBinding), null, true);
     }
 
-    function genSelect (
-        el,
-        value,
-        modifiers
-    ) {
+    function genSelect(el, value, modifiers) {
         var number = modifiers && modifiers.number;
-        var selectedVal = "Array.prototype.filter" +
-            ".call($event.target.options,function(o){return o.selected})" +
-            ".map(function(o){var val = \"_value\" in o ? o._value : o.value;" +
-            "return " + (number ? '_n(val)' : 'val') + "})";
+        var selectedVal = "Array.prototype.filter" + ".call($event.target.options,function(o){return o.selected})" + ".map(function(o){var val = \"_value\" in o ? o._value : o.value;" + "return " + (number ? '_n(val)' : 'val') + "})";
 
         var assignment = '$event.target.multiple ? $$selectedVal : $$selectedVal[0]';
         var code = "var $$selectedVal = " + selectedVal + ";";
-        code = code + " " + (genAssignmentCode(value, assignment));
+        code = code + " " + genAssignmentCode(value, assignment);
         addHandler(el, 'change', code, null, true);
     }
 
-    function genDefaultModel (
-        el,
-        value,
-        modifiers
-    ) {
+    function genDefaultModel(el, value, modifiers) {
         var type = el.attrsMap.type;
         var ref = modifiers || {};
         var lazy = ref.lazy;
         var number = ref.number;
         var trim = ref.trim;
         var needCompositionGuard = !lazy && type !== 'range';
-        var event = lazy
-            ? 'change'
-            : type === 'range'
-                ? RANGE_TOKEN
-                : 'input';
+        var event = lazy ? 'change' : type === 'range' ? RANGE_TOKEN : 'input';
 
         var valueExpression = '$event.target.value';
         if (trim) {
@@ -6377,7 +5794,7 @@ webpackJsonp([5],[
             code = "if($event.target.composing)return;" + code;
         }
 
-        addProp(el, 'value', ("(" + value + ")"));
+        addProp(el, 'value', "(" + value + ")");
         addHandler(el, event, code, null, true);
         if (trim || number) {
             addHandler(el, 'blur', '$forceUpdate()');
@@ -6386,11 +5803,11 @@ webpackJsonp([5],[
 
     /*  */
 
-// normalize v-model event tokens that can only be determined at runtime.
-// it's important to place the event as the first in the array because
-// the whole point is ensuring the v-model callback gets called before
-// user-attached handlers.
-    function normalizeEvents (on) {
+    // normalize v-model event tokens that can only be determined at runtime.
+    // it's important to place the event as the first in the array because
+    // the whole point is ensuring the v-model callback gets called before
+    // user-attached handlers.
+    function normalizeEvents(on) {
         var event;
         /* istanbul ignore if */
         if (isDef(on[RANGE_TOKEN])) {
@@ -6409,46 +5826,27 @@ webpackJsonp([5],[
 
     var target$1;
 
-    function add$1 (
-        event,
-        handler,
-        once$$1,
-        capture,
-        passive
-    ) {
+    function add$1(event, handler, once$$1, capture, passive) {
         if (once$$1) {
             var oldHandler = handler;
             var _target = target$1; // save current target element in closure
             handler = function (ev) {
-                var res = arguments.length === 1
-                    ? oldHandler(ev)
-                    : oldHandler.apply(null, arguments);
+                var res = arguments.length === 1 ? oldHandler(ev) : oldHandler.apply(null, arguments);
                 if (res !== null) {
                     remove$2(event, handler, capture, _target);
                 }
             };
         }
-        target$1.addEventListener(
-            event,
-            handler,
-            supportsPassive
-                ? { capture: capture, passive: passive }
-                : capture
-        );
+        target$1.addEventListener(event, handler, supportsPassive ? { capture: capture, passive: passive } : capture);
     }
 
-    function remove$2 (
-        event,
-        handler,
-        capture,
-        _target
-    ) {
+    function remove$2(event, handler, capture, _target) {
         (_target || target$1).removeEventListener(event, handler, capture);
     }
 
-    function updateDOMListeners (oldVnode, vnode) {
+    function updateDOMListeners(oldVnode, vnode) {
         if (isUndef(oldVnode.data.on) && isUndef(vnode.data.on)) {
-            return
+            return;
         }
         var on = vnode.data.on || {};
         var oldOn = oldVnode.data.on || {};
@@ -6464,9 +5862,9 @@ webpackJsonp([5],[
 
     /*  */
 
-    function updateDOMProps (oldVnode, vnode) {
+    function updateDOMProps(oldVnode, vnode) {
         if (isUndef(oldVnode.data.domProps) && isUndef(vnode.data.domProps)) {
-            return
+            return;
         }
         var key, cur;
         var elm = vnode.elm;
@@ -6488,8 +5886,12 @@ webpackJsonp([5],[
             // as these will throw away existing DOM nodes and cause removal errors
             // on subsequent patches (#3360)
             if (key === 'textContent' || key === 'innerHTML') {
-                if (vnode.children) { vnode.children.length = 0; }
-                if (cur === oldProps[key]) { continue }
+                if (vnode.children) {
+                    vnode.children.length = 0;
+                }
+                if (cur === oldProps[key]) {
+                    continue;
+                }
             }
 
             if (key === 'value') {
@@ -6507,41 +5909,35 @@ webpackJsonp([5],[
         }
     }
 
-// check platforms/web/util/attrs.js acceptValue
+    // check platforms/web/util/attrs.js acceptValue
 
 
-    function shouldUpdateValue (
-        elm,
-        vnode,
-        checkVal
-    ) {
-        return (!elm.composing && (
-            vnode.tag === 'option' ||
-            isDirty(elm, checkVal) ||
-            isInputChanged(elm, checkVal)
-        ))
+    function shouldUpdateValue(elm, vnode, checkVal) {
+        return !elm.composing && (vnode.tag === 'option' || isDirty(elm, checkVal) || isInputChanged(elm, checkVal));
     }
 
-    function isDirty (elm, checkVal) {
+    function isDirty(elm, checkVal) {
         // return true when textbox (.number and .trim) loses focus and its value is
         // not equal to the updated value
         var notInFocus = true;
         // #6157
         // work around IE bug when accessing document.activeElement in an iframe
-        try { notInFocus = document.activeElement !== elm; } catch (e) {}
-        return notInFocus && elm.value !== checkVal
+        try {
+            notInFocus = document.activeElement !== elm;
+        } catch (e) {}
+        return notInFocus && elm.value !== checkVal;
     }
 
-    function isInputChanged (elm, newVal) {
+    function isInputChanged(elm, newVal) {
         var value = elm.value;
         var modifiers = elm._vModifiers; // injected by v-model runtime
         if (isDef(modifiers) && modifiers.number) {
-            return toNumber(value) !== toNumber(newVal)
+            return toNumber(value) !== toNumber(newVal);
         }
         if (isDef(modifiers) && modifiers.trim) {
-            return value.trim() !== newVal.trim()
+            return value.trim() !== newVal.trim();
         }
-        return value !== newVal
+        return value !== newVal;
     }
 
     var domProps = {
@@ -6561,35 +5957,33 @@ webpackJsonp([5],[
                 tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim());
             }
         });
-        return res
+        return res;
     });
 
-// merge static and dynamic style data on the same vnode
-    function normalizeStyleData (data) {
+    // merge static and dynamic style data on the same vnode
+    function normalizeStyleData(data) {
         var style = normalizeStyleBinding(data.style);
         // static style is pre-processed into an object during compilation
         // and is always a fresh object, so it's safe to merge into it
-        return data.staticStyle
-            ? extend(data.staticStyle, style)
-            : style
+        return data.staticStyle ? extend(data.staticStyle, style) : style;
     }
 
-// normalize possible array / string values into Object
-    function normalizeStyleBinding (bindingStyle) {
+    // normalize possible array / string values into Object
+    function normalizeStyleBinding(bindingStyle) {
         if (Array.isArray(bindingStyle)) {
-            return toObject(bindingStyle)
+            return toObject(bindingStyle);
         }
         if (typeof bindingStyle === 'string') {
-            return parseStyleText(bindingStyle)
+            return parseStyleText(bindingStyle);
         }
-        return bindingStyle
+        return bindingStyle;
     }
 
     /**
      * parent component style should be after child's
      * so that parent component's style could override it
      */
-    function getStyle (vnode, checkChild) {
+    function getStyle(vnode, checkChild) {
         var res = {};
         var styleData;
 
@@ -6603,17 +5997,17 @@ webpackJsonp([5],[
             }
         }
 
-        if ((styleData = normalizeStyleData(vnode.data))) {
+        if (styleData = normalizeStyleData(vnode.data)) {
             extend(res, styleData);
         }
 
         var parentNode = vnode;
-        while ((parentNode = parentNode.parent)) {
+        while (parentNode = parentNode.parent) {
             if (parentNode.data && (styleData = normalizeStyleData(parentNode.data))) {
                 extend(res, styleData);
             }
         }
-        return res
+        return res;
     }
 
     /*  */
@@ -6647,26 +6041,24 @@ webpackJsonp([5],[
     var normalize = cached(function (prop) {
         emptyStyle = emptyStyle || document.createElement('div').style;
         prop = camelize(prop);
-        if (prop !== 'filter' && (prop in emptyStyle)) {
-            return prop
+        if (prop !== 'filter' && prop in emptyStyle) {
+            return prop;
         }
         var capName = prop.charAt(0).toUpperCase() + prop.slice(1);
         for (var i = 0; i < vendorNames.length; i++) {
             var name = vendorNames[i] + capName;
             if (name in emptyStyle) {
-                return name
+                return name;
             }
         }
     });
 
-    function updateStyle (oldVnode, vnode) {
+    function updateStyle(oldVnode, vnode) {
         var data = vnode.data;
         var oldData = oldVnode.data;
 
-        if (isUndef(data.staticStyle) && isUndef(data.style) &&
-            isUndef(oldData.staticStyle) && isUndef(oldData.style)
-        ) {
-            return
+        if (isUndef(data.staticStyle) && isUndef(data.style) && isUndef(oldData.staticStyle) && isUndef(oldData.style)) {
+            return;
         }
 
         var cur, name;
@@ -6682,9 +6074,7 @@ webpackJsonp([5],[
         // store normalized style under a different key for next diff
         // make sure to clone it if it's reactive, since the user likley wants
         // to mutate it.
-        vnode.data.normalizedStyle = isDef(style.__ob__)
-            ? extend({}, style)
-            : style;
+        vnode.data.normalizedStyle = isDef(style.__ob__) ? extend({}, style) : style;
 
         var newStyle = getStyle(vnode, true);
 
@@ -6713,16 +6103,18 @@ webpackJsonp([5],[
      * Add class with compatibility for SVG since classList is not supported on
      * SVG elements in IE
      */
-    function addClass (el, cls) {
+    function addClass(el, cls) {
         /* istanbul ignore if */
         if (!cls || !(cls = cls.trim())) {
-            return
+            return;
         }
 
         /* istanbul ignore else */
         if (el.classList) {
             if (cls.indexOf(' ') > -1) {
-                cls.split(/\s+/).forEach(function (c) { return el.classList.add(c); });
+                cls.split(/\s+/).forEach(function (c) {
+                    return el.classList.add(c);
+                });
             } else {
                 el.classList.add(cls);
             }
@@ -6738,16 +6130,18 @@ webpackJsonp([5],[
      * Remove class with compatibility for SVG since classList is not supported on
      * SVG elements in IE
      */
-    function removeClass (el, cls) {
+    function removeClass(el, cls) {
         /* istanbul ignore if */
         if (!cls || !(cls = cls.trim())) {
-            return
+            return;
         }
 
         /* istanbul ignore else */
         if (el.classList) {
             if (cls.indexOf(' ') > -1) {
-                cls.split(/\s+/).forEach(function (c) { return el.classList.remove(c); });
+                cls.split(/\s+/).forEach(function (c) {
+                    return el.classList.remove(c);
+                });
             } else {
                 el.classList.remove(cls);
             }
@@ -6771,9 +6165,9 @@ webpackJsonp([5],[
 
     /*  */
 
-    function resolveTransition (def$$1) {
+    function resolveTransition(def$$1) {
         if (!def$$1) {
-            return
+            return;
         }
         /* istanbul ignore else */
         if (typeof def$$1 === 'object') {
@@ -6782,60 +6176,54 @@ webpackJsonp([5],[
                 extend(res, autoCssTransition(def$$1.name || 'v'));
             }
             extend(res, def$$1);
-            return res
+            return res;
         } else if (typeof def$$1 === 'string') {
-            return autoCssTransition(def$$1)
+            return autoCssTransition(def$$1);
         }
     }
 
     var autoCssTransition = cached(function (name) {
         return {
-            enterClass: (name + "-enter"),
-            enterToClass: (name + "-enter-to"),
-            enterActiveClass: (name + "-enter-active"),
-            leaveClass: (name + "-leave"),
-            leaveToClass: (name + "-leave-to"),
-            leaveActiveClass: (name + "-leave-active")
-        }
+            enterClass: name + "-enter",
+            enterToClass: name + "-enter-to",
+            enterActiveClass: name + "-enter-active",
+            leaveClass: name + "-leave",
+            leaveToClass: name + "-leave-to",
+            leaveActiveClass: name + "-leave-active"
+        };
     });
 
     var hasTransition = inBrowser && !isIE9;
     var TRANSITION = 'transition';
     var ANIMATION = 'animation';
 
-// Transition property/event sniffing
+    // Transition property/event sniffing
     var transitionProp = 'transition';
     var transitionEndEvent = 'transitionend';
     var animationProp = 'animation';
     var animationEndEvent = 'animationend';
     if (hasTransition) {
         /* istanbul ignore if */
-        if (window.ontransitionend === undefined &&
-            window.onwebkittransitionend !== undefined
-        ) {
+        if (window.ontransitionend === undefined && window.onwebkittransitionend !== undefined) {
             transitionProp = 'WebkitTransition';
             transitionEndEvent = 'webkitTransitionEnd';
         }
-        if (window.onanimationend === undefined &&
-            window.onwebkitanimationend !== undefined
-        ) {
+        if (window.onanimationend === undefined && window.onwebkitanimationend !== undefined) {
             animationProp = 'WebkitAnimation';
             animationEndEvent = 'webkitAnimationEnd';
         }
     }
 
-// binding to window is necessary to make hot reload work in IE in strict mode
-    var raf = inBrowser && window.requestAnimationFrame
-        ? window.requestAnimationFrame.bind(window)
-        : setTimeout;
+    // binding to window is necessary to make hot reload work in IE in strict mode
+    var raf = inBrowser && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : setTimeout;
 
-    function nextFrame (fn) {
+    function nextFrame(fn) {
         raf(function () {
             raf(fn);
         });
     }
 
-    function addTransitionClass (el, cls) {
+    function addTransitionClass(el, cls) {
         var transitionClasses = el._transitionClasses || (el._transitionClasses = []);
         if (transitionClasses.indexOf(cls) < 0) {
             transitionClasses.push(cls);
@@ -6843,23 +6231,21 @@ webpackJsonp([5],[
         }
     }
 
-    function removeTransitionClass (el, cls) {
+    function removeTransitionClass(el, cls) {
         if (el._transitionClasses) {
             remove(el._transitionClasses, cls);
         }
         removeClass(el, cls);
     }
 
-    function whenTransitionEnds (
-        el,
-        expectedType,
-        cb
-    ) {
+    function whenTransitionEnds(el, expectedType, cb) {
         var ref = getTransitionInfo(el, expectedType);
         var type = ref.type;
         var timeout = ref.timeout;
         var propCount = ref.propCount;
-        if (!type) { return cb() }
+        if (!type) {
+            return cb();
+        }
         var event = type === TRANSITION ? transitionEndEvent : animationEndEvent;
         var ended = 0;
         var end = function () {
@@ -6883,7 +6269,7 @@ webpackJsonp([5],[
 
     var transformRE = /\b(transform|all)(,|$)/;
 
-    function getTransitionInfo (el, expectedType) {
+    function getTransitionInfo(el, expectedType) {
         var styles = window.getComputedStyle(el);
         var transitionDelays = styles[transitionProp + 'Delay'].split(', ');
         var transitionDurations = styles[transitionProp + 'Duration'].split(', ');
@@ -6910,46 +6296,36 @@ webpackJsonp([5],[
             }
         } else {
             timeout = Math.max(transitionTimeout, animationTimeout);
-            type = timeout > 0
-                ? transitionTimeout > animationTimeout
-                    ? TRANSITION
-                    : ANIMATION
-                : null;
-            propCount = type
-                ? type === TRANSITION
-                    ? transitionDurations.length
-                    : animationDurations.length
-                : 0;
+            type = timeout > 0 ? transitionTimeout > animationTimeout ? TRANSITION : ANIMATION : null;
+            propCount = type ? type === TRANSITION ? transitionDurations.length : animationDurations.length : 0;
         }
-        var hasTransform =
-            type === TRANSITION &&
-            transformRE.test(styles[transitionProp + 'Property']);
+        var hasTransform = type === TRANSITION && transformRE.test(styles[transitionProp + 'Property']);
         return {
             type: type,
             timeout: timeout,
             propCount: propCount,
             hasTransform: hasTransform
-        }
+        };
     }
 
-    function getTimeout (delays, durations) {
+    function getTimeout(delays, durations) {
         /* istanbul ignore next */
         while (delays.length < durations.length) {
             delays = delays.concat(delays);
         }
 
         return Math.max.apply(null, durations.map(function (d, i) {
-            return toMs(d) + toMs(delays[i])
-        }))
+            return toMs(d) + toMs(delays[i]);
+        }));
     }
 
-    function toMs (s) {
-        return Number(s.slice(0, -1)) * 1000
+    function toMs(s) {
+        return Number(s.slice(0, -1)) * 1000;
     }
 
     /*  */
 
-    function enter (vnode, toggleDisplay) {
+    function enter(vnode, toggleDisplay) {
         var el = vnode.elm;
 
         // call leave callback now
@@ -6960,12 +6336,12 @@ webpackJsonp([5],[
 
         var data = resolveTransition(vnode.data.transition);
         if (isUndef(data)) {
-            return
+            return;
         }
 
         /* istanbul ignore if */
         if (isDef(el._enterCb) || el.nodeType !== 1) {
-            return
+            return;
         }
 
         var css = data.css;
@@ -7000,37 +6376,19 @@ webpackJsonp([5],[
         var isAppear = !context._isMounted || !vnode.isRootInsert;
 
         if (isAppear && !appear && appear !== '') {
-            return
+            return;
         }
 
-        var startClass = isAppear && appearClass
-            ? appearClass
-            : enterClass;
-        var activeClass = isAppear && appearActiveClass
-            ? appearActiveClass
-            : enterActiveClass;
-        var toClass = isAppear && appearToClass
-            ? appearToClass
-            : enterToClass;
+        var startClass = isAppear && appearClass ? appearClass : enterClass;
+        var activeClass = isAppear && appearActiveClass ? appearActiveClass : enterActiveClass;
+        var toClass = isAppear && appearToClass ? appearToClass : enterToClass;
 
-        var beforeEnterHook = isAppear
-            ? (beforeAppear || beforeEnter)
-            : beforeEnter;
-        var enterHook = isAppear
-            ? (typeof appear === 'function' ? appear : enter)
-            : enter;
-        var afterEnterHook = isAppear
-            ? (afterAppear || afterEnter)
-            : afterEnter;
-        var enterCancelledHook = isAppear
-            ? (appearCancelled || enterCancelled)
-            : enterCancelled;
+        var beforeEnterHook = isAppear ? beforeAppear || beforeEnter : beforeEnter;
+        var enterHook = isAppear ? typeof appear === 'function' ? appear : enter : enter;
+        var afterEnterHook = isAppear ? afterAppear || afterEnter : afterEnter;
+        var enterCancelledHook = isAppear ? appearCancelled || enterCancelled : enterCancelled;
 
-        var explicitEnterDuration = toNumber(
-            isObject(duration)
-                ? duration.enter
-                : duration
-        );
+        var explicitEnterDuration = toNumber(isObject(duration) ? duration.enter : duration);
 
         if ("development" !== 'production' && explicitEnterDuration != null) {
             checkDuration(explicitEnterDuration, 'enter', vnode);
@@ -7060,10 +6418,7 @@ webpackJsonp([5],[
             mergeVNodeHook(vnode.data.hook || (vnode.data.hook = {}), 'insert', function () {
                 var parent = el.parentNode;
                 var pendingNode = parent && parent._pending && parent._pending[vnode.key];
-                if (pendingNode &&
-                    pendingNode.tag === vnode.tag &&
-                    pendingNode.elm._leaveCb
-                ) {
+                if (pendingNode && pendingNode.tag === vnode.tag && pendingNode.elm._leaveCb) {
                     pendingNode.elm._leaveCb();
                 }
                 enterHook && enterHook(el, cb);
@@ -7098,7 +6453,7 @@ webpackJsonp([5],[
         }
     }
 
-    function leave (vnode, rm) {
+    function leave(vnode, rm) {
         var el = vnode.elm;
 
         // call enter callback now
@@ -7109,12 +6464,12 @@ webpackJsonp([5],[
 
         var data = resolveTransition(vnode.data.transition);
         if (isUndef(data)) {
-            return rm()
+            return rm();
         }
 
         /* istanbul ignore if */
         if (isDef(el._leaveCb) || el.nodeType !== 1) {
-            return
+            return;
         }
 
         var css = data.css;
@@ -7132,11 +6487,7 @@ webpackJsonp([5],[
         var expectsCSS = css !== false && !isIE9;
         var userWantsControl = getHookArgumentsLength(leave);
 
-        var explicitLeaveDuration = toNumber(
-            isObject(duration)
-                ? duration.leave
-                : duration
-        );
+        var explicitLeaveDuration = toNumber(isObject(duration) ? duration.leave : duration);
 
         if ("development" !== 'production' && isDef(explicitLeaveDuration)) {
             checkDuration(explicitLeaveDuration, 'leave', vnode);
@@ -7168,14 +6519,14 @@ webpackJsonp([5],[
             performLeave();
         }
 
-        function performLeave () {
+        function performLeave() {
             // the delayed leave may have already been cancelled
             if (cb.cancelled) {
-                return
+                return;
             }
             // record leaving element
             if (!vnode.data.show) {
-                (el.parentNode._pending || (el.parentNode._pending = {}))[(vnode.key)] = vnode;
+                (el.parentNode._pending || (el.parentNode._pending = {}))[vnode.key] = vnode;
             }
             beforeLeave && beforeLeave(el);
             if (expectsCSS) {
@@ -7200,25 +6551,17 @@ webpackJsonp([5],[
         }
     }
 
-// only used in dev mode
-    function checkDuration (val, name, vnode) {
+    // only used in dev mode
+    function checkDuration(val, name, vnode) {
         if (typeof val !== 'number') {
-            warn(
-                "<transition> explicit " + name + " duration is not a valid number - " +
-                "got " + (JSON.stringify(val)) + ".",
-                vnode.context
-            );
+            warn("<transition> explicit " + name + " duration is not a valid number - " + "got " + JSON.stringify(val) + ".", vnode.context);
         } else if (isNaN(val)) {
-            warn(
-                "<transition> explicit " + name + " duration is NaN - " +
-                'the duration expression might be incorrect.',
-                vnode.context
-            );
+            warn("<transition> explicit " + name + " duration is NaN - " + 'the duration expression might be incorrect.', vnode.context);
         }
     }
 
-    function isValidDuration (val) {
-        return typeof val === 'number' && !isNaN(val)
+    function isValidDuration(val) {
+        return typeof val === 'number' && !isNaN(val);
     }
 
     /**
@@ -7227,24 +6570,20 @@ webpackJsonp([5],[
      * - a wrapped component method (check ._length)
      * - a plain function (.length)
      */
-    function getHookArgumentsLength (fn) {
+    function getHookArgumentsLength(fn) {
         if (isUndef(fn)) {
-            return false
+            return false;
         }
         var invokerFns = fn.fns;
         if (isDef(invokerFns)) {
             // invoker
-            return getHookArgumentsLength(
-                Array.isArray(invokerFns)
-                    ? invokerFns[0]
-                    : invokerFns
-            )
+            return getHookArgumentsLength(Array.isArray(invokerFns) ? invokerFns[0] : invokerFns);
         } else {
-            return (fn._length || fn.length) > 1
+            return (fn._length || fn.length) > 1;
         }
     }
 
-    function _enter (_, vnode) {
+    function _enter(_, vnode) {
         if (vnode.data.show !== true) {
             enter(vnode);
         }
@@ -7253,7 +6592,7 @@ webpackJsonp([5],[
     var transition = inBrowser ? {
         create: _enter,
         activate: _enter,
-        remove: function remove$$1 (vnode, rm) {
+        remove: function remove$$1(vnode, rm) {
             /* istanbul ignore else */
             if (vnode.data.show !== true) {
                 leave(vnode, rm);
@@ -7263,19 +6602,12 @@ webpackJsonp([5],[
         }
     } : {};
 
-    var platformModules = [
-        attrs,
-        klass,
-        events,
-        domProps,
-        style,
-        transition
-    ];
+    var platformModules = [attrs, klass, events, domProps, style, transition];
 
     /*  */
 
-// the directive module should be applied last, after all
-// built-in modules have been applied.
+    // the directive module should be applied last, after all
+    // built-in modules have been applied.
     var modules = platformModules.concat(baseModules);
 
     var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
@@ -7299,7 +6631,7 @@ webpackJsonp([5],[
     }
 
     var model$1 = {
-        inserted: function inserted (el, binding, vnode) {
+        inserted: function inserted(el, binding, vnode) {
             if (vnode.tag === 'select') {
                 var cb = function () {
                     setSelected(el, binding, vnode.context);
@@ -7329,7 +6661,7 @@ webpackJsonp([5],[
                 }
             }
         },
-        componentUpdated: function componentUpdated (el, binding, vnode) {
+        componentUpdated: function componentUpdated(el, binding, vnode) {
             if (vnode.tag === 'select') {
                 setSelected(el, binding, vnode.context);
                 // in case the options rendered by v-for have changed,
@@ -7338,23 +6670,21 @@ webpackJsonp([5],[
                 // option in the DOM.
                 var prevOptions = el._vOptions;
                 var curOptions = el._vOptions = [].map.call(el.options, getValue);
-                if (curOptions.some(function (o, i) { return !looseEqual(o, prevOptions[i]); })) {
+                if (curOptions.some(function (o, i) {
+                    return !looseEqual(o, prevOptions[i]);
+                })) {
                     trigger(el, 'change');
                 }
             }
         }
     };
 
-    function setSelected (el, binding, vm) {
+    function setSelected(el, binding, vm) {
         var value = binding.value;
         var isMultiple = el.multiple;
         if (isMultiple && !Array.isArray(value)) {
-            "development" !== 'production' && warn(
-                "<select multiple v-model=\"" + (binding.expression) + "\"> " +
-                "expects an Array value for its binding, but got " + (Object.prototype.toString.call(value).slice(8, -1)),
-                vm
-            );
-            return
+            "development" !== 'production' && warn("<select multiple v-model=\"" + binding.expression + "\"> " + "expects an Array value for its binding, but got " + Object.prototype.toString.call(value).slice(8, -1), vm);
+            return;
         }
         var selected, option;
         for (var i = 0, l = el.options.length; i < l; i++) {
@@ -7369,7 +6699,7 @@ webpackJsonp([5],[
                     if (el.selectedIndex !== i) {
                         el.selectedIndex = i;
                     }
-                    return
+                    return;
                 }
             }
         }
@@ -7378,24 +6708,24 @@ webpackJsonp([5],[
         }
     }
 
-    function getValue (option) {
-        return '_value' in option
-            ? option._value
-            : option.value
+    function getValue(option) {
+        return '_value' in option ? option._value : option.value;
     }
 
-    function onCompositionStart (e) {
+    function onCompositionStart(e) {
         e.target.composing = true;
     }
 
-    function onCompositionEnd (e) {
+    function onCompositionEnd(e) {
         // prevent triggering an input event for no reason
-        if (!e.target.composing) { return }
+        if (!e.target.composing) {
+            return;
+        }
         e.target.composing = false;
         trigger(e.target, 'input');
     }
 
-    function trigger (el, type) {
+    function trigger(el, type) {
         var e = document.createEvent('HTMLEvents');
         e.initEvent(type, true, true);
         el.dispatchEvent(e);
@@ -7403,21 +6733,18 @@ webpackJsonp([5],[
 
     /*  */
 
-// recursively search for possible transition defined inside the component root
-    function locateNode (vnode) {
-        return vnode.componentInstance && (!vnode.data || !vnode.data.transition)
-            ? locateNode(vnode.componentInstance._vnode)
-            : vnode
+    // recursively search for possible transition defined inside the component root
+    function locateNode(vnode) {
+        return vnode.componentInstance && (!vnode.data || !vnode.data.transition) ? locateNode(vnode.componentInstance._vnode) : vnode;
     }
 
     var show = {
-        bind: function bind (el, ref, vnode) {
+        bind: function bind(el, ref, vnode) {
             var value = ref.value;
 
             vnode = locateNode(vnode);
             var transition$$1 = vnode.data && vnode.data.transition;
-            var originalDisplay = el.__vOriginalDisplay =
-                el.style.display === 'none' ? '' : el.style.display;
+            var originalDisplay = el.__vOriginalDisplay = el.style.display === 'none' ? '' : el.style.display;
             if (value && transition$$1) {
                 vnode.data.show = true;
                 enter(vnode, function () {
@@ -7428,12 +6755,14 @@ webpackJsonp([5],[
             }
         },
 
-        update: function update (el, ref, vnode) {
+        update: function update(el, ref, vnode) {
             var value = ref.value;
             var oldValue = ref.oldValue;
 
             /* istanbul ignore if */
-            if (value === oldValue) { return }
+            if (value === oldValue) {
+                return;
+            }
             vnode = locateNode(vnode);
             var transition$$1 = vnode.data && vnode.data.transition;
             if (transition$$1) {
@@ -7452,13 +6781,7 @@ webpackJsonp([5],[
             }
         },
 
-        unbind: function unbind (
-            el,
-            binding,
-            vnode,
-            oldVnode,
-            isDestroy
-        ) {
+        unbind: function unbind(el, binding, vnode, oldVnode, isDestroy) {
             if (!isDestroy) {
                 el.style.display = el.__vOriginalDisplay;
             }
@@ -7472,8 +6795,8 @@ webpackJsonp([5],[
 
     /*  */
 
-// Provides transition support for a single element/component.
-// supports transition mode (out-in / in-out)
+    // Provides transition support for a single element/component.
+    // supports transition mode (out-in / in-out)
 
     var transitionProps = {
         name: String,
@@ -7493,18 +6816,18 @@ webpackJsonp([5],[
         duration: [Number, String, Object]
     };
 
-// in case the child is also an abstract component, e.g. <keep-alive>
-// we want to recursively retrieve the real component to be rendered
-    function getRealChild (vnode) {
+    // in case the child is also an abstract component, e.g. <keep-alive>
+    // we want to recursively retrieve the real component to be rendered
+    function getRealChild(vnode) {
         var compOptions = vnode && vnode.componentOptions;
         if (compOptions && compOptions.Ctor.options.abstract) {
-            return getRealChild(getFirstComponentChild(compOptions.children))
+            return getRealChild(getFirstComponentChild(compOptions.children));
         } else {
-            return vnode
+            return vnode;
         }
     }
 
-    function extractTransitionData (comp) {
+    function extractTransitionData(comp) {
         var data = {};
         var options = comp.$options;
         // props
@@ -7517,31 +6840,31 @@ webpackJsonp([5],[
         for (var key$1 in listeners) {
             data[camelize(key$1)] = listeners[key$1];
         }
-        return data
+        return data;
     }
 
-    function placeholder (h, rawChild) {
+    function placeholder(h, rawChild) {
         if (/\d-keep-alive$/.test(rawChild.tag)) {
             return h('keep-alive', {
                 props: rawChild.componentOptions.propsData
-            })
+            });
         }
     }
 
-    function hasParentTransition (vnode) {
-        while ((vnode = vnode.parent)) {
+    function hasParentTransition(vnode) {
+        while (vnode = vnode.parent) {
             if (vnode.data.transition) {
-                return true
+                return true;
             }
         }
     }
 
-    function isSameChild (child, oldChild) {
-        return oldChild.key === child.key && oldChild.tag === child.tag
+    function isSameChild(child, oldChild) {
+        return oldChild.key === child.key && oldChild.tag === child.tag;
     }
 
-    function isAsyncPlaceholder (node) {
-        return node.isComment && node.asyncFactory
+    function isAsyncPlaceholder(node) {
+        return node.isComment && node.asyncFactory;
     }
 
     var Transition = {
@@ -7549,40 +6872,33 @@ webpackJsonp([5],[
         props: transitionProps,
         abstract: true,
 
-        render: function render (h) {
+        render: function render(h) {
             var this$1 = this;
 
             var children = this.$options._renderChildren;
             if (!children) {
-                return
+                return;
             }
 
             // filter out text nodes (possible whitespaces)
-            children = children.filter(function (c) { return c.tag || isAsyncPlaceholder(c); });
+            children = children.filter(function (c) {
+                return c.tag || isAsyncPlaceholder(c);
+            });
             /* istanbul ignore if */
             if (!children.length) {
-                return
+                return;
             }
 
             // warn multiple elements
             if ("development" !== 'production' && children.length > 1) {
-                warn(
-                    '<transition> can only be used on a single element. Use ' +
-                    '<transition-group> for lists.',
-                    this.$parent
-                );
+                warn('<transition> can only be used on a single element. Use ' + '<transition-group> for lists.', this.$parent);
             }
 
             var mode = this.mode;
 
             // warn invalid mode
-            if ("development" !== 'production' &&
-                mode && mode !== 'in-out' && mode !== 'out-in'
-            ) {
-                warn(
-                    'invalid <transition> mode: ' + mode,
-                    this.$parent
-                );
+            if ("development" !== 'production' && mode && mode !== 'in-out' && mode !== 'out-in') {
+                warn('invalid <transition> mode: ' + mode, this.$parent);
             }
 
             var rawChild = children[0];
@@ -7590,7 +6906,7 @@ webpackJsonp([5],[
             // if this is a component root node and the component's
             // parent container node also has transition, skip.
             if (hasParentTransition(this.$vnode)) {
-                return rawChild
+                return rawChild;
             }
 
             // apply transition data to child
@@ -7598,24 +6914,18 @@ webpackJsonp([5],[
             var child = getRealChild(rawChild);
             /* istanbul ignore if */
             if (!child) {
-                return rawChild
+                return rawChild;
             }
 
             if (this._leaving) {
-                return placeholder(h, rawChild)
+                return placeholder(h, rawChild);
             }
 
             // ensure a key that is unique to the vnode type and to this transition
             // component instance. This key will be used to remove pending leaving nodes
             // during entering.
-            var id = "__transition-" + (this._uid) + "-";
-            child.key = child.key == null
-                ? child.isComment
-                    ? id + 'comment'
-                    : id + child.tag
-                : isPrimitive(child.key)
-                    ? (String(child.key).indexOf(id) === 0 ? child.key : id + child.key)
-                    : child.key;
+            var id = "__transition-" + this._uid + "-";
+            child.key = child.key == null ? child.isComment ? id + 'comment' : id + child.tag : isPrimitive(child.key) ? String(child.key).indexOf(id) === 0 ? child.key : id + child.key : child.key;
 
             var data = (child.data || (child.data = {})).transition = extractTransitionData(this);
             var oldRawChild = this._vnode;
@@ -7623,16 +6933,13 @@ webpackJsonp([5],[
 
             // mark v-show
             // so that the transition module can hand over the control to the directive
-            if (child.data.directives && child.data.directives.some(function (d) { return d.name === 'show'; })) {
+            if (child.data.directives && child.data.directives.some(function (d) {
+                return d.name === 'show';
+            })) {
                 child.data.show = true;
             }
 
-            if (
-                oldChild &&
-                oldChild.data &&
-                !isSameChild(child, oldChild) &&
-                !isAsyncPlaceholder(oldChild)
-            ) {
+            if (oldChild && oldChild.data && !isSameChild(child, oldChild) && !isAsyncPlaceholder(oldChild)) {
                 // replace old child transition data with fresh one
                 // important for dynamic transitions!
                 var oldData = oldChild && (oldChild.data.transition = extend({}, data));
@@ -7644,35 +6951,39 @@ webpackJsonp([5],[
                         this$1._leaving = false;
                         this$1.$forceUpdate();
                     });
-                    return placeholder(h, rawChild)
+                    return placeholder(h, rawChild);
                 } else if (mode === 'in-out') {
                     if (isAsyncPlaceholder(child)) {
-                        return oldRawChild
+                        return oldRawChild;
                     }
                     var delayedLeave;
-                    var performLeave = function () { delayedLeave(); };
+                    var performLeave = function () {
+                        delayedLeave();
+                    };
                     mergeVNodeHook(data, 'afterEnter', performLeave);
                     mergeVNodeHook(data, 'enterCancelled', performLeave);
-                    mergeVNodeHook(oldData, 'delayLeave', function (leave) { delayedLeave = leave; });
+                    mergeVNodeHook(oldData, 'delayLeave', function (leave) {
+                        delayedLeave = leave;
+                    });
                 }
             }
 
-            return rawChild
+            return rawChild;
         }
     };
 
     /*  */
 
-// Provides transition support for list items.
-// supports move transitions using the FLIP technique.
+    // Provides transition support for list items.
+    // supports move transitions using the FLIP technique.
 
-// Because the vdom's children update algorithm is "unstable" - i.e.
-// it doesn't guarantee the relative positioning of removed elements,
-// we force transition-group to update its children into two passes:
-// in the first pass, we remove all nodes that need to be removed,
-// triggering their leaving transition; in the second pass, we insert/move
-// into the final desired state. This way in the second pass removed
-// nodes will remain where they should be.
+    // Because the vdom's children update algorithm is "unstable" - i.e.
+    // it doesn't guarantee the relative positioning of removed elements,
+    // we force transition-group to update its children into two passes:
+    // in the first pass, we remove all nodes that need to be removed,
+    // triggering their leaving transition; in the second pass, we insert/move
+    // into the final desired state. This way in the second pass removed
+    // nodes will remain where they should be.
 
     var props = extend({
         tag: String,
@@ -7684,7 +6995,7 @@ webpackJsonp([5],[
     var TransitionGroup = {
         props: props,
 
-        render: function render (h) {
+        render: function render(h) {
             var tag = this.tag || this.$vnode.data.tag || 'span';
             var map = Object.create(null);
             var prevChildren = this.prevChildren = this.children;
@@ -7697,12 +7008,11 @@ webpackJsonp([5],[
                 if (c.tag) {
                     if (c.key != null && String(c.key).indexOf('__vlist') !== 0) {
                         children.push(c);
-                        map[c.key] = c
-                        ;(c.data || (c.data = {})).transition = transitionData;
+                        map[c.key] = c;(c.data || (c.data = {})).transition = transitionData;
                     } else {
                         var opts = c.componentOptions;
-                        var name = opts ? (opts.Ctor.options.name || opts.tag || '') : c.tag;
-                        warn(("<transition-group> children must be keyed: <" + name + ">"));
+                        var name = opts ? opts.Ctor.options.name || opts.tag || '' : c.tag;
+                        warn("<transition-group> children must be keyed: <" + name + ">");
                     }
                 }
             }
@@ -7724,25 +7034,22 @@ webpackJsonp([5],[
                 this.removed = removed;
             }
 
-            return h(tag, null, children)
+            return h(tag, null, children);
         },
 
-        beforeUpdate: function beforeUpdate () {
+        beforeUpdate: function beforeUpdate() {
             // force removing pass
-            this.__patch__(
-                this._vnode,
-                this.kept,
-                false, // hydrating
-                true // removeOnly (!important, avoids unnecessary moves)
+            this.__patch__(this._vnode, this.kept, false, // hydrating
+            true // removeOnly (!important, avoids unnecessary moves)
             );
             this._vnode = this.kept;
         },
 
-        updated: function updated () {
+        updated: function updated() {
             var children = this.prevChildren;
-            var moveClass = this.moveClass || ((this.name || 'v') + '-move');
+            var moveClass = this.moveClass || (this.name || 'v') + '-move';
             if (!children.length || !this.hasMove(children[0].elm, moveClass)) {
-                return
+                return;
             }
 
             // we divide the work into three loops to avoid mixing DOM reads and writes
@@ -7761,7 +7068,7 @@ webpackJsonp([5],[
                     var s = el.style;
                     addTransitionClass(el, moveClass);
                     s.transform = s.WebkitTransform = s.transitionDuration = '';
-                    el.addEventListener(transitionEndEvent, el._moveCb = function cb (e) {
+                    el.addEventListener(transitionEndEvent, el._moveCb = function cb(e) {
                         if (!e || /transform$/.test(e.propertyName)) {
                             el.removeEventListener(transitionEndEvent, cb);
                             el._moveCb = null;
@@ -7773,14 +7080,14 @@ webpackJsonp([5],[
         },
 
         methods: {
-            hasMove: function hasMove (el, moveClass) {
+            hasMove: function hasMove(el, moveClass) {
                 /* istanbul ignore if */
                 if (!hasTransition) {
-                    return false
+                    return false;
                 }
                 /* istanbul ignore if */
                 if (this._hasMove) {
-                    return this._hasMove
+                    return this._hasMove;
                 }
                 // Detect whether an element with the move class applied has
                 // CSS transitions. Since the element may be inside an entering
@@ -7789,19 +7096,21 @@ webpackJsonp([5],[
                 // is applied.
                 var clone = el.cloneNode();
                 if (el._transitionClasses) {
-                    el._transitionClasses.forEach(function (cls) { removeClass(clone, cls); });
+                    el._transitionClasses.forEach(function (cls) {
+                        removeClass(clone, cls);
+                    });
                 }
                 addClass(clone, moveClass);
                 clone.style.display = 'none';
                 this.$el.appendChild(clone);
                 var info = getTransitionInfo(clone);
                 this.$el.removeChild(clone);
-                return (this._hasMove = info.hasTransform)
+                return this._hasMove = info.hasTransform;
             }
         }
     };
 
-    function callPendingCbs (c) {
+    function callPendingCbs(c) {
         /* istanbul ignore if */
         if (c.elm._moveCb) {
             c.elm._moveCb();
@@ -7812,11 +7121,11 @@ webpackJsonp([5],[
         }
     }
 
-    function recordPosition (c) {
+    function recordPosition(c) {
         c.data.newPos = c.elm.getBoundingClientRect();
     }
 
-    function applyTranslation (c) {
+    function applyTranslation(c) {
         var oldPos = c.data.pos;
         var newPos = c.data.newPos;
         var dx = oldPos.left - newPos.left;
@@ -7836,65 +7145,52 @@ webpackJsonp([5],[
 
     /*  */
 
-// install platform specific utils
+    // install platform specific utils
     Vue$3.config.mustUseProp = mustUseProp;
     Vue$3.config.isReservedTag = isReservedTag;
     Vue$3.config.isReservedAttr = isReservedAttr;
     Vue$3.config.getTagNamespace = getTagNamespace;
     Vue$3.config.isUnknownElement = isUnknownElement;
 
-// install platform runtime directives & components
+    // install platform runtime directives & components
     extend(Vue$3.options.directives, platformDirectives);
     extend(Vue$3.options.components, platformComponents);
 
-// install platform patch function
+    // install platform patch function
     Vue$3.prototype.__patch__ = inBrowser ? patch : noop;
 
-// public mount method
-    Vue$3.prototype.$mount = function (
-        el,
-        hydrating
-    ) {
+    // public mount method
+    Vue$3.prototype.$mount = function (el, hydrating) {
         el = el && inBrowser ? query(el) : undefined;
-        return mountComponent(this, el, hydrating)
+        return mountComponent(this, el, hydrating);
     };
 
-// devtools global hook
+    // devtools global hook
     /* istanbul ignore next */
     setTimeout(function () {
         if (config.devtools) {
             if (devtools) {
                 devtools.emit('init', Vue$3);
             } else if ("development" !== 'production' && isChrome) {
-                console[console.info ? 'info' : 'log'](
-                    'Download the Vue Devtools extension for a better development experience:\n' +
-                    'https://github.com/vuejs/vue-devtools'
-                );
+                console[console.info ? 'info' : 'log']('Download the Vue Devtools extension for a better development experience:\n' + 'https://github.com/vuejs/vue-devtools');
             }
         }
-        if ("development" !== 'production' &&
-            config.productionTip !== false &&
-            inBrowser && typeof console !== 'undefined'
-        ) {
-            console[console.info ? 'info' : 'log'](
-                "You are running Vue in development mode.\n" +
-                "Make sure to turn on production mode when deploying for production.\n" +
-                "See more tips at https://vuejs.org/guide/deployment.html"
-            );
+        if ("development" !== 'production' && config.productionTip !== false && inBrowser && typeof console !== 'undefined') {
+            console[console.info ? 'info' : 'log']("You are running Vue in development mode.\n" + "Make sure to turn on production mode when deploying for production.\n" + "See more tips at https://vuejs.org/guide/deployment.html");
         }
     }, 0);
 
     /*  */
 
-// check whether current browser encodes a char inside attribute values
-    function shouldDecode (content, encoded) {
+    // check whether current browser encodes a char inside attribute values
+    function shouldDecode(content, encoded) {
         var div = document.createElement('div');
         div.innerHTML = "<div a=\"" + content + "\"/>";
-        return div.innerHTML.indexOf(encoded) > 0
+        return div.innerHTML.indexOf(encoded) > 0;
     }
 
-// #3663
-// IE encodes newlines inside attribute values while other browsers don't
+    // #3663
+    // IE encodes newlines inside attribute values while other browsers don't
     var shouldDecodeNewlines = inBrowser ? shouldDecode('\n', '&#10;') : false;
 
     /*  */
@@ -7905,21 +7201,18 @@ webpackJsonp([5],[
     var buildRegex = cached(function (delimiters) {
         var open = delimiters[0].replace(regexEscapeRE, '\\$&');
         var close = delimiters[1].replace(regexEscapeRE, '\\$&');
-        return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
+        return new RegExp(open + '((?:.|\\n)+?)' + close, 'g');
     });
 
-    function parseText (
-        text,
-        delimiters
-    ) {
+    function parseText(text, delimiters) {
         var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
         if (!tagRE.test(text)) {
-            return
+            return;
         }
         var tokens = [];
         var lastIndex = tagRE.lastIndex = 0;
         var match, index;
-        while ((match = tagRE.exec(text))) {
+        while (match = tagRE.exec(text)) {
             index = match.index;
             // push text token
             if (index > lastIndex) {
@@ -7927,29 +7220,24 @@ webpackJsonp([5],[
             }
             // tag token
             var exp = parseFilters(match[1].trim());
-            tokens.push(("_s(" + exp + ")"));
+            tokens.push("_s(" + exp + ")");
             lastIndex = index + match[0].length;
         }
         if (lastIndex < text.length) {
             tokens.push(JSON.stringify(text.slice(lastIndex)));
         }
-        return tokens.join('+')
+        return tokens.join('+');
     }
 
     /*  */
 
-    function transformNode (el, options) {
+    function transformNode(el, options) {
         var warn = options.warn || baseWarn;
         var staticClass = getAndRemoveAttr(el, 'class');
         if ("development" !== 'production' && staticClass) {
             var expression = parseText(staticClass, options.delimiters);
             if (expression) {
-                warn(
-                    "class=\"" + staticClass + "\": " +
-                    'Interpolation inside attributes has been removed. ' +
-                    'Use v-bind or the colon shorthand instead. For example, ' +
-                    'instead of <div class="{{ val }}">, use <div :class="val">.'
-                );
+                warn("class=\"" + staticClass + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div class="{{ val }}">, use <div :class="val">.');
             }
         }
         if (staticClass) {
@@ -7961,15 +7249,15 @@ webpackJsonp([5],[
         }
     }
 
-    function genData (el) {
+    function genData(el) {
         var data = '';
         if (el.staticClass) {
-            data += "staticClass:" + (el.staticClass) + ",";
+            data += "staticClass:" + el.staticClass + ",";
         }
         if (el.classBinding) {
-            data += "class:" + (el.classBinding) + ",";
+            data += "class:" + el.classBinding + ",";
         }
-        return data
+        return data;
     }
 
     var klass$1 = {
@@ -7980,7 +7268,7 @@ webpackJsonp([5],[
 
     /*  */
 
-    function transformNode$1 (el, options) {
+    function transformNode$1(el, options) {
         var warn = options.warn || baseWarn;
         var staticStyle = getAndRemoveAttr(el, 'style');
         if (staticStyle) {
@@ -7988,12 +7276,7 @@ webpackJsonp([5],[
             {
                 var expression = parseText(staticStyle, options.delimiters);
                 if (expression) {
-                    warn(
-                        "style=\"" + staticStyle + "\": " +
-                        'Interpolation inside attributes has been removed. ' +
-                        'Use v-bind or the colon shorthand instead. For example, ' +
-                        'instead of <div style="{{ val }}">, use <div :style="val">.'
-                    );
+                    warn("style=\"" + staticStyle + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div style="{{ val }}">, use <div :style="val">.');
                 }
             }
             el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
@@ -8005,15 +7288,15 @@ webpackJsonp([5],[
         }
     }
 
-    function genData$1 (el) {
+    function genData$1(el) {
         var data = '';
         if (el.staticStyle) {
-            data += "staticStyle:" + (el.staticStyle) + ",";
+            data += "staticStyle:" + el.staticStyle + ",";
         }
         if (el.styleBinding) {
-            data += "style:(" + (el.styleBinding) + "),";
+            data += "style:(" + el.styleBinding + "),";
         }
-        return data
+        return data;
     }
 
     var style$1 = {
@@ -8022,24 +7305,21 @@ webpackJsonp([5],[
         genData: genData$1
     };
 
-    var modules$1 = [
-        klass$1,
-        style$1
-    ];
+    var modules$1 = [klass$1, style$1];
 
     /*  */
 
-    function text (el, dir) {
+    function text(el, dir) {
         if (dir.value) {
-            addProp(el, 'textContent', ("_s(" + (dir.value) + ")"));
+            addProp(el, 'textContent', "_s(" + dir.value + ")");
         }
     }
 
     /*  */
 
-    function html (el, dir) {
+    function html(el, dir) {
         if (dir.value) {
-            addProp(el, 'innerHTML', ("_s(" + (dir.value) + ")"));
+            addProp(el, 'innerHTML', "_s(" + dir.value + ")");
         }
     }
 
@@ -8051,26 +7331,15 @@ webpackJsonp([5],[
 
     /*  */
 
-    var isUnaryTag = makeMap(
-        'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
-        'link,meta,param,source,track,wbr'
-    );
+    var isUnaryTag = makeMap('area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' + 'link,meta,param,source,track,wbr');
 
-// Elements that you can, intentionally, leave open
-// (and which close themselves)
-    var canBeLeftOpenTag = makeMap(
-        'colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source'
-    );
+    // Elements that you can, intentionally, leave open
+    // (and which close themselves)
+    var canBeLeftOpenTag = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source');
 
-// HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
-// Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
-    var isNonPhrasingTag = makeMap(
-        'address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' +
-        'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' +
-        'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' +
-        'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' +
-        'title,tr,track'
-    );
+    // HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
+    // Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
+    var isNonPhrasingTag = makeMap('address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' + 'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' + 'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' + 'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' + 'title,tr,track');
 
     /*  */
 
@@ -8092,10 +7361,10 @@ webpackJsonp([5],[
     var decoder;
 
     var he = {
-        decode: function decode (html) {
+        decode: function decode(html) {
             decoder = decoder || document.createElement('div');
             decoder.innerHTML = html;
-            return decoder.textContent
+            return decoder.textContent;
         }
     };
 
@@ -8104,31 +7373,26 @@ webpackJsonp([5],[
      */
 
     /*!
- * HTML Parser By John Resig (ejohn.org)
- * Modified by Juriy "kangax" Zaytsev
- * Original code by Erik Arvidsson, Mozilla Public License
- * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
- */
+    * HTML Parser By John Resig (ejohn.org)
+    * Modified by Juriy "kangax" Zaytsev
+    * Original code by Erik Arvidsson, Mozilla Public License
+    * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+    */
 
-// Regular Expressions for parsing tags and attributes
+    // Regular Expressions for parsing tags and attributes
     var singleAttrIdentifier = /([^\s"'<>/=]+)/;
     var singleAttrAssign = /(?:=)/;
     var singleAttrValues = [
-        // attr value double quotes
-        /"([^"]*)"+/.source,
-        // attr value, single quotes
-        /'([^']*)'+/.source,
-        // attr value, no quotes
-        /([^\s"'=<>`]+)/.source
-    ];
-    var attribute = new RegExp(
-        '^\\s*' + singleAttrIdentifier.source +
-        '(?:\\s*(' + singleAttrAssign.source + ')' +
-        '\\s*(?:' + singleAttrValues.join('|') + '))?'
-    );
+    // attr value double quotes
+    /"([^"]*)"+/.source,
+    // attr value, single quotes
+    /'([^']*)'+/.source,
+    // attr value, no quotes
+    /([^\s"'=<>`]+)/.source];
+    var attribute = new RegExp('^\\s*' + singleAttrIdentifier.source + '(?:\\s*(' + singleAttrAssign.source + ')' + '\\s*(?:' + singleAttrValues.join('|') + '))?');
 
-// could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
-// but for Vue templates we can enforce a simple charset
+    // could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
+    // but for Vue templates we can enforce a simple charset
     var ncname = '[a-zA-Z_][\\w\\-\\.]*';
     var qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')';
     var startTagOpen = new RegExp('^<' + qnameCapture);
@@ -8143,7 +7407,7 @@ webpackJsonp([5],[
         IS_REGEX_CAPTURING_BROKEN = g === '';
     });
 
-// Special Elements (can contain anything)
+    // Special Elements (can contain anything)
     var isPlainTextElement = makeMap('script,style,textarea', true);
     var reCache = {};
 
@@ -8157,16 +7421,20 @@ webpackJsonp([5],[
     var encodedAttr = /&(?:lt|gt|quot|amp);/g;
     var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#10);/g;
 
-// #5992
+    // #5992
     var isIgnoreNewlineTag = makeMap('pre,textarea', true);
-    var shouldIgnoreFirstNewline = function (tag, html) { return tag && isIgnoreNewlineTag(tag) && html[0] === '\n'; };
+    var shouldIgnoreFirstNewline = function (tag, html) {
+        return tag && isIgnoreNewlineTag(tag) && html[0] === '\n';
+    };
 
-    function decodeAttr (value, shouldDecodeNewlines) {
+    function decodeAttr(value, shouldDecodeNewlines) {
         var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
-        return value.replace(re, function (match) { return decodingMap[match]; })
+        return value.replace(re, function (match) {
+            return decodingMap[match];
+        });
     }
 
-    function parseHTML (html, options) {
+    function parseHTML(html, options) {
         var stack = [];
         var expectHTML = options.expectHTML;
         var isUnaryTag$$1 = options.isUnaryTag || no;
@@ -8188,7 +7456,7 @@ webpackJsonp([5],[
                                 options.comment(html.substring(4, commentEnd));
                             }
                             advance(commentEnd + 3);
-                            continue
+                            continue;
                         }
                     }
 
@@ -8198,7 +7466,7 @@ webpackJsonp([5],[
 
                         if (conditionalEnd >= 0) {
                             advance(conditionalEnd + 2);
-                            continue
+                            continue;
                         }
                     }
 
@@ -8206,7 +7474,7 @@ webpackJsonp([5],[
                     var doctypeMatch = html.match(doctype);
                     if (doctypeMatch) {
                         advance(doctypeMatch[0].length);
-                        continue
+                        continue;
                     }
 
                     // End tag:
@@ -8215,7 +7483,7 @@ webpackJsonp([5],[
                         var curIndex = index;
                         advance(endTagMatch[0].length);
                         parseEndTag(endTagMatch[1], curIndex, index);
-                        continue
+                        continue;
                     }
 
                     // Start tag:
@@ -8225,22 +7493,21 @@ webpackJsonp([5],[
                         if (shouldIgnoreFirstNewline(lastTag, html)) {
                             advance(1);
                         }
-                        continue
+                        continue;
                     }
                 }
 
-                var text = (void 0), rest = (void 0), next = (void 0);
+                var text = void 0,
+                    rest = void 0,
+                    next = void 0;
                 if (textEnd >= 0) {
                     rest = html.slice(textEnd);
-                    while (
-                        !endTag.test(rest) &&
-                        !startTagOpen.test(rest) &&
-                        !comment.test(rest) &&
-                        !conditionalComment.test(rest)
-                        ) {
+                    while (!endTag.test(rest) && !startTagOpen.test(rest) && !comment.test(rest) && !conditionalComment.test(rest)) {
                         // < in plain text, be forgiving and treat it as text
                         next = rest.indexOf('<', 1);
-                        if (next < 0) { break }
+                        if (next < 0) {
+                            break;
+                        }
                         textEnd += next;
                         rest = html.slice(textEnd);
                     }
@@ -8263,9 +7530,7 @@ webpackJsonp([5],[
                 var rest$1 = html.replace(reStackedTag, function (all, text, endTag) {
                     endTagLength = endTag.length;
                     if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
-                        text = text
-                            .replace(/<!--([\s\S]*?)-->/g, '$1')
-                            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
+                        text = text.replace(/<!--([\s\S]*?)-->/g, '$1').replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
                     }
                     if (shouldIgnoreFirstNewline(stackedTag, text)) {
                         text = text.slice(1);
@@ -8273,7 +7538,7 @@ webpackJsonp([5],[
                     if (options.chars) {
                         options.chars(text);
                     }
-                    return ''
+                    return '';
                 });
                 index += html.length - rest$1.length;
                 html = rest$1;
@@ -8283,21 +7548,21 @@ webpackJsonp([5],[
             if (html === last) {
                 options.chars && options.chars(html);
                 if ("development" !== 'production' && !stack.length && options.warn) {
-                    options.warn(("Mal-formatted tag at end of template: \"" + html + "\""));
+                    options.warn("Mal-formatted tag at end of template: \"" + html + "\"");
                 }
-                break
+                break;
             }
         }
 
         // Clean up any remaining tags
         parseEndTag();
 
-        function advance (n) {
+        function advance(n) {
             index += n;
             html = html.substring(n);
         }
 
-        function parseStartTag () {
+        function parseStartTag() {
             var start = html.match(startTagOpen);
             if (start) {
                 var match = {
@@ -8315,12 +7580,12 @@ webpackJsonp([5],[
                     match.unarySlash = end[1];
                     advance(end[0].length);
                     match.end = index;
-                    return match
+                    return match;
                 }
             }
         }
 
-        function handleStartTag (match) {
+        function handleStartTag(match) {
             var tagName = match.tagName;
             var unarySlash = match.unarySlash;
 
@@ -8341,17 +7606,20 @@ webpackJsonp([5],[
                 var args = match.attrs[i];
                 // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
                 if (IS_REGEX_CAPTURING_BROKEN && args[0].indexOf('""') === -1) {
-                    if (args[3] === '') { delete args[3]; }
-                    if (args[4] === '') { delete args[4]; }
-                    if (args[5] === '') { delete args[5]; }
+                    if (args[3] === '') {
+                        delete args[3];
+                    }
+                    if (args[4] === '') {
+                        delete args[4];
+                    }
+                    if (args[5] === '') {
+                        delete args[5];
+                    }
                 }
                 var value = args[3] || args[4] || args[5] || '';
                 attrs[i] = {
                     name: args[1],
-                    value: decodeAttr(
-                        value,
-                        options.shouldDecodeNewlines
-                    )
+                    value: decodeAttr(value, options.shouldDecodeNewlines)
                 };
             }
 
@@ -8365,10 +7633,14 @@ webpackJsonp([5],[
             }
         }
 
-        function parseEndTag (tagName, start, end) {
+        function parseEndTag(tagName, start, end) {
             var pos, lowerCasedTagName;
-            if (start == null) { start = index; }
-            if (end == null) { end = index; }
+            if (start == null) {
+                start = index;
+            }
+            if (end == null) {
+                end = index;
+            }
 
             if (tagName) {
                 lowerCasedTagName = tagName.toLowerCase();
@@ -8378,7 +7650,7 @@ webpackJsonp([5],[
             if (tagName) {
                 for (pos = stack.length - 1; pos >= 0; pos--) {
                     if (stack[pos].lowerCasedTag === lowerCasedTagName) {
-                        break
+                        break;
                     }
                 }
             } else {
@@ -8389,13 +7661,8 @@ webpackJsonp([5],[
             if (pos >= 0) {
                 // Close all the open elements, up the stack
                 for (var i = stack.length - 1; i >= pos; i--) {
-                    if ("development" !== 'production' &&
-                        (i > pos || !tagName) &&
-                        options.warn
-                    ) {
-                        options.warn(
-                            ("tag <" + (stack[i].tag) + "> has no matching end tag.")
-                        );
+                    if ("development" !== 'production' && (i > pos || !tagName) && options.warn) {
+                        options.warn("tag <" + stack[i].tag + "> has no matching end tag.");
                     }
                     if (options.end) {
                         options.end(stack[i].tag, start, end);
@@ -8433,7 +7700,7 @@ webpackJsonp([5],[
 
     var decodeHTMLCached = cached(he.decode);
 
-// configurable state
+    // configurable state
     var warn$2;
     var delimiters;
     var transforms;
@@ -8446,10 +7713,7 @@ webpackJsonp([5],[
     /**
      * Convert HTML string to AST.
      */
-    function parse (
-        template,
-        options
-    ) {
+    function parse(template, options) {
         warn$2 = options.warn || baseWarn;
 
         platformIsPreTag = options.isPreTag || no;
@@ -8470,14 +7734,14 @@ webpackJsonp([5],[
         var inPre = false;
         var warned = false;
 
-        function warnOnce (msg) {
+        function warnOnce(msg) {
             if (!warned) {
                 warned = true;
                 warn$2(msg);
             }
         }
 
-        function endPre (element) {
+        function endPre(element) {
             // check pre state
             if (element.pre) {
                 inVPre = false;
@@ -8494,10 +7758,10 @@ webpackJsonp([5],[
             canBeLeftOpenTag: options.canBeLeftOpenTag,
             shouldDecodeNewlines: options.shouldDecodeNewlines,
             shouldKeepComment: options.comments,
-            start: function start (tag, attrs, unary) {
+            start: function start(tag, attrs, unary) {
                 // check namespace.
                 // inherit parent ns if there is one
-                var ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag);
+                var ns = currentParent && currentParent.ns || platformGetTagNamespace(tag);
 
                 // handle IE svg bug
                 /* istanbul ignore if */
@@ -8519,11 +7783,7 @@ webpackJsonp([5],[
 
                 if (isForbiddenTag(element) && !isServerRendering()) {
                     element.forbidden = true;
-                    "development" !== 'production' && warn$2(
-                        'Templates should only be responsible for mapping the state to the ' +
-                        'UI. Avoid placing tags with side-effects in your templates, such as ' +
-                        "<" + tag + ">" + ', as they will not be parsed.'
-                    );
+                    "development" !== 'production' && warn$2('Templates should only be responsible for mapping the state to the ' + 'UI. Avoid placing tags with side-effects in your templates, such as ' + "<" + tag + ">" + ', as they will not be parsed.');
                 }
 
                 // apply pre-transforms
@@ -8561,19 +7821,13 @@ webpackJsonp([5],[
                     processAttrs(element);
                 }
 
-                function checkRootConstraints (el) {
+                function checkRootConstraints(el) {
                     {
                         if (el.tag === 'slot' || el.tag === 'template') {
-                            warnOnce(
-                                "Cannot use <" + (el.tag) + "> as component root element because it may " +
-                                'contain multiple nodes.'
-                            );
+                            warnOnce("Cannot use <" + el.tag + "> as component root element because it may " + 'contain multiple nodes.');
                         }
                         if (el.attrsMap.hasOwnProperty('v-for')) {
-                            warnOnce(
-                                'Cannot use v-for on stateful component root element because ' +
-                                'it renders multiple elements.'
-                            );
+                            warnOnce('Cannot use v-for on stateful component root element because ' + 'it renders multiple elements.');
                         }
                     }
                 }
@@ -8591,17 +7845,14 @@ webpackJsonp([5],[
                             block: element
                         });
                     } else {
-                        warnOnce(
-                            "Component template should contain exactly one root element. " +
-                            "If you are using v-if on multiple elements, " +
-                            "use v-else-if to chain them instead."
-                        );
+                        warnOnce("Component template should contain exactly one root element. " + "If you are using v-if on multiple elements, " + "use v-else-if to chain them instead.");
                     }
                 }
                 if (currentParent && !element.forbidden) {
                     if (element.elseif || element.else) {
                         processIfConditions(element, currentParent);
-                    } else if (element.slotScope) { // scoped slot
+                    } else if (element.slotScope) {
+                        // scoped slot
                         currentParent.plain = false;
                         var name = element.slotTarget || '"default"';(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
                     } else {
@@ -8621,7 +7872,7 @@ webpackJsonp([5],[
                 }
             },
 
-            end: function end () {
+            end: function end() {
                 // remove trailing whitespace
                 var element = stack[stack.length - 1];
                 var lastNode = element.children[element.children.length - 1];
@@ -8634,34 +7885,26 @@ webpackJsonp([5],[
                 endPre(element);
             },
 
-            chars: function chars (text) {
+            chars: function chars(text) {
                 if (!currentParent) {
                     {
                         if (text === template) {
-                            warnOnce(
-                                'Component template requires a root element, rather than just text.'
-                            );
-                        } else if ((text = text.trim())) {
-                            warnOnce(
-                                ("text \"" + text + "\" outside root element will be ignored.")
-                            );
+                            warnOnce('Component template requires a root element, rather than just text.');
+                        } else if (text = text.trim()) {
+                            warnOnce("text \"" + text + "\" outside root element will be ignored.");
                         }
                     }
-                    return
+                    return;
                 }
                 // IE textarea placeholder bug
                 /* istanbul ignore if */
-                if (isIE &&
-                    currentParent.tag === 'textarea' &&
-                    currentParent.attrsMap.placeholder === text
-                ) {
-                    return
+                if (isIE && currentParent.tag === 'textarea' && currentParent.attrsMap.placeholder === text) {
+                    return;
                 }
                 var children = currentParent.children;
-                text = inPre || text.trim()
-                    ? isTextTag(currentParent) ? text : decodeHTMLCached(text)
-                    // only preserve whitespace if its not right after a starting tag
-                    : preserveWhitespace && children.length ? ' ' : '';
+                text = inPre || text.trim() ? isTextTag(currentParent) ? text : decodeHTMLCached(text)
+                // only preserve whitespace if its not right after a starting tag
+                : preserveWhitespace && children.length ? ' ' : '';
                 if (text) {
                     var expression;
                     if (!inVPre && text !== ' ' && (expression = parseText(text, delimiters))) {
@@ -8678,7 +7921,7 @@ webpackJsonp([5],[
                     }
                 }
             },
-            comment: function comment (text) {
+            comment: function comment(text) {
                 currentParent.children.push({
                     type: 3,
                     text: text,
@@ -8686,16 +7929,16 @@ webpackJsonp([5],[
                 });
             }
         });
-        return root
+        return root;
     }
 
-    function processPre (el) {
+    function processPre(el) {
         if (getAndRemoveAttr(el, 'v-pre') != null) {
             el.pre = true;
         }
     }
 
-    function processRawAttrs (el) {
+    function processRawAttrs(el) {
         var l = el.attrsList.length;
         if (l) {
             var attrs = el.attrs = new Array(l);
@@ -8711,7 +7954,7 @@ webpackJsonp([5],[
         }
     }
 
-    function processKey (el) {
+    function processKey(el) {
         var exp = getBindingAttr(el, 'key');
         if (exp) {
             if ("development" !== 'production' && el.tag === 'template') {
@@ -8721,7 +7964,7 @@ webpackJsonp([5],[
         }
     }
 
-    function processRef (el) {
+    function processRef(el) {
         var ref = getBindingAttr(el, 'ref');
         if (ref) {
             el.ref = ref;
@@ -8729,15 +7972,13 @@ webpackJsonp([5],[
         }
     }
 
-    function processFor (el) {
+    function processFor(el) {
         var exp;
-        if ((exp = getAndRemoveAttr(el, 'v-for'))) {
+        if (exp = getAndRemoveAttr(el, 'v-for')) {
             var inMatch = exp.match(forAliasRE);
             if (!inMatch) {
-                "development" !== 'production' && warn$2(
-                    ("Invalid v-for expression: " + exp)
-                );
-                return
+                "development" !== 'production' && warn$2("Invalid v-for expression: " + exp);
+                return;
             }
             el.for = inMatch[2].trim();
             var alias = inMatch[1].trim();
@@ -8754,7 +7995,7 @@ webpackJsonp([5],[
         }
     }
 
-    function processIf (el) {
+    function processIf(el) {
         var exp = getAndRemoveAttr(el, 'v-if');
         if (exp) {
             el.if = exp;
@@ -8773,7 +8014,7 @@ webpackJsonp([5],[
         }
     }
 
-    function processIfConditions (el, parent) {
+    function processIfConditions(el, parent) {
         var prev = findPrevElement(parent.children);
         if (prev && prev.if) {
             addIfCondition(prev, {
@@ -8781,53 +8022,43 @@ webpackJsonp([5],[
                 block: el
             });
         } else {
-            warn$2(
-                "v-" + (el.elseif ? ('else-if="' + el.elseif + '"') : 'else') + " " +
-                "used on element <" + (el.tag) + "> without corresponding v-if."
-            );
+            warn$2("v-" + (el.elseif ? 'else-if="' + el.elseif + '"' : 'else') + " " + "used on element <" + el.tag + "> without corresponding v-if.");
         }
     }
 
-    function findPrevElement (children) {
+    function findPrevElement(children) {
         var i = children.length;
         while (i--) {
             if (children[i].type === 1) {
-                return children[i]
+                return children[i];
             } else {
                 if ("development" !== 'production' && children[i].text !== ' ') {
-                    warn$2(
-                        "text \"" + (children[i].text.trim()) + "\" between v-if and v-else(-if) " +
-                        "will be ignored."
-                    );
+                    warn$2("text \"" + children[i].text.trim() + "\" between v-if and v-else(-if) " + "will be ignored.");
                 }
                 children.pop();
             }
         }
     }
 
-    function addIfCondition (el, condition) {
+    function addIfCondition(el, condition) {
         if (!el.ifConditions) {
             el.ifConditions = [];
         }
         el.ifConditions.push(condition);
     }
 
-    function processOnce (el) {
+    function processOnce(el) {
         var once$$1 = getAndRemoveAttr(el, 'v-once');
         if (once$$1 != null) {
             el.once = true;
         }
     }
 
-    function processSlot (el) {
+    function processSlot(el) {
         if (el.tag === 'slot') {
             el.slotName = getBindingAttr(el, 'name');
             if ("development" !== 'production' && el.key) {
-                warn$2(
-                    "`key` does not work on <slot> because slots are abstract outlets " +
-                    "and can possibly expand into multiple elements. " +
-                    "Use the key on a wrapping element instead."
-                );
+                warn$2("`key` does not work on <slot> because slots are abstract outlets " + "and can possibly expand into multiple elements. " + "Use the key on a wrapping element instead.");
             }
         } else {
             var slotTarget = getBindingAttr(el, 'slot');
@@ -8840,9 +8071,9 @@ webpackJsonp([5],[
         }
     }
 
-    function processComponent (el) {
+    function processComponent(el) {
         var binding;
-        if ((binding = getBindingAttr(el, 'is'))) {
+        if (binding = getBindingAttr(el, 'is')) {
             el.component = binding;
         }
         if (getAndRemoveAttr(el, 'inline-template') != null) {
@@ -8850,7 +8081,7 @@ webpackJsonp([5],[
         }
     }
 
-    function processAttrs (el) {
+    function processAttrs(el) {
         var list = el.attrsList;
         var i, l, name, rawName, value, modifiers, isProp;
         for (i = 0, l = list.length; i < l; i++) {
@@ -8864,7 +8095,8 @@ webpackJsonp([5],[
                 if (modifiers) {
                     name = name.replace(modifierRE, '');
                 }
-                if (bindRE.test(name)) { // v-bind
+                if (bindRE.test(name)) {
+                    // v-bind
                     name = name.replace(bindRE, '');
                     value = parseFilters(value);
                     isProp = false;
@@ -8872,30 +8104,28 @@ webpackJsonp([5],[
                         if (modifiers.prop) {
                             isProp = true;
                             name = camelize(name);
-                            if (name === 'innerHtml') { name = 'innerHTML'; }
+                            if (name === 'innerHtml') {
+                                name = 'innerHTML';
+                            }
                         }
                         if (modifiers.camel) {
                             name = camelize(name);
                         }
                         if (modifiers.sync) {
-                            addHandler(
-                                el,
-                                ("update:" + (camelize(name))),
-                                genAssignmentCode(value, "$event")
-                            );
+                            addHandler(el, "update:" + camelize(name), genAssignmentCode(value, "$event"));
                         }
                     }
-                    if (isProp || (
-                            !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
-                        )) {
+                    if (isProp || !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)) {
                         addProp(el, name, value);
                     } else {
                         addAttr(el, name, value);
                     }
-                } else if (onRE.test(name)) { // v-on
+                } else if (onRE.test(name)) {
+                    // v-on
                     name = name.replace(onRE, '');
                     addHandler(el, name, value, modifiers, false, warn$2);
-                } else { // normal directives
+                } else {
+                    // normal directives
                     name = name.replace(dirRE, '');
                     // parse arg
                     var argMatch = name.match(argRE);
@@ -8913,12 +8143,7 @@ webpackJsonp([5],[
                 {
                     var expression = parseText(value, delimiters);
                     if (expression) {
-                        warn$2(
-                            name + "=\"" + value + "\": " +
-                            'Interpolation inside attributes has been removed. ' +
-                            'Use v-bind or the colon shorthand instead. For example, ' +
-                            'instead of <div id="{{ val }}">, use <div :id="val">.'
-                        );
+                        warn$2(name + "=\"" + value + "\": " + 'Interpolation inside attributes has been removed. ' + 'Use v-bind or the colon shorthand instead. For example, ' + 'instead of <div id="{{ val }}">, use <div :id="val">.');
                     }
                 }
                 addAttr(el, name, JSON.stringify(value));
@@ -8926,60 +8151,53 @@ webpackJsonp([5],[
         }
     }
 
-    function checkInFor (el) {
+    function checkInFor(el) {
         var parent = el;
         while (parent) {
             if (parent.for !== undefined) {
-                return true
+                return true;
             }
             parent = parent.parent;
         }
-        return false
+        return false;
     }
 
-    function parseModifiers (name) {
+    function parseModifiers(name) {
         var match = name.match(modifierRE);
         if (match) {
             var ret = {};
-            match.forEach(function (m) { ret[m.slice(1)] = true; });
-            return ret
+            match.forEach(function (m) {
+                ret[m.slice(1)] = true;
+            });
+            return ret;
         }
     }
 
-    function makeAttrsMap (attrs) {
+    function makeAttrsMap(attrs) {
         var map = {};
         for (var i = 0, l = attrs.length; i < l; i++) {
-            if (
-                "development" !== 'production' &&
-                map[attrs[i].name] && !isIE && !isEdge
-            ) {
+            if ("development" !== 'production' && map[attrs[i].name] && !isIE && !isEdge) {
                 warn$2('duplicate attribute: ' + attrs[i].name);
             }
             map[attrs[i].name] = attrs[i].value;
         }
-        return map
+        return map;
     }
 
-// for script (e.g. type="x/template") or style, do not decode content
-    function isTextTag (el) {
-        return el.tag === 'script' || el.tag === 'style'
+    // for script (e.g. type="x/template") or style, do not decode content
+    function isTextTag(el) {
+        return el.tag === 'script' || el.tag === 'style';
     }
 
-    function isForbiddenTag (el) {
-        return (
-            el.tag === 'style' ||
-            (el.tag === 'script' && (
-                !el.attrsMap.type ||
-                el.attrsMap.type === 'text/javascript'
-            ))
-        )
+    function isForbiddenTag(el) {
+        return el.tag === 'style' || el.tag === 'script' && (!el.attrsMap.type || el.attrsMap.type === 'text/javascript');
     }
 
     var ieNSBug = /^xmlns:NS\d+/;
     var ieNSPrefix = /^NS\d+:/;
 
     /* istanbul ignore next */
-    function guardIESVGBug (attrs) {
+    function guardIESVGBug(attrs) {
         var res = [];
         for (var i = 0; i < attrs.length; i++) {
             var attr = attrs[i];
@@ -8988,20 +8206,14 @@ webpackJsonp([5],[
                 res.push(attr);
             }
         }
-        return res
+        return res;
     }
 
-    function checkForAliasModel (el, value) {
+    function checkForAliasModel(el, value) {
         var _el = el;
         while (_el) {
             if (_el.for && _el.alias === value) {
-                warn$2(
-                    "<" + (el.tag) + " v-model=\"" + value + "\">: " +
-                    "You are binding v-model directly to a v-for iteration alias. " +
-                    "This will not be able to modify the v-for source array because " +
-                    "writing to the alias is like modifying a function local variable. " +
-                    "Consider using an array of objects and use v-model on an object property instead."
-                );
+                warn$2("<" + el.tag + " v-model=\"" + value + "\">: " + "You are binding v-model directly to a v-for iteration alias. " + "This will not be able to modify the v-for source array because " + "writing to the alias is like modifying a function local variable. " + "Consider using an array of objects and use v-model on an object property instead.");
             }
             _el = _el.parent;
         }
@@ -9025,8 +8237,10 @@ webpackJsonp([5],[
      *    create fresh nodes for them on each re-render;
      * 2. Completely skip them in the patching process.
      */
-    function optimize (root, options) {
-        if (!root) { return }
+    function optimize(root, options) {
+        if (!root) {
+            return;
+        }
         isStaticKey = genStaticKeysCached(options.staticKeys || '');
         isPlatformReservedTag = options.isReservedTag || no;
         // first pass: mark all non-static nodes.
@@ -9035,25 +8249,18 @@ webpackJsonp([5],[
         markStaticRoots(root, false);
     }
 
-    function genStaticKeys$1 (keys) {
-        return makeMap(
-            'type,tag,attrsList,attrsMap,plain,parent,children,attrs' +
-            (keys ? ',' + keys : '')
-        )
+    function genStaticKeys$1(keys) {
+        return makeMap('type,tag,attrsList,attrsMap,plain,parent,children,attrs' + (keys ? ',' + keys : ''));
     }
 
-    function markStatic$1 (node) {
+    function markStatic$1(node) {
         node.static = isStatic(node);
         if (node.type === 1) {
             // do not make component slot content static. this avoids
             // 1. components not able to mutate slot nodes
             // 2. static slot content fails for hot-reloading
-            if (
-                !isPlatformReservedTag(node.tag) &&
-                node.tag !== 'slot' &&
-                node.attrsMap['inline-template'] == null
-            ) {
-                return
+            if (!isPlatformReservedTag(node.tag) && node.tag !== 'slot' && node.attrsMap['inline-template'] == null) {
+                return;
             }
             for (var i = 0, l = node.children.length; i < l; i++) {
                 var child = node.children[i];
@@ -9074,7 +8281,7 @@ webpackJsonp([5],[
         }
     }
 
-    function markStaticRoots (node, isInFor) {
+    function markStaticRoots(node, isInFor) {
         if (node.type === 1) {
             if (node.static || node.once) {
                 node.staticInFor = isInFor;
@@ -9082,12 +8289,9 @@ webpackJsonp([5],[
             // For a node to qualify as a static root, it should have children that
             // are not just static text. Otherwise the cost of hoisting out will
             // outweigh the benefits and it's better off to just always render it fresh.
-            if (node.static && node.children.length && !(
-                    node.children.length === 1 &&
-                    node.children[0].type === 3
-                )) {
+            if (node.static && node.children.length && !(node.children.length === 1 && node.children[0].type === 3)) {
                 node.staticRoot = true;
-                return
+                return;
             } else {
                 node.staticRoot = false;
             }
@@ -9104,34 +8308,33 @@ webpackJsonp([5],[
         }
     }
 
-    function isStatic (node) {
-        if (node.type === 2) { // expression
-            return false
+    function isStatic(node) {
+        if (node.type === 2) {
+            // expression
+            return false;
         }
-        if (node.type === 3) { // text
-            return true
+        if (node.type === 3) {
+            // text
+            return true;
         }
-        return !!(node.pre || (
-            !node.hasBindings && // no dynamic bindings
-            !node.if && !node.for && // not v-if or v-for or v-else
-            !isBuiltInTag(node.tag) && // not a built-in
-            isPlatformReservedTag(node.tag) && // not a component
-            !isDirectChildOfTemplateFor(node) &&
-            Object.keys(node).every(isStaticKey)
-        ))
+        return !!(node.pre || !node.hasBindings && // no dynamic bindings
+        !node.if && !node.for && // not v-if or v-for or v-else
+        !isBuiltInTag(node.tag) && // not a built-in
+        isPlatformReservedTag(node.tag) && // not a component
+        !isDirectChildOfTemplateFor(node) && Object.keys(node).every(isStaticKey));
     }
 
-    function isDirectChildOfTemplateFor (node) {
+    function isDirectChildOfTemplateFor(node) {
         while (node.parent) {
             node = node.parent;
             if (node.tag !== 'template') {
-                return false
+                return false;
             }
             if (node.for) {
-                return true
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     /*  */
@@ -9139,7 +8342,7 @@ webpackJsonp([5],[
     var fnExpRE = /^\s*([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
     var simplePathRE = /^\s*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?']|\[".*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*\s*$/;
 
-// keyCode aliases
+    // keyCode aliases
     var keyCodes = {
         esc: 27,
         tab: 9,
@@ -9152,10 +8355,12 @@ webpackJsonp([5],[
         'delete': [8, 46]
     };
 
-// #4868: modifiers that prevent the execution of the listener
-// need to explicitly return null so that we can determine whether to remove
-// the listener for .once
-    var genGuard = function (condition) { return ("if(" + condition + ")return null;"); };
+    // #4868: modifiers that prevent the execution of the listener
+    // need to explicitly return null so that we can determine whether to remove
+    // the listener for .once
+    var genGuard = function (condition) {
+        return "if(" + condition + ")return null;";
+    };
 
     var modifierCode = {
         stop: '$event.stopPropagation();',
@@ -9170,48 +8375,35 @@ webpackJsonp([5],[
         right: genGuard("'button' in $event && $event.button !== 2")
     };
 
-    function genHandlers (
-        events,
-        isNative,
-        warn
-    ) {
+    function genHandlers(events, isNative, warn) {
         var res = isNative ? 'nativeOn:{' : 'on:{';
         for (var name in events) {
             var handler = events[name];
             // #5330: warn click.right, since right clicks do not actually fire click events.
-            if ("development" !== 'production' &&
-                name === 'click' &&
-                handler && handler.modifiers && handler.modifiers.right
-            ) {
-                warn(
-                    "Use \"contextmenu\" instead of \"click.right\" since right clicks " +
-                    "do not actually fire \"click\" events."
-                );
+            if ("development" !== 'production' && name === 'click' && handler && handler.modifiers && handler.modifiers.right) {
+                warn("Use \"contextmenu\" instead of \"click.right\" since right clicks " + "do not actually fire \"click\" events.");
             }
-            res += "\"" + name + "\":" + (genHandler(name, handler)) + ",";
+            res += "\"" + name + "\":" + genHandler(name, handler) + ",";
         }
-        return res.slice(0, -1) + '}'
+        return res.slice(0, -1) + '}';
     }
 
-    function genHandler (
-        name,
-        handler
-    ) {
+    function genHandler(name, handler) {
         if (!handler) {
-            return 'function(){}'
+            return 'function(){}';
         }
 
         if (Array.isArray(handler)) {
-            return ("[" + (handler.map(function (handler) { return genHandler(name, handler); }).join(',')) + "]")
+            return "[" + handler.map(function (handler) {
+                return genHandler(name, handler);
+            }).join(',') + "]";
         }
 
         var isMethodPath = simplePathRE.test(handler.value);
         var isFunctionExpression = fnExpRE.test(handler.value);
 
         if (!handler.modifiers) {
-            return isMethodPath || isFunctionExpression
-                ? handler.value
-                : ("function($event){" + (handler.value) + "}") // inline statement
+            return isMethodPath || isFunctionExpression ? handler.value : "function($event){" + handler.value + "}"; // inline statement
         } else {
             var code = '';
             var genModifierCode = '';
@@ -9234,42 +8426,40 @@ webpackJsonp([5],[
             if (genModifierCode) {
                 code += genModifierCode;
             }
-            var handlerCode = isMethodPath
-                ? handler.value + '($event)'
-                : isFunctionExpression
-                    ? ("(" + (handler.value) + ")($event)")
-                    : handler.value;
-            return ("function($event){" + code + handlerCode + "}")
+            var handlerCode = isMethodPath ? handler.value + '($event)' : isFunctionExpression ? "(" + handler.value + ")($event)" : handler.value;
+            return "function($event){" + code + handlerCode + "}";
         }
     }
 
-    function genKeyFilter (keys) {
-        return ("if(!('button' in $event)&&" + (keys.map(genFilterCode).join('&&')) + ")return null;")
+    function genKeyFilter(keys) {
+        return "if(!('button' in $event)&&" + keys.map(genFilterCode).join('&&') + ")return null;";
     }
 
-    function genFilterCode (key) {
+    function genFilterCode(key) {
         var keyVal = parseInt(key, 10);
         if (keyVal) {
-            return ("$event.keyCode!==" + keyVal)
+            return "$event.keyCode!==" + keyVal;
         }
         var alias = keyCodes[key];
-        return ("_k($event.keyCode," + (JSON.stringify(key)) + (alias ? ',' + JSON.stringify(alias) : '') + ")")
+        return "_k($event.keyCode," + JSON.stringify(key) + (alias ? ',' + JSON.stringify(alias) : '') + ")";
     }
 
     /*  */
 
-    function on (el, dir) {
+    function on(el, dir) {
         if ("development" !== 'production' && dir.modifiers) {
             warn("v-on without argument does not support modifiers.");
         }
-        el.wrapListeners = function (code) { return ("_g(" + code + "," + (dir.value) + ")"); };
+        el.wrapListeners = function (code) {
+            return "_g(" + code + "," + dir.value + ")";
+        };
     }
 
     /*  */
 
-    function bind$1 (el, dir) {
+    function bind$1(el, dir) {
         el.wrapData = function (code) {
-            return ("_b(" + code + ",'" + (el.tag) + "'," + (dir.value) + "," + (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') + (dir.modifiers && dir.modifiers.sync ? ',true' : '') + ")")
+            return "_b(" + code + ",'" + el.tag + "'," + dir.value + "," + (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') + (dir.modifiers && dir.modifiers.sync ? ',true' : '') + ")";
         };
     }
 
@@ -9283,45 +8473,42 @@ webpackJsonp([5],[
 
     /*  */
 
-    var CodegenState = function CodegenState (options) {
+    var CodegenState = function CodegenState(options) {
         this.options = options;
         this.warn = options.warn || baseWarn;
         this.transforms = pluckModuleFunction(options.modules, 'transformCode');
         this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
         this.directives = extend(extend({}, baseDirectives), options.directives);
         var isReservedTag = options.isReservedTag || no;
-        this.maybeComponent = function (el) { return !isReservedTag(el.tag); };
+        this.maybeComponent = function (el) {
+            return !isReservedTag(el.tag);
+        };
         this.onceId = 0;
         this.staticRenderFns = [];
     };
 
-
-
-    function generate (
-        ast,
-        options
-    ) {
+    function generate(ast, options) {
         var state = new CodegenState(options);
         var code = ast ? genElement(ast, state) : '_c("div")';
         return {
-            render: ("with(this){return " + code + "}"),
+            render: "with(this){return " + code + "}",
             staticRenderFns: state.staticRenderFns
-        }
+        };
     }
 
-    function genElement (el, state) {
+    function genElement(el, state) {
         if (el.staticRoot && !el.staticProcessed) {
-            return genStatic(el, state)
+            return genStatic(el, state);
         } else if (el.once && !el.onceProcessed) {
-            return genOnce(el, state)
+            return genOnce(el, state);
         } else if (el.for && !el.forProcessed) {
-            return genFor(el, state)
+            return genFor(el, state);
         } else if (el.if && !el.ifProcessed) {
-            return genIf(el, state)
+            return genIf(el, state);
         } else if (el.tag === 'template' && !el.slotTarget) {
-            return genChildren(el, state) || 'void 0'
+            return genChildren(el, state) || 'void 0';
         } else if (el.tag === 'slot') {
-            return genSlot(el, state)
+            return genSlot(el, state);
         } else {
             // component or element
             var code;
@@ -9331,134 +8518,103 @@ webpackJsonp([5],[
                 var data = el.plain ? undefined : genData$2(el, state);
 
                 var children = el.inlineTemplate ? null : genChildren(el, state, true);
-                code = "_c('" + (el.tag) + "'" + (data ? ("," + data) : '') + (children ? ("," + children) : '') + ")";
+                code = "_c('" + el.tag + "'" + (data ? "," + data : '') + (children ? "," + children : '') + ")";
             }
             // module transforms
             for (var i = 0; i < state.transforms.length; i++) {
                 code = state.transforms[i](el, code);
             }
-            return code
+            return code;
         }
     }
 
-// hoist static sub-trees out
-    function genStatic (el, state) {
+    // hoist static sub-trees out
+    function genStatic(el, state) {
         el.staticProcessed = true;
-        state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
-        return ("_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
+        state.staticRenderFns.push("with(this){return " + genElement(el, state) + "}");
+        return "_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")";
     }
 
-// v-once
-    function genOnce (el, state) {
+    // v-once
+    function genOnce(el, state) {
         el.onceProcessed = true;
         if (el.if && !el.ifProcessed) {
-            return genIf(el, state)
+            return genIf(el, state);
         } else if (el.staticInFor) {
             var key = '';
             var parent = el.parent;
             while (parent) {
                 if (parent.for) {
                     key = parent.key;
-                    break
+                    break;
                 }
                 parent = parent.parent;
             }
             if (!key) {
-                "development" !== 'production' && state.warn(
-                    "v-once can only be used inside v-for that is keyed. "
-                );
-                return genElement(el, state)
+                "development" !== 'production' && state.warn("v-once can only be used inside v-for that is keyed. ");
+                return genElement(el, state);
             }
-            return ("_o(" + (genElement(el, state)) + "," + (state.onceId++) + (key ? ("," + key) : "") + ")")
+            return "_o(" + genElement(el, state) + "," + state.onceId++ + (key ? "," + key : "") + ")";
         } else {
-            return genStatic(el, state)
+            return genStatic(el, state);
         }
     }
 
-    function genIf (
-        el,
-        state,
-        altGen,
-        altEmpty
-    ) {
+    function genIf(el, state, altGen, altEmpty) {
         el.ifProcessed = true; // avoid recursion
-        return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
+        return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty);
     }
 
-    function genIfConditions (
-        conditions,
-        state,
-        altGen,
-        altEmpty
-    ) {
+    function genIfConditions(conditions, state, altGen, altEmpty) {
         if (!conditions.length) {
-            return altEmpty || '_e()'
+            return altEmpty || '_e()';
         }
 
         var condition = conditions.shift();
         if (condition.exp) {
-            return ("(" + (condition.exp) + ")?" + (genTernaryExp(condition.block)) + ":" + (genIfConditions(conditions, state, altGen, altEmpty)))
+            return "(" + condition.exp + ")?" + genTernaryExp(condition.block) + ":" + genIfConditions(conditions, state, altGen, altEmpty);
         } else {
-            return ("" + (genTernaryExp(condition.block)))
+            return "" + genTernaryExp(condition.block);
         }
 
         // v-if with v-once should generate code like (a)?_m(0):_m(1)
-        function genTernaryExp (el) {
-            return altGen
-                ? altGen(el, state)
-                : el.once
-                    ? genOnce(el, state)
-                    : genElement(el, state)
+        function genTernaryExp(el) {
+            return altGen ? altGen(el, state) : el.once ? genOnce(el, state) : genElement(el, state);
         }
     }
 
-    function genFor (
-        el,
-        state,
-        altGen,
-        altHelper
-    ) {
+    function genFor(el, state, altGen, altHelper) {
         var exp = el.for;
         var alias = el.alias;
-        var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
-        var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
+        var iterator1 = el.iterator1 ? "," + el.iterator1 : '';
+        var iterator2 = el.iterator2 ? "," + el.iterator2 : '';
 
-        if ("development" !== 'production' &&
-            state.maybeComponent(el) &&
-            el.tag !== 'slot' &&
-            el.tag !== 'template' &&
-            !el.key
-        ) {
-            state.warn(
-                "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
-                "v-for should have explicit keys. " +
-                "See https://vuejs.org/guide/list.html#key for more info.",
-                true /* tip */
+        if ("development" !== 'production' && state.maybeComponent(el) && el.tag !== 'slot' && el.tag !== 'template' && !el.key) {
+            state.warn("<" + el.tag + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " + "v-for should have explicit keys. " + "See https://vuejs.org/guide/list.html#key for more info.", true /* tip */
             );
         }
 
         el.forProcessed = true; // avoid recursion
-        return (altHelper || '_l') + "((" + exp + ")," +
-            "function(" + alias + iterator1 + iterator2 + "){" +
-            "return " + ((altGen || genElement)(el, state)) +
-            '})'
+        return (altHelper || '_l') + "((" + exp + ")," + "function(" + alias + iterator1 + iterator2 + "){" + "return " + (altGen || genElement)(el, state) + '})';
     }
 
-    function genData$2 (el, state) {
+    function genData$2(el, state) {
         var data = '{';
 
         // directives first.
         // directives may mutate the el's other properties before they are generated.
         var dirs = genDirectives(el, state);
-        if (dirs) { data += dirs + ','; }
+        if (dirs) {
+            data += dirs + ',';
+        }
 
         // key
         if (el.key) {
-            data += "key:" + (el.key) + ",";
+            data += "key:" + el.key + ",";
         }
         // ref
         if (el.ref) {
-            data += "ref:" + (el.ref) + ",";
+            data += "ref:" + el.ref + ",";
         }
         if (el.refInFor) {
             data += "refInFor:true,";
@@ -9469,7 +8625,7 @@ webpackJsonp([5],[
         }
         // record original tag name for components using "is" attribute
         if (el.component) {
-            data += "tag:\"" + (el.tag) + "\",";
+            data += "tag:\"" + el.tag + "\",";
         }
         // module data generation functions
         for (var i = 0; i < state.dataGenFns.length; i++) {
@@ -9477,30 +8633,30 @@ webpackJsonp([5],[
         }
         // attributes
         if (el.attrs) {
-            data += "attrs:{" + (genProps(el.attrs)) + "},";
+            data += "attrs:{" + genProps(el.attrs) + "},";
         }
         // DOM props
         if (el.props) {
-            data += "domProps:{" + (genProps(el.props)) + "},";
+            data += "domProps:{" + genProps(el.props) + "},";
         }
         // event handlers
         if (el.events) {
-            data += (genHandlers(el.events, false, state.warn)) + ",";
+            data += genHandlers(el.events, false, state.warn) + ",";
         }
         if (el.nativeEvents) {
-            data += (genHandlers(el.nativeEvents, true, state.warn)) + ",";
+            data += genHandlers(el.nativeEvents, true, state.warn) + ",";
         }
         // slot target
         if (el.slotTarget) {
-            data += "slot:" + (el.slotTarget) + ",";
+            data += "slot:" + el.slotTarget + ",";
         }
         // scoped slots
         if (el.scopedSlots) {
-            data += (genScopedSlots(el.scopedSlots, state)) + ",";
+            data += genScopedSlots(el.scopedSlots, state) + ",";
         }
         // component v-model
         if (el.model) {
-            data += "model:{value:" + (el.model.value) + ",callback:" + (el.model.callback) + ",expression:" + (el.model.expression) + "},";
+            data += "model:{value:" + el.model.value + ",callback:" + el.model.callback + ",expression:" + el.model.expression + "},";
         }
         // inline-template
         if (el.inlineTemplate) {
@@ -9518,12 +8674,14 @@ webpackJsonp([5],[
         if (el.wrapListeners) {
             data = el.wrapListeners(data);
         }
-        return data
+        return data;
     }
 
-    function genDirectives (el, state) {
+    function genDirectives(el, state) {
         var dirs = el.directives;
-        if (!dirs) { return }
+        if (!dirs) {
+            return;
+        }
         var res = 'directives:[';
         var hasRuntime = false;
         var i, l, dir, needRuntime;
@@ -9538,148 +8696,121 @@ webpackJsonp([5],[
             }
             if (needRuntime) {
                 hasRuntime = true;
-                res += "{name:\"" + (dir.name) + "\",rawName:\"" + (dir.rawName) + "\"" + (dir.value ? (",value:(" + (dir.value) + "),expression:" + (JSON.stringify(dir.value))) : '') + (dir.arg ? (",arg:\"" + (dir.arg) + "\"") : '') + (dir.modifiers ? (",modifiers:" + (JSON.stringify(dir.modifiers))) : '') + "},";
+                res += "{name:\"" + dir.name + "\",rawName:\"" + dir.rawName + "\"" + (dir.value ? ",value:(" + dir.value + "),expression:" + JSON.stringify(dir.value) : '') + (dir.arg ? ",arg:\"" + dir.arg + "\"" : '') + (dir.modifiers ? ",modifiers:" + JSON.stringify(dir.modifiers) : '') + "},";
             }
         }
         if (hasRuntime) {
-            return res.slice(0, -1) + ']'
+            return res.slice(0, -1) + ']';
         }
     }
 
-    function genInlineTemplate (el, state) {
+    function genInlineTemplate(el, state) {
         var ast = el.children[0];
-        if ("development" !== 'production' && (
-                el.children.length > 1 || ast.type !== 1
-            )) {
+        if ("development" !== 'production' && (el.children.length > 1 || ast.type !== 1)) {
             state.warn('Inline-template components must have exactly one child element.');
         }
         if (ast.type === 1) {
             var inlineRenderFns = generate(ast, state.options);
-            return ("inlineTemplate:{render:function(){" + (inlineRenderFns.render) + "},staticRenderFns:[" + (inlineRenderFns.staticRenderFns.map(function (code) { return ("function(){" + code + "}"); }).join(',')) + "]}")
+            return "inlineTemplate:{render:function(){" + inlineRenderFns.render + "},staticRenderFns:[" + inlineRenderFns.staticRenderFns.map(function (code) {
+                return "function(){" + code + "}";
+            }).join(',') + "]}";
         }
     }
 
-    function genScopedSlots (
-        slots,
-        state
-    ) {
-        return ("scopedSlots:_u([" + (Object.keys(slots).map(function (key) {
-            return genScopedSlot(key, slots[key], state)
-        }).join(',')) + "])")
+    function genScopedSlots(slots, state) {
+        return "scopedSlots:_u([" + Object.keys(slots).map(function (key) {
+            return genScopedSlot(key, slots[key], state);
+        }).join(',') + "])";
     }
 
-    function genScopedSlot (
-        key,
-        el,
-        state
-    ) {
+    function genScopedSlot(key, el, state) {
         if (el.for && !el.forProcessed) {
-            return genForScopedSlot(key, el, state)
+            return genForScopedSlot(key, el, state);
         }
-        return "{key:" + key + ",fn:function(" + (String(el.attrsMap.scope)) + "){" +
-            "return " + (el.tag === 'template'
-                ? genChildren(el, state) || 'void 0'
-                : genElement(el, state)) + "}}"
+        return "{key:" + key + ",fn:function(" + String(el.attrsMap.scope) + "){" + "return " + (el.tag === 'template' ? genChildren(el, state) || 'void 0' : genElement(el, state)) + "}}";
     }
 
-    function genForScopedSlot (
-        key,
-        el,
-        state
-    ) {
+    function genForScopedSlot(key, el, state) {
         var exp = el.for;
         var alias = el.alias;
-        var iterator1 = el.iterator1 ? ("," + (el.iterator1)) : '';
-        var iterator2 = el.iterator2 ? ("," + (el.iterator2)) : '';
+        var iterator1 = el.iterator1 ? "," + el.iterator1 : '';
+        var iterator2 = el.iterator2 ? "," + el.iterator2 : '';
         el.forProcessed = true; // avoid recursion
-        return "_l((" + exp + ")," +
-            "function(" + alias + iterator1 + iterator2 + "){" +
-            "return " + (genScopedSlot(key, el, state)) +
-            '})'
+        return "_l((" + exp + ")," + "function(" + alias + iterator1 + iterator2 + "){" + "return " + genScopedSlot(key, el, state) + '})';
     }
 
-    function genChildren (
-        el,
-        state,
-        checkSkip,
-        altGenElement,
-        altGenNode
-    ) {
+    function genChildren(el, state, checkSkip, altGenElement, altGenNode) {
         var children = el.children;
         if (children.length) {
             var el$1 = children[0];
             // optimize single v-for
-            if (children.length === 1 &&
-                el$1.for &&
-                el$1.tag !== 'template' &&
-                el$1.tag !== 'slot'
-            ) {
-                return (altGenElement || genElement)(el$1, state)
+            if (children.length === 1 && el$1.for && el$1.tag !== 'template' && el$1.tag !== 'slot') {
+                return (altGenElement || genElement)(el$1, state);
             }
-            var normalizationType = checkSkip
-                ? getNormalizationType(children, state.maybeComponent)
-                : 0;
+            var normalizationType = checkSkip ? getNormalizationType(children, state.maybeComponent) : 0;
             var gen = altGenNode || genNode;
-            return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType ? ("," + normalizationType) : ''))
+            return "[" + children.map(function (c) {
+                return gen(c, state);
+            }).join(',') + "]" + (normalizationType ? "," + normalizationType : '');
         }
     }
 
-// determine the normalization needed for the children array.
-// 0: no normalization needed
-// 1: simple normalization needed (possible 1-level deep nested array)
-// 2: full normalization needed
-    function getNormalizationType (
-        children,
-        maybeComponent
-    ) {
+    // determine the normalization needed for the children array.
+    // 0: no normalization needed
+    // 1: simple normalization needed (possible 1-level deep nested array)
+    // 2: full normalization needed
+    function getNormalizationType(children, maybeComponent) {
         var res = 0;
         for (var i = 0; i < children.length; i++) {
             var el = children[i];
             if (el.type !== 1) {
-                continue
+                continue;
             }
-            if (needsNormalization(el) ||
-                (el.ifConditions && el.ifConditions.some(function (c) { return needsNormalization(c.block); }))) {
+            if (needsNormalization(el) || el.ifConditions && el.ifConditions.some(function (c) {
+                return needsNormalization(c.block);
+            })) {
                 res = 2;
-                break
+                break;
             }
-            if (maybeComponent(el) ||
-                (el.ifConditions && el.ifConditions.some(function (c) { return maybeComponent(c.block); }))) {
+            if (maybeComponent(el) || el.ifConditions && el.ifConditions.some(function (c) {
+                return maybeComponent(c.block);
+            })) {
                 res = 1;
             }
         }
-        return res
+        return res;
     }
 
-    function needsNormalization (el) {
-        return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+    function needsNormalization(el) {
+        return el.for !== undefined || el.tag === 'template' || el.tag === 'slot';
     }
 
-    function genNode (node, state) {
+    function genNode(node, state) {
         if (node.type === 1) {
-            return genElement(node, state)
-        } if (node.type === 3 && node.isComment) {
-            return genComment(node)
+            return genElement(node, state);
+        }if (node.type === 3 && node.isComment) {
+            return genComment(node);
         } else {
-            return genText(node)
+            return genText(node);
         }
     }
 
-    function genText (text) {
-        return ("_v(" + (text.type === 2
-            ? text.expression // no need for () because already wrapped in _s()
-            : transformSpecialNewlines(JSON.stringify(text.text))) + ")")
+    function genText(text) {
+        return "_v(" + (text.type === 2 ? text.expression // no need for () because already wrapped in _s()
+        : transformSpecialNewlines(JSON.stringify(text.text))) + ")";
     }
 
-    function genComment (comment) {
-        return ("_e(" + (JSON.stringify(comment.text)) + ")")
+    function genComment(comment) {
+        return "_e(" + JSON.stringify(comment.text) + ")";
     }
 
-    function genSlot (el, state) {
+    function genSlot(el, state) {
         var slotName = el.slotName || '"default"';
         var children = genChildren(el, state);
-        var res = "_t(" + slotName + (children ? ("," + children) : '');
-        var attrs = el.attrs && ("{" + (el.attrs.map(function (a) { return ((camelize(a.name)) + ":" + (a.value)); }).join(',')) + "}");
+        var res = "_t(" + slotName + (children ? "," + children : '');
+        var attrs = el.attrs && "{" + el.attrs.map(function (a) {
+            return camelize(a.name) + ":" + a.value;
+        }).join(',') + "}";
         var bind$$1 = el.attrsMap['v-bind'];
         if ((attrs || bind$$1) && !children) {
             res += ",null";
@@ -9690,77 +8821,65 @@ webpackJsonp([5],[
         if (bind$$1) {
             res += (attrs ? '' : ',null') + "," + bind$$1;
         }
-        return res + ')'
+        return res + ')';
     }
 
-// componentName is el.component, take it as argument to shun flow's pessimistic refinement
-    function genComponent (
-        componentName,
-        el,
-        state
-    ) {
+    // componentName is el.component, take it as argument to shun flow's pessimistic refinement
+    function genComponent(componentName, el, state) {
         var children = el.inlineTemplate ? null : genChildren(el, state, true);
-        return ("_c(" + componentName + "," + (genData$2(el, state)) + (children ? ("," + children) : '') + ")")
+        return "_c(" + componentName + "," + genData$2(el, state) + (children ? "," + children : '') + ")";
     }
 
-    function genProps (props) {
+    function genProps(props) {
         var res = '';
         for (var i = 0; i < props.length; i++) {
             var prop = props[i];
-            res += "\"" + (prop.name) + "\":" + (transformSpecialNewlines(prop.value)) + ",";
+            res += "\"" + prop.name + "\":" + transformSpecialNewlines(prop.value) + ",";
         }
-        return res.slice(0, -1)
+        return res.slice(0, -1);
     }
 
-// #3895, #4268
-    function transformSpecialNewlines (text) {
-        return text
-            .replace(/\u2028/g, '\\u2028')
-            .replace(/\u2029/g, '\\u2029')
+    // #3895, #4268
+    function transformSpecialNewlines(text) {
+        return text.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
     }
 
     /*  */
 
-// these keywords should not appear inside expressions, but operators like
-// typeof, instanceof and in are allowed
-    var prohibitedKeywordRE = new RegExp('\\b' + (
-        'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
-        'super,throw,while,yield,delete,export,import,return,switch,default,' +
-        'extends,finally,continue,debugger,function,arguments'
-    ).split(',').join('\\b|\\b') + '\\b');
+    // these keywords should not appear inside expressions, but operators like
+    // typeof, instanceof and in are allowed
+    var prohibitedKeywordRE = new RegExp('\\b' + ('do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' + 'super,throw,while,yield,delete,export,import,return,switch,default,' + 'extends,finally,continue,debugger,function,arguments').split(',').join('\\b|\\b') + '\\b');
 
-// these unary operators should not be used as property/method names
-    var unaryOperatorsRE = new RegExp('\\b' + (
-        'delete,typeof,void'
-    ).split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)');
+    // these unary operators should not be used as property/method names
+    var unaryOperatorsRE = new RegExp('\\b' + 'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)');
 
-// check valid identifier for v-for
+    // check valid identifier for v-for
     var identRE = /[A-Za-z_$][\w$]*/;
 
-// strip strings in expressions
+    // strip strings in expressions
     var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g;
 
-// detect problematic expressions in a template
-    function detectErrors (ast) {
+    // detect problematic expressions in a template
+    function detectErrors(ast) {
         var errors = [];
         if (ast) {
             checkNode(ast, errors);
         }
-        return errors
+        return errors;
     }
 
-    function checkNode (node, errors) {
+    function checkNode(node, errors) {
         if (node.type === 1) {
             for (var name in node.attrsMap) {
                 if (dirRE.test(name)) {
                     var value = node.attrsMap[name];
                     if (value) {
                         if (name === 'v-for') {
-                            checkFor(node, ("v-for=\"" + value + "\""), errors);
+                            checkFor(node, "v-for=\"" + value + "\"", errors);
                         } else if (onRE.test(name)) {
-                            checkEvent(value, (name + "=\"" + value + "\""), errors);
+                            checkEvent(value, name + "=\"" + value + "\"", errors);
                         } else {
-                            checkExpression(value, (name + "=\"" + value + "\""), errors);
+                            checkExpression(value, name + "=\"" + value + "\"", errors);
                         }
                     }
                 }
@@ -9775,66 +8894,56 @@ webpackJsonp([5],[
         }
     }
 
-    function checkEvent (exp, text, errors) {
+    function checkEvent(exp, text, errors) {
         var stipped = exp.replace(stripStringRE, '');
         var keywordMatch = stipped.match(unaryOperatorsRE);
         if (keywordMatch && stipped.charAt(keywordMatch.index - 1) !== '$') {
-            errors.push(
-                "avoid using JavaScript unary operator as property name: " +
-                "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim())
-            );
+            errors.push("avoid using JavaScript unary operator as property name: " + "\"" + keywordMatch[0] + "\" in expression " + text.trim());
         }
         checkExpression(exp, text, errors);
     }
 
-    function checkFor (node, text, errors) {
+    function checkFor(node, text, errors) {
         checkExpression(node.for || '', text, errors);
         checkIdentifier(node.alias, 'v-for alias', text, errors);
         checkIdentifier(node.iterator1, 'v-for iterator', text, errors);
         checkIdentifier(node.iterator2, 'v-for iterator', text, errors);
     }
 
-    function checkIdentifier (ident, type, text, errors) {
+    function checkIdentifier(ident, type, text, errors) {
         if (typeof ident === 'string' && !identRE.test(ident)) {
-            errors.push(("invalid " + type + " \"" + ident + "\" in expression: " + (text.trim())));
+            errors.push("invalid " + type + " \"" + ident + "\" in expression: " + text.trim());
         }
     }
 
-    function checkExpression (exp, text, errors) {
+    function checkExpression(exp, text, errors) {
         try {
-            new Function(("return " + exp));
+            new Function("return " + exp);
         } catch (e) {
             var keywordMatch = exp.replace(stripStringRE, '').match(prohibitedKeywordRE);
             if (keywordMatch) {
-                errors.push(
-                    "avoid using JavaScript keyword as property name: " +
-                    "\"" + (keywordMatch[0]) + "\" in expression " + (text.trim())
-                );
+                errors.push("avoid using JavaScript keyword as property name: " + "\"" + keywordMatch[0] + "\" in expression " + text.trim());
             } else {
-                errors.push(("invalid expression: " + (text.trim())));
+                errors.push("invalid expression: " + text.trim());
             }
         }
     }
 
     /*  */
 
-    function createFunction (code, errors) {
+    function createFunction(code, errors) {
         try {
-            return new Function(code)
+            return new Function(code);
         } catch (err) {
             errors.push({ err: err, code: code });
-            return noop
+            return noop;
         }
     }
 
-    function createCompileToFunctionFn (compile) {
+    function createCompileToFunctionFn(compile) {
         var cache = Object.create(null);
 
-        return function compileToFunctions (
-            template,
-            options,
-            vm
-        ) {
+        return function compileToFunctions(template, options, vm) {
             options = options || {};
 
             /* istanbul ignore if */
@@ -9844,23 +8953,15 @@ webpackJsonp([5],[
                     new Function('return 1');
                 } catch (e) {
                     if (e.toString().match(/unsafe-eval|CSP/)) {
-                        warn(
-                            'It seems you are using the standalone build of Vue.js in an ' +
-                            'environment with Content Security Policy that prohibits unsafe-eval. ' +
-                            'The template compiler cannot work in this environment. Consider ' +
-                            'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
-                            'templates into render functions.'
-                        );
+                        warn('It seems you are using the standalone build of Vue.js in an ' + 'environment with Content Security Policy that prohibits unsafe-eval. ' + 'The template compiler cannot work in this environment. Consider ' + 'relaxing the policy to allow unsafe-eval or pre-compiling your ' + 'templates into render functions.');
                     }
                 }
             }
 
             // check cache
-            var key = options.delimiters
-                ? String(options.delimiters) + template
-                : template;
+            var key = options.delimiters ? String(options.delimiters) + template : template;
             if (cache[key]) {
-                return cache[key]
+                return cache[key];
             }
 
             // compile
@@ -9869,14 +8970,14 @@ webpackJsonp([5],[
             // check compilation errors/tips
             {
                 if (compiled.errors && compiled.errors.length) {
-                    warn(
-                        "Error compiling template:\n\n" + template + "\n\n" +
-                        compiled.errors.map(function (e) { return ("- " + e); }).join('\n') + '\n',
-                        vm
-                    );
+                    warn("Error compiling template:\n\n" + template + "\n\n" + compiled.errors.map(function (e) {
+                        return "- " + e;
+                    }).join('\n') + '\n', vm);
                 }
                 if (compiled.tips && compiled.tips.length) {
-                    compiled.tips.forEach(function (msg) { return tip(msg, vm); });
+                    compiled.tips.forEach(function (msg) {
+                        return tip(msg, vm);
+                    });
                 }
             }
 
@@ -9885,7 +8986,7 @@ webpackJsonp([5],[
             var fnGenErrors = [];
             res.render = createFunction(compiled.render, fnGenErrors);
             res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
-                return createFunction(code, fnGenErrors)
+                return createFunction(code, fnGenErrors);
             });
 
             // check function generation errors.
@@ -9894,31 +8995,24 @@ webpackJsonp([5],[
             /* istanbul ignore if */
             {
                 if ((!compiled.errors || !compiled.errors.length) && fnGenErrors.length) {
-                    warn(
-                        "Failed to generate render function:\n\n" +
-                        fnGenErrors.map(function (ref) {
-                            var err = ref.err;
-                            var code = ref.code;
+                    warn("Failed to generate render function:\n\n" + fnGenErrors.map(function (ref) {
+                        var err = ref.err;
+                        var code = ref.code;
 
-                            return ((err.toString()) + " in\n\n" + code + "\n");
-                        }).join('\n'),
-                        vm
-                    );
+                        return err.toString() + " in\n\n" + code + "\n";
+                    }).join('\n'), vm);
                 }
             }
 
-            return (cache[key] = res)
-        }
+            return cache[key] = res;
+        };
     }
 
     /*  */
 
-    function createCompilerCreator (baseCompile) {
-        return function createCompiler (baseOptions) {
-            function compile (
-                template,
-                options
-            ) {
+    function createCompilerCreator(baseCompile) {
+        return function createCompiler(baseOptions) {
+            function compile(template, options) {
                 var finalOptions = Object.create(baseOptions);
                 var errors = [];
                 var tips = [];
@@ -9929,15 +9023,11 @@ webpackJsonp([5],[
                 if (options) {
                     // merge custom modules
                     if (options.modules) {
-                        finalOptions.modules =
-                            (baseOptions.modules || []).concat(options.modules);
+                        finalOptions.modules = (baseOptions.modules || []).concat(options.modules);
                     }
                     // merge custom directives
                     if (options.directives) {
-                        finalOptions.directives = extend(
-                            Object.create(baseOptions.directives),
-                            options.directives
-                        );
+                        finalOptions.directives = extend(Object.create(baseOptions.directives), options.directives);
                     }
                     // copy other options
                     for (var key in options) {
@@ -9953,25 +9043,22 @@ webpackJsonp([5],[
                 }
                 compiled.errors = errors;
                 compiled.tips = tips;
-                return compiled
+                return compiled;
             }
 
             return {
                 compile: compile,
                 compileToFunctions: createCompileToFunctionFn(compile)
-            }
-        }
+            };
+        };
     }
 
     /*  */
 
-// `createCompilerCreator` allows creating compilers that use alternative
-// parser/optimizer/codegen, e.g the SSR optimizing compiler.
-// Here we just export a default compiler using the default parts.
-    var createCompiler = createCompilerCreator(function baseCompile (
-        template,
-        options
-    ) {
+    // `createCompilerCreator` allows creating compilers that use alternative
+    // parser/optimizer/codegen, e.g the SSR optimizing compiler.
+    // Here we just export a default compiler using the default parts.
+    var createCompiler = createCompilerCreator(function baseCompile(template, options) {
         var ast = parse(template.trim(), options);
         optimize(ast, options);
         var code = generate(ast, options);
@@ -9979,7 +9066,7 @@ webpackJsonp([5],[
             ast: ast,
             render: code.render,
             staticRenderFns: code.staticRenderFns
-        }
+        };
     });
 
     /*  */
@@ -9991,22 +9078,17 @@ webpackJsonp([5],[
 
     var idToTemplate = cached(function (id) {
         var el = query(id);
-        return el && el.innerHTML
+        return el && el.innerHTML;
     });
 
     var mount = Vue$3.prototype.$mount;
-    Vue$3.prototype.$mount = function (
-        el,
-        hydrating
-    ) {
+    Vue$3.prototype.$mount = function (el, hydrating) {
         el = el && query(el);
 
         /* istanbul ignore if */
         if (el === document.body || el === document.documentElement) {
-            "development" !== 'production' && warn(
-                "Do not mount Vue to <html> or <body> - mount to normal elements instead."
-            );
-            return this
+            "development" !== 'production' && warn("Do not mount Vue to <html> or <body> - mount to normal elements instead.");
+            return this;
         }
 
         var options = this.$options;
@@ -10019,10 +9101,7 @@ webpackJsonp([5],[
                         template = idToTemplate(template);
                         /* istanbul ignore if */
                         if ("development" !== 'production' && !template) {
-                            warn(
-                                ("Template element not found or is empty: " + (options.template)),
-                                this
-                            );
+                            warn("Template element not found or is empty: " + options.template, this);
                         }
                     }
                 } else if (template.nodeType) {
@@ -10031,7 +9110,7 @@ webpackJsonp([5],[
                     {
                         warn('invalid template option:' + template, this);
                     }
-                    return this
+                    return this;
                 }
             } else if (el) {
                 template = getOuterHTML(el);
@@ -10055,65 +9134,62 @@ webpackJsonp([5],[
                 /* istanbul ignore if */
                 if ("development" !== 'production' && config.performance && mark) {
                     mark('compile end');
-                    measure(((this._name) + " compile"), 'compile', 'compile end');
+                    measure(this._name + " compile", 'compile', 'compile end');
                 }
             }
         }
-        return mount.call(this, el, hydrating)
+        return mount.call(this, el, hydrating);
     };
 
     /**
      * Get outerHTML of elements, taking care
      * of SVG elements in IE as well.
      */
-    function getOuterHTML (el) {
+    function getOuterHTML(el) {
         if (el.outerHTML) {
-            return el.outerHTML
+            return el.outerHTML;
         } else {
             var container = document.createElement('div');
             container.appendChild(el.cloneNode(true));
-            return container.innerHTML
+            return container.innerHTML;
         }
     }
 
     Vue$3.compile = compileToFunctions;
 
     return Vue$3;
-
-})));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($, __dirname) {var apiLink = __webpack_require__(5);
+/* WEBPACK VAR INJECTION */(function($) {var apiLink = __webpack_require__(5);
 var emps_api_url = apiLink.emps_api_url;
+__webpack_require__(6);
 
-var path = __webpack_require__(6);
+var path = __webpack_require__(13);
 var Vue = __webpack_require__(1);
 var VueI18n = __webpack_require__(7);
 
-
-
 function getQueryParam(name) {
-    if(!name) return null;
+    if (!name) return null;
 
     var _search = decodeURI(window.location.search);
-    if(!_search) {
+    if (!_search) {
         return null;
     }
-    _search = _search.substring(1,_search.length);
-    if(_search.indexOf("&") != -1) {
+    _search = _search.substring(1, _search.length);
+    if (_search.indexOf("&") != -1) {
         var paramArr = _search.split("&");
-        for(var i=0;i<paramArr.length;i++) {
-            if(paramArr[i].split("=")[0] == name) {
+        for (var i = 0; i < paramArr.length; i++) {
+            if (paramArr[i].split("=")[0] == name) {
                 return paramArr[i].split("=")[1];
             }
         }
-
-    }else {
-        if(_search.split("=")[0] == name) {
+    } else {
+        if (_search.split("=")[0] == name) {
             return _search.split("=")[1];
         }
     }
@@ -10150,59 +9226,57 @@ function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
 
-function load(url,callback) {
+function load(type, callback) {
+    // path.resolve(__dirname,"./static/messages/") + "/" + url+"?sspi="+getQueryParam("sspi"),
     $.ajax({
-        url : path.resolve(__dirname,"./static/messages/") + "/" + url+"?sspi="+getQueryParam("sspi"),
-        type:"get",
-        data:"",
-        dataType:"json",
-        async:false,
-        success:callback,
-        error:function (error) {
+        url: "http://10.210.36.74:8080/i18n/static/messages/message-0-EMPS_" + type + ".json",
+        type: "get",
+        data: "",
+        dataType: 'json',
+        async: false,
+        success: callback,
+        error: function (error) {
             alert("request json error");
             console.log(error);
         }
-    })
+    });
 }
 var locale;
 function getLocale() {
     $.ajax({
-        url : emps_api_url+"/getLocale?sspi="+getQueryParam("sspi"),
-        type:"get",
-        data:"",
-        dataType:"json",
-        async:false,
-        success:function (result) {
+        url: emps_api_url + "/getLocale?sspi=" + getQueryParam("sspi"),
+        type: "get",
+        data: "",
+        dataType: "json",
+        async: false,
+        success: function (result) {
             locale = result.result;
         },
-        error:function (error) {
+        error: function (error) {
             console.log(error);
         }
-    })
+    });
 }
-var messageEn,messageZh;
-load("message_en.json",function (result) {
-    if(result && result.responseText) {
+var messageEn, messageZh;
+load("en", function (result) {
+    if (result && result.responseText) {
         messageEn = JSON.parse(result);
-    }
-    else{
+    } else {
         messageEn = result;
     }
 });
-load("message_zh.json",function (result) {
-    if(result && result.responseText) {
+load("zh", function (result) {
+    if (result && result.responseText) {
         messageZh = JSON.parse(result.responseText);
-    }
-    else{
+    } else {
         messageZh = result;
     }
-
 });
 // getLocale();
 Vue.use(VueI18n);
 var i18n = new VueI18n({
     locale: 'en',
-    messages:{
+    messages: {
         en: {
             message: messageEn
         },
@@ -10214,18 +9288,15 @@ var i18n = new VueI18n({
 // var tempArr = [];
 var messages = getLocaleData();
 function getLocaleData() {
-    return i18n.messages['en'].message
+    return i18n.messages['en'].message;
 }
 module.exports = {
-    messages:messages,
-    i18n:i18n,
-    getQueryParam:getQueryParam,
-    deepCopy:deepCopy
-}
-
-
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), "/"))
+    messages: messages,
+    i18n: i18n,
+    getQueryParam: getQueryParam,
+    deepCopy: deepCopy
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -10236,19 +9307,23 @@ module.exports = {
  * Copyright (c) 2014 Jonny Gerig Meyer; Licensed MIT */
 !function (a) {
     "use strict";
+
     var b = {
         init: function (b) {
-            var c = a.extend({}, a.fn.loadingOverlay.defaults, b), d = a(this).addClass(c.loadingClass), e = '<div class="' + c.overlayClass + '"><p class="' + c.spinnerClass + '"><span class="' + c.iconClass + '"></span><span class="' + c.textClass + '">' + c.loadingText + "</span></p></div>";
-            return d.data("loading-overlay") || d.prepend(a(e)).data("loading-overlay", !0), d
+            var c = a.extend({}, a.fn.loadingOverlay.defaults, b),
+                d = a(this).addClass(c.loadingClass),
+                e = '<div class="' + c.overlayClass + '"><p class="' + c.spinnerClass + '"><span class="' + c.iconClass + '"></span><span class="' + c.textClass + '">' + c.loadingText + "</span></p></div>";
+            return d.data("loading-overlay") || d.prepend(a(e)).data("loading-overlay", !0), d;
         }, remove: function (b) {
-            var c = a.extend({}, a.fn.loadingOverlay.defaults, b), d = a(this).data("loading-overlay", !1);
-            return d.find("." + c.overlayClass).detach(), d.hasClass(c.loadingClass) ? d.removeClass(c.loadingClass) : d.find("." + c.loadingClass).removeClass(c.loadingClass), d
+            var c = a.extend({}, a.fn.loadingOverlay.defaults, b),
+                d = a(this).data("loading-overlay", !1);
+            return d.find("." + c.overlayClass).detach(), d.hasClass(c.loadingClass) ? d.removeClass(c.loadingClass) : d.find("." + c.loadingClass).removeClass(c.loadingClass), d;
         }, exposeMethods: function () {
-            return b
+            return b;
         }
     };
     a.fn.loadingOverlay = function (c) {
-        return b[c] ? b[c].apply(this, Array.prototype.slice.call(arguments, 1)) : "object" != typeof c && c ? void a.error("Method " + c + " does not exist on jQuery.loadingOverlay") : b.init.apply(this, arguments)
+        return b[c] ? b[c].apply(this, Array.prototype.slice.call(arguments, 1)) : "object" != typeof c && c ? void a.error("Method " + c + " does not exist on jQuery.loadingOverlay") : b.init.apply(this, arguments);
     }, a.fn.loadingOverlay.defaults = {
         loadingClass: "loading",
         overlayClass: "loading-overlay",
@@ -10256,7 +9331,7 @@ module.exports = {
         iconClass: "loading-icon",
         textClass: "loading-text",
         loadingText: "loading"
-    }
+    };
 }(jQuery);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -10272,67 +9347,64 @@ var emps_api_url = apiLink.emps_api_url;
 var quickegateway = apiLink.quickegateway;
 var tawk_src = apiLink.tawk_src;
 
-
-var toastr = __webpack_require__(9);
-var alertify = __webpack_require__(11);
+var toastr = __webpack_require__(14);
+var alertify = __webpack_require__(9);
 __webpack_require__(3);
-__webpack_require__(12);
-__webpack_require__(13);
-
-
+__webpack_require__(10);
+__webpack_require__(11);
 
 /**
  * Created by MENGJUN on 2017/2/14.
  */
 var appOption = {
-   url:emps_api_url,
-    gatewayurl:quickegateway+"/emps/static/",//prod
+    url: emps_api_url,
+    gatewayurl: quickegateway + "/emps/static/", //prod
     // gatewayurl:"http://localhost:63342/quickegateway/app/emps/static/",//test
     sessionOutUrl: quickegateway,
-//     url:"http://10.202.34.140:7209/emps/",
-    datatables:{
-        defaultOptions:{
-            "info":false,
-            "searching":false,
-            "paging":true,
+    //     url:"http://10.202.34.140:7209/emps/",
+    datatables: {
+        defaultOptions: {
+            "info": false,
+            "searching": false,
+            "paging": true,
             // "ordering":false,
-            "bLengthChange":false,
-            "pagingType":"full_numbers",
-            "serverSide":true,
-            "processing":false,
-            language:{
-            //     lengthMenu: "_MENU_",
-                emptyTable:commonMsg.messages.table.emptyTable,
-                zeroRecords:commonMsg.messages.table.zeroRecords,
+            "bLengthChange": false,
+            "pagingType": "full_numbers",
+            "serverSide": true,
+            "processing": false,
+            language: {
+                //     lengthMenu: "_MENU_",
+                emptyTable: commonMsg.messages.table.emptyTable,
+                zeroRecords: commonMsg.messages.table.zeroRecords,
                 paginate: {
-                    "first":commonMsg.messages.table.first,
-                    "last":commonMsg.messages.table.last,
-                    "next":commonMsg.messages.table.next,
-                    "previous":commonMsg.messages.table.previous
+                    "first": commonMsg.messages.table.first,
+                    "last": commonMsg.messages.table.last,
+                    "next": commonMsg.messages.table.next,
+                    "previous": commonMsg.messages.table.previous
                 }
             },
-            "initComplete":function () {
+            "initComplete": function () {
                 var button = $(".dataTable tbody tr td button");
-                if(button) {
+                if (button) {
                     button.closest("td").addClass("text-inline");
                 }
             },
-            drawCallback:function () {
+            drawCallback: function () {
                 var button = $(".dataTable tbody tr td button");
-                if(button) {
+                if (button) {
                     button.closest("td").addClass("text-inline");
                 }
             }
         }
     },
-    ajax:{
+    ajax: {
         //options for ajax
-        url:null,
-        type:null,
-        data:null,
-        dataType:"json",
-        async:true,
-        contentType:"application/json",
+        url: null,
+        type: null,
+        data: null,
+        dataType: "json",
+        async: true,
+        contentType: "application/json",
         /**
          *
          * @param url
@@ -10341,19 +9413,19 @@ var appOption = {
          * @param success success function
          * @param error error function.
          */
-        request: function (url, requestType, param, success, error,needLoading) {
-            if(url && url.indexOf("?") != -1) {
+        request: function (url, requestType, param, success, error, needLoading) {
+            if (url && url.indexOf("?") != -1) {
                 url += "&sspi=" + appOption.getQueryParam("sspi");
-            }else {
-                url+="?sspi="+ appOption.getQueryParam("sspi");
+            } else {
+                url += "?sspi=" + appOption.getQueryParam("sspi");
             }
             $.ajax({
                 url: url,
                 contentType: "application/json",
                 data: param,
                 type: requestType,
-                beforeSend:function(xhr){
-                    if("noLoading" != needLoading) {
+                beforeSend: function (xhr) {
+                    if ("noLoading" != needLoading) {
                         $(".content").loadingOverlay({
                             loadingText: commonMsg.messages.waiting
                         });
@@ -10363,76 +9435,78 @@ var appOption = {
                     // if("noLoading" != needLoading) {
                     //     $(".content").loadingOverlay("remove");
                     // }
-                    if (status == 'timeout') { // 超时,status还有success,error等值的情况
+                    if (status == 'timeout') {
+                        // 超时,status还有success,error等值的情况
                         toastr.error(commonMsg.messages.timeout);
                     }
                 },
                 success: function (data) {
                     if (data['result'] != "SUCCESS") {
                         this.error(data);
-                    } else{
+                    } else {
                         success(data.data);
                     }
-                    if("noLoading" != needLoading) {
+                    if ("noLoading" != needLoading) {
                         $(".content").loadingOverlay("remove");
                     }
                 },
                 error: function (data) {
-                    if(data['result'] != "SUCCESS" && '-99' == data['code']) {
+                    if (data['result'] != "SUCCESS" && '-99' == data['code']) {
                         top.location.href = appOption.sessionOutUrl;
-                    }else {
+                    } else {
                         debugger;
-                        if(data['message']){
+                        if (data['message']) {
                             appOption.ajax.dealErrorMsg(data.message);
-                        }else{
+                        } else {
                             toastr.error(commonMsg.messages.systemError);
                             error(data);
                         }
                     }
-                    if("noLoading" != needLoading) {
+                    if ("noLoading" != needLoading) {
                         $(".content").loadingOverlay("remove");
                     }
                 },
                 dataType: "json"
             });
         },
-        requestWithStatus: function (url, requestType, param, success, error,needLoading) {
-            if(url && url.indexOf("?") != -1) {
+        requestWithStatus: function (url, requestType, param, success, error, needLoading) {
+            if (url && url.indexOf("?") != -1) {
                 url += "&sspi=" + appOption.getQueryParam("sspi");
-            }else {
-                url+="?sspi="+ appOption.getQueryParam("sspi");
+            } else {
+                url += "?sspi=" + appOption.getQueryParam("sspi");
             }
             $.ajax({
                 url: url,
                 contentType: "application/json",
                 data: param,
                 type: requestType,
-                beforeSend:function(xhr){
-                    if("noLoading" != needLoading) {
+                beforeSend: function (xhr) {
+                    if ("noLoading" != needLoading) {
                         $(".content").loadingOverlay({
                             loadingText: commonMsg.messages.waiting
                         });
                     }
                 },
                 complete: function (XMLHttpRequest, status) {
-                    if("noLoading" != needLoading) {
+                    if ("noLoading" != needLoading) {
                         $(".content").loadingOverlay("remove");
                     }
-                    if (status == 'timeout') { // 超时,status还有success,error等值的情况
+                    if (status == 'timeout') {
+                        // 超时,status还有success,error等值的情况
                         toastr.error(commonMsg.messages.timeout);
                     }
                 },
                 success: function (data) {
-                    if(data['result'] != "SUCCESS" && '-99' == data['code']) {
+                    if (data['result'] != "SUCCESS" && '-99' == data['code']) {
                         top.location.href = appOption.sessionOutUrl;
-                    }else {
+                    } else {
                         success(data);
                     }
                 },
                 error: function (data) {
-                    if(data['message']){
+                    if (data['message']) {
                         appOption.ajax.dealErrorMsg(data.message);
-                    }else{
+                    } else {
                         toastr.error(commonMsg.messages.systemError);
                         error(data);
                     }
@@ -10440,83 +9514,86 @@ var appOption = {
                 dataType: "json"
             });
         },
-        asyncRequest:function(url,requestType,param,success,error){{
-            if(url && url.indexOf("?") != -1) {
-                url += "&sspi=" + appOption.getQueryParam("sspi");
-            }else {
-                url+="?sspi="+ appOption.getQueryParam("sspi");
-            }
-            $.ajax({
-                url: url,
-                contentType: "application/json",
-                dataType: "json",
-                async:false,
-                data: param,
-                type: requestType,
-                beforeSend:function(){
-                    $(".content").loadingOverlay({
-                        loadingText: commonMsg.messages.waiting
-                    });
-                },
-                complete: function (XMLHttpRequest, status) {
-                    $(".content").loadingOverlay("remove");
-                    if (status == 'timeout') { // 超时,status还有success,error等值的情况
-                        alert(commonMsg.messages.timeout);
-                    }
-                },
-                success: function (data) {
-                    if (data['result'] != "SUCCESS") {
-                        // toastr.error(data.message|| 'Unknown error');
-                        this.error(data);
-                    } else{
-                        success(data.data);
-                    }
-                },
-                error: function (data) {
-                    if(data['result'] != "SUCCESS" && '-99' == data['code']) {
-                        top.location.href = appOption.sessionOutUrl;
-                    }else {
-                        if(data['message']){
-                            appOption.ajax.dealErrorMsg(data.message);
-                        }else{
-                            toastr.error(commonMsg.messages.systemError);
-                            error(data);
+        asyncRequest: function (url, requestType, param, success, error) {
+            {
+                if (url && url.indexOf("?") != -1) {
+                    url += "&sspi=" + appOption.getQueryParam("sspi");
+                } else {
+                    url += "?sspi=" + appOption.getQueryParam("sspi");
+                }
+                $.ajax({
+                    url: url,
+                    contentType: "application/json",
+                    dataType: "json",
+                    async: false,
+                    data: param,
+                    type: requestType,
+                    beforeSend: function () {
+                        $(".content").loadingOverlay({
+                            loadingText: commonMsg.messages.waiting
+                        });
+                    },
+                    complete: function (XMLHttpRequest, status) {
+                        $(".content").loadingOverlay("remove");
+                        if (status == 'timeout') {
+                            // 超时,status还有success,error等值的情况
+                            alert(commonMsg.messages.timeout);
+                        }
+                    },
+                    success: function (data) {
+                        if (data['result'] != "SUCCESS") {
+                            // toastr.error(data.message|| 'Unknown error');
+                            this.error(data);
+                        } else {
+                            success(data.data);
+                        }
+                    },
+                    error: function (data) {
+                        if (data['result'] != "SUCCESS" && '-99' == data['code']) {
+                            top.location.href = appOption.sessionOutUrl;
+                        } else {
+                            if (data['message']) {
+                                appOption.ajax.dealErrorMsg(data.message);
+                            } else {
+                                toastr.error(commonMsg.messages.systemError);
+                                error(data);
+                            }
                         }
                     }
-                }
 
-            });
-        }},
-        dealErrorMsg:function (errorMessage) {
+                });
+            }
+        },
+        dealErrorMsg: function (errorMessage) {
             try {
                 //"{\"key\":\"TagAlreadyExistedError\",\"variable\":[\"1\",\"2\"]}"
                 var jsonError = JSON.parse(errorMessage);
                 var variables = jsonError.variable;
-                if(variables) {
+                if (variables) {
                     var str = commonMsg.messages[jsonError.key];
-                    for(var index in variables) {
-                        str = str.replace("{"+index+"}",variables[index])
+                    for (var index in variables) {
+                        str = str.replace("{" + index + "}", variables[index]);
                     }
-                    toastr.error(str)
-                }else {
-                    toastr.error(commonMsg.messages[jsonError.key])
+                    toastr.error(str);
+                } else {
+                    toastr.error(commonMsg.messages[jsonError.key]);
                 }
-            }catch (e){
-                if(commonMsg.messages[errorMessage]) {
-                    toastr.error(commonMsg.messages[errorMessage])
-                }else {
+            } catch (e) {
+                if (commonMsg.messages[errorMessage]) {
+                    toastr.error(commonMsg.messages[errorMessage]);
+                } else {
                     toastr.error(errorMessage);
                 }
             }
         }
     },
-    fileInput:{
-        $el:null,
-        fileCounts:0,
-        frameHeight:'145px',
-        tempMsg:null,
-        cachedFiles:[],
-        default_options:{
+    fileInput: {
+        $el: null,
+        fileCounts: 0,
+        frameHeight: '145px',
+        tempMsg: null,
+        cachedFiles: [],
+        default_options: {
             uploadAsync: false,
             showCaption: false,
             showUpload: false,
@@ -10528,78 +9605,78 @@ var appOption = {
             captionClass: "col-sm-6",
             allowedFileTypes: ['image'],
             allowedFileExtensions: ['jpg', 'png', 'gif'],
-            maxFileSize: 10*1024,
+            maxFileSize: 10 * 1024,
             minFileCount: 1,
             maxFileCount: 5
         },
-        display_options:{
-            dropZoneTitleClass:"hide"
+        display_options: {
+            dropZoneTitleClass: "hide"
         },
-        edit_options:{
-            showPreview:true,
+        edit_options: {
+            showPreview: true,
             showUploadedThumbs: true,
-            dragClass:"hide",
-            showDrag:false,
-            dropZoneTitle:commonMsg.messages.dropOr+' <a id="upload-file-button color-success" onclick="appOption.fileInput.triggerUpload()">'+commonMsg.messages.browse+'<i class="fa fa-cloud-upload"></i></a>',
-            removeFromPreviewOnError:true,
+            dragClass: "hide",
+            showDrag: false,
+            dropZoneTitle: commonMsg.messages.dropOr + ' <a id="upload-file-button color-success" onclick="appOption.fileInput.triggerUpload()">' + commonMsg.messages.browse + '<i class="fa fa-cloud-upload"></i></a>',
+            removeFromPreviewOnError: true,
             overwriteInitial: false,
-            elErrorContainer:'hide',
+            elErrorContainer: 'hide',
             previewSettings: {
-                image: {width: "auto", height: "60px"},
-                html: {width: "50px", height: "40px"},
-                text: {width: "50px", height: "40px"},
-                video: {width: "50px", height: "40px"},
-                audio: {width: "50px", height: "40px"},
-                flash: {width: "50px", height: "40px"},
-                object: {width: "50px", height: "auto"},
-                pdf: {width: "50px", height: "40px"},
-                other: {width: "50px", height: "40px"}
+                image: { width: "auto", height: "60px" },
+                html: { width: "50px", height: "40px" },
+                text: { width: "50px", height: "40px" },
+                video: { width: "50px", height: "40px" },
+                audio: { width: "50px", height: "40px" },
+                flash: { width: "50px", height: "40px" },
+                object: { width: "50px", height: "auto" },
+                pdf: { width: "50px", height: "40px" },
+                other: { width: "50px", height: "40px" }
             }
         },
-        wrap_op:{},
-        init:function ($el, options, editable) {
+        wrap_op: {},
+        init: function ($el, options, editable) {
             var _this = this;
             _this.$el = $el;
             // _this.fileCounts = 0;
             var ops;
-            ops = editable ? $.extend({},_this.default_options,_this.edit_options) : $.extend({},_this.default_options,_this.display_options);
-            ops = $.extend({},ops,options);
+            ops = editable ? $.extend({}, _this.default_options, _this.edit_options) : $.extend({}, _this.default_options, _this.display_options);
+            ops = $.extend({}, ops, options);
             this.wrap_op = ops;
             $el.fileinput(ops);
 
-            if(editable) {
-                $(".file-drop-zone").css("min-height",_this.frameHeight);
+            if (editable) {
+                $(".file-drop-zone").css("min-height", _this.frameHeight);
                 _this.validate.clear();
-                $el.on("filedeleted",function () {
+                $el.on("filedeleted", function () {
                     appOption.fileInput.fileCounts--;
                     _this.validate.valid();
-                    if(appOption.fileInput.fileCounts <= 0) {
-                        $(".file-drop-zone").css("min-height",_this.frameHeight);
-                        if(ops.minFileCount && ops.minFileCount > 0) {
+                    if (appOption.fileInput.fileCounts <= 0) {
+                        $(".file-drop-zone").css("min-height", _this.frameHeight);
+                        if (ops.minFileCount && ops.minFileCount > 0) {
                             _this.validate.valid();
                         }
                     }
-                }).on("fileremoved",function () {
+                }).on("fileremoved", function () {
                     appOption.fileInput.fileCounts--;
                     _this.validate.valid();
-                    if(appOption.fileInput.fileCounts <= 0) {
-                        $(".file-drop-zone").css("min-height",_this.frameHeight);
-                        if(ops.minFileCount && ops.minFileCount > 0) {
+                    if (appOption.fileInput.fileCounts <= 0) {
+                        $(".file-drop-zone").css("min-height", _this.frameHeight);
+                        if (ops.minFileCount && ops.minFileCount > 0) {
                             _this.validate.valid();
                         }
                     }
-                }).on("filebatchselected",function (event, files) {
+                }).on("filebatchselected", function (event, files) {
                     var _self = this;
-                    if(_self.cachedFiles == files) return;
+                    if (_self.cachedFiles == files) return;
                     _self.cachedFiles = files;
-                    if(files) appOption.fileInput.fileCounts = files.length;
-                    if(ops.minFileCount && ops.minFileCount > 0) {
+                    if (files) appOption.fileInput.fileCounts = files.length;
+                    if (ops.minFileCount && ops.minFileCount > 0) {
                         _this.validate.valid();
                     }
-                }).on("fileuploaderror",function (event, data, msg) {
+                }).on("fileuploaderror", function (event, data, msg) {
                     var _self = this;
-                    if(_self.tempMsg === msg) return;
-                    if(isEmpty(_self.tempMsg) || _self.tempMsg !== msg) {
+                    if (_self.tempMsg === msg) return;
+                    if (isEmpty(_self.tempMsg) || _self.tempMsg !== msg) {
                         this.tempMsg = msg;
                     }
                     toastr.options.timeOut = 10000;
@@ -10607,230 +9684,240 @@ var appOption = {
                         _self.tempMsg = null;
                     };
                     toastr.error(msg);
-                }).on("change",function () {
+                }).on("change", function () {
 
                     // _this.$el.val("");
                 });
             }
         },
-        triggerUpload:function () {
+        triggerUpload: function () {
             this.$el.val("");
             return this.$el.trigger("click");
         },
-        destroy:function ($el) {
+        destroy: function ($el) {
             $el.fileinput("destroy");
             return this;
         },
-        upload:function ($el) {
+        upload: function ($el) {
             $el.fileinput("upload");
             return this;
         },
-        refresh:function ($el, options) {
-            if(isEmpty(options)) {
+        refresh: function ($el, options) {
+            if (isEmpty(options)) {
                 $el.fileinput("refresh");
-            }else {
-                $el.fileinput("refresh",options);
+            } else {
+                $el.fileinput("refresh", options);
             }
             return this;
         },
-        progressSuccess:function () {
-            $(".file-input").find(".progress").html('<div class="text-center back-main color-white">'+commonMsg.messages.success+'</div>');
+        progressSuccess: function () {
+            $(".file-input").find(".progress").html('<div class="text-center back-main color-white">' + commonMsg.messages.success + '</div>');
             $(".file-preview-loading").removeClass("file-preview-loading");
             $(".file-uploading").removeClass("file-uploading");
-            this.$el.attr("disabled",false);
-            $(".kv-file-upload").attr("disabled",false);
-            $(".kv-file-remove").attr("disabled",false);
-            $(".kv-file-zoom").attr("disabled",false);
+            this.$el.attr("disabled", false);
+            $(".kv-file-upload").attr("disabled", false);
+            $(".kv-file-remove").attr("disabled", false);
+            $(".kv-file-zoom").attr("disabled", false);
         },
-        progressFailure:function () {
-            $(".file-input").find(".progress").html('<div class="text-center back-error color-white">'+commonMsg.messages.error+'</div>');
+        progressFailure: function () {
+            $(".file-input").find(".progress").html('<div class="text-center back-error color-white">' + commonMsg.messages.error + '</div>');
             $(".file-preview-loading").removeClass("file-preview-loading");
             $(".file-uploading").removeClass("file-uploading");
-            this.$el.attr("disabled",false);
-            $(".kv-file-upload").attr("disabled",false);
-            $(".kv-file-remove").attr("disabled",false);
-            $(".kv-file-zoom").attr("disabled",false);
+            this.$el.attr("disabled", false);
+            $(".kv-file-upload").attr("disabled", false);
+            $(".kv-file-remove").attr("disabled", false);
+            $(".kv-file-zoom").attr("disabled", false);
         },
-        validate:{
-            valid:function () {
+        validate: {
+            valid: function () {
                 var _self = appOption.fileInput;
-                if(_self.wrap_op && _self.wrap_op.minFileCount
-                    && appOption.fileInput.fileCounts >= _self.wrap_op.minFileCount) {
+                if (_self.wrap_op && _self.wrap_op.minFileCount && appOption.fileInput.fileCounts >= _self.wrap_op.minFileCount) {
                     this.success();
-                }else {
+                } else {
                     this.error();
                 }
             },
-            success:function () {
-                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),$fileInput = $validFrame.find(".file-input");
-                if(!isEmpty($fileInput)) {
+            success: function () {
+                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),
+                    $fileInput = $validFrame.find(".file-input");
+                if (!isEmpty($fileInput)) {
                     $validFrame.removeClass("file-error").addClass("file-valid").find("label.error").remove();
                     $fileInput.find(".file-preview").addClass("has-success").removeClass("has-error");
                     $fileInput.find(".file-drop-zone").addClass("has-success").removeClass("has-error");
                 }
             },
-            error:function () {
-                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),$fileInput = $validFrame.find(".file-input"),
-                    minCount = appOption.fileInput.wrap_op.minFileCount?appOption.fileInput.wrap_op.minFileCount : 0,
+            error: function () {
+                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),
+                    $fileInput = $validFrame.find(".file-input"),
+                    minCount = appOption.fileInput.wrap_op.minFileCount ? appOption.fileInput.wrap_op.minFileCount : 0,
                     maxCount = appOption.fileInput.wrap_op.maxFileCount ? appOption.fileInput.wrap_op.maxFileCount : appOption.fileInput.wrap_op.minFileCount,
-                    errorMsg = maxCount > minCount ?
-                                commonMsg.messages.validate.fileCountBetweenError.replace("{minCount}",minCount).replace("{maxCount}",maxCount):
-                                commonMsg.messages.validate.fileCountLessError.replace("{minCount}",minCount);
-                if(!isEmpty($fileInput) && !$validFrame.hasClass("file-error")) {
-                    $validFrame.removeClass("file-valid").addClass("file-error")
-                        .append('<label class="error">'+errorMsg+'</label>').css("display","block");
+                    errorMsg = maxCount > minCount ? commonMsg.messages.validate.fileCountBetweenError.replace("{minCount}", minCount).replace("{maxCount}", maxCount) : commonMsg.messages.validate.fileCountLessError.replace("{minCount}", minCount);
+                if (!isEmpty($fileInput) && !$validFrame.hasClass("file-error")) {
+                    $validFrame.removeClass("file-valid").addClass("file-error").append('<label class="error">' + errorMsg + '</label>').css("display", "block");
                     $fileInput.find(".file-preview").addClass("has-error").removeClass("has-success");
                     $fileInput.find(".file-drop-zone").addClass("has-error").removeClass("has-success");
                 }
             },
-            clear:function () {
-                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),$fileInput = $validFrame.find(".file-input");
-                if(!isEmpty($fileInput)) {
+            clear: function () {
+                var $validFrame = appOption.fileInput.$el.closest(".valid-frame"),
+                    $fileInput = $validFrame.find(".file-input");
+                if (!isEmpty($fileInput)) {
                     $validFrame.removeClass("file-valid").removeClass("file-error");
-                    if($validFrame.find("label.error")) $validFrame.find("label.error").remove();
+                    if ($validFrame.find("label.error")) $validFrame.find("label.error").remove();
                     $fileInput.find(".file-preview").removeClass("has-error").removeClass("has-success");
                     $fileInput.find(".file-drop-zone").removeClass("has-error").removeClass("has-success");
                 }
             }
         }
     },
-    imageOp:{
-       isSmall:false,
-       options:{},
-       getImageStr:function (index,options) {
-           options = options ? options : {};
-           options.height = options.height ? options.height : "170px";
-           options.width = options.width ? options.width : "130px";
-           this.options = options;
-           return '<img id="img_id_'+index+'" src="'+appOption.gatewayurl+'img/loading.gif" class="file-preview-image kv-preview-data"/>';
-       },
-       fileinputLoad:function (arr,urlArr) {
-           for(var index in arr) {
-               this.loadImage(urlArr[index],"img_id_"+index,this.checkImg)
-           }
-       },
-       loadImage:function (url,imgid,callback) {
-           $(".file-preview-frame").height(this.options.height).width(this.options.width);
-           $(".kv-file-content").css("min-height",this.options.height);
+    imageOp: {
+        isSmall: false,
+        options: {},
+        getImageStr: function (index, options) {
+            options = options ? options : {};
+            options.height = options.height ? options.height : "170px";
+            options.width = options.width ? options.width : "130px";
+            this.options = options;
+            return '<img id="img_id_' + index + '" src="' + appOption.gatewayurl + 'img/loading.gif" class="file-preview-image kv-preview-data"/>';
+        },
+        fileinputLoad: function (arr, urlArr) {
+            for (var index in arr) {
+                this.loadImage(urlArr[index], "img_id_" + index, this.checkImg);
+            }
+        },
+        loadImage: function (url, imgid, callback) {
+            $(".file-preview-frame").height(this.options.height).width(this.options.width);
+            $(".kv-file-content").css("min-height", this.options.height);
 
-           var Browser=new Object();
-           Browser.userAgent=window.navigator.userAgent.toLowerCase();
-           Browser.ie=/msie/.test(Browser.userAgent);
-           Browser.Moz=/gecko/.test(Browser.userAgent);
-           var val=url;
-           var img=new Image();
-           if(Browser.ie){
-               img.onreadystatechange =function(){
-                   if(img.readyState=="complete"||img.readyState=="loaded"){
-                       callback(img,imgid);
-                   }
-               }
-           }else if(Browser.Moz){
-               img.onload=function(){
-                   if(img.complete==true){
-                       callback(img,imgid);
-                   }
-               };
-           }
-           //如果因为网络或图片的原因发生异常，则显示该图片
-           img.onerror=function(){
-               img.src=appOption.gatewayurl + 'img/img-not-found.png'
-           };
-           img.src=val;
-       },
-       checkImg:function (obj, imgId) {
-           $("#"+imgId).attr("src",obj.src).height(appOption.imageOp.options.height).width(appOption.imageOp.options.width);
-       }
+            var Browser = new Object();
+            Browser.userAgent = window.navigator.userAgent.toLowerCase();
+            Browser.ie = /msie/.test(Browser.userAgent);
+            Browser.Moz = /gecko/.test(Browser.userAgent);
+            var val = url;
+            var img = new Image();
+            if (Browser.ie) {
+                img.onreadystatechange = function () {
+                    if (img.readyState == "complete" || img.readyState == "loaded") {
+                        callback(img, imgid);
+                    }
+                };
+            } else if (Browser.Moz) {
+                img.onload = function () {
+                    if (img.complete == true) {
+                        callback(img, imgid);
+                    }
+                };
+            }
+            //如果因为网络或图片的原因发生异常，则显示该图片
+            img.onerror = function () {
+                img.src = appOption.gatewayurl + 'img/img-not-found.png';
+            };
+            img.src = val;
+        },
+        checkImg: function (obj, imgId) {
+            $("#" + imgId).attr("src", obj.src).height(appOption.imageOp.options.height).width(appOption.imageOp.options.width);
+        }
     },
-    alertify:{
-       deleteDefaultMsg:commonMsg.messages.deleteInfo,
-       _init:function (params) {
-           alertify.set({
-               labels : {
-                   ok: params.ok ? params.ok : commonMsg.messages.button.yes,
-                   cancel: params.cancel ? params.cancel : commonMsg.messages.button.no
-               }
-           });
-           alertify.confirm(params.confirmMsg ? params.confirmMsg : this.deleteDefaultMsg, function (e) {
-               if(e) {
-                   (params.confirmFn instanceof Function) ? params.confirmFn(e) : "";
-               }else {
-                   (params.cancelFn instanceof Function) ? params.cancelFn(e) : "";
-               }
-           });
-           if(params.hideCancel) {
-               $(".alertify-button-cancel").addClass("hide");
-           }else {
-               $(".alertify-button-cancel").nextAll().addClass("margin-left-10");
-           }
-       }
+    alertify: {
+        deleteDefaultMsg: commonMsg.messages.deleteInfo,
+        _init: function (params) {
+            alertify.set({
+                labels: {
+                    ok: params.ok ? params.ok : commonMsg.messages.button.yes,
+                    cancel: params.cancel ? params.cancel : commonMsg.messages.button.no
+                }
+            });
+            alertify.confirm(params.confirmMsg ? params.confirmMsg : this.deleteDefaultMsg, function (e) {
+                if (e) {
+                    params.confirmFn instanceof Function ? params.confirmFn(e) : "";
+                } else {
+                    params.cancelFn instanceof Function ? params.cancelFn(e) : "";
+                }
+            });
+            if (params.hideCancel) {
+                $(".alertify-button-cancel").addClass("hide");
+            } else {
+                $(".alertify-button-cancel").nextAll().addClass("margin-left-10");
+            }
+        }
     },
-    formOperation:{
-        resetValue:function (formObjSelector) {
+    formOperation: {
+        resetValue: function (formObjSelector) {
             $(formObjSelector)[0].reset();
             return this;
         },
-        resetValidation:function (formObjSelector) {
-            $(formObjSelector).find(".has-success").removeClass("has-success")
-                .closest(formObjSelector).find(".has-error").removeClass("has-error")
-                .closest(formObjSelector).find(".valid").removeClass("valid")
-                .closest(formObjSelector).find(".error").removeClass("error")
-                .closest(formObjSelector).find("label.error").remove();
-               
+        resetValidation: function (formObjSelector) {
+            $(formObjSelector).find(".has-success").removeClass("has-success").closest(formObjSelector).find(".has-error").removeClass("has-error").closest(formObjSelector).find(".valid").removeClass("valid").closest(formObjSelector).find(".error").removeClass("error").closest(formObjSelector).find("label.error").remove();
+
             return this;
         }
     },
-    getQueryParam:function (name) {
+    getQueryParam: function (name) {
         return commonMsg.getQueryParam(name);
     },
-    deepCopy:function(obj) {
+    deepCopy: function (obj) {
         return commonMsg.deepCopy(obj);
     },
-    formatOperation:{
-       //price format
-        priceFormat:function(price) {
-           if(isEmpty(price)) {
-               return 0;
-           }
-           if(!(price instanceof Number)) {
-               price = parseFloat(price);
-           }
+    formatOperation: {
+        //price format
+        priceFormat: function (price) {
+            if (isEmpty(price)) {
+                return 0;
+            }
+            if (!(price instanceof Number)) {
+                price = parseFloat(price);
+            }
 
-           return price.toFixed(2);
-       },
+            return price.toFixed(2);
+        },
         priceDisplay: function (price) {
-            if(price) {
+            if (price) {
                 return "S$ " + this.priceFormat(price);
-            }else {
+            } else {
                 return "-";
             }
         }
     },
-    displayStatus:function (status) {
+    displayStatus: function (status) {
         switch (status) {
-            case "draft" : return "Draft";break;
-            case "submitted" : return "Submitted";break;
-            case "revoke" : return "Revoked";break;
-            case "match_success" : return "Match Found";break;
-            case "match_unsuccess" : return "No Match Found";break;
-            case "accept_job" : return "Job Accepted";break;
-            case "wait_payment" : return "Pending Payment";break;
-            case "shipper_paid" : return "Shipper Paid";break;
-            case "complete" : return "Completed";break;
-            case "shipper_reject" : return "Shipper Rejected";break;
-            case "transporter_reject" : return "Transporter Rejected";break;
-            case "shipper_refund" : return "Shipper Refunded";break;
-            case "refund" : return "Refunded";break;
-            case "refund_apply" : return "Refund Applied";break;
-            case "platform_paid" : return "Platform Paid";break;
-            default : return "";
+            case "draft":
+                return "Draft";break;
+            case "submitted":
+                return "Submitted";break;
+            case "revoke":
+                return "Revoked";break;
+            case "match_success":
+                return "Match Found";break;
+            case "match_unsuccess":
+                return "No Match Found";break;
+            case "accept_job":
+                return "Job Accepted";break;
+            case "wait_payment":
+                return "Pending Payment";break;
+            case "shipper_paid":
+                return "Shipper Paid";break;
+            case "complete":
+                return "Completed";break;
+            case "shipper_reject":
+                return "Shipper Rejected";break;
+            case "transporter_reject":
+                return "Transporter Rejected";break;
+            case "shipper_refund":
+                return "Shipper Refunded";break;
+            case "refund":
+                return "Refunded";break;
+            case "refund_apply":
+                return "Refund Applied";break;
+            case "platform_paid":
+                return "Platform Paid";break;
+            default:
+                return "";
         }
-
     },
-    reverseDateStr:function (dateStr) {
-        if(isEmpty(dateStr)) return dateStr;
+    reverseDateStr: function (dateStr) {
+        if (isEmpty(dateStr)) return dateStr;
         var dateElArr = dateStr.split("-");
-        if(!isEmpty(dateElArr) && dateElArr.length === 3) {
+        if (!isEmpty(dateElArr) && dateElArr.length === 3) {
             return dateElArr.reverse().join("-");
         }
         return dateStr;
@@ -10853,15 +9940,16 @@ function isArray(array) {
 }
 
 function uniqueArray(array) {
-    var arr = [],flag = false;
-    if(isEmpty(array) || !isArray(array)) return arr;
-    for(var i=0;i<array.length;i++) {
-        for(var j = i+1;j<array.length;j++) {
-            if(array[i] == array[j]) {
+    var arr = [],
+        flag = false;
+    if (isEmpty(array) || !isArray(array)) return arr;
+    for (var i = 0; i < array.length; i++) {
+        for (var j = i + 1; j < array.length; j++) {
+            if (array[i] == array[j]) {
                 flag = true;
             }
         }
-        if(!flag) {
+        if (!flag) {
             arr.push(array[i]);
         }
         flag = false;
@@ -10869,11 +9957,11 @@ function uniqueArray(array) {
     return arr;
 }
 
-function upperCaseFirstLetter(str){
+function upperCaseFirstLetter(str) {
     str = str.toLowerCase();
     var reg = /\b(\w)|\s(\w)/g;
-    return str.replace(reg,function(m){
-        return m.toUpperCase()
+    return str.replace(reg, function (m) {
+        return m.toUpperCase();
     });
 }
 
@@ -10885,10 +9973,10 @@ function upperCaseFirstLetter(str){
     };
     $.fn.resetValidation = function () {
         $(this).find("label.error").remove();
-        $(this).find(".has-success").removeClass("has-success")
-        $(this).find(".has-error").removeClass("has-error")
-        $(this).find(".valid").removeClass("valid")
-        $(this).find(".error").removeClass("error")
+        $(this).find(".has-success").removeClass("has-success");
+        $(this).find(".has-error").removeClass("has-error");
+        $(this).find(".valid").removeClass("valid");
+        $(this).find(".error").removeClass("error");
 
         return this;
     };
@@ -10899,12 +9987,12 @@ function upperCaseFirstLetter(str){
 //     console.log(parseInt(this * m + 0.5));
 //     return (parseInt(this * m + 0.5)/m).toString();
 // };
-Math.formatFloat = function(f, digit) {
+Math.formatFloat = function (f, digit) {
     var m = Math.pow(10, digit);
     return parseInt(f * m, 10) / m;
 };
-String.prototype.replaceAll = function(s1,s2){
-    return this.replace(new RegExp(s1,"gm"),s2);
+String.prototype.replaceAll = function (s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2);
 };
 
 $.fn.serializeObject = function () {
@@ -10923,60 +10011,60 @@ $.fn.serializeObject = function () {
     return o;
 };
 function isEmpty(obj) {
-    if(obj == null || obj == '' || obj == undefined || obj == 'null') {
+    if (obj == null || obj == '' || obj == undefined || obj == 'null') {
         return true;
     }
     return false;
 }
 
 function dateTimeFormat(dateTimeStr) {
-    if(isEmpty(dateTimeStr)) return "";
-    var date = new Date(dateTimeStr.toString().indexOf("-") != -1 ? dateTimeStr.replaceAll("-","/").replace(/T|Z/g,' ').trim() : dateTimeStr);
+    if (isEmpty(dateTimeStr)) return "";
+    var date = new Date(dateTimeStr.toString().indexOf("-") != -1 ? dateTimeStr.replaceAll("-", "/").replace(/T|Z/g, ' ').trim() : dateTimeStr);
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    if(month < 10)  month = "0" + month;
-    if(day < 10) day = "0" + day;
-    if(hours < 10) hours = "0" + hours;
-    if(minutes < 10) minutes = "0" + minutes;
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
     return year + "-" + month + "-" + day + " " + hours + ":" + minutes;
 }
 
 function dateFormat(dateStr) {
-    if(isEmpty(dateStr)) return "";
-    var date = new Date(dateStr.toString().indexOf("-") != -1 ? dateStr.replaceAll(/-/g,"/").replace(/T|Z/g,' ').trim() : dateStr);
+    if (isEmpty(dateStr)) return "";
+    var date = new Date(dateStr.toString().indexOf("-") != -1 ? dateStr.replaceAll(/-/g, "/").replace(/T|Z/g, ' ').trim() : dateStr);
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
-    if(month < 10)  month = "0" + month;
-    if(day < 10) day = "0" + day;
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
     return year + "-" + month + "-" + day;
 }
 function timeFormat(str) {
-    if(isEmpty(str)) {
+    if (isEmpty(str)) {
         return "";
     }
     var date;
-        date = new Date(str.replace(/-/g,"/"));
-    if(!date.getFullYear()) {
+    date = new Date(str.replace(/-/g, "/"));
+    if (!date.getFullYear()) {
         date = new Date("1970/01/01 " + str);
-        if(!date.getFullYear()) return "";
+        if (!date.getFullYear()) return "";
     }
 
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    if(hours<10) {
-        hours = "0"+hours;
+    if (hours < 10) {
+        hours = "0" + hours;
     }
-    if(minutes<10) {
-        minutes = "0"+minutes;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
     }
-    return hours+":"+minutes;
+    return hours + ":" + minutes;
 }
 
-Date.prototype.format = function(fmt) {
+Date.prototype.format = function (fmt) {
     var o = {
         'M+': this.getMonth() + 1,
         'd+': this.getDate(),
@@ -10986,12 +10074,9 @@ Date.prototype.format = function(fmt) {
         'q+': Math.floor((this.getMonth() + 3) / 3),
         'S': this.getMilliseconds()
     };
-    if (/(y+)/.test(fmt))
-        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length))
-    for (var k in o)
-        if (new RegExp('(' + k + ')').test(fmt))
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
-    return fmt
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    for (var k in o) if (new RegExp('(' + k + ')').test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+    return fmt;
 };
 
 toastr.options = {
@@ -11012,123 +10097,120 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
-
-
 /*
 jquery  validate method
  */
-$.validator.addMethod("wideEmail",function (value, element, param) {
+$.validator.addMethod("wideEmail", function (value, element, param) {
     var reg = /^(([a-zA-Z0-9_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+)([;]+([a-zA-Z0-9_.])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+)*$/;
     return this.optional(element) || reg.test(value);
-},"invalid email!");
-$.validator.addMethod("vehicleNameValidate",function (value, element, param) {
+}, "invalid email!");
+$.validator.addMethod("vehicleNameValidate", function (value, element, param) {
     return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-},"invalid value!");
+}, "invalid value!");
 //name validation
-$.validator.addMethod("nameValidate",function (value, element, param) {
+$.validator.addMethod("nameValidate", function (value, element, param) {
     return this.optional(element) || /^(?!_)(?!.*?_$)(?!\s$)[a-zA-Z0-9\s_]+$/.test(value);
-},"invalid value!");
-$.validator.addMethod("laterThan",function (value,element,param) {
-    var _otherValue = param.formObj.find(param.type+"[name='"+param.name+"']").val();
-    var otherDate = new Date("1970/01/01 "+_otherValue);
-    otherDate.setHours(otherDate.getHours()+1);
-    var valueDate = new Date("1970/01/01 "+value);
+}, "invalid value!");
+$.validator.addMethod("laterThan", function (value, element, param) {
+    var _otherValue = param.formObj.find(param.type + "[name='" + param.name + "']").val();
+    var otherDate = new Date("1970/01/01 " + _otherValue);
+    otherDate.setHours(otherDate.getHours() + 1);
+    var valueDate = new Date("1970/01/01 " + value);
     return this.optional(element) || valueDate >= otherDate;
-},"");
-$.validator.addMethod("earlyThan",function (value,element,param) {
-    var _otherValue = param.formObj.find(param.type+"[name='"+param.name+"']").val();
-    var otherDate = new Date("1970/01/01 "+_otherValue);
-    otherDate.setHours(otherDate.getHours()-1);
-    var valueDate = new Date("1970/01/01 "+value);
+}, "");
+$.validator.addMethod("earlyThan", function (value, element, param) {
+    var _otherValue = param.formObj.find(param.type + "[name='" + param.name + "']").val();
+    var otherDate = new Date("1970/01/01 " + _otherValue);
+    otherDate.setHours(otherDate.getHours() - 1);
+    var valueDate = new Date("1970/01/01 " + value);
     return this.optional(element) || valueDate < otherDate;
-},"");
-$.validator.addMethod("laterHours",function (value,element,param) {
+}, "");
+$.validator.addMethod("laterHours", function (value, element, param) {
     var valueIsFullDate = /^\d{4}\-\d{1,2}\-\d{1,2}[ ]\d{1,2}\:\d{1,2}$/.test(value);
-    var selectedDate,otherDate;
-    if(valueIsFullDate) {
-        selectedDate = new Date(Date.parse(value.replace(/-/g,"/").trim()));
+    var selectedDate, otherDate;
+    if (valueIsFullDate) {
+        selectedDate = new Date(Date.parse(value.replace(/-/g, "/").trim()));
         otherDate = new Date();
-        otherDate.setHours(otherDate.getHours()+parseInt(param));
+        otherDate.setHours(otherDate.getHours() + parseInt(param));
         return this.optional(element) || selectedDate >= otherDate;
-    }else {
+    } else {
         selectedDate = new Date();
         selectedDate.setMinutes(value.split(":")[1].trim());
         selectedDate.setHours(value.split(":")[0].trim());
         otherDate = new Date();
-        otherDate.setHours(otherDate.getHours()+parseInt(param));
+        otherDate.setHours(otherDate.getHours() + parseInt(param));
         return this.optional(element) || selectedDate >= otherDate;
     }
-},"");
-$.validator.addMethod("jobLaterThan",function (value, element, param) {
+}, "");
+$.validator.addMethod("jobLaterThan", function (value, element, param) {
 
     var date = param.formObj.find("input[name='transporterDate']").val();
-    if(!date) {
+    if (!date) {
         date = '1970/01/01';
-    }
-    else {
+    } else {
         date = date.split("-").reverse().join("/");
     }
-    var _otherValue = param.formObj.find(param.type+"[name='"+param.name+"']").val();
-    var valueDate,otherDate;
-    valueDate  = new Date(Date.parse(date.replace(/-/g,"/").trim() + " " + value.toString().trim()));
-    otherDate = new Date(Date.parse(date.replace(/-/g,"/").trim() + " " + _otherValue.toString().trim()));
-    otherDate.setHours(otherDate.getHours()+1);
+    var _otherValue = param.formObj.find(param.type + "[name='" + param.name + "']").val();
+    var valueDate, otherDate;
+    valueDate = new Date(Date.parse(date.replace(/-/g, "/").trim() + " " + value.toString().trim()));
+    otherDate = new Date(Date.parse(date.replace(/-/g, "/").trim() + " " + _otherValue.toString().trim()));
+    otherDate.setHours(otherDate.getHours() + 1);
     return valueDate >= otherDate;
-},"");
-$.validator.addMethod("jobLaterHours",function (value,element,param) {
+}, "");
+$.validator.addMethod("jobLaterHours", function (value, element, param) {
     var date = param.formObj.find("input[name='transporterDate']").val();
     var selectedDate;
-    if(!date) {
+    if (!date) {
         selectedDate = new Date("1970/01/01 " + value.toString().trim());
-        selectedDate.setFullYear(new Date().getFullYear(),new Date().getMonth() + 1,new Date().getDate());
-    }else {
+        selectedDate.setFullYear(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate());
+    } else {
         date = date.split("-").reverse().join("/");
-        selectedDate = new Date(Date.parse(date.replace(/-/g,"/").trim() + " " + value.toString().trim()));
+        selectedDate = new Date(Date.parse(date.replace(/-/g, "/").trim() + " " + value.toString().trim()));
     }
     var currentDate = new Date();
-    currentDate.setHours(currentDate.getHours()+parseInt(param.hours));
+    currentDate.setHours(currentDate.getHours() + parseInt(param.hours));
     return selectedDate >= currentDate;
-},"");
+}, "");
 
-$.validator.addMethod("laterDate",function (value,element,param) {
-    if(isEmpty(value)) return false;
-    var selectedDate = new Date(Date.parse(value.replace(/-/g,"/").trim()));
-    if(value.split("-")[0].length < 4) {
-        selectedDate = new Date(appOption.reverseDateStr(value).replace(/-/g,"/").trim());
+$.validator.addMethod("laterDate", function (value, element, param) {
+    if (isEmpty(value)) return false;
+    var selectedDate = new Date(Date.parse(value.replace(/-/g, "/").trim()));
+    if (value.split("-")[0].length < 4) {
+        selectedDate = new Date(appOption.reverseDateStr(value).replace(/-/g, "/").trim());
     }
     var date;
-    if(param === true || isEmpty(param)) {
+    if (param === true || isEmpty(param)) {
         date = new Date();
-        date = new Date(date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate());
-    }else {
-        var dateValue = param.formObj.find(param.type+"[name='"+param.name+"']").val();
-        date = new Date(dateValue.replace(/-/g,"/").trim());
+        date = new Date(date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate());
+    } else {
+        var dateValue = param.formObj.find(param.type + "[name='" + param.name + "']").val();
+        date = new Date(dateValue.replace(/-/g, "/").trim());
     }
 
     return selectedDate.getTime() >= date.getTime();
-},"");
-$.validator.addMethod("laterDateThanCurrent",function (value,element,param) {
-    if(isEmpty(value)) return false;
+}, "");
+$.validator.addMethod("laterDateThanCurrent", function (value, element, param) {
+    if (isEmpty(value)) return false;
     var date = new Date();
-    date = new Date(date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
-    var selectedDate = new Date(Date.parse(value.replace(/-/g,"/").trim()));
-    if(value.split("-")[0].length < 4) {
-        selectedDate = new Date(appOption.reverseDateStr(value).replace(/-/g,"/").trim());
+    date = new Date(date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate());
+    var selectedDate = new Date(Date.parse(value.replace(/-/g, "/").trim()));
+    if (value.split("-")[0].length < 4) {
+        selectedDate = new Date(appOption.reverseDateStr(value).replace(/-/g, "/").trim());
     }
     return selectedDate.getTime() >= date.getTime();
-},"");
+}, "");
 //compare two number bigger than param's value
-$.validator.addMethod("bigThan",function (value,element,param) {
+$.validator.addMethod("bigThan", function (value, element, param) {
     return this.optional(element) || parseFloat(value) >= parseFloat(param.val());
-},"");
+}, "");
 //compare two number,less than param's value
-$.validator.addMethod("lessThan",function (value,element,param) {
+$.validator.addMethod("lessThan", function (value, element, param) {
     return this.optional(element) || parseFloat(value) <= parseFloat(param.val());
-},"");
+}, "");
 //price must bigger than zero
-$.validator.addMethod("bigZero",function (value,element,param) {
+$.validator.addMethod("bigZero", function (value, element, param) {
     return this.optional(element) || parseFloat(value) >= 0;
-},"");
+}, "");
 //validate phone
 jQuery.validator.addMethod("mobileValidate", function (value, element) {
     if (value != null) {
@@ -11138,38 +10220,31 @@ jQuery.validator.addMethod("mobileValidate", function (value, element) {
     return this.optional(element);
 }, "");
 
-
-
 //timewindow plugin
 (function () {
     var TimeWindow = function ($el, options) {
         this.$el = $el;
         this.defaults = {
-            elements:[
-                "00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30",
-                "04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30",
-                "08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30",
-                "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30",
-                "16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30",
-                "20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"
-            ],
-            deleteElements:0,
-            defaultValue:"00:00"
+            elements: ["00:00", "00:30", "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"],
+            deleteElements: 0,
+            defaultValue: "00:00"
         };
-        isEmpty(options) ? this.options = this.defaults : this.options = $.extend({},this.defaults,options);
-        var displayElements = this.options.elements,delElCount = this.options.deleteElements;
-        this.options.elements = isEmpty(delElCount) ? displayElements : displayElements.slice(0,displayElements.length - delElCount);
+        isEmpty(options) ? this.options = this.defaults : this.options = $.extend({}, this.defaults, options);
+        var displayElements = this.options.elements,
+            delElCount = this.options.deleteElements;
+        this.options.elements = isEmpty(delElCount) ? displayElements : displayElements.slice(0, displayElements.length - delElCount);
     };
     TimeWindow.prototype = {
-        init:function () {
-            var self = this,ops = self.options;
+        init: function () {
+            var self = this,
+                ops = self.options;
             this.$el.empty();
             var str = "";
-            $.each(ops.elements,function (key, item) {
-                if(item === ops.defaultValue) {
-                    str += '<option value="'+item+'" selected>'+item+'</option>';
-                }else {
-                    str += '<option value="'+item+'">'+item+'</option>';
+            $.each(ops.elements, function (key, item) {
+                if (item === ops.defaultValue) {
+                    str += '<option value="' + item + '" selected>' + item + '</option>';
+                } else {
+                    str += '<option value="' + item + '">' + item + '</option>';
                 }
             });
             self.$el.append(str);
@@ -11177,11 +10252,10 @@ jQuery.validator.addMethod("mobileValidate", function (value, element) {
         }
     };
     $.fn.TimeWindow = function (options) {
-        new TimeWindow(this,options).init()
+        new TimeWindow(this, options).init();
         return this;
-    }
+    };
 })();
-
 
 //allow jquery to validate disabled elements by default
 //if want it not validate disabled elements,can add ignore:"selector"(the disabled element to be ignored)
@@ -11190,44 +10264,40 @@ $.validator.prototype.elements = function () {
         rulesCache = {};
 
     // Select all valid inputs inside the form (no submit or reset buttons)
-    return $( this.currentForm )
-        .find( "input, select, textarea, [contenteditable]" )
-        // .not( ":submit, :reset, :image, :disabled" )
-        .not( ":submit, :reset, :image" )
-        .not( this.settings.ignore )
-        .filter( function() {
-            var name = this.name || $( this ).attr( "name" ); // For contenteditable
-            if ( !name && validator.settings.debug && window.console ) {
-                console.error( "%o has no name assigned", this );
-            }
+    return $(this.currentForm).find("input, select, textarea, [contenteditable]")
+    // .not( ":submit, :reset, :image, :disabled" )
+    .not(":submit, :reset, :image").not(this.settings.ignore).filter(function () {
+        var name = this.name || $(this).attr("name"); // For contenteditable
+        if (!name && validator.settings.debug && window.console) {
+            console.error("%o has no name assigned", this);
+        }
 
-            // Set form expando on contenteditable
-            if ( this.hasAttribute( "contenteditable" ) ) {
-                this.form = $( this ).closest( "form" )[ 0 ];
-            }
+        // Set form expando on contenteditable
+        if (this.hasAttribute("contenteditable")) {
+            this.form = $(this).closest("form")[0];
+        }
 
-            // Select only the first element for each name, and only those with rules specified
-            if ( name in rulesCache || !validator.objectLength( $( this ).rules() ) ) {
-                return false;
-            }
+        // Select only the first element for each name, and only those with rules specified
+        if (name in rulesCache || !validator.objectLength($(this).rules())) {
+            return false;
+        }
 
-            rulesCache[ name ] = true;
-            return true;
-        } );
+        rulesCache[name] = true;
+        return true;
+    });
 };
 window.appOption = appOption;
 module.exports = {
-    appOption : appOption,
-    isArray : isArray,
-    uniqueArray : uniqueArray,
-    upperCaseFirstLetter : upperCaseFirstLetter,
-    isEmpty : isEmpty,
-    dateTimeFormat : dateTimeFormat,
-    dateFormat : dateFormat,
-    timeFormat : timeFormat,
-    toastr : toastr
-}
-
+    appOption: appOption,
+    isArray: isArray,
+    uniqueArray: uniqueArray,
+    upperCaseFirstLetter: upperCaseFirstLetter,
+    isEmpty: isEmpty,
+    dateTimeFormat: dateTimeFormat,
+    dateFormat: dateFormat,
+    timeFormat: timeFormat,
+    toastr: toastr
+};
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(0), __webpack_require__(0)))
 
 /***/ }),
@@ -11235,16 +10305,16 @@ module.exports = {
 /***/ (function(module, exports) {
 
 var api_version = "v1";
-var aas_url ='http://192.168.99.100:7101/aas';
-var api_url='http://192.168.99.100:7101/aas/api/v1/';
-var login_url='http://192.168.99.100:7101/aas/login';
-var quickegateway='http://192.168.99.100:7105/app/';
+var aas_url = 'http://192.168.99.100:7101/aas';
+var api_url = 'http://192.168.99.100:7101/aas/api/v1/';
+var login_url = 'http://192.168.99.100:7101/aas/login';
+var quickegateway = 'http://192.168.99.100:7105/app/';
 var dts_url = 'http://192.168.99.100:7104/dataservice';
 var quickegatewayImages = 'http://192.168.99.100:7105/app/images';
 var quickegatewayViews = 'http://192.168.99.100:7105/app/views';
-var emps_api_url='http://localhost:8080/emps/';//'https://test2.y3quick-e.com/emps/';//
-var mds_api_url='https://test2.y3quick-e.com/mds/';
-var tawk_src = 'https://embed.tawk.to/599e2f8db6e907673de09375/default';//'https://embed.tawk.to/599d3cdb4fe3a1168ead959f/default';//
+var emps_api_url = 'http://localhost:8080/emps/'; //'https://test2.y3quick-e.com/emps/';//
+var mds_api_url = 'https://test2.y3quick-e.com/mds/';
+var tawk_src = 'https://embed.tawk.to/599e2f8db6e907673de09375/default'; //'https://embed.tawk.to/599d3cdb4fe3a1168ead959f/default';//
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = emps_api_url;
@@ -11253,232 +10323,107 @@ module.exports = emps_api_url;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(process) {// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-// resolves . and .. elements in a path array with directory names there
-// must be no slashes, empty elements, or device names (c:\) in the array
-// (so also no leading and trailing slashes - it does not distinguish
-// relative and absolute paths)
-function normalizeArray(parts, allowAboveRoot) {
-  // if the path tries to go above the root, `up` ends up > 0
-  var up = 0;
-  for (var i = parts.length - 1; i >= 0; i--) {
-    var last = parts[i];
-    if (last === '.') {
-      parts.splice(i, 1);
-    } else if (last === '..') {
-      parts.splice(i, 1);
-      up++;
-    } else if (up) {
-      parts.splice(i, 1);
-      up--;
-    }
-  }
-
-  // if the path is allowed to go above the root, restore leading ..s
-  if (allowAboveRoot) {
-    for (; up--; up) {
-      parts.unshift('..');
-    }
-  }
-
-  return parts;
-}
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
-
-// path.resolve([from ...], to)
-// posix version
-exports.resolve = function() {
-  var resolvedPath = '',
-      resolvedAbsolute = false;
-
-  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-    var path = (i >= 0) ? arguments[i] : process.cwd();
-
-    // Skip empty and invalid entries
-    if (typeof path !== 'string') {
-      throw new TypeError('Arguments to path.resolve must be strings');
-    } else if (!path) {
-      continue;
-    }
-
-    resolvedPath = path + '/' + resolvedPath;
-    resolvedAbsolute = path.charAt(0) === '/';
-  }
-
-  // At this point the path should be resolved to a full absolute path, but
-  // handle relative paths to be safe (might happen when process.cwd() fails)
-
-  // Normalize the path
-  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
-    return !!p;
-  }), !resolvedAbsolute).join('/');
-
-  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-};
-
-// path.normalize(path)
-// posix version
-exports.normalize = function(path) {
-  var isAbsolute = exports.isAbsolute(path),
-      trailingSlash = substr(path, -1) === '/';
-
-  // Normalize the path
-  path = normalizeArray(filter(path.split('/'), function(p) {
-    return !!p;
-  }), !isAbsolute).join('/');
-
-  if (!path && !isAbsolute) {
-    path = '.';
-  }
-  if (path && trailingSlash) {
-    path += '/';
-  }
-
-  return (isAbsolute ? '/' : '') + path;
-};
-
-// posix version
-exports.isAbsolute = function(path) {
-  return path.charAt(0) === '/';
-};
-
-// posix version
-exports.join = function() {
-  var paths = Array.prototype.slice.call(arguments, 0);
-  return exports.normalize(filter(paths, function(p, index) {
-    if (typeof p !== 'string') {
-      throw new TypeError('Arguments to path.join must be strings');
-    }
-    return p;
-  }).join('/'));
-};
-
-
-// path.relative(from, to)
-// posix version
-exports.relative = function(from, to) {
-  from = exports.resolve(from).substr(1);
-  to = exports.resolve(to).substr(1);
-
-  function trim(arr) {
-    var start = 0;
-    for (; start < arr.length; start++) {
-      if (arr[start] !== '') break;
-    }
-
-    var end = arr.length - 1;
-    for (; end >= 0; end--) {
-      if (arr[end] !== '') break;
-    }
-
-    if (start > end) return [];
-    return arr.slice(start, end - start + 1);
-  }
-
-  var fromParts = trim(from.split('/'));
-  var toParts = trim(to.split('/'));
-
-  var length = Math.min(fromParts.length, toParts.length);
-  var samePartsLength = length;
-  for (var i = 0; i < length; i++) {
-    if (fromParts[i] !== toParts[i]) {
-      samePartsLength = i;
-      break;
-    }
-  }
-
-  var outputParts = [];
-  for (var i = samePartsLength; i < fromParts.length; i++) {
-    outputParts.push('..');
-  }
-
-  outputParts = outputParts.concat(toParts.slice(samePartsLength));
-
-  return outputParts.join('/');
-};
-
-exports.sep = '/';
-exports.delimiter = ':';
-
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
-  }
-
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
-  }
-
-  return root + dir;
-};
-
-
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
-  if (ext && f.substr(-1 * ext.length) === ext) {
-    f = f.substr(0, f.length - ext.length);
-  }
-  return f;
-};
-
-
-exports.extname = function(path) {
-  return splitPath(path)[3];
-};
-
-function filter (xs, f) {
-    if (xs.filter) return xs.filter(f);
-    var res = [];
-    for (var i = 0; i < xs.length; i++) {
-        if (f(xs[i], i, xs)) res.push(xs[i]);
-    }
-    return res;
-}
-
-// String.prototype.substr - negative index don't work in IE8
-var substr = 'ab'.substr(-1) === 'b'
-    ? function (str, start, len) { return str.substr(start, len) }
-    : function (str, start, len) {
-        if (start < 0) start = str.length + start;
-        return str.substr(start, len);
-    }
-;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */(function(jQuery) {/*
+ * jQuery JSONP Core Plugin 2.4.0 (2012-08-21)
+ *
+ * https://github.com/jaubourg/jquery-jsonp
+ *
+ * Copyright (c) 2012 Julian Aubourg
+ *
+ * This document is licensed as free software under the terms of the
+ * MIT License: http://www.opensource.org/licenses/mit-license.php
+ */
+(function ($) {
+  function noop() {}function genericCallback(data) {
+    lastValue = [data];
+  }function callIfDefined(method, object, parameters) {
+    return method && method.apply(object.context || object, parameters);
+  }function qMarkOrAmp(url) {
+    return (/\?/.test(url) ? "&" : "?"
+    );
+  }var STR_ASYNC = "async",
+      STR_CHARSET = "charset",
+      STR_EMPTY = "",
+      STR_ERROR = "error",
+      STR_INSERT_BEFORE = "insertBefore",
+      STR_JQUERY_JSONP = "_jqjsp",
+      STR_ON = "on",
+      STR_ON_CLICK = STR_ON + "click",
+      STR_ON_ERROR = STR_ON + STR_ERROR,
+      STR_ON_LOAD = STR_ON + "load",
+      STR_ON_READY_STATE_CHANGE = STR_ON + "readystatechange",
+      STR_READY_STATE = "readyState",
+      STR_REMOVE_CHILD = "removeChild",
+      STR_SCRIPT_TAG = "<script>",
+      STR_SUCCESS = "success",
+      STR_TIMEOUT = "timeout",
+      win = window,
+      Deferred = $.Deferred,
+      head = $("head")[0] || document.documentElement,
+      pageCache = {},
+      count = 0,
+      lastValue,
+      xOptionsDefaults = { callback: STR_JQUERY_JSONP, url: location.href },
+      opera = win.opera,
+      oldIE = !!$("<div>").html("<!--[if IE]><i><![endif]-->").find("i").length;function jsonp(xOptions) {
+    xOptions = $.extend({}, xOptionsDefaults, xOptions);var successCallback = xOptions.success,
+        errorCallback = xOptions.error,
+        completeCallback = xOptions.complete,
+        dataFilter = xOptions.dataFilter,
+        callbackParameter = xOptions.callbackParameter,
+        successCallbackName = xOptions.callback,
+        cacheFlag = xOptions.cache,
+        pageCacheFlag = xOptions.pageCache,
+        charset = xOptions.charset,
+        url = xOptions.url,
+        data = xOptions.data,
+        timeout = xOptions.timeout,
+        pageCached,
+        done = 0,
+        cleanUp = noop,
+        supportOnload,
+        supportOnreadystatechange,
+        firstChild,
+        script,
+        scriptAfter,
+        timeoutTimer;Deferred && Deferred(function (defer) {
+      defer.done(successCallback).fail(errorCallback);successCallback = defer.resolve;errorCallback = defer.reject;
+    }).promise(xOptions);xOptions.abort = function () {
+      !done++ && cleanUp();
+    };if (callIfDefined(xOptions.beforeSend, xOptions, [xOptions]) === !1 || done) {
+      return xOptions;
+    }url = url || STR_EMPTY;data = data ? typeof data == "string" ? data : $.param(data, xOptions.traditional) : STR_EMPTY;url += data ? qMarkOrAmp(url) + data : STR_EMPTY;callbackParameter && (url += qMarkOrAmp(url) + encodeURIComponent(callbackParameter) + "=?");!cacheFlag && !pageCacheFlag && (url += qMarkOrAmp(url) + "_" + new Date().getTime() + "=");url = url.replace(/=\?(&|$)/, "=" + successCallbackName + "$1");function notifySuccess(json) {
+      if (!done++) {
+        cleanUp();pageCacheFlag && (pageCache[url] = { s: [json] });dataFilter && (json = dataFilter.apply(xOptions, [json]));callIfDefined(successCallback, xOptions, [json, STR_SUCCESS, xOptions]);callIfDefined(completeCallback, xOptions, [xOptions, STR_SUCCESS]);
+      }
+    }function notifyError(type) {
+      if (!done++) {
+        cleanUp();pageCacheFlag && type != STR_TIMEOUT && (pageCache[url] = type);callIfDefined(errorCallback, xOptions, [xOptions, type]);callIfDefined(completeCallback, xOptions, [xOptions, type]);
+      }
+    }if (pageCacheFlag && (pageCached = pageCache[url])) {
+      pageCached.s ? notifySuccess(pageCached.s[0]) : notifyError(pageCached);
+    } else {
+      win[successCallbackName] = genericCallback;script = $(STR_SCRIPT_TAG)[0];script.id = STR_JQUERY_JSONP + count++;if (charset) {
+        script[STR_CHARSET] = charset;
+      }opera && opera.version() < 11.60 ? (scriptAfter = $(STR_SCRIPT_TAG)[0]).text = "document.getElementById('" + script.id + "')." + STR_ON_ERROR + "()" : script[STR_ASYNC] = STR_ASYNC;if (oldIE) {
+        script.htmlFor = script.id;script.event = STR_ON_CLICK;
+      }script[STR_ON_LOAD] = script[STR_ON_ERROR] = script[STR_ON_READY_STATE_CHANGE] = function (result) {
+        if (!script[STR_READY_STATE] || !/i/.test(script[STR_READY_STATE])) {
+          try {
+            script[STR_ON_CLICK] && script[STR_ON_CLICK]();
+          } catch (_) {}result = lastValue;lastValue = 0;result ? notifySuccess(result[0]) : notifyError(STR_ERROR);
+        }
+      };script.src = url;cleanUp = function (i) {
+        timeoutTimer && clearTimeout(timeoutTimer);script[STR_ON_READY_STATE_CHANGE] = script[STR_ON_LOAD] = script[STR_ON_ERROR] = null;head[STR_REMOVE_CHILD](script);scriptAfter && head[STR_REMOVE_CHILD](scriptAfter);
+      };head[STR_INSERT_BEFORE](script, firstChild = head.firstChild);scriptAfter && head[STR_INSERT_BEFORE](scriptAfter, firstChild);timeoutTimer = timeout > 0 && setTimeout(function () {
+        notifyError(STR_TIMEOUT);
+      }, timeout);
+    }return xOptions;
+  }jsonp.setup = function (xOptions) {
+    $.extend(xOptionsDefaults, xOptions);
+  };$.jsonp = jsonp;
+})(jQuery);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 7 */
@@ -11490,1394 +10435,1405 @@ var substr = 'ab'.substr(-1) === 'b'
  * Released under the MIT License.
  */
 (function (global, factory) {
-   true ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.VueI18n = factory());
-}(this, (function () { 'use strict';
+   true ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : global.VueI18n = factory();
+})(this, function () {
+  'use strict';
 
-/*  */
+  /*  */
 
-/**
- * utilites
- */
+  /**
+   * utilites
+   */
 
-function warn (msg, err) {
-  if (typeof console !== 'undefined') {
-    console.warn('[vue-i18n] ' + msg);
-    /* istanbul ignore if */
-    if (err) {
-      console.warn(err.stack);
-    }
-  }
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-var toString = Object.prototype.toString;
-var OBJECT_STRING = '[object Object]';
-function isPlainObject (obj) {
-  return toString.call(obj) === OBJECT_STRING
-}
-
-function isNull (val) {
-  return val === null || val === undefined
-}
-
-function parseArgs () {
-  var args = [], len = arguments.length;
-  while ( len-- ) args[ len ] = arguments[ len ];
-
-  var locale = null;
-  var params = null;
-  if (args.length === 1) {
-    if (isObject(args[0]) || Array.isArray(args[0])) {
-      params = args[0];
-    } else if (typeof args[0] === 'string') {
-      locale = args[0];
-    }
-  } else if (args.length === 2) {
-    if (typeof args[0] === 'string') {
-      locale = args[0];
-    }
-    /* istanbul ignore if */
-    if (isObject(args[1]) || Array.isArray(args[1])) {
-      params = args[1];
-    }
-  }
-
-  return { locale: locale, params: params }
-}
-
-function getOldChoiceIndexFixed (choice) {
-  return choice
-    ? choice > 1
-      ? 1
-      : 0
-    : 1
-}
-
-function getChoiceIndex (choice, choicesLength) {
-  choice = Math.abs(choice);
-
-  if (choicesLength === 2) { return getOldChoiceIndexFixed(choice) }
-
-  return choice ? Math.min(choice, 2) : 0
-}
-
-function fetchChoice (message, choice) {
-  /* istanbul ignore if */
-  if (!message && typeof message !== 'string') { return null }
-  var choices = message.split('|');
-
-  choice = getChoiceIndex(choice, choices.length);
-  if (!choices[choice]) { return message }
-  return choices[choice].trim()
-}
-
-function looseClone (obj) {
-  return JSON.parse(JSON.stringify(obj))
-}
-
-function remove (arr, item) {
-  if (arr.length) {
-    var index = arr.indexOf(item);
-    if (index > -1) {
-      return arr.splice(index, 1)
-    }
-  }
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-function hasOwn (obj, key) {
-  return hasOwnProperty.call(obj, key)
-}
-
-function merge (target) {
-  var arguments$1 = arguments;
-
-  var output = Object(target);
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments$1[i];
-    if (source !== undefined && source !== null) {
-      var key = (void 0);
-      for (key in source) {
-        if (hasOwn(source, key)) {
-          if (isObject(source[key])) {
-            output[key] = merge(output[key], source[key]);
-          } else {
-            output[key] = source[key];
-          }
-        }
+  function warn(msg, err) {
+    if (typeof console !== 'undefined') {
+      console.warn('[vue-i18n] ' + msg);
+      /* istanbul ignore if */
+      if (err) {
+        console.warn(err.stack);
       }
     }
   }
-  return output
-}
 
-var canUseDateTimeFormat =
-  typeof Intl !== 'undefined' && typeof Intl.DateTimeFormat !== 'undefined';
+  function isObject(obj) {
+    return obj !== null && typeof obj === 'object';
+  }
 
-var canUseNumberFormat =
-  typeof Intl !== 'undefined' && typeof Intl.NumberFormat !== 'undefined';
+  var toString = Object.prototype.toString;
+  var OBJECT_STRING = '[object Object]';
+  function isPlainObject(obj) {
+    return toString.call(obj) === OBJECT_STRING;
+  }
 
-/*  */
+  function isNull(val) {
+    return val === null || val === undefined;
+  }
 
-function extend (Vue) {
-  Vue.prototype.$t = function (key) {
-    var values = [], len = arguments.length - 1;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 1 ];
+  function parseArgs() {
+    var args = [],
+        len = arguments.length;
+    while (len--) args[len] = arguments[len];
 
-    var i18n = this.$i18n;
-    return i18n._t.apply(i18n, [ key, i18n.locale, i18n._getMessages(), this ].concat( values ))
-  };
-
-  Vue.prototype.$tc = function (key, choice) {
-    var values = [], len = arguments.length - 2;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 2 ];
-
-    var i18n = this.$i18n;
-    return i18n._tc.apply(i18n, [ key, i18n.locale, i18n._getMessages(), this, choice ].concat( values ))
-  };
-
-  Vue.prototype.$te = function (key, locale) {
-    var i18n = this.$i18n;
-    return i18n._te(key, i18n.locale, i18n._getMessages(), locale)
-  };
-
-  Vue.prototype.$d = function (value) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-    return (ref = this.$i18n).d.apply(ref, [ value ].concat( args ))
-    var ref;
-  };
-
-  Vue.prototype.$n = function (value) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-    return (ref = this.$i18n).n.apply(ref, [ value ].concat( args ))
-    var ref;
-  };
-}
-
-/*  */
-
-var mixin = {
-  beforeCreate: function beforeCreate () {
-    var options = this.$options;
-    options.i18n = options.i18n || (options.__i18n ? {} : null);
-
-    if (options.i18n) {
-      if (options.i18n instanceof VueI18n) {
-        // init locale messages via custom blocks
-        if (options.__i18n) {
-          try {
-            var localeMessages = {};
-            options.__i18n.forEach(function (resource) {
-              localeMessages = merge(localeMessages, JSON.parse(resource));
-            });
-            Object.keys(localeMessages).forEach(function (locale) {
-              options.i18n.mergeLocaleMessage(locale, localeMessages[locale]);
-            });
-          } catch (e) {
-            {
-              warn("Cannot parse locale messages via custom blocks.", e);
-            }
-          }
-        }
-        this._i18n = options.i18n;
-        this._i18nWatcher = this._i18n.watchI18nData();
-        this._i18n.subscribeDataChanging(this);
-        this._subscribing = true;
-      } else if (isPlainObject(options.i18n)) {
-        // component local i18n
-        if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
-          options.i18n.root = this.$root.$i18n;
-          options.i18n.fallbackLocale = this.$root.$i18n.fallbackLocale;
-          options.i18n.silentTranslationWarn = this.$root.$i18n.silentTranslationWarn;
-        }
-
-        // init locale messages via custom blocks
-        if (options.__i18n) {
-          try {
-            var localeMessages$1 = {};
-            options.__i18n.forEach(function (resource) {
-              localeMessages$1 = merge(localeMessages$1, JSON.parse(resource));
-            });
-            options.i18n.messages = localeMessages$1;
-          } catch (e) {
-            {
-              warn("Cannot parse locale messages via custom blocks.", e);
-            }
-          }
-        }
-
-        this._i18n = new VueI18n(options.i18n);
-        this._i18nWatcher = this._i18n.watchI18nData();
-        this._i18n.subscribeDataChanging(this);
-        this._subscribing = true;
-
-        if (options.i18n.sync === undefined || !!options.i18n.sync) {
-          this._localeWatcher = this.$i18n.watchLocale();
-        }
-      } else {
-        {
-          warn("Cannot be interpreted 'i18n' option.");
-        }
+    var locale = null;
+    var params = null;
+    if (args.length === 1) {
+      if (isObject(args[0]) || Array.isArray(args[0])) {
+        params = args[0];
+      } else if (typeof args[0] === 'string') {
+        locale = args[0];
       }
-    } else if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
-      // root i18n
-      this._i18n = this.$root.$i18n;
-      this._i18n.subscribeDataChanging(this);
-      this._subscribing = true;
-    } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
-      // parent i18n
-      this._i18n = options.parent.$i18n;
-      this._i18n.subscribeDataChanging(this);
-      this._subscribing = true;
-    }
-  },
-
-  beforeDestroy: function beforeDestroy () {
-    if (!this._i18n) { return }
-
-    if (this._subscribing) {
-      this._i18n.unsubscribeDataChanging(this);
-      delete this._subscribing;
-    }
-
-    if (this._i18nWatcher) {
-      this._i18nWatcher();
-      delete this._i18nWatcher;
-    }
-
-    if (this._localeWatcher) {
-      this._localeWatcher();
-      delete this._localeWatcher;
-    }
-
-    this._i18n = null;
-  }
-};
-
-/*  */
-
-var component = {
-  name: 'i18n',
-  functional: true,
-  props: {
-    tag: {
-      type: String,
-      default: 'span'
-    },
-    path: {
-      type: String,
-      required: true
-    },
-    locale: {
-      type: String
-    }
-  },
-  render: function render (h, ref) {
-    var props = ref.props;
-    var data = ref.data;
-    var children = ref.children;
-    var parent = ref.parent;
-
-    var i18n = parent.$i18n;
-    if (!i18n) {
-      {
-        warn('Cannot find VueI18n instance!');
-      }
-      return children
-    }
-
-    var path = props.path;
-    var locale = props.locale;
-
-    var params = [];
-    locale && params.push(locale);
-    children.forEach(function (child) { return params.push(child); });
-
-    return h(props.tag, data, i18n.i.apply(i18n, [ path ].concat( params )))
-  }
-};
-
-var Vue;
-
-function install (_Vue) {
-  Vue = _Vue;
-
-  var version = (Vue.version && Number(Vue.version.split('.')[0])) || -1;
-  /* istanbul ignore if */
-  if ("development" !== 'production' && install.installed) {
-    warn('already installed.');
-    return
-  }
-  install.installed = true;
-
-  /* istanbul ignore if */
-  if ("development" !== 'production' && version < 2) {
-    warn(("vue-i18n (" + (install.version) + ") need to use Vue 2.0 or later (Vue: " + (Vue.version) + ")."));
-    return
-  }
-
-  Object.defineProperty(Vue.prototype, '$i18n', {
-    get: function get () { return this._i18n }
-  });
-
-  extend(Vue);
-  Vue.mixin(mixin);
-  Vue.component(component.name, component);
-
-  // use object-based merge strategy
-  var strats = Vue.config.optionMergeStrategies;
-  strats.i18n = strats.methods;
-}
-
-/*  */
-
-var BaseFormatter = function BaseFormatter () {
-  this._caches = Object.create(null);
-};
-
-BaseFormatter.prototype.interpolate = function interpolate (message, values) {
-  var tokens = this._caches[message];
-  if (!tokens) {
-    tokens = parse(message);
-    this._caches[message] = tokens;
-  }
-  return compile(tokens, values)
-};
-
-var RE_TOKEN_LIST_VALUE = /^(\d)+/;
-var RE_TOKEN_NAMED_VALUE = /^(\w)+/;
-
-function parse (format) {
-  var tokens = [];
-  var position = 0;
-
-  var text = '';
-  while (position < format.length) {
-    var char = format[position++];
-    if (char === '{') {
-      if (text) {
-        tokens.push({ type: 'text', value: text });
-      }
-
-      text = '';
-      var sub = '';
-      char = format[position++];
-      while (char !== '}') {
-        sub += char;
-        char = format[position++];
-      }
-
-      var type = RE_TOKEN_LIST_VALUE.test(sub)
-        ? 'list'
-        : RE_TOKEN_NAMED_VALUE.test(sub)
-          ? 'named'
-          : 'unknown';
-      tokens.push({ value: sub, type: type });
-    } else if (char === '%') {
-      // when found rails i18n syntax, skip text capture
-      if (format[(position)] !== '{') {
-        text += char;
-      }
-    } else {
-      text += char;
-    }
-  }
-
-  text && tokens.push({ type: 'text', value: text });
-
-  return tokens
-}
-
-function compile (tokens, values) {
-  var compiled = [];
-  var index = 0;
-
-  var mode = Array.isArray(values)
-    ? 'list'
-    : isObject(values)
-      ? 'named'
-      : 'unknown';
-  if (mode === 'unknown') { return compiled }
-
-  while (index < tokens.length) {
-    var token = tokens[index];
-    switch (token.type) {
-      case 'text':
-        compiled.push(token.value);
-        break
-      case 'list':
-        if (mode === 'list') {
-          compiled.push(values[parseInt(token.value, 10)]);
-        } else {
-          {
-            warn(("Type of token '" + (token.type) + "' and format of value '" + mode + "' don't match!"));
-          }
-        }
-        break
-      case 'named':
-        if (mode === 'named') {
-          compiled.push((values)[token.value]);
-        } else {
-          {
-            warn(("Type of token '" + (token.type) + "' and format of value '" + mode + "' don't match!"));
-          }
-        }
-        break
-      case 'unknown':
-        {
-          warn("Detect 'unknown' type of token!");
-        }
-        break
-    }
-    index++;
-  }
-
-  return compiled
-}
-
-/*  */
-
-/**
- *  Path paerser
- *  - Inspired:
- *    Vue.js Path parser
- */
-
-// actions
-var APPEND = 0;
-var PUSH = 1;
-var INC_SUB_PATH_DEPTH = 2;
-var PUSH_SUB_PATH = 3;
-
-// states
-var BEFORE_PATH = 0;
-var IN_PATH = 1;
-var BEFORE_IDENT = 2;
-var IN_IDENT = 3;
-var IN_SUB_PATH = 4;
-var IN_SINGLE_QUOTE = 5;
-var IN_DOUBLE_QUOTE = 6;
-var AFTER_PATH = 7;
-var ERROR = 8;
-
-var pathStateMachine = [];
-
-pathStateMachine[BEFORE_PATH] = {
-  'ws': [BEFORE_PATH],
-  'ident': [IN_IDENT, APPEND],
-  '[': [IN_SUB_PATH],
-  'eof': [AFTER_PATH]
-};
-
-pathStateMachine[IN_PATH] = {
-  'ws': [IN_PATH],
-  '.': [BEFORE_IDENT],
-  '[': [IN_SUB_PATH],
-  'eof': [AFTER_PATH]
-};
-
-pathStateMachine[BEFORE_IDENT] = {
-  'ws': [BEFORE_IDENT],
-  'ident': [IN_IDENT, APPEND],
-  '0': [IN_IDENT, APPEND],
-  'number': [IN_IDENT, APPEND]
-};
-
-pathStateMachine[IN_IDENT] = {
-  'ident': [IN_IDENT, APPEND],
-  '0': [IN_IDENT, APPEND],
-  'number': [IN_IDENT, APPEND],
-  'ws': [IN_PATH, PUSH],
-  '.': [BEFORE_IDENT, PUSH],
-  '[': [IN_SUB_PATH, PUSH],
-  'eof': [AFTER_PATH, PUSH]
-};
-
-pathStateMachine[IN_SUB_PATH] = {
-  "'": [IN_SINGLE_QUOTE, APPEND],
-  '"': [IN_DOUBLE_QUOTE, APPEND],
-  '[': [IN_SUB_PATH, INC_SUB_PATH_DEPTH],
-  ']': [IN_PATH, PUSH_SUB_PATH],
-  'eof': ERROR,
-  'else': [IN_SUB_PATH, APPEND]
-};
-
-pathStateMachine[IN_SINGLE_QUOTE] = {
-  "'": [IN_SUB_PATH, APPEND],
-  'eof': ERROR,
-  'else': [IN_SINGLE_QUOTE, APPEND]
-};
-
-pathStateMachine[IN_DOUBLE_QUOTE] = {
-  '"': [IN_SUB_PATH, APPEND],
-  'eof': ERROR,
-  'else': [IN_DOUBLE_QUOTE, APPEND]
-};
-
-/**
- * Check if an expression is a literal value.
- */
-
-var literalValueRE = /^\s?(true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;
-function isLiteral (exp) {
-  return literalValueRE.test(exp)
-}
-
-/**
- * Strip quotes from a string
- */
-
-function stripQuotes (str) {
-  var a = str.charCodeAt(0);
-  var b = str.charCodeAt(str.length - 1);
-  return a === b && (a === 0x22 || a === 0x27)
-    ? str.slice(1, -1)
-    : str
-}
-
-/**
- * Determine the type of a character in a keypath.
- */
-
-function getPathCharType (ch) {
-  if (ch === undefined || ch === null) { return 'eof' }
-
-  var code = ch.charCodeAt(0);
-
-  switch (code) {
-    case 0x5B: // [
-    case 0x5D: // ]
-    case 0x2E: // .
-    case 0x22: // "
-    case 0x27: // '
-    case 0x30: // 0
-      return ch
-
-    case 0x5F: // _
-    case 0x24: // $
-    case 0x2D: // -
-      return 'ident'
-
-    case 0x20: // Space
-    case 0x09: // Tab
-    case 0x0A: // Newline
-    case 0x0D: // Return
-    case 0xA0:  // No-break space
-    case 0xFEFF:  // Byte Order Mark
-    case 0x2028:  // Line Separator
-    case 0x2029:  // Paragraph Separator
-      return 'ws'
-  }
-
-  // a-z, A-Z
-  if ((code >= 0x61 && code <= 0x7A) || (code >= 0x41 && code <= 0x5A)) {
-    return 'ident'
-  }
-
-  // 1-9
-  if (code >= 0x31 && code <= 0x39) { return 'number' }
-
-  return 'else'
-}
-
-/**
- * Format a subPath, return its plain form if it is
- * a literal string or number. Otherwise prepend the
- * dynamic indicator (*).
- */
-
-function formatSubPath (path) {
-  var trimmed = path.trim();
-  // invalid leading 0
-  if (path.charAt(0) === '0' && isNaN(path)) { return false }
-
-  return isLiteral(trimmed) ? stripQuotes(trimmed) : '*' + trimmed
-}
-
-/**
- * Parse a string path into an array of segments
- */
-
-function parse$1 (path) {
-  var keys = [];
-  var index = -1;
-  var mode = BEFORE_PATH;
-  var subPathDepth = 0;
-  var c;
-  var key;
-  var newChar;
-  var type;
-  var transition;
-  var action;
-  var typeMap;
-  var actions = [];
-
-  actions[PUSH] = function () {
-    if (key !== undefined) {
-      keys.push(key);
-      key = undefined;
-    }
-  };
-
-  actions[APPEND] = function () {
-    if (key === undefined) {
-      key = newChar;
-    } else {
-      key += newChar;
-    }
-  };
-
-  actions[INC_SUB_PATH_DEPTH] = function () {
-    actions[APPEND]();
-    subPathDepth++;
-  };
-
-  actions[PUSH_SUB_PATH] = function () {
-    if (subPathDepth > 0) {
-      subPathDepth--;
-      mode = IN_SUB_PATH;
-      actions[APPEND]();
-    } else {
-      subPathDepth = 0;
-      key = formatSubPath(key);
-      if (key === false) {
-        return false
-      } else {
-        actions[PUSH]();
-      }
-    }
-  };
-
-  function maybeUnescapeQuote () {
-    var nextChar = path[index + 1];
-    if ((mode === IN_SINGLE_QUOTE && nextChar === "'") ||
-      (mode === IN_DOUBLE_QUOTE && nextChar === '"')) {
-      index++;
-      newChar = '\\' + nextChar;
-      actions[APPEND]();
-      return true
-    }
-  }
-
-  while (mode !== null) {
-    index++;
-    c = path[index];
-
-    if (c === '\\' && maybeUnescapeQuote()) {
-      continue
-    }
-
-    type = getPathCharType(c);
-    typeMap = pathStateMachine[mode];
-    transition = typeMap[type] || typeMap['else'] || ERROR;
-
-    if (transition === ERROR) {
-      return // parse error
-    }
-
-    mode = transition[0];
-    action = actions[transition[1]];
-    if (action) {
-      newChar = transition[2];
-      newChar = newChar === undefined
-        ? c
-        : newChar;
-      if (action() === false) {
-        return
-      }
-    }
-
-    if (mode === AFTER_PATH) {
-      return keys
-    }
-  }
-}
-
-
-
-
-
-function empty (target) {
-  /* istanbul ignore else */
-  if (Array.isArray(target)) {
-    return target.length === 0
-  } else {
-    return false
-  }
-}
-
-var I18nPath = function I18nPath () {
-  this._cache = Object.create(null);
-};
-
-/**
- * External parse that check for a cache hit first
- */
-I18nPath.prototype.parsePath = function parsePath (path) {
-  var hit = this._cache[path];
-  if (!hit) {
-    hit = parse$1(path);
-    if (hit) {
-      this._cache[path] = hit;
-    }
-  }
-  return hit || []
-};
-
-/**
- * Get path value from path string
- */
-I18nPath.prototype.getPathValue = function getPathValue (obj, path) {
-  if (!isObject(obj)) { return null }
-
-  var paths = this.parsePath(path);
-  if (empty(paths)) {
-    return null
-  } else {
-    var length = paths.length;
-    var ret = null;
-    var last = obj;
-    var i = 0;
-    while (i < length) {
-      var value = last[paths[i]];
-      if (value === undefined) {
-        last = null;
-        break
-      }
-      last = value;
-      i++;
-    }
-
-    ret = last;
-    return ret
-  }
-};
-
-/*  */
-
-var VueI18n = function VueI18n (options) {
-  var this$1 = this;
-  if ( options === void 0 ) options = {};
-
-  var locale = options.locale || 'en-US';
-  var fallbackLocale = options.fallbackLocale || 'en-US';
-  var messages = options.messages || {};
-  var dateTimeFormats = options.dateTimeFormats || {};
-  var numberFormats = options.numberFormats || {};
-
-  this._vm = null;
-  this._formatter = options.formatter || new BaseFormatter();
-  this._missing = options.missing || null;
-  this._root = options.root || null;
-  this._sync = options.sync === undefined ? true : !!options.sync;
-  this._fallbackRoot = options.fallbackRoot === undefined
-    ? true
-    : !!options.fallbackRoot;
-  this._silentTranslationWarn = options.silentTranslationWarn === undefined
-    ? false
-    : !!options.silentTranslationWarn;
-  this._dateTimeFormatters = {};
-  this._numberFormatters = {};
-  this._path = new I18nPath();
-  this._dataListeners = [];
-
-  this._exist = function (message, key) {
-    if (!message || !key) { return false }
-    return !isNull(this$1._path.getPathValue(message, key))
-  };
-
-  this._initVM({
-    locale: locale,
-    fallbackLocale: fallbackLocale,
-    messages: messages,
-    dateTimeFormats: dateTimeFormats,
-    numberFormats: numberFormats
-  });
-};
-
-var prototypeAccessors = { vm: {},messages: {},dateTimeFormats: {},numberFormats: {},locale: {},fallbackLocale: {},missing: {},formatter: {},silentTranslationWarn: {} };
-
-VueI18n.prototype._initVM = function _initVM (data) {
-  var silent = Vue.config.silent;
-  Vue.config.silent = true;
-  this._vm = new Vue({ data: data });
-  Vue.config.silent = silent;
-};
-
-VueI18n.prototype.subscribeDataChanging = function subscribeDataChanging (vm) {
-  this._dataListeners.push(vm);
-};
-
-VueI18n.prototype.unsubscribeDataChanging = function unsubscribeDataChanging (vm) {
-  remove(this._dataListeners, vm);
-};
-
-VueI18n.prototype.watchI18nData = function watchI18nData () {
-  var self = this;
-  return this._vm.$watch('$data', function () {
-    var i = self._dataListeners.length;
-    while (i--) {
-      Vue.nextTick(function () {
-        self._dataListeners[i] && self._dataListeners[i].$forceUpdate();
-      });
-    }
-  }, { deep: true })
-};
-
-VueI18n.prototype.watchLocale = function watchLocale () {
-  /* istanbul ignore if */
-  if (!this._sync || !this._root) { return null }
-  var target = this._vm;
-  return this._root.vm.$watch('locale', function (val) {
-    target.$set(target, 'locale', val);
-    target.$forceUpdate();
-  }, { immediate: true })
-};
-
-prototypeAccessors.vm.get = function () { return this._vm };
-
-prototypeAccessors.messages.get = function () { return looseClone(this._getMessages()) };
-prototypeAccessors.dateTimeFormats.get = function () { return looseClone(this._getDateTimeFormats()) };
-prototypeAccessors.numberFormats.get = function () { return looseClone(this._getNumberFormats()) };
-
-prototypeAccessors.locale.get = function () { return this._vm.locale };
-prototypeAccessors.locale.set = function (locale) {
-  this._vm.$set(this._vm, 'locale', locale);
-};
-
-prototypeAccessors.fallbackLocale.get = function () { return this._vm.fallbackLocale };
-prototypeAccessors.fallbackLocale.set = function (locale) {
-  this._vm.$set(this._vm, 'fallbackLocale', locale);
-};
-
-prototypeAccessors.missing.get = function () { return this._missing };
-prototypeAccessors.missing.set = function (handler) { this._missing = handler; };
-
-prototypeAccessors.formatter.get = function () { return this._formatter };
-prototypeAccessors.formatter.set = function (formatter) { this._formatter = formatter; };
-
-prototypeAccessors.silentTranslationWarn.get = function () { return this._silentTranslationWarn };
-prototypeAccessors.silentTranslationWarn.set = function (silent) { this._silentTranslationWarn = silent; };
-
-VueI18n.prototype._getMessages = function _getMessages () { return this._vm.messages };
-VueI18n.prototype._getDateTimeFormats = function _getDateTimeFormats () { return this._vm.dateTimeFormats };
-VueI18n.prototype._getNumberFormats = function _getNumberFormats () { return this._vm.numberFormats };
-
-VueI18n.prototype._warnDefault = function _warnDefault (locale, key, result, vm) {
-  if (!isNull(result)) { return result }
-  if (this.missing) {
-    this.missing.apply(null, [locale, key, vm]);
-  } else {
-    if ("development" !== 'production' && !this._silentTranslationWarn) {
-      warn(
-        "Cannot translate the value of keypath '" + key + "'. " +
-        'Use the value of keypath as default.'
-      );
-    }
-  }
-  return key
-};
-
-VueI18n.prototype._isFallbackRoot = function _isFallbackRoot (val) {
-  return !val && !isNull(this._root) && this._fallbackRoot
-};
-
-VueI18n.prototype._interpolate = function _interpolate (
-  locale,
-  message,
-  key,
-  host,
-  interpolateMode,
-  values
-) {
-  if (!message) { return null }
-
-  var pathRet = this._path.getPathValue(message, key);
-  if (Array.isArray(pathRet)) { return pathRet }
-
-  var ret;
-  if (isNull(pathRet)) {
-    /* istanbul ignore else */
-    if (isPlainObject(message)) {
-      ret = message[key];
-      if (typeof ret !== 'string') {
-        if ("development" !== 'production' && !this._silentTranslationWarn) {
-          warn(("Value of key '" + key + "' is not a string!"));
-        }
-        return null
-      }
-    } else {
-      return null
-    }
-  } else {
-    /* istanbul ignore else */
-    if (typeof pathRet === 'string') {
-      ret = pathRet;
-    } else {
-      if ("development" !== 'production' && !this._silentTranslationWarn) {
-        warn(("Value of key '" + key + "' is not a string!"));
-      }
-      return null
-    }
-  }
-
-  // Check for the existance of links within the translated string
-  if (ret.indexOf('@:') >= 0) {
-    ret = this._link(locale, message, ret, host, interpolateMode, values);
-  }
-
-  return !values ? ret : this._render(ret, interpolateMode, values)
-};
-
-VueI18n.prototype._link = function _link (
-  locale,
-  message,
-  str,
-  host,
-  interpolateMode,
-  values
-) {
-    var this$1 = this;
-
-  var ret = str;
-
-  // Match all the links within the local
-  // We are going to replace each of
-  // them with its translation
-  var matches = ret.match(/(@:[\w\-_|.]+)/g);
-  for (var idx in matches) {
-    // ie compatible: filter custom array
-    // prototype method
-    if (!matches.hasOwnProperty(idx)) {
-      continue
-    }
-    var link = matches[idx];
-    // Remove the leading @:
-    var linkPlaceholder = link.substr(2);
-    // Translate the link
-    var translated = this$1._interpolate(
-      locale, message, linkPlaceholder, host,
-      interpolateMode === 'raw' ? 'string' : interpolateMode,
-      interpolateMode === 'raw' ? undefined : values
-    );
-
-    if (this$1._isFallbackRoot(translated)) {
-      if ("development" !== 'production' && !this$1._silentTranslationWarn) {
-        warn(("Fall back to translate the link placeholder '" + linkPlaceholder + "' with root locale."));
+    } else if (args.length === 2) {
+      if (typeof args[0] === 'string') {
+        locale = args[0];
       }
       /* istanbul ignore if */
-      if (!this$1._root) { throw Error('unexpected error') }
-      var root = this$1._root;
-      translated = root._translate(
-        root._getMessages(), root.locale, root.fallbackLocale,
-        linkPlaceholder, host, interpolateMode, values
-      );
+      if (isObject(args[1]) || Array.isArray(args[1])) {
+        params = args[1];
+      }
     }
-    translated = this$1._warnDefault(locale, linkPlaceholder, translated, host);
 
-    // Replace the link with the translated
-    ret = !translated ? ret : ret.replace(link, translated);
+    return { locale: locale, params: params };
   }
 
-  return ret
-};
-
-VueI18n.prototype._render = function _render (message, interpolateMode, values) {
-  var ret = this._formatter.interpolate(message, values);
-  // if interpolateMode is **not** 'string' ('row'),
-  // return the compiled data (e.g. ['foo', VNode, 'bar']) with formatter
-  return interpolateMode === 'string' ? ret.join('') : ret
-};
-
-VueI18n.prototype._translate = function _translate (
-  messages,
-  locale,
-  fallback,
-  key,
-  host,
-  interpolateMode,
-  args
-) {
-  var res =
-    this._interpolate(locale, messages[locale], key, host, interpolateMode, args);
-  if (!isNull(res)) { return res }
-
-  res = this._interpolate(fallback, messages[fallback], key, host, interpolateMode, args);
-  if (!isNull(res)) {
-    if ("development" !== 'production' && !this._silentTranslationWarn) {
-      warn(("Fall back to translate the keypath '" + key + "' with '" + fallback + "' locale."));
-    }
-    return res
-  } else {
-    return null
+  function getOldChoiceIndexFixed(choice) {
+    return choice ? choice > 1 ? 1 : 0 : 1;
   }
-};
 
-VueI18n.prototype._t = function _t (key, _locale, messages, host) {
-    var values = [], len = arguments.length - 4;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 4 ];
+  function getChoiceIndex(choice, choicesLength) {
+    choice = Math.abs(choice);
 
-  if (!key) { return '' }
+    if (choicesLength === 2) {
+      return getOldChoiceIndexFixed(choice);
+    }
 
-  var parsedArgs = parseArgs.apply(void 0, values);
+    return choice ? Math.min(choice, 2) : 0;
+  }
+
+  function fetchChoice(message, choice) {
+    /* istanbul ignore if */
+    if (!message && typeof message !== 'string') {
+      return null;
+    }
+    var choices = message.split('|');
+
+    choice = getChoiceIndex(choice, choices.length);
+    if (!choices[choice]) {
+      return message;
+    }
+    return choices[choice].trim();
+  }
+
+  function looseClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function remove(arr, item) {
+    if (arr.length) {
+      var index = arr.indexOf(item);
+      if (index > -1) {
+        return arr.splice(index, 1);
+      }
+    }
+  }
+
+  var hasOwnProperty = Object.prototype.hasOwnProperty;
+  function hasOwn(obj, key) {
+    return hasOwnProperty.call(obj, key);
+  }
+
+  function merge(target) {
+    var arguments$1 = arguments;
+
+    var output = Object(target);
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments$1[i];
+      if (source !== undefined && source !== null) {
+        var key = void 0;
+        for (key in source) {
+          if (hasOwn(source, key)) {
+            if (isObject(source[key])) {
+              output[key] = merge(output[key], source[key]);
+            } else {
+              output[key] = source[key];
+            }
+          }
+        }
+      }
+    }
+    return output;
+  }
+
+  var canUseDateTimeFormat = typeof Intl !== 'undefined' && typeof Intl.DateTimeFormat !== 'undefined';
+
+  var canUseNumberFormat = typeof Intl !== 'undefined' && typeof Intl.NumberFormat !== 'undefined';
+
+  /*  */
+
+  function extend(Vue) {
+    Vue.prototype.$t = function (key) {
+      var values = [],
+          len = arguments.length - 1;
+      while (len-- > 0) values[len] = arguments[len + 1];
+
+      var i18n = this.$i18n;
+      return i18n._t.apply(i18n, [key, i18n.locale, i18n._getMessages(), this].concat(values));
+    };
+
+    Vue.prototype.$tc = function (key, choice) {
+      var values = [],
+          len = arguments.length - 2;
+      while (len-- > 0) values[len] = arguments[len + 2];
+
+      var i18n = this.$i18n;
+      return i18n._tc.apply(i18n, [key, i18n.locale, i18n._getMessages(), this, choice].concat(values));
+    };
+
+    Vue.prototype.$te = function (key, locale) {
+      var i18n = this.$i18n;
+      return i18n._te(key, i18n.locale, i18n._getMessages(), locale);
+    };
+
+    Vue.prototype.$d = function (value) {
+      var args = [],
+          len = arguments.length - 1;
+      while (len-- > 0) args[len] = arguments[len + 1];
+
+      return (ref = this.$i18n).d.apply(ref, [value].concat(args));
+      var ref;
+    };
+
+    Vue.prototype.$n = function (value) {
+      var args = [],
+          len = arguments.length - 1;
+      while (len-- > 0) args[len] = arguments[len + 1];
+
+      return (ref = this.$i18n).n.apply(ref, [value].concat(args));
+      var ref;
+    };
+  }
+
+  /*  */
+
+  var mixin = {
+    beforeCreate: function beforeCreate() {
+      var options = this.$options;
+      options.i18n = options.i18n || (options.__i18n ? {} : null);
+
+      if (options.i18n) {
+        if (options.i18n instanceof VueI18n) {
+          // init locale messages via custom blocks
+          if (options.__i18n) {
+            try {
+              var localeMessages = {};
+              options.__i18n.forEach(function (resource) {
+                localeMessages = merge(localeMessages, JSON.parse(resource));
+              });
+              Object.keys(localeMessages).forEach(function (locale) {
+                options.i18n.mergeLocaleMessage(locale, localeMessages[locale]);
+              });
+            } catch (e) {
+              {
+                warn("Cannot parse locale messages via custom blocks.", e);
+              }
+            }
+          }
+          this._i18n = options.i18n;
+          this._i18nWatcher = this._i18n.watchI18nData();
+          this._i18n.subscribeDataChanging(this);
+          this._subscribing = true;
+        } else if (isPlainObject(options.i18n)) {
+          // component local i18n
+          if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
+            options.i18n.root = this.$root.$i18n;
+            options.i18n.fallbackLocale = this.$root.$i18n.fallbackLocale;
+            options.i18n.silentTranslationWarn = this.$root.$i18n.silentTranslationWarn;
+          }
+
+          // init locale messages via custom blocks
+          if (options.__i18n) {
+            try {
+              var localeMessages$1 = {};
+              options.__i18n.forEach(function (resource) {
+                localeMessages$1 = merge(localeMessages$1, JSON.parse(resource));
+              });
+              options.i18n.messages = localeMessages$1;
+            } catch (e) {
+              {
+                warn("Cannot parse locale messages via custom blocks.", e);
+              }
+            }
+          }
+
+          this._i18n = new VueI18n(options.i18n);
+          this._i18nWatcher = this._i18n.watchI18nData();
+          this._i18n.subscribeDataChanging(this);
+          this._subscribing = true;
+
+          if (options.i18n.sync === undefined || !!options.i18n.sync) {
+            this._localeWatcher = this.$i18n.watchLocale();
+          }
+        } else {
+          {
+            warn("Cannot be interpreted 'i18n' option.");
+          }
+        }
+      } else if (this.$root && this.$root.$i18n && this.$root.$i18n instanceof VueI18n) {
+        // root i18n
+        this._i18n = this.$root.$i18n;
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
+      } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
+        // parent i18n
+        this._i18n = options.parent.$i18n;
+        this._i18n.subscribeDataChanging(this);
+        this._subscribing = true;
+      }
+    },
+
+    beforeDestroy: function beforeDestroy() {
+      if (!this._i18n) {
+        return;
+      }
+
+      if (this._subscribing) {
+        this._i18n.unsubscribeDataChanging(this);
+        delete this._subscribing;
+      }
+
+      if (this._i18nWatcher) {
+        this._i18nWatcher();
+        delete this._i18nWatcher;
+      }
+
+      if (this._localeWatcher) {
+        this._localeWatcher();
+        delete this._localeWatcher;
+      }
+
+      this._i18n = null;
+    }
+  };
+
+  /*  */
+
+  var component = {
+    name: 'i18n',
+    functional: true,
+    props: {
+      tag: {
+        type: String,
+        default: 'span'
+      },
+      path: {
+        type: String,
+        required: true
+      },
+      locale: {
+        type: String
+      }
+    },
+    render: function render(h, ref) {
+      var props = ref.props;
+      var data = ref.data;
+      var children = ref.children;
+      var parent = ref.parent;
+
+      var i18n = parent.$i18n;
+      if (!i18n) {
+        {
+          warn('Cannot find VueI18n instance!');
+        }
+        return children;
+      }
+
+      var path = props.path;
+      var locale = props.locale;
+
+      var params = [];
+      locale && params.push(locale);
+      children.forEach(function (child) {
+        return params.push(child);
+      });
+
+      return h(props.tag, data, i18n.i.apply(i18n, [path].concat(params)));
+    }
+  };
+
+  var Vue;
+
+  function install(_Vue) {
+    Vue = _Vue;
+
+    var version = Vue.version && Number(Vue.version.split('.')[0]) || -1;
+    /* istanbul ignore if */
+    if ("development" !== 'production' && install.installed) {
+      warn('already installed.');
+      return;
+    }
+    install.installed = true;
+
+    /* istanbul ignore if */
+    if ("development" !== 'production' && version < 2) {
+      warn("vue-i18n (" + install.version + ") need to use Vue 2.0 or later (Vue: " + Vue.version + ").");
+      return;
+    }
+
+    Object.defineProperty(Vue.prototype, '$i18n', {
+      get: function get() {
+        return this._i18n;
+      }
+    });
+
+    extend(Vue);
+    Vue.mixin(mixin);
+    Vue.component(component.name, component);
+
+    // use object-based merge strategy
+    var strats = Vue.config.optionMergeStrategies;
+    strats.i18n = strats.methods;
+  }
+
+  /*  */
+
+  var BaseFormatter = function BaseFormatter() {
+    this._caches = Object.create(null);
+  };
+
+  BaseFormatter.prototype.interpolate = function interpolate(message, values) {
+    var tokens = this._caches[message];
+    if (!tokens) {
+      tokens = parse(message);
+      this._caches[message] = tokens;
+    }
+    return compile(tokens, values);
+  };
+
+  var RE_TOKEN_LIST_VALUE = /^(\d)+/;
+  var RE_TOKEN_NAMED_VALUE = /^(\w)+/;
+
+  function parse(format) {
+    var tokens = [];
+    var position = 0;
+
+    var text = '';
+    while (position < format.length) {
+      var char = format[position++];
+      if (char === '{') {
+        if (text) {
+          tokens.push({ type: 'text', value: text });
+        }
+
+        text = '';
+        var sub = '';
+        char = format[position++];
+        while (char !== '}') {
+          sub += char;
+          char = format[position++];
+        }
+
+        var type = RE_TOKEN_LIST_VALUE.test(sub) ? 'list' : RE_TOKEN_NAMED_VALUE.test(sub) ? 'named' : 'unknown';
+        tokens.push({ value: sub, type: type });
+      } else if (char === '%') {
+        // when found rails i18n syntax, skip text capture
+        if (format[position] !== '{') {
+          text += char;
+        }
+      } else {
+        text += char;
+      }
+    }
+
+    text && tokens.push({ type: 'text', value: text });
+
+    return tokens;
+  }
+
+  function compile(tokens, values) {
+    var compiled = [];
+    var index = 0;
+
+    var mode = Array.isArray(values) ? 'list' : isObject(values) ? 'named' : 'unknown';
+    if (mode === 'unknown') {
+      return compiled;
+    }
+
+    while (index < tokens.length) {
+      var token = tokens[index];
+      switch (token.type) {
+        case 'text':
+          compiled.push(token.value);
+          break;
+        case 'list':
+          if (mode === 'list') {
+            compiled.push(values[parseInt(token.value, 10)]);
+          } else {
+            {
+              warn("Type of token '" + token.type + "' and format of value '" + mode + "' don't match!");
+            }
+          }
+          break;
+        case 'named':
+          if (mode === 'named') {
+            compiled.push(values[token.value]);
+          } else {
+            {
+              warn("Type of token '" + token.type + "' and format of value '" + mode + "' don't match!");
+            }
+          }
+          break;
+        case 'unknown':
+          {
+            warn("Detect 'unknown' type of token!");
+          }
+          break;
+      }
+      index++;
+    }
+
+    return compiled;
+  }
+
+  /*  */
+
+  /**
+   *  Path paerser
+   *  - Inspired:
+   *    Vue.js Path parser
+   */
+
+  // actions
+  var APPEND = 0;
+  var PUSH = 1;
+  var INC_SUB_PATH_DEPTH = 2;
+  var PUSH_SUB_PATH = 3;
+
+  // states
+  var BEFORE_PATH = 0;
+  var IN_PATH = 1;
+  var BEFORE_IDENT = 2;
+  var IN_IDENT = 3;
+  var IN_SUB_PATH = 4;
+  var IN_SINGLE_QUOTE = 5;
+  var IN_DOUBLE_QUOTE = 6;
+  var AFTER_PATH = 7;
+  var ERROR = 8;
+
+  var pathStateMachine = [];
+
+  pathStateMachine[BEFORE_PATH] = {
+    'ws': [BEFORE_PATH],
+    'ident': [IN_IDENT, APPEND],
+    '[': [IN_SUB_PATH],
+    'eof': [AFTER_PATH]
+  };
+
+  pathStateMachine[IN_PATH] = {
+    'ws': [IN_PATH],
+    '.': [BEFORE_IDENT],
+    '[': [IN_SUB_PATH],
+    'eof': [AFTER_PATH]
+  };
+
+  pathStateMachine[BEFORE_IDENT] = {
+    'ws': [BEFORE_IDENT],
+    'ident': [IN_IDENT, APPEND],
+    '0': [IN_IDENT, APPEND],
+    'number': [IN_IDENT, APPEND]
+  };
+
+  pathStateMachine[IN_IDENT] = {
+    'ident': [IN_IDENT, APPEND],
+    '0': [IN_IDENT, APPEND],
+    'number': [IN_IDENT, APPEND],
+    'ws': [IN_PATH, PUSH],
+    '.': [BEFORE_IDENT, PUSH],
+    '[': [IN_SUB_PATH, PUSH],
+    'eof': [AFTER_PATH, PUSH]
+  };
+
+  pathStateMachine[IN_SUB_PATH] = {
+    "'": [IN_SINGLE_QUOTE, APPEND],
+    '"': [IN_DOUBLE_QUOTE, APPEND],
+    '[': [IN_SUB_PATH, INC_SUB_PATH_DEPTH],
+    ']': [IN_PATH, PUSH_SUB_PATH],
+    'eof': ERROR,
+    'else': [IN_SUB_PATH, APPEND]
+  };
+
+  pathStateMachine[IN_SINGLE_QUOTE] = {
+    "'": [IN_SUB_PATH, APPEND],
+    'eof': ERROR,
+    'else': [IN_SINGLE_QUOTE, APPEND]
+  };
+
+  pathStateMachine[IN_DOUBLE_QUOTE] = {
+    '"': [IN_SUB_PATH, APPEND],
+    'eof': ERROR,
+    'else': [IN_DOUBLE_QUOTE, APPEND]
+  };
+
+  /**
+   * Check if an expression is a literal value.
+   */
+
+  var literalValueRE = /^\s?(true|false|-?[\d.]+|'[^']*'|"[^"]*")\s?$/;
+  function isLiteral(exp) {
+    return literalValueRE.test(exp);
+  }
+
+  /**
+   * Strip quotes from a string
+   */
+
+  function stripQuotes(str) {
+    var a = str.charCodeAt(0);
+    var b = str.charCodeAt(str.length - 1);
+    return a === b && (a === 0x22 || a === 0x27) ? str.slice(1, -1) : str;
+  }
+
+  /**
+   * Determine the type of a character in a keypath.
+   */
+
+  function getPathCharType(ch) {
+    if (ch === undefined || ch === null) {
+      return 'eof';
+    }
+
+    var code = ch.charCodeAt(0);
+
+    switch (code) {
+      case 0x5B: // [
+      case 0x5D: // ]
+      case 0x2E: // .
+      case 0x22: // "
+      case 0x27: // '
+      case 0x30:
+        // 0
+        return ch;
+
+      case 0x5F: // _
+      case 0x24: // $
+      case 0x2D:
+        // -
+        return 'ident';
+
+      case 0x20: // Space
+      case 0x09: // Tab
+      case 0x0A: // Newline
+      case 0x0D: // Return
+      case 0xA0: // No-break space
+      case 0xFEFF: // Byte Order Mark
+      case 0x2028: // Line Separator
+      case 0x2029:
+        // Paragraph Separator
+        return 'ws';
+    }
+
+    // a-z, A-Z
+    if (code >= 0x61 && code <= 0x7A || code >= 0x41 && code <= 0x5A) {
+      return 'ident';
+    }
+
+    // 1-9
+    if (code >= 0x31 && code <= 0x39) {
+      return 'number';
+    }
+
+    return 'else';
+  }
+
+  /**
+   * Format a subPath, return its plain form if it is
+   * a literal string or number. Otherwise prepend the
+   * dynamic indicator (*).
+   */
+
+  function formatSubPath(path) {
+    var trimmed = path.trim();
+    // invalid leading 0
+    if (path.charAt(0) === '0' && isNaN(path)) {
+      return false;
+    }
+
+    return isLiteral(trimmed) ? stripQuotes(trimmed) : '*' + trimmed;
+  }
+
+  /**
+   * Parse a string path into an array of segments
+   */
+
+  function parse$1(path) {
+    var keys = [];
+    var index = -1;
+    var mode = BEFORE_PATH;
+    var subPathDepth = 0;
+    var c;
+    var key;
+    var newChar;
+    var type;
+    var transition;
+    var action;
+    var typeMap;
+    var actions = [];
+
+    actions[PUSH] = function () {
+      if (key !== undefined) {
+        keys.push(key);
+        key = undefined;
+      }
+    };
+
+    actions[APPEND] = function () {
+      if (key === undefined) {
+        key = newChar;
+      } else {
+        key += newChar;
+      }
+    };
+
+    actions[INC_SUB_PATH_DEPTH] = function () {
+      actions[APPEND]();
+      subPathDepth++;
+    };
+
+    actions[PUSH_SUB_PATH] = function () {
+      if (subPathDepth > 0) {
+        subPathDepth--;
+        mode = IN_SUB_PATH;
+        actions[APPEND]();
+      } else {
+        subPathDepth = 0;
+        key = formatSubPath(key);
+        if (key === false) {
+          return false;
+        } else {
+          actions[PUSH]();
+        }
+      }
+    };
+
+    function maybeUnescapeQuote() {
+      var nextChar = path[index + 1];
+      if (mode === IN_SINGLE_QUOTE && nextChar === "'" || mode === IN_DOUBLE_QUOTE && nextChar === '"') {
+        index++;
+        newChar = '\\' + nextChar;
+        actions[APPEND]();
+        return true;
+      }
+    }
+
+    while (mode !== null) {
+      index++;
+      c = path[index];
+
+      if (c === '\\' && maybeUnescapeQuote()) {
+        continue;
+      }
+
+      type = getPathCharType(c);
+      typeMap = pathStateMachine[mode];
+      transition = typeMap[type] || typeMap['else'] || ERROR;
+
+      if (transition === ERROR) {
+        return; // parse error
+      }
+
+      mode = transition[0];
+      action = actions[transition[1]];
+      if (action) {
+        newChar = transition[2];
+        newChar = newChar === undefined ? c : newChar;
+        if (action() === false) {
+          return;
+        }
+      }
+
+      if (mode === AFTER_PATH) {
+        return keys;
+      }
+    }
+  }
+
+  function empty(target) {
+    /* istanbul ignore else */
+    if (Array.isArray(target)) {
+      return target.length === 0;
+    } else {
+      return false;
+    }
+  }
+
+  var I18nPath = function I18nPath() {
+    this._cache = Object.create(null);
+  };
+
+  /**
+   * External parse that check for a cache hit first
+   */
+  I18nPath.prototype.parsePath = function parsePath(path) {
+    var hit = this._cache[path];
+    if (!hit) {
+      hit = parse$1(path);
+      if (hit) {
+        this._cache[path] = hit;
+      }
+    }
+    return hit || [];
+  };
+
+  /**
+   * Get path value from path string
+   */
+  I18nPath.prototype.getPathValue = function getPathValue(obj, path) {
+    if (!isObject(obj)) {
+      return null;
+    }
+
+    var paths = this.parsePath(path);
+    if (empty(paths)) {
+      return null;
+    } else {
+      var length = paths.length;
+      var ret = null;
+      var last = obj;
+      var i = 0;
+      while (i < length) {
+        var value = last[paths[i]];
+        if (value === undefined) {
+          last = null;
+          break;
+        }
+        last = value;
+        i++;
+      }
+
+      ret = last;
+      return ret;
+    }
+  };
+
+  /*  */
+
+  var VueI18n = function VueI18n(options) {
+    var this$1 = this;
+    if (options === void 0) options = {};
+
+    var locale = options.locale || 'en-US';
+    var fallbackLocale = options.fallbackLocale || 'en-US';
+    var messages = options.messages || {};
+    var dateTimeFormats = options.dateTimeFormats || {};
+    var numberFormats = options.numberFormats || {};
+
+    this._vm = null;
+    this._formatter = options.formatter || new BaseFormatter();
+    this._missing = options.missing || null;
+    this._root = options.root || null;
+    this._sync = options.sync === undefined ? true : !!options.sync;
+    this._fallbackRoot = options.fallbackRoot === undefined ? true : !!options.fallbackRoot;
+    this._silentTranslationWarn = options.silentTranslationWarn === undefined ? false : !!options.silentTranslationWarn;
+    this._dateTimeFormatters = {};
+    this._numberFormatters = {};
+    this._path = new I18nPath();
+    this._dataListeners = [];
+
+    this._exist = function (message, key) {
+      if (!message || !key) {
+        return false;
+      }
+      return !isNull(this$1._path.getPathValue(message, key));
+    };
+
+    this._initVM({
+      locale: locale,
+      fallbackLocale: fallbackLocale,
+      messages: messages,
+      dateTimeFormats: dateTimeFormats,
+      numberFormats: numberFormats
+    });
+  };
+
+  var prototypeAccessors = { vm: {}, messages: {}, dateTimeFormats: {}, numberFormats: {}, locale: {}, fallbackLocale: {}, missing: {}, formatter: {}, silentTranslationWarn: {} };
+
+  VueI18n.prototype._initVM = function _initVM(data) {
+    var silent = Vue.config.silent;
+    Vue.config.silent = true;
+    this._vm = new Vue({ data: data });
+    Vue.config.silent = silent;
+  };
+
+  VueI18n.prototype.subscribeDataChanging = function subscribeDataChanging(vm) {
+    this._dataListeners.push(vm);
+  };
+
+  VueI18n.prototype.unsubscribeDataChanging = function unsubscribeDataChanging(vm) {
+    remove(this._dataListeners, vm);
+  };
+
+  VueI18n.prototype.watchI18nData = function watchI18nData() {
+    var self = this;
+    return this._vm.$watch('$data', function () {
+      var i = self._dataListeners.length;
+      while (i--) {
+        Vue.nextTick(function () {
+          self._dataListeners[i] && self._dataListeners[i].$forceUpdate();
+        });
+      }
+    }, { deep: true });
+  };
+
+  VueI18n.prototype.watchLocale = function watchLocale() {
+    /* istanbul ignore if */
+    if (!this._sync || !this._root) {
+      return null;
+    }
+    var target = this._vm;
+    return this._root.vm.$watch('locale', function (val) {
+      target.$set(target, 'locale', val);
+      target.$forceUpdate();
+    }, { immediate: true });
+  };
+
+  prototypeAccessors.vm.get = function () {
+    return this._vm;
+  };
+
+  prototypeAccessors.messages.get = function () {
+    return looseClone(this._getMessages());
+  };
+  prototypeAccessors.dateTimeFormats.get = function () {
+    return looseClone(this._getDateTimeFormats());
+  };
+  prototypeAccessors.numberFormats.get = function () {
+    return looseClone(this._getNumberFormats());
+  };
+
+  prototypeAccessors.locale.get = function () {
+    return this._vm.locale;
+  };
+  prototypeAccessors.locale.set = function (locale) {
+    this._vm.$set(this._vm, 'locale', locale);
+  };
+
+  prototypeAccessors.fallbackLocale.get = function () {
+    return this._vm.fallbackLocale;
+  };
+  prototypeAccessors.fallbackLocale.set = function (locale) {
+    this._vm.$set(this._vm, 'fallbackLocale', locale);
+  };
+
+  prototypeAccessors.missing.get = function () {
+    return this._missing;
+  };
+  prototypeAccessors.missing.set = function (handler) {
+    this._missing = handler;
+  };
+
+  prototypeAccessors.formatter.get = function () {
+    return this._formatter;
+  };
+  prototypeAccessors.formatter.set = function (formatter) {
+    this._formatter = formatter;
+  };
+
+  prototypeAccessors.silentTranslationWarn.get = function () {
+    return this._silentTranslationWarn;
+  };
+  prototypeAccessors.silentTranslationWarn.set = function (silent) {
+    this._silentTranslationWarn = silent;
+  };
+
+  VueI18n.prototype._getMessages = function _getMessages() {
+    return this._vm.messages;
+  };
+  VueI18n.prototype._getDateTimeFormats = function _getDateTimeFormats() {
+    return this._vm.dateTimeFormats;
+  };
+  VueI18n.prototype._getNumberFormats = function _getNumberFormats() {
+    return this._vm.numberFormats;
+  };
+
+  VueI18n.prototype._warnDefault = function _warnDefault(locale, key, result, vm) {
+    if (!isNull(result)) {
+      return result;
+    }
+    if (this.missing) {
+      this.missing.apply(null, [locale, key, vm]);
+    } else {
+      if ("development" !== 'production' && !this._silentTranslationWarn) {
+        warn("Cannot translate the value of keypath '" + key + "'. " + 'Use the value of keypath as default.');
+      }
+    }
+    return key;
+  };
+
+  VueI18n.prototype._isFallbackRoot = function _isFallbackRoot(val) {
+    return !val && !isNull(this._root) && this._fallbackRoot;
+  };
+
+  VueI18n.prototype._interpolate = function _interpolate(locale, message, key, host, interpolateMode, values) {
+    if (!message) {
+      return null;
+    }
+
+    var pathRet = this._path.getPathValue(message, key);
+    if (Array.isArray(pathRet)) {
+      return pathRet;
+    }
+
+    var ret;
+    if (isNull(pathRet)) {
+      /* istanbul ignore else */
+      if (isPlainObject(message)) {
+        ret = message[key];
+        if (typeof ret !== 'string') {
+          if ("development" !== 'production' && !this._silentTranslationWarn) {
+            warn("Value of key '" + key + "' is not a string!");
+          }
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } else {
+      /* istanbul ignore else */
+      if (typeof pathRet === 'string') {
+        ret = pathRet;
+      } else {
+        if ("development" !== 'production' && !this._silentTranslationWarn) {
+          warn("Value of key '" + key + "' is not a string!");
+        }
+        return null;
+      }
+    }
+
+    // Check for the existance of links within the translated string
+    if (ret.indexOf('@:') >= 0) {
+      ret = this._link(locale, message, ret, host, interpolateMode, values);
+    }
+
+    return !values ? ret : this._render(ret, interpolateMode, values);
+  };
+
+  VueI18n.prototype._link = function _link(locale, message, str, host, interpolateMode, values) {
+    var this$1 = this;
+
+    var ret = str;
+
+    // Match all the links within the local
+    // We are going to replace each of
+    // them with its translation
+    var matches = ret.match(/(@:[\w\-_|.]+)/g);
+    for (var idx in matches) {
+      // ie compatible: filter custom array
+      // prototype method
+      if (!matches.hasOwnProperty(idx)) {
+        continue;
+      }
+      var link = matches[idx];
+      // Remove the leading @:
+      var linkPlaceholder = link.substr(2);
+      // Translate the link
+      var translated = this$1._interpolate(locale, message, linkPlaceholder, host, interpolateMode === 'raw' ? 'string' : interpolateMode, interpolateMode === 'raw' ? undefined : values);
+
+      if (this$1._isFallbackRoot(translated)) {
+        if ("development" !== 'production' && !this$1._silentTranslationWarn) {
+          warn("Fall back to translate the link placeholder '" + linkPlaceholder + "' with root locale.");
+        }
+        /* istanbul ignore if */
+        if (!this$1._root) {
+          throw Error('unexpected error');
+        }
+        var root = this$1._root;
+        translated = root._translate(root._getMessages(), root.locale, root.fallbackLocale, linkPlaceholder, host, interpolateMode, values);
+      }
+      translated = this$1._warnDefault(locale, linkPlaceholder, translated, host);
+
+      // Replace the link with the translated
+      ret = !translated ? ret : ret.replace(link, translated);
+    }
+
+    return ret;
+  };
+
+  VueI18n.prototype._render = function _render(message, interpolateMode, values) {
+    var ret = this._formatter.interpolate(message, values);
+    // if interpolateMode is **not** 'string' ('row'),
+    // return the compiled data (e.g. ['foo', VNode, 'bar']) with formatter
+    return interpolateMode === 'string' ? ret.join('') : ret;
+  };
+
+  VueI18n.prototype._translate = function _translate(messages, locale, fallback, key, host, interpolateMode, args) {
+    var res = this._interpolate(locale, messages[locale], key, host, interpolateMode, args);
+    if (!isNull(res)) {
+      return res;
+    }
+
+    res = this._interpolate(fallback, messages[fallback], key, host, interpolateMode, args);
+    if (!isNull(res)) {
+      if ("development" !== 'production' && !this._silentTranslationWarn) {
+        warn("Fall back to translate the keypath '" + key + "' with '" + fallback + "' locale.");
+      }
+      return res;
+    } else {
+      return null;
+    }
+  };
+
+  VueI18n.prototype._t = function _t(key, _locale, messages, host) {
+    var values = [],
+        len = arguments.length - 4;
+    while (len-- > 0) values[len] = arguments[len + 4];
+
+    if (!key) {
+      return '';
+    }
+
+    var parsedArgs = parseArgs.apply(void 0, values);
     var locale = parsedArgs.locale || _locale;
 
-  var ret = this._translate(
-    messages, locale, this.fallbackLocale, key,
-    host, 'string', parsedArgs.params
-  );
-  if (this._isFallbackRoot(ret)) {
-    if ("development" !== 'production' && !this._silentTranslationWarn) {
-      warn(("Fall back to translate the keypath '" + key + "' with root locale."));
+    var ret = this._translate(messages, locale, this.fallbackLocale, key, host, 'string', parsedArgs.params);
+    if (this._isFallbackRoot(ret)) {
+      if ("development" !== 'production' && !this._silentTranslationWarn) {
+        warn("Fall back to translate the keypath '" + key + "' with root locale.");
+      }
+      /* istanbul ignore if */
+      if (!this._root) {
+        throw Error('unexpected error');
+      }
+      return (ref = this._root).t.apply(ref, [key].concat(values));
+    } else {
+      return this._warnDefault(locale, key, ret, host);
     }
+    var ref;
+  };
+
+  VueI18n.prototype.t = function t(key) {
+    var values = [],
+        len = arguments.length - 1;
+    while (len-- > 0) values[len] = arguments[len + 1];
+
+    return (ref = this)._t.apply(ref, [key, this.locale, this._getMessages(), null].concat(values));
+    var ref;
+  };
+
+  VueI18n.prototype._i = function _i(key, locale, messages, host) {
+    var values = [],
+        len = arguments.length - 4;
+    while (len-- > 0) values[len] = arguments[len + 4];
+
+    var ret = this._translate(messages, locale, this.fallbackLocale, key, host, 'raw', values);
+    if (this._isFallbackRoot(ret)) {
+      if ("development" !== 'production' && !this._silentTranslationWarn) {
+        warn("Fall back to interpolate the keypath '" + key + "' with root locale.");
+      }
+      if (!this._root) {
+        throw Error('unexpected error');
+      }
+      return (ref = this._root).i.apply(ref, [key].concat(values));
+    } else {
+      return this._warnDefault(locale, key, ret, host);
+    }
+    var ref;
+  };
+
+  VueI18n.prototype.i = function i(key) {
+    var values = [],
+        len = arguments.length - 1;
+    while (len-- > 0) values[len] = arguments[len + 1];
+
     /* istanbul ignore if */
-    if (!this._root) { throw Error('unexpected error') }
-    return (ref = this._root).t.apply(ref, [ key ].concat( values ))
-  } else {
-    return this._warnDefault(locale, key, ret, host)
-  }
-    var ref;
-};
-
-VueI18n.prototype.t = function t (key) {
-    var values = [], len = arguments.length - 1;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 1 ];
-
-  return (ref = this)._t.apply(ref, [ key, this.locale, this._getMessages(), null ].concat( values ))
-    var ref;
-};
-
-VueI18n.prototype._i = function _i (key, locale, messages, host) {
-    var values = [], len = arguments.length - 4;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 4 ];
-
-  var ret =
-    this._translate(messages, locale, this.fallbackLocale, key, host, 'raw', values);
-  if (this._isFallbackRoot(ret)) {
-    if ("development" !== 'production' && !this._silentTranslationWarn) {
-      warn(("Fall back to interpolate the keypath '" + key + "' with root locale."));
-    }
-    if (!this._root) { throw Error('unexpected error') }
-    return (ref = this._root).i.apply(ref, [ key ].concat( values ))
-  } else {
-    return this._warnDefault(locale, key, ret, host)
-  }
-    var ref;
-};
-
-VueI18n.prototype.i = function i (key) {
-    var values = [], len = arguments.length - 1;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 1 ];
-
-  /* istanbul ignore if */
-  if (!key) { return '' }
-
-  var locale = this.locale;
-  var index = 0;
-  if (typeof values[0] === 'string') {
-    locale = values[0];
-    index = 1;
-  }
-
-  var params = [];
-  for (var i = index; i < values.length; i++) {
-    params.push(values[i]);
+    if (!key) {
+      return '';
     }
 
-    return (ref = this)._i.apply(ref, [ key, locale, this._getMessages(), null ].concat( params ))
-    var ref;
-};
-
-VueI18n.prototype._tc = function _tc (
-  key,
-  _locale,
-  messages,
-  host,
-  choice
-) {
-    var values = [], len = arguments.length - 5;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 5 ];
-
-  if (!key) { return '' }
-  if (choice === undefined) {
-    choice = 1;
-  }
-  return fetchChoice((ref = this)._t.apply(ref, [ key, _locale, messages, host ].concat( values )), choice)
-    var ref;
-};
-
-VueI18n.prototype.tc = function tc (key, choice) {
-    var values = [], len = arguments.length - 2;
-    while ( len-- > 0 ) values[ len ] = arguments[ len + 2 ];
-
-  return (ref = this)._tc.apply(ref, [ key, this.locale, this._getMessages(), null, choice ].concat( values ))
-    var ref;
-};
-
-VueI18n.prototype._te = function _te (key, locale, messages) {
-    var args = [], len = arguments.length - 3;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 3 ];
-
-  var _locale = parseArgs.apply(void 0, args).locale || locale;
-  return this._exist(messages[_locale], key)
-};
-
-VueI18n.prototype.te = function te (key, locale) {
-  return this._te(key, this.locale, this._getMessages(), locale)
-};
-
-VueI18n.prototype.getLocaleMessage = function getLocaleMessage (locale) {
-  return looseClone(this._vm.messages[locale] || {})
-};
-
-VueI18n.prototype.setLocaleMessage = function setLocaleMessage (locale, message) {
-  this._vm.messages[locale] = message;
-};
-
-VueI18n.prototype.mergeLocaleMessage = function mergeLocaleMessage (locale, message) {
-  this._vm.messages[locale] = Vue.util.extend(this._vm.messages[locale] || {}, message);
-};
-
-VueI18n.prototype.getDateTimeFormat = function getDateTimeFormat (locale) {
-  return looseClone(this._vm.dateTimeFormats[locale] || {})
-};
-
-VueI18n.prototype.setDateTimeFormat = function setDateTimeFormat (locale, format) {
-  this._vm.dateTimeFormats[locale] = format;
-};
-
-VueI18n.prototype.mergeDateTimeFormat = function mergeDateTimeFormat (locale, format) {
-  this._vm.dateTimeFormats[locale] = Vue.util.extend(this._vm.dateTimeFormats[locale] || {}, format);
-};
-
-VueI18n.prototype._localizeDateTime = function _localizeDateTime (
-  value,
-  locale,
-  fallback,
-  dateTimeFormats,
-  key
-) {
-  var _locale = locale;
-  var formats = dateTimeFormats[_locale];
-
-  // fallback locale
-  if (isNull(formats) || isNull(formats[key])) {
-    {
-      warn(("Fall back to '" + fallback + "' datetime formats from '" + locale + " datetime formats."));
+    var locale = this.locale;
+    var index = 0;
+    if (typeof values[0] === 'string') {
+      locale = values[0];
+      index = 1;
     }
-    _locale = fallback;
-    formats = dateTimeFormats[_locale];
-  }
 
-  if (isNull(formats) || isNull(formats[key])) {
-    return null
-  } else {
-    var format = formats[key];
-    var id = _locale + "__" + key;
-    var formatter = this._dateTimeFormatters[id];
-    if (!formatter) {
-      formatter = this._dateTimeFormatters[id] = new Intl.DateTimeFormat(_locale, format);
+    var params = [];
+    for (var i = index; i < values.length; i++) {
+      params.push(values[i]);
     }
-    return formatter.format(value)
-  }
-};
 
-VueI18n.prototype._d = function _d (value, locale, key) {
-  /* istanbul ignore if */
-  if ("development" !== 'production' && !VueI18n.availabilities.dateTimeFormat) {
-    warn('Cannot format a Date value due to not support Intl.DateTimeFormat.');
-    return ''
-  }
+    return (ref = this)._i.apply(ref, [key, locale, this._getMessages(), null].concat(params));
+    var ref;
+  };
 
-  if (!key) {
-    return new Intl.DateTimeFormat(locale).format(value)
-  }
+  VueI18n.prototype._tc = function _tc(key, _locale, messages, host, choice) {
+    var values = [],
+        len = arguments.length - 5;
+    while (len-- > 0) values[len] = arguments[len + 5];
 
-  var ret =
-    this._localizeDateTime(value, locale, this.fallbackLocale, this._getDateTimeFormats(), key);
-  if (this._isFallbackRoot(ret)) {
-    {
-      warn(("Fall back to datetime localization of root: key '" + key + "' ."));
+    if (!key) {
+      return '';
     }
+    if (choice === undefined) {
+      choice = 1;
+    }
+    return fetchChoice((ref = this)._t.apply(ref, [key, _locale, messages, host].concat(values)), choice);
+    var ref;
+  };
+
+  VueI18n.prototype.tc = function tc(key, choice) {
+    var values = [],
+        len = arguments.length - 2;
+    while (len-- > 0) values[len] = arguments[len + 2];
+
+    return (ref = this)._tc.apply(ref, [key, this.locale, this._getMessages(), null, choice].concat(values));
+    var ref;
+  };
+
+  VueI18n.prototype._te = function _te(key, locale, messages) {
+    var args = [],
+        len = arguments.length - 3;
+    while (len-- > 0) args[len] = arguments[len + 3];
+
+    var _locale = parseArgs.apply(void 0, args).locale || locale;
+    return this._exist(messages[_locale], key);
+  };
+
+  VueI18n.prototype.te = function te(key, locale) {
+    return this._te(key, this.locale, this._getMessages(), locale);
+  };
+
+  VueI18n.prototype.getLocaleMessage = function getLocaleMessage(locale) {
+    return looseClone(this._vm.messages[locale] || {});
+  };
+
+  VueI18n.prototype.setLocaleMessage = function setLocaleMessage(locale, message) {
+    this._vm.messages[locale] = message;
+  };
+
+  VueI18n.prototype.mergeLocaleMessage = function mergeLocaleMessage(locale, message) {
+    this._vm.messages[locale] = Vue.util.extend(this._vm.messages[locale] || {}, message);
+  };
+
+  VueI18n.prototype.getDateTimeFormat = function getDateTimeFormat(locale) {
+    return looseClone(this._vm.dateTimeFormats[locale] || {});
+  };
+
+  VueI18n.prototype.setDateTimeFormat = function setDateTimeFormat(locale, format) {
+    this._vm.dateTimeFormats[locale] = format;
+  };
+
+  VueI18n.prototype.mergeDateTimeFormat = function mergeDateTimeFormat(locale, format) {
+    this._vm.dateTimeFormats[locale] = Vue.util.extend(this._vm.dateTimeFormats[locale] || {}, format);
+  };
+
+  VueI18n.prototype._localizeDateTime = function _localizeDateTime(value, locale, fallback, dateTimeFormats, key) {
+    var _locale = locale;
+    var formats = dateTimeFormats[_locale];
+
+    // fallback locale
+    if (isNull(formats) || isNull(formats[key])) {
+      {
+        warn("Fall back to '" + fallback + "' datetime formats from '" + locale + " datetime formats.");
+      }
+      _locale = fallback;
+      formats = dateTimeFormats[_locale];
+    }
+
+    if (isNull(formats) || isNull(formats[key])) {
+      return null;
+    } else {
+      var format = formats[key];
+      var id = _locale + "__" + key;
+      var formatter = this._dateTimeFormatters[id];
+      if (!formatter) {
+        formatter = this._dateTimeFormatters[id] = new Intl.DateTimeFormat(_locale, format);
+      }
+      return formatter.format(value);
+    }
+  };
+
+  VueI18n.prototype._d = function _d(value, locale, key) {
     /* istanbul ignore if */
-    if (!this._root) { throw Error('unexpected error') }
-    return this._root.d(value, key, locale)
-  } else {
-    return ret || ''
-  }
-};
+    if ("development" !== 'production' && !VueI18n.availabilities.dateTimeFormat) {
+      warn('Cannot format a Date value due to not support Intl.DateTimeFormat.');
+      return '';
+    }
 
-VueI18n.prototype.d = function d (value) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
+    if (!key) {
+      return new Intl.DateTimeFormat(locale).format(value);
+    }
 
-  var locale = this.locale;
-  var key = null;
+    var ret = this._localizeDateTime(value, locale, this.fallbackLocale, this._getDateTimeFormats(), key);
+    if (this._isFallbackRoot(ret)) {
+      {
+        warn("Fall back to datetime localization of root: key '" + key + "' .");
+      }
+      /* istanbul ignore if */
+      if (!this._root) {
+        throw Error('unexpected error');
+      }
+      return this._root.d(value, key, locale);
+    } else {
+      return ret || '';
+    }
+  };
 
-  if (args.length === 1) {
-    if (typeof args[0] === 'string') {
-      key = args[0];
-    } else if (isObject(args[0])) {
-      if (args[0].locale) {
-        locale = args[0].locale;
+  VueI18n.prototype.d = function d(value) {
+    var args = [],
+        len = arguments.length - 1;
+    while (len-- > 0) args[len] = arguments[len + 1];
+
+    var locale = this.locale;
+    var key = null;
+
+    if (args.length === 1) {
+      if (typeof args[0] === 'string') {
+        key = args[0];
+      } else if (isObject(args[0])) {
+        if (args[0].locale) {
+          locale = args[0].locale;
         }
         if (args[0].key) {
-        key = args[0].key;
+          key = args[0].key;
+        }
       }
-    }
-  } else if (args.length === 2) {
+    } else if (args.length === 2) {
       if (typeof args[0] === 'string') {
-      key = args[0];
+        key = args[0];
+      }
+      if (typeof args[1] === 'string') {
+        locale = args[1];
+      }
     }
-    if (typeof args[1] === 'string') {
-      locale = args[1];
+
+    return this._d(value, locale, key);
+  };
+
+  VueI18n.prototype.getNumberFormat = function getNumberFormat(locale) {
+    return looseClone(this._vm.numberFormats[locale] || {});
+  };
+
+  VueI18n.prototype.setNumberFormat = function setNumberFormat(locale, format) {
+    this._vm.numberFormats[locale] = format;
+  };
+
+  VueI18n.prototype.mergeNumberFormat = function mergeNumberFormat(locale, format) {
+    this._vm.numberFormats[locale] = Vue.util.extend(this._vm.numberFormats[locale] || {}, format);
+  };
+
+  VueI18n.prototype._localizeNumber = function _localizeNumber(value, locale, fallback, numberFormats, key) {
+    var _locale = locale;
+    var formats = numberFormats[_locale];
+
+    // fallback locale
+    if (isNull(formats) || isNull(formats[key])) {
+      {
+        warn("Fall back to '" + fallback + "' number formats from '" + locale + " number formats.");
+      }
+      _locale = fallback;
+      formats = numberFormats[_locale];
     }
-  }
 
-  return this._d(value, locale, key)
-};
-
-VueI18n.prototype.getNumberFormat = function getNumberFormat (locale) {
-  return looseClone(this._vm.numberFormats[locale] || {})
-};
-
-VueI18n.prototype.setNumberFormat = function setNumberFormat (locale, format) {
-  this._vm.numberFormats[locale] = format;
-};
-
-VueI18n.prototype.mergeNumberFormat = function mergeNumberFormat (locale, format) {
-  this._vm.numberFormats[locale] = Vue.util.extend(this._vm.numberFormats[locale] || {}, format);
-};
-
-VueI18n.prototype._localizeNumber = function _localizeNumber (
-  value,
-  locale,
-  fallback,
-  numberFormats,
-  key
-) {
-  var _locale = locale;
-  var formats = numberFormats[_locale];
-
-  // fallback locale
-  if (isNull(formats) || isNull(formats[key])) {
-    {
-      warn(("Fall back to '" + fallback + "' number formats from '" + locale + " number formats."));
+    if (isNull(formats) || isNull(formats[key])) {
+      return null;
+    } else {
+      var format = formats[key];
+      var id = _locale + "__" + key;
+      var formatter = this._numberFormatters[id];
+      if (!formatter) {
+        formatter = this._numberFormatters[id] = new Intl.NumberFormat(_locale, format);
+      }
+      return formatter.format(value);
     }
-    _locale = fallback;
-    formats = numberFormats[_locale];
-  }
+  };
 
-  if (isNull(formats) || isNull(formats[key])) {
-    return null
-  } else {
-    var format = formats[key];
-    var id = _locale + "__" + key;
-    var formatter = this._numberFormatters[id];
-    if (!formatter) {
-      formatter = this._numberFormatters[id] = new Intl.NumberFormat(_locale, format);
-    }
-    return formatter.format(value)
-  }
-};
-
-VueI18n.prototype._n = function _n (value, locale, key) {
-  /* istanbul ignore if */
-  if ("development" !== 'production' && !VueI18n.availabilities.numberFormat) {
-    warn('Cannot format a Date value due to not support Intl.NumberFormat.');
-    return ''
-  }
-
-  if (!key) {
-    return new Intl.NumberFormat(locale).format(value)
-  }
-
-  var ret =
-    this._localizeNumber(value, locale, this.fallbackLocale, this._getNumberFormats(), key);
-  if (this._isFallbackRoot(ret)) {
-    {
-      warn(("Fall back to number localization of root: key '" + key + "' ."));
-    }
+  VueI18n.prototype._n = function _n(value, locale, key) {
     /* istanbul ignore if */
-    if (!this._root) { throw Error('unexpected error') }
-    return this._root.n(value, key, locale)
-  } else {
-    return ret || ''
+    if ("development" !== 'production' && !VueI18n.availabilities.numberFormat) {
+      warn('Cannot format a Date value due to not support Intl.NumberFormat.');
+      return '';
+    }
+
+    if (!key) {
+      return new Intl.NumberFormat(locale).format(value);
+    }
+
+    var ret = this._localizeNumber(value, locale, this.fallbackLocale, this._getNumberFormats(), key);
+    if (this._isFallbackRoot(ret)) {
+      {
+        warn("Fall back to number localization of root: key '" + key + "' .");
+      }
+      /* istanbul ignore if */
+      if (!this._root) {
+        throw Error('unexpected error');
+      }
+      return this._root.n(value, key, locale);
+    } else {
+      return ret || '';
+    }
+  };
+
+  VueI18n.prototype.n = function n(value) {
+    var args = [],
+        len = arguments.length - 1;
+    while (len-- > 0) args[len] = arguments[len + 1];
+
+    var locale = this.locale;
+    var key = null;
+
+    if (args.length === 1) {
+      if (typeof args[0] === 'string') {
+        key = args[0];
+      } else if (isObject(args[0])) {
+        if (args[0].locale) {
+          locale = args[0].locale;
+        }
+        if (args[0].key) {
+          key = args[0].key;
+        }
+      }
+    } else if (args.length === 2) {
+      if (typeof args[0] === 'string') {
+        key = args[0];
+      }
+      if (typeof args[1] === 'string') {
+        locale = args[1];
+      }
+    }
+
+    return this._n(value, locale, key);
+  };
+
+  Object.defineProperties(VueI18n.prototype, prototypeAccessors);
+
+  VueI18n.availabilities = {
+    dateTimeFormat: canUseDateTimeFormat,
+    numberFormat: canUseNumberFormat
+  };
+  VueI18n.install = install;
+  VueI18n.version = '7.1.1';
+
+  /* istanbul ignore if */
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueI18n);
   }
-};
 
-VueI18n.prototype.n = function n (value) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-  var locale = this.locale;
-  var key = null;
-
-  if (args.length === 1) {
-    if (typeof args[0] === 'string') {
-      key = args[0];
-    } else if (isObject(args[0])) {
-      if (args[0].locale) {
-        locale = args[0].locale;
-      }
-      if (args[0].key) {
-        key = args[0].key;
-      }
-    }
-  } else if (args.length === 2) {
-    if (typeof args[0] === 'string') {
-      key = args[0];
-    }
-    if (typeof args[1] === 'string') {
-      locale = args[1];
-      }
-    }
-
-    return this._n(value, locale, key)
-};
-
-Object.defineProperties( VueI18n.prototype, prototypeAccessors );
-
-VueI18n.availabilities = {
-  dateTimeFormat: canUseDateTimeFormat,
-  numberFormat: canUseNumberFormat
-};
-VueI18n.install = install;
-VueI18n.version = '7.1.1';
-
-/* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(VueI18n);
-}
-
-return VueI18n;
-
-})));
+  return VueI18n;
+});
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
 var api_version = "v1";
-var aas_url ='http://192.168.99.100:7101/aas';
-var api_url='http://192.168.99.100:7101/aas/api/v1/';
-var login_url='http://192.168.99.100:7101/aas/login';
-var quickegateway='http://192.168.99.100:7105/app/';
+var aas_url = 'http://192.168.99.100:7101/aas';
+var api_url = 'http://192.168.99.100:7101/aas/api/v1/';
+var login_url = 'http://192.168.99.100:7101/aas/login';
+var quickegateway = 'http://192.168.99.100:7105/app/';
 var dts_url = 'http://192.168.99.100:7104/dataservice';
 var quickegatewayImages = 'http://192.168.99.100:7105/app/images';
 var quickegatewayViews = 'http://192.168.99.100:7105/app/views';
-var emps_api_url='http://localhost:8080/emps/';//'https://test2.y3quick-e.com/emps/';//
-var mds_api_url='https://test2.y3quick-e.com/mds/';
-var tawk_src = 'https://embed.tawk.to/599e2f8db6e907673de09375/default';//'https://embed.tawk.to/599d3cdb4fe3a1168ead959f/default';//
+var emps_api_url = 'http://localhost:8080/emps/'; //'https://test2.y3quick-e.com/emps/';//
+var mds_api_url = 'https://test2.y3quick-e.com/mds/';
+var tawk_src = 'https://embed.tawk.to/599e2f8db6e907673de09375/default'; //'https://embed.tawk.to/599d3cdb4fe3a1168ead959f/default';//
 
 /*** EXPORTS FROM exports-loader ***/
 exports["emps_api_url"] = (emps_api_url);
@@ -12886,23 +11842,6 @@ exports["tawk_src"] = (tawk_src);
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(e){!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function(e){return function(){function t(e,t,n){return g({type:O.error,iconClass:m().iconClasses.error,message:e,optionsOverride:n,title:t})}function n(t,n){return t||(t=m()),v=e("#"+t.containerId),v.length?v:(n&&(v=u(t)),v)}function i(e,t,n){return g({type:O.info,iconClass:m().iconClasses.info,message:e,optionsOverride:n,title:t})}function o(e){w=e}function s(e,t,n){return g({type:O.success,iconClass:m().iconClasses.success,message:e,optionsOverride:n,title:t})}function a(e,t,n){return g({type:O.warning,iconClass:m().iconClasses.warning,message:e,optionsOverride:n,title:t})}function r(e,t){var i=m();v||n(i),l(e,i,t)||d(i)}function c(t){var i=m();return v||n(i),t&&0===e(":focus",t).length?void h(t):void(v.children().length&&v.remove())}function d(t){for(var n=v.children(),i=n.length-1;i>=0;i--)l(e(n[i]),t)}function l(t,n,i){var o=i&&i.force?i.force:!1;return t&&(o||0===e(":focus",t).length)?(t[n.hideMethod]({duration:n.hideDuration,easing:n.hideEasing,complete:function(){h(t)}}),!0):!1}function u(t){return v=e("<div/>").attr("id",t.containerId).addClass(t.positionClass).attr("aria-live","polite").attr("role","alert"),v.appendTo(e(t.target)),v}function p(){return{tapToDismiss:!0,toastClass:"toast",containerId:"toast-container",debug:!1,showMethod:"fadeIn",showDuration:300,showEasing:"swing",onShown:void 0,hideMethod:"fadeOut",hideDuration:1e3,hideEasing:"swing",onHidden:void 0,closeMethod:!1,closeDuration:!1,closeEasing:!1,extendedTimeOut:1e3,iconClasses:{error:"toast-error",info:"toast-info",success:"toast-success",warning:"toast-warning"},iconClass:"toast-info",positionClass:"toast-top-right",timeOut:5e3,titleClass:"toast-title",messageClass:"toast-message",escapeHtml:!1,target:"body",closeHtml:'<button type="button">&times;</button>',newestOnTop:!0,preventDuplicates:!1,progressBar:!1}}function f(e){w&&w(e)}function g(t){function i(e){return null==e&&(e=""),new String(e).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function o(){r(),d(),l(),u(),p(),c()}function s(){y.hover(b,O),!x.onclick&&x.tapToDismiss&&y.click(w),x.closeButton&&k&&k.click(function(e){e.stopPropagation?e.stopPropagation():void 0!==e.cancelBubble&&e.cancelBubble!==!0&&(e.cancelBubble=!0),w(!0)}),x.onclick&&y.click(function(e){x.onclick(e),w()})}function a(){y.hide(),y[x.showMethod]({duration:x.showDuration,easing:x.showEasing,complete:x.onShown}),x.timeOut>0&&(H=setTimeout(w,x.timeOut),q.maxHideTime=parseFloat(x.timeOut),q.hideEta=(new Date).getTime()+q.maxHideTime,x.progressBar&&(q.intervalId=setInterval(D,10)))}function r(){t.iconClass&&y.addClass(x.toastClass).addClass(E)}function c(){x.newestOnTop?v.prepend(y):v.append(y)}function d(){t.title&&(I.append(x.escapeHtml?i(t.title):t.title).addClass(x.titleClass),y.append(I))}function l(){t.message&&(M.append(x.escapeHtml?i(t.message):t.message).addClass(x.messageClass),y.append(M))}function u(){x.closeButton&&(k.addClass("toast-close-button").attr("role","button"),y.prepend(k))}function p(){x.progressBar&&(B.addClass("toast-progress"),y.prepend(B))}function g(e,t){if(e.preventDuplicates){if(t.message===C)return!0;C=t.message}return!1}function w(t){var n=t&&x.closeMethod!==!1?x.closeMethod:x.hideMethod,i=t&&x.closeDuration!==!1?x.closeDuration:x.hideDuration,o=t&&x.closeEasing!==!1?x.closeEasing:x.hideEasing;return!e(":focus",y).length||t?(clearTimeout(q.intervalId),y[n]({duration:i,easing:o,complete:function(){h(y),x.onHidden&&"hidden"!==j.state&&x.onHidden(),j.state="hidden",j.endTime=new Date,f(j)}})):void 0}function O(){(x.timeOut>0||x.extendedTimeOut>0)&&(H=setTimeout(w,x.extendedTimeOut),q.maxHideTime=parseFloat(x.extendedTimeOut),q.hideEta=(new Date).getTime()+q.maxHideTime)}function b(){clearTimeout(H),q.hideEta=0,y.stop(!0,!0)[x.showMethod]({duration:x.showDuration,easing:x.showEasing})}function D(){var e=(q.hideEta-(new Date).getTime())/q.maxHideTime*100;B.width(e+"%")}var x=m(),E=t.iconClass||x.iconClass;if("undefined"!=typeof t.optionsOverride&&(x=e.extend(x,t.optionsOverride),E=t.optionsOverride.iconClass||E),!g(x,t)){T++,v=n(x,!0);var H=null,y=e("<div/>"),I=e("<div/>"),M=e("<div/>"),B=e("<div/>"),k=e(x.closeHtml),q={intervalId:null,hideEta:null,maxHideTime:null},j={toastId:T,state:"visible",startTime:new Date,options:x,map:t};return o(),a(),s(),f(j),x.debug&&console&&console.log(j),y}}function m(){return e.extend({},p(),b.options)}function h(e){v||(v=n()),e.is(":visible")||(e.remove(),e=null,0===v.children().length&&(v.remove(),C=void 0))}var v,w,C,T=0,O={error:"error",info:"info",success:"success",warning:"warning"},b={clear:r,remove:c,error:t,getContainer:n,info:i,options:{},subscribe:o,success:s,version:"2.1.2",warning:a};return b}()}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))}(__webpack_require__(10));
-//# sourceMappingURL=toastr.js.map
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = function() {
-	throw new Error("define cannot be used indirect");
-};
-
-
-/***/ }),
-/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*/
@@ -12915,121 +11854,137 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 	Alertify = function () {
 
 		var _alertify = {},
-		    dialogs   = {},
-		    isopen    = false,
-		    keys      = { ENTER: 13, ESC: 27, SPACE: 32 },
-		    queue     = [],
-		    $, btnCancel, btnOK, btnReset, btnResetBack, btnFocus, elCallee, elCover, elDialog, elLog, form, input, getTransitionEvent;
+		    dialogs = {},
+		    isopen = false,
+		    keys = { ENTER: 13, ESC: 27, SPACE: 32 },
+		    queue = [],
+		    $,
+		    btnCancel,
+		    btnOK,
+		    btnReset,
+		    btnResetBack,
+		    btnFocus,
+		    elCallee,
+		    elCover,
+		    elDialog,
+		    elLog,
+		    form,
+		    input,
+		    getTransitionEvent;
 
 		/**
-		 * Markup pieces
-		 * @type {Object}
-		 */
+   * Markup pieces
+   * @type {Object}
+   */
 		dialogs = {
-			buttons : {
-				holder : "<nav class=\"alertify-buttons\">{{buttons}}</nav>",
-				submit : "<button type=\"submit\" class=\"alertify-button alertify-button-ok\" id=\"alertify-ok\">{{ok}}</button>",
-				ok     : "<button class=\"alertify-button alertify-button-ok\" id=\"alertify-ok\">{{ok}}</button>",
-				cancel : "<button class=\"alertify-button alertify-button-cancel\" id=\"alertify-cancel\">{{cancel}}</button>"
+			buttons: {
+				holder: "<nav class=\"alertify-buttons\">{{buttons}}</nav>",
+				submit: "<button type=\"submit\" class=\"alertify-button alertify-button-ok\" id=\"alertify-ok\">{{ok}}</button>",
+				ok: "<button class=\"alertify-button alertify-button-ok\" id=\"alertify-ok\">{{ok}}</button>",
+				cancel: "<button class=\"alertify-button alertify-button-cancel\" id=\"alertify-cancel\">{{cancel}}</button>"
 			},
-			input   : "<div class=\"alertify-text-wrapper\"><input type=\"text\" class=\"alertify-text\" id=\"alertify-text\"></div>",
-			message : "<p class=\"alertify-message\">{{message}}</p>",
-			log     : "<article class=\"alertify-log{{class}}\">{{message}}</article>"
+			input: "<div class=\"alertify-text-wrapper\"><input type=\"text\" class=\"alertify-text\" id=\"alertify-text\"></div>",
+			message: "<p class=\"alertify-message\">{{message}}</p>",
+			log: "<article class=\"alertify-log{{class}}\">{{message}}</article>"
 		};
 
 		/**
-		 * Return the proper transitionend event
-		 * @return {String}    Transition type string
-		 */
+   * Return the proper transitionend event
+   * @return {String}    Transition type string
+   */
 		getTransitionEvent = function () {
 			var t,
 			    type,
-			    supported   = false,
-			    el          = document.createElement("fakeelement"),
+			    supported = false,
+			    el = document.createElement("fakeelement"),
 			    transitions = {
-				    "WebkitTransition" : "webkitTransitionEnd",
-				    "MozTransition"    : "transitionend",
-				    "OTransition"      : "otransitionend",
-				    "transition"       : "transitionend"
-			    };
+				"WebkitTransition": "webkitTransitionEnd",
+				"MozTransition": "transitionend",
+				"OTransition": "otransitionend",
+				"transition": "transitionend"
+			};
 
 			for (t in transitions) {
 				if (el.style[t] !== undefined) {
-					type      = transitions[t];
+					type = transitions[t];
 					supported = true;
 					break;
 				}
 			}
 
 			return {
-				type      : type,
-				supported : supported
+				type: type,
+				supported: supported
 			};
 		};
 
 		/**
-		 * Shorthand for document.getElementById()
-		 *
-		 * @param  {String} id    A specific element ID
-		 * @return {Object}       HTML element
-		 */
+   * Shorthand for document.getElementById()
+   *
+   * @param  {String} id    A specific element ID
+   * @return {Object}       HTML element
+   */
 		$ = function (id) {
 			return document.getElementById(id);
 		};
 
 		/**
-		 * Alertify private object
-		 * @type {Object}
-		 */
+   * Alertify private object
+   * @type {Object}
+   */
 		_alertify = {
 
 			/**
-			 * Labels object
-			 * @type {Object}
-			 */
-			labels : {
-				ok     : "OK",
-				cancel : "Cancel"
+    * Labels object
+    * @type {Object}
+    */
+			labels: {
+				ok: "OK",
+				cancel: "Cancel"
 			},
 
 			/**
-			 * Delay number
-			 * @type {Number}
-			 */
-			delay : 5000,
+    * Delay number
+    * @type {Number}
+    */
+			delay: 5000,
 
 			/**
-			 * Whether buttons are reversed (default is secondary/primary)
-			 * @type {Boolean}
-			 */
-			buttonReverse : false,
+    * Whether buttons are reversed (default is secondary/primary)
+    * @type {Boolean}
+    */
+			buttonReverse: false,
 
 			/**
-			 * Which button should be focused by default
-			 * @type {String}	"ok" (default), "cancel", or "none"
-			 */
-			buttonFocus : "ok",
+    * Which button should be focused by default
+    * @type {String}	"ok" (default), "cancel", or "none"
+    */
+			buttonFocus: "ok",
 
 			/**
-			 * Set the transition event on load
-			 * @type {[type]}
-			 */
-			transition : undefined,
+    * Set the transition event on load
+    * @type {[type]}
+    */
+			transition: undefined,
 
 			/**
-			 * Set the proper button click events
-			 *
-			 * @param {Function} fn    [Optional] Callback function
-			 *
-			 * @return {undefined}
-			 */
-			addListeners : function (fn) {
-				var hasOK     = (typeof btnOK !== "undefined"),
-				    hasCancel = (typeof btnCancel !== "undefined"),
-				    hasInput  = (typeof input !== "undefined"),
-				    val       = "",
-				    self      = this,
-				    ok, cancel, common, key, reset;
+    * Set the proper button click events
+    *
+    * @param {Function} fn    [Optional] Callback function
+    *
+    * @return {undefined}
+    */
+			addListeners: function (fn) {
+				var hasOK = typeof btnOK !== "undefined",
+				    hasCancel = typeof btnCancel !== "undefined",
+				    hasInput = typeof input !== "undefined",
+				    val = "",
+				    self = this,
+				    ok,
+				    cancel,
+				    common,
+				    key,
+				    reset;
 
 				// ok event handler
 				ok = function (event) {
@@ -13039,8 +11994,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 					if (typeof fn === "function") {
 						if (typeof input !== "undefined") {
 							fn(true, val);
-						}
-						else fn(true);
+						} else fn(true);
 					}
 					return false;
 				};
@@ -13065,15 +12019,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 				// keyup handler
 				key = function (event) {
 					var keyCode = event.keyCode;
-					if ((keyCode === keys.SPACE && !hasInput) || (hasInput && keyCode === keys.ENTER)) ok(event);
+					if (keyCode === keys.SPACE && !hasInput || hasInput && keyCode === keys.ENTER) ok(event);
 					if (keyCode === keys.ESC && hasCancel) cancel(event);
 				};
 
 				// reset focus to first item in the dialog
 				reset = function (event) {
-					if (hasInput) input.focus();
-					else if (!hasCancel || self.buttonReverse) btnOK.focus();
-					else btnCancel.focus();
+					if (hasInput) input.focus();else if (!hasCancel || self.buttonReverse) btnOK.focus();else btnCancel.focus();
 				};
 
 				// handle reset focus link
@@ -13094,15 +12046,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Bind events to elements
-			 *
-			 * @param  {Object}   el       HTML Object
-			 * @param  {Event}    event    Event to attach to element
-			 * @param  {Function} fn       Callback function
-			 *
-			 * @return {undefined}
-			 */
-			bind : function (el, event, fn) {
+    * Bind events to elements
+    *
+    * @param  {Object}   el       HTML Object
+    * @param  {Event}    event    Event to attach to element
+    * @param  {Function} fn       Callback function
+    *
+    * @return {undefined}
+    */
+			bind: function (el, event, fn) {
 				if (typeof el.addEventListener === "function") {
 					el.addEventListener(event, fn, false);
 				} else if (el.attachEvent) {
@@ -13111,11 +12063,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Use alertify as the global error handler (using window.onerror)
-			 *
-			 * @return {boolean} success
-			 */
-			handleErrors : function () {
+    * Use alertify as the global error handler (using window.onerror)
+    *
+    * @return {boolean} success
+    */
+			handleErrors: function () {
 				if (typeof global.onerror !== "undefined") {
 					var self = this;
 					global.onerror = function (msg, url, line) {
@@ -13128,29 +12080,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Append button HTML strings
-			 *
-			 * @param {String} secondary    The secondary button HTML string
-			 * @param {String} primary      The primary button HTML string
-			 *
-			 * @return {String}             The appended button HTML strings
-			 */
-			appendButtons : function (secondary, primary) {
+    * Append button HTML strings
+    *
+    * @param {String} secondary    The secondary button HTML string
+    * @param {String} primary      The primary button HTML string
+    *
+    * @return {String}             The appended button HTML strings
+    */
+			appendButtons: function (secondary, primary) {
 				return this.buttonReverse ? primary + secondary : secondary + primary;
 			},
 
 			/**
-			 * Build the proper message box
-			 *
-			 * @param  {Object} item    Current object in the queue
-			 *
-			 * @return {String}         An HTML string of the message box
-			 */
-			build : function (item) {
-				var html    = "",
-				    type    = item.type,
+    * Build the proper message box
+    *
+    * @param  {Object} item    Current object in the queue
+    *
+    * @return {String}         An HTML string of the message box
+    */
+			build: function (item) {
+				var html = "",
+				    type = item.type,
 				    message = item.message,
-				    css     = item.cssClass || "";
+				    css = item.cssClass || "";
 
 				html += "<div class=\"alertify-dialog\">";
 				html += "<a id=\"alertify-resetFocusBack\" class=\"alertify-resetFocus\" href=\"#\">Reset Focus</a>";
@@ -13174,40 +12126,41 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 				html += "</div>";
 
 				switch (type) {
-				case "confirm":
-					html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.cancel, dialogs.buttons.ok));
-					html = html.replace("{{ok}}", this.labels.ok).replace("{{cancel}}", this.labels.cancel);
-					break;
-				case "prompt":
-					html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.cancel, dialogs.buttons.submit));
-					html = html.replace("{{ok}}", this.labels.ok).replace("{{cancel}}", this.labels.cancel);
-					break;
-				case "alert":
-					html = html.replace("{{buttons}}", dialogs.buttons.ok);
-					html = html.replace("{{ok}}", this.labels.ok);
-					break;
-				default:
-					break;
+					case "confirm":
+						html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.cancel, dialogs.buttons.ok));
+						html = html.replace("{{ok}}", this.labels.ok).replace("{{cancel}}", this.labels.cancel);
+						break;
+					case "prompt":
+						html = html.replace("{{buttons}}", this.appendButtons(dialogs.buttons.cancel, dialogs.buttons.submit));
+						html = html.replace("{{ok}}", this.labels.ok).replace("{{cancel}}", this.labels.cancel);
+						break;
+					case "alert":
+						html = html.replace("{{buttons}}", dialogs.buttons.ok);
+						html = html.replace("{{ok}}", this.labels.ok);
+						break;
+					default:
+						break;
 				}
 
 				elDialog.className = "alertify alertify-" + type + " " + css;
-				elCover.className  = "alertify-cover";
+				elCover.className = "alertify-cover";
 				return html;
 			},
 
 			/**
-			 * Close the log messages
-			 *
-			 * @param  {Object} elem    HTML Element of log message to close
-			 * @param  {Number} wait    [optional] Time (in ms) to wait before automatically hiding the message, if 0 never hide
-			 *
-			 * @return {undefined}
-			 */
-			close : function (elem, wait) {
+    * Close the log messages
+    *
+    * @param  {Object} elem    HTML Element of log message to close
+    * @param  {Number} wait    [optional] Time (in ms) to wait before automatically hiding the message, if 0 never hide
+    *
+    * @return {undefined}
+    */
+			close: function (elem, wait) {
 				// Unary Plus: +"2" === 2
-				var timer = (wait && !isNaN(wait)) ? +wait : this.delay,
-				    self  = this,
-				    hideElement, transitionDone;
+				var timer = wait && !isNaN(wait) ? +wait : this.delay,
+				    self = this,
+				    hideElement,
+				    transitionDone;
 
 				// set click event on log messages
 				this.bind(elem, "click", function () {
@@ -13241,21 +12194,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 				// never close (until click) if wait is set to 0
 				if (wait === 0) return;
 				// set timeout to auto close the log message
-				setTimeout(function () { hideElement(elem); }, timer);
+				setTimeout(function () {
+					hideElement(elem);
+				}, timer);
 			},
 
 			/**
-			 * Create a dialog box
-			 *
-			 * @param  {String}   message        The message passed from the callee
-			 * @param  {String}   type           Type of dialog to create
-			 * @param  {Function} fn             [Optional] Callback function
-			 * @param  {String}   placeholder    [Optional] Default value for prompt input field
-			 * @param  {String}   cssClass       [Optional] Class(es) to append to dialog box
-			 *
-			 * @return {Object}
-			 */
-			dialog : function (message, type, fn, placeholder, cssClass) {
+    * Create a dialog box
+    *
+    * @param  {String}   message        The message passed from the callee
+    * @param  {String}   type           Type of dialog to create
+    * @param  {Function} fn             [Optional] Callback function
+    * @param  {String}   placeholder    [Optional] Default value for prompt input field
+    * @param  {String}   cssClass       [Optional] Class(es) to append to dialog box
+    *
+    * @return {Object}
+    */
+			dialog: function (message, type, fn, placeholder, cssClass) {
 				// set the current active element
 				// this allows the keyboard focus to be resetted
 				// after the dialog box is closed
@@ -13263,8 +12218,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 				// check to ensure the alertify dialog element
 				// has been successfully created
 				var check = function () {
-					if ((elLog && elLog.scrollTop !== null) && (elCover && elCover.scrollTop !== null)) return;
-					else check();
+					if (elLog && elLog.scrollTop !== null && elCover && elCover.scrollTop !== null) return;else check();
 				};
 				// error catching
 				if (typeof message !== "string") throw new Error("message must be a string");
@@ -13281,13 +12235,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Extend the log method to create custom methods
-			 *
-			 * @param  {String} type    Custom method name
-			 *
-			 * @return {Function}
-			 */
-			extend : function (type) {
+    * Extend the log method to create custom methods
+    *
+    * @param  {String} type    Custom method name
+    *
+    * @return {Function}
+    */
+			extend: function (type) {
 				if (typeof type !== "string") throw new Error("extend method must have exactly one paramter");
 				return function (message, wait) {
 					this.log(message, type, wait);
@@ -13296,18 +12250,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Hide the dialog and rest to defaults
-			 *
-			 * @return {undefined}
-			 */
-			hide : function () {
+    * Hide the dialog and rest to defaults
+    *
+    * @return {undefined}
+    */
+			hide: function () {
 				var transitionDone,
 				    self = this;
 				// remove reference from queue
-				queue.splice(0,1);
+				queue.splice(0, 1);
 				// if items remaining in the queue
-				if (queue.length > 0) this.setup(true);
-				else {
+				if (queue.length > 0) this.setup(true);else {
 					isopen = false;
 					// Hide the dialog box after transition
 					// This ensure it doens't block any element from being clicked
@@ -13323,7 +12276,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 					} else {
 						elDialog.className = "alertify alertify-hide alertify-hidden alertify-isHidden";
 					}
-					elCover.className  = "alertify-cover alertify-cover-hidden";
+					elCover.className = "alertify-cover alertify-cover-hidden";
 					// set focus to the last element or body
 					// after the dialog is closed
 					elCallee.focus();
@@ -13331,12 +12284,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Initialize Alertify
-			 * Create the 2 main elements
-			 *
-			 * @return {undefined}
-			 */
-			init : function () {
+    * Initialize Alertify
+    * Create the 2 main elements
+    *
+    * @return {undefined}
+    */
+			init: function () {
 				// ensure legacy browsers support html5 tags
 				document.createElement("nav");
 				document.createElement("article");
@@ -13373,20 +12326,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Show a new log message box
-			 *
-			 * @param  {String} message    The message passed from the callee
-			 * @param  {String} type       [Optional] Optional type of log message
-			 * @param  {Number} wait       [Optional] Time (in ms) to wait before auto-hiding the log
-			 *
-			 * @return {Object}
-			 */
-			log : function (message, type, wait) {
+    * Show a new log message box
+    *
+    * @param  {String} message    The message passed from the callee
+    * @param  {String} type       [Optional] Optional type of log message
+    * @param  {Number} wait       [Optional] Time (in ms) to wait before auto-hiding the log
+    *
+    * @return {Object}
+    */
+			log: function (message, type, wait) {
 				// check to ensure the alertify dialog element
 				// has been successfully created
 				var check = function () {
-					if (elLog && elLog.scrollTop !== null) return;
-					else check();
+					if (elLog && elLog.scrollTop !== null) return;else check();
 				};
 				// initialize alertify if it hasn't already been done
 				this.init();
@@ -13398,35 +12350,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Add new log message
-			 * If a type is passed, a class name "alertify-log-{type}" will get added.
-			 * This allows for custom look and feel for various types of notifications.
-			 *
-			 * @param  {String} message    The message passed from the callee
-			 * @param  {String} type       [Optional] Type of log message
-			 * @param  {Number} wait       [Optional] Time (in ms) to wait before auto-hiding
-			 *
-			 * @return {undefined}
-			 */
-			notify : function (message, type, wait) {
+    * Add new log message
+    * If a type is passed, a class name "alertify-log-{type}" will get added.
+    * This allows for custom look and feel for various types of notifications.
+    *
+    * @param  {String} message    The message passed from the callee
+    * @param  {String} type       [Optional] Type of log message
+    * @param  {Number} wait       [Optional] Time (in ms) to wait before auto-hiding
+    *
+    * @return {undefined}
+    */
+			notify: function (message, type, wait) {
 				var log = document.createElement("article");
-				log.className = "alertify-log" + ((typeof type === "string" && type !== "") ? " alertify-log-" + type : "");
+				log.className = "alertify-log" + (typeof type === "string" && type !== "" ? " alertify-log-" + type : "");
 				log.innerHTML = message;
 				// append child
 				elLog.appendChild(log);
 				// triggers the CSS animation
-				setTimeout(function() { log.className = log.className + " alertify-log-show"; }, 50);
+				setTimeout(function () {
+					log.className = log.className + " alertify-log-show";
+				}, 50);
 				this.close(log, wait);
 			},
 
 			/**
-			 * Set properties
-			 *
-			 * @param {Object} args     Passing parameters
-			 *
-			 * @return {undefined}
-			 */
-			set : function (args) {
+    * Set properties
+    *
+    * @param {Object} args     Passing parameters
+    *
+    * @return {undefined}
+    */
+			set: function (args) {
 				var k;
 				// error catching
 				if (typeof args !== "object" && args instanceof Array) throw new Error("args must be an object");
@@ -13439,24 +12393,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Common place to set focus to proper element
-			 *
-			 * @return {undefined}
-			 */
-			setFocus : function () {
+    * Common place to set focus to proper element
+    *
+    * @return {undefined}
+    */
+			setFocus: function () {
 				if (input) {
 					input.focus();
 					input.select();
-				}
-				else btnFocus.focus();
+				} else btnFocus.focus();
 			},
 
 			/**
-			 * Initiate all the required pieces for the dialog box
-			 *
-			 * @return {undefined}
-			 */
-			setup : function (fromQueue) {
+    * Initiate all the required pieces for the dialog box
+    *
+    * @return {undefined}
+    */
+			setup: function (fromQueue) {
 				var item = queue[0],
 				    self = this,
 				    transitionDone;
@@ -13477,13 +12430,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 				// build the proper dialog HTML
 				elDialog.innerHTML = this.build(item);
 				// assign all the common elements
-				btnReset  = $("alertify-resetFocus");
-				btnResetBack  = $("alertify-resetFocusBack");
-				btnOK     = $("alertify-ok")     || undefined;
+				btnReset = $("alertify-resetFocus");
+				btnResetBack = $("alertify-resetFocusBack");
+				btnOK = $("alertify-ok") || undefined;
 				btnCancel = $("alertify-cancel") || undefined;
-				btnFocus  = (_alertify.buttonFocus === "cancel") ? btnCancel : ((_alertify.buttonFocus === "none") ? $("alertify-noneFocus") : btnOK),
-				input     = $("alertify-text")   || undefined;
-				form      = $("alertify-form")   || undefined;
+				btnFocus = _alertify.buttonFocus === "cancel" ? btnCancel : _alertify.buttonFocus === "none" ? $("alertify-noneFocus") : btnOK, input = $("alertify-text") || undefined;
+				form = $("alertify-form") || undefined;
 				// add placeholder value to the input field
 				if (typeof item.placeholder === "string" && item.placeholder !== "") input.value = item.placeholder;
 				if (fromQueue) this.setFocus();
@@ -13491,15 +12443,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 			},
 
 			/**
-			 * Unbind events to elements
-			 *
-			 * @param  {Object}   el       HTML Object
-			 * @param  {Event}    event    Event to detach to element
-			 * @param  {Function} fn       Callback function
-			 *
-			 * @return {undefined}
-			 */
-			unbind : function (el, event, fn) {
+    * Unbind events to elements
+    *
+    * @param  {Object}   el       HTML Object
+    * @param  {Event}    event    Event to detach to element
+    * @param  {Function} fn       Callback function
+    *
+    * @return {undefined}
+    */
+			unbind: function (el, event, fn) {
 				if (typeof el.removeEventListener === "function") {
 					el.removeEventListener(event, fn, false);
 				} else if (el.detachEvent) {
@@ -13509,33 +12461,47 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global define*
 		};
 
 		return {
-			alert   : function (message, fn, cssClass) { _alertify.dialog(message, "alert", fn, "", cssClass); return this; },
-			confirm : function (message, fn, cssClass) { _alertify.dialog(message, "confirm", fn, "", cssClass); return this; },
-			extend  : _alertify.extend,
-			init    : _alertify.init,
-			log     : function (message, type, wait) { _alertify.log(message, type, wait); return this; },
-			prompt  : function (message, fn, placeholder, cssClass) { _alertify.dialog(message, "prompt", fn, placeholder, cssClass); return this; },
-			success : function (message, wait) { _alertify.log(message, "success", wait); return this; },
-			error   : function (message, wait) { _alertify.log(message, "error", wait); return this; },
-			set     : function (args) { _alertify.set(args); },
-			labels  : _alertify.labels,
-			debug   : _alertify.handleErrors
+			alert: function (message, fn, cssClass) {
+				_alertify.dialog(message, "alert", fn, "", cssClass);return this;
+			},
+			confirm: function (message, fn, cssClass) {
+				_alertify.dialog(message, "confirm", fn, "", cssClass);return this;
+			},
+			extend: _alertify.extend,
+			init: _alertify.init,
+			log: function (message, type, wait) {
+				_alertify.log(message, type, wait);return this;
+			},
+			prompt: function (message, fn, placeholder, cssClass) {
+				_alertify.dialog(message, "prompt", fn, placeholder, cssClass);return this;
+			},
+			success: function (message, wait) {
+				_alertify.log(message, "success", wait);return this;
+			},
+			error: function (message, wait) {
+				_alertify.log(message, "error", wait);return this;
+			},
+			set: function (args) {
+				_alertify.set(args);
+			},
+			labels: _alertify.labels,
+			debug: _alertify.handleErrors
 		};
 	};
 
 	// AMD and window support
 	if (true) {
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return new Alertify(); }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return new Alertify();
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else if (typeof global.alertify === "undefined") {
 		global.alertify = new Alertify();
 	}
-
-}(this));
-
+})(this);
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -13546,87 +12512,84 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
  * Copyright (c) 2016 Jörn Zaefferer
  * Released under the MIT license
  */
-(function( factory ) {
-    if ( true ) {
+(function (factory) {
+    if (true) {
         !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     } else if (typeof module === "object" && module.exports) {
-        module.exports = factory( require( "jquery" ) );
+        module.exports = factory(require("jquery"));
     } else {
-        factory( jQuery );
+        factory(jQuery);
     }
-}(function( $ ) {
+})(function ($) {
 
-    $.extend( $.fn, {
+    $.extend($.fn, {
 
         // http://jqueryvalidation.org/validate/
-        validate: function( options ) {
+        validate: function (options) {
 
             // If nothing is selected, return nothing; can't chain anyway
-            if ( !this.length ) {
-                if ( options && options.debug && window.console ) {
-                    console.warn( "Nothing selected, can't validate, returning nothing." );
+            if (!this.length) {
+                if (options && options.debug && window.console) {
+                    console.warn("Nothing selected, can't validate, returning nothing.");
                 }
                 return;
             }
 
             // Check if a validator for this form was already created
-            var validator = $.data( this[ 0 ], "validator" );
-            if ( validator ) {
+            var validator = $.data(this[0], "validator");
+            if (validator) {
                 return validator;
             }
 
             // Add novalidate tag if HTML5.
-            this.attr( "novalidate", "novalidate" );
+            this.attr("novalidate", "novalidate");
 
-            validator = new $.validator( options, this[ 0 ] );
-            $.data( this[ 0 ], "validator", validator );
+            validator = new $.validator(options, this[0]);
+            $.data(this[0], "validator", validator);
 
-            if ( validator.settings.onsubmit ) {
+            if (validator.settings.onsubmit) {
 
-                this.on( "click.validate", ":submit", function( event ) {
-                    if ( validator.settings.submitHandler ) {
+                this.on("click.validate", ":submit", function (event) {
+                    if (validator.settings.submitHandler) {
                         validator.submitButton = event.target;
                     }
 
                     // Allow suppressing validation by adding a cancel class to the submit button
-                    if ( $( this ).hasClass( "cancel" ) ) {
+                    if ($(this).hasClass("cancel")) {
                         validator.cancelSubmit = true;
                     }
 
                     // Allow suppressing validation by adding the html5 formnovalidate attribute to the submit button
-                    if ( $( this ).attr( "formnovalidate" ) !== undefined ) {
+                    if ($(this).attr("formnovalidate") !== undefined) {
                         validator.cancelSubmit = true;
                     }
-                } );
+                });
 
                 // Validate the form on submit
-                this.on( "submit.validate", function( event ) {
-                    if ( validator.settings.debug ) {
+                this.on("submit.validate", function (event) {
+                    if (validator.settings.debug) {
 
                         // Prevent form submit to be able to see console output
                         event.preventDefault();
                     }
                     function handle() {
                         var hidden, result;
-                        if ( validator.settings.submitHandler ) {
-                            if ( validator.submitButton ) {
+                        if (validator.settings.submitHandler) {
+                            if (validator.submitButton) {
 
                                 // Insert a hidden input as a replacement for the missing submit button
-                                hidden = $( "<input type='hidden'/>" )
-                                    .attr( "name", validator.submitButton.name )
-                                    .val( $( validator.submitButton ).val() )
-                                    .appendTo( validator.currentForm );
+                                hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val($(validator.submitButton).val()).appendTo(validator.currentForm);
                             }
-                            result = validator.settings.submitHandler.call( validator, validator.currentForm, event );
-                            if ( validator.submitButton ) {
+                            result = validator.settings.submitHandler.call(validator, validator.currentForm, event);
+                            if (validator.submitButton) {
 
                                 // And clean up afterwards; thanks to no-block-scope, hidden can be referenced
                                 hidden.remove();
                             }
-                            if ( result !== undefined ) {
+                            if (result !== undefined) {
                                 return result;
                             }
                             return false;
@@ -13635,12 +12598,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     }
 
                     // Prevent submit for invalid forms or custom submit handlers
-                    if ( validator.cancelSubmit ) {
+                    if (validator.cancelSubmit) {
                         validator.cancelSubmit = false;
                         return handle();
                     }
-                    if ( validator.form() ) {
-                        if ( validator.pendingRequest ) {
+                    if (validator.form()) {
+                        if (validator.pendingRequest) {
                             validator.formSubmitted = true;
                             return false;
                         }
@@ -13649,157 +12612,155 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                         validator.focusInvalid();
                         return false;
                     }
-                } );
+                });
             }
 
             return validator;
         },
 
         // http://jqueryvalidation.org/valid/
-        valid: function() {
+        valid: function () {
             var valid, validator, errorList;
 
-            if ( $( this[ 0 ] ).is( "form" ) ) {
+            if ($(this[0]).is("form")) {
                 valid = this.validate().form();
             } else {
                 errorList = [];
                 valid = true;
-                validator = $( this[ 0 ].form ).validate();
-                this.each( function() {
-                    valid = validator.element( this ) && valid;
-                    if ( !valid ) {
-                        errorList = errorList.concat( validator.errorList );
+                validator = $(this[0].form).validate();
+                this.each(function () {
+                    valid = validator.element(this) && valid;
+                    if (!valid) {
+                        errorList = errorList.concat(validator.errorList);
                     }
-                } );
+                });
                 validator.errorList = errorList;
             }
             return valid;
         },
 
         // http://jqueryvalidation.org/rules/
-        rules: function( command, argument ) {
-            var element = this[ 0 ],
-                settings, staticRules, existingRules, data, param, filtered;
+        rules: function (command, argument) {
+            var element = this[0],
+                settings,
+                staticRules,
+                existingRules,
+                data,
+                param,
+                filtered;
 
             // If nothing is selected, return empty object; can't chain anyway
-            if ( element == null || element.form == null ) {
+            if (element == null || element.form == null) {
                 return;
             }
 
-            if ( command ) {
-                settings = $.data( element.form, "validator" ).settings;
+            if (command) {
+                settings = $.data(element.form, "validator").settings;
                 staticRules = settings.rules;
-                existingRules = $.validator.staticRules( element );
-                switch ( command ) {
+                existingRules = $.validator.staticRules(element);
+                switch (command) {
                     case "add":
-                        $.extend( existingRules, $.validator.normalizeRule( argument ) );
+                        $.extend(existingRules, $.validator.normalizeRule(argument));
 
                         // Remove messages from rules, but allow them to be set separately
                         delete existingRules.messages;
-                        staticRules[ element.name ] = existingRules;
-                        if ( argument.messages ) {
-                            settings.messages[ element.name ] = $.extend( settings.messages[ element.name ], argument.messages );
+                        staticRules[element.name] = existingRules;
+                        if (argument.messages) {
+                            settings.messages[element.name] = $.extend(settings.messages[element.name], argument.messages);
                         }
                         break;
                     case "remove":
-                        if ( !argument ) {
-                            delete staticRules[ element.name ];
+                        if (!argument) {
+                            delete staticRules[element.name];
                             return existingRules;
                         }
                         filtered = {};
-                        $.each( argument.split( /\s/ ), function( index, method ) {
-                            filtered[ method ] = existingRules[ method ];
-                            delete existingRules[ method ];
-                            if ( method === "required" ) {
-                                $( element ).removeAttr( "aria-required" );
+                        $.each(argument.split(/\s/), function (index, method) {
+                            filtered[method] = existingRules[method];
+                            delete existingRules[method];
+                            if (method === "required") {
+                                $(element).removeAttr("aria-required");
                             }
-                        } );
+                        });
                         return filtered;
                 }
             }
 
-            data = $.validator.normalizeRules(
-                $.extend(
-                    {},
-                    $.validator.classRules( element ),
-                    $.validator.attributeRules( element ),
-                    $.validator.dataRules( element ),
-                    $.validator.staticRules( element )
-                ), element );
+            data = $.validator.normalizeRules($.extend({}, $.validator.classRules(element), $.validator.attributeRules(element), $.validator.dataRules(element), $.validator.staticRules(element)), element);
 
             // Make sure required is at front
-            if ( data.required ) {
+            if (data.required) {
                 param = data.required;
                 delete data.required;
-                data = $.extend( { required: param }, data );
-                $( element ).attr( "aria-required", "true" );
+                data = $.extend({ required: param }, data);
+                $(element).attr("aria-required", "true");
             }
 
             // Make sure remote is at back
-            if ( data.remote ) {
+            if (data.remote) {
                 param = data.remote;
                 delete data.remote;
-                data = $.extend( data, { remote: param } );
+                data = $.extend(data, { remote: param });
             }
 
             return data;
         }
-    } );
+    });
 
-// Custom selectors
-    $.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables backwards compatibility to jQuery 1.7. Can be removed when dropping jQ 1.7.x support
+    // Custom selectors
+    $.extend($.expr.pseudos || $.expr[":"], { // '|| $.expr[ ":" ]' here enables backwards compatibility to jQuery 1.7. Can be removed when dropping jQ 1.7.x support
 
         // http://jqueryvalidation.org/blank-selector/
-        blank: function( a ) {
-            return !$.trim( "" + $( a ).val() );
+        blank: function (a) {
+            return !$.trim("" + $(a).val());
         },
 
         // http://jqueryvalidation.org/filled-selector/
-        filled: function( a ) {
-            var val = $( a ).val();
-            return val !== null && !!$.trim( "" + val );
+        filled: function (a) {
+            var val = $(a).val();
+            return val !== null && !!$.trim("" + val);
         },
 
         // http://jqueryvalidation.org/unchecked-selector/
-        unchecked: function( a ) {
-            return !$( a ).prop( "checked" );
+        unchecked: function (a) {
+            return !$(a).prop("checked");
         }
-    } );
+    });
 
-// Constructor for validator
-    $.validator = function( options, form ) {
-        this.settings = $.extend( true, {}, $.validator.defaults, options );
+    // Constructor for validator
+    $.validator = function (options, form) {
+        this.settings = $.extend(true, {}, $.validator.defaults, options);
         this.currentForm = form;
         this.init();
     };
 
-// http://jqueryvalidation.org/jQuery.validator.format/
-    $.validator.format = function( source, params ) {
-        if ( arguments.length === 1 ) {
-            return function() {
-                var args = $.makeArray( arguments );
-                args.unshift( source );
-                return $.validator.format.apply( this, args );
+    // http://jqueryvalidation.org/jQuery.validator.format/
+    $.validator.format = function (source, params) {
+        if (arguments.length === 1) {
+            return function () {
+                var args = $.makeArray(arguments);
+                args.unshift(source);
+                return $.validator.format.apply(this, args);
             };
         }
-        if ( params === undefined ) {
+        if (params === undefined) {
             return source;
         }
-        if ( arguments.length > 2 && params.constructor !== Array  ) {
-            params = $.makeArray( arguments ).slice( 1 );
+        if (arguments.length > 2 && params.constructor !== Array) {
+            params = $.makeArray(arguments).slice(1);
         }
-        if ( params.constructor !== Array ) {
-            params = [ params ];
+        if (params.constructor !== Array) {
+            params = [params];
         }
-        $.each( params, function( i, n ) {
-            source = source.replace( new RegExp( "\\{" + i + "\\}", "g" ), function() {
+        $.each(params, function (i, n) {
+            source = source.replace(new RegExp("\\{" + i + "\\}", "g"), function () {
                 return n;
-            } );
-        } );
+            });
+        });
         return source;
     };
 
-    $.extend( $.validator, {
+    $.extend($.validator, {
 
         defaults: {
             messages: {},
@@ -13811,28 +12772,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             errorElement: "label",
             focusCleanup: false,
             focusInvalid: true,
-            errorContainer: $( [] ),
-            errorLabelContainer: $( [] ),
+            errorContainer: $([]),
+            errorLabelContainer: $([]),
             onsubmit: true,
             ignore: ":hidden",
             ignoreTitle: false,
-            onfocusin: function( element ) {
+            onfocusin: function (element) {
                 this.lastActive = element;
 
                 // Hide error label and remove error class on focus if enabled
-                if ( this.settings.focusCleanup ) {
-                    if ( this.settings.unhighlight ) {
-                        this.settings.unhighlight.call( this, element, this.settings.errorClass, this.settings.validClass );
+                if (this.settings.focusCleanup) {
+                    if (this.settings.unhighlight) {
+                        this.settings.unhighlight.call(this, element, this.settings.errorClass, this.settings.validClass);
                     }
-                    this.hideThese( this.errorsFor( element ) );
+                    this.hideThese(this.errorsFor(element));
                 }
             },
-            onfocusout: function( element ) {
-                if ( !this.checkable( element ) && ( element.name in this.submitted || !this.optional( element ) ) ) {
-                    this.element( element );
+            onfocusout: function (element) {
+                if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))) {
+                    this.element(element);
                 }
             },
-            onkeyup: function( element, event ) {
+            onkeyup: function (element, event) {
 
                 // Avoid revalidate the field when pressing one of the following keys
                 // Shift       => 16
@@ -13848,47 +12809,44 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 // Insert      => 45
                 // Num lock    => 144
                 // AltGr key   => 225
-                var excludedKeys = [
-                    16, 17, 18, 20, 35, 36, 37,
-                    38, 39, 40, 45, 144, 225
-                ];
+                var excludedKeys = [16, 17, 18, 20, 35, 36, 37, 38, 39, 40, 45, 144, 225];
 
-                if ( event.which === 9 && this.elementValue( element ) === "" || $.inArray( event.keyCode, excludedKeys ) !== -1 ) {
+                if (event.which === 9 && this.elementValue(element) === "" || $.inArray(event.keyCode, excludedKeys) !== -1) {
                     return;
-                } else if ( element.name in this.submitted || element.name in this.invalid ) {
-                    this.element( element );
+                } else if (element.name in this.submitted || element.name in this.invalid) {
+                    this.element(element);
                 }
             },
-            onclick: function( element ) {
+            onclick: function (element) {
 
                 // Click on selects, radiobuttons and checkboxes
-                if ( element.name in this.submitted ) {
-                    this.element( element );
+                if (element.name in this.submitted) {
+                    this.element(element);
 
                     // Or option elements, check parent select in that case
-                } else if ( element.parentNode.name in this.submitted ) {
-                    this.element( element.parentNode );
+                } else if (element.parentNode.name in this.submitted) {
+                    this.element(element.parentNode);
                 }
             },
-            highlight: function( element, errorClass, validClass ) {
-                if ( element.type === "radio" ) {
-                    this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
+            highlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(errorClass).removeClass(validClass);
                 } else {
-                    $( element ).addClass( errorClass ).removeClass( validClass );
+                    $(element).addClass(errorClass).removeClass(validClass);
                 }
             },
-            unhighlight: function( element, errorClass, validClass ) {
-                if ( element.type === "radio" ) {
-                    this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
+            unhighlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).removeClass(errorClass).addClass(validClass);
                 } else {
-                    $( element ).removeClass( errorClass ).addClass( validClass );
+                    $(element).removeClass(errorClass).addClass(validClass);
                 }
             }
         },
 
         // http://jqueryvalidation.org/jQuery.validator.setDefaults/
-        setDefaults: function( settings ) {
-            $.extend( $.validator.defaults, settings );
+        setDefaults: function (settings) {
+            $.extend($.validator.defaults, settings);
         },
 
         messages: {
@@ -13901,23 +12859,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             number: "Please enter a valid number.",
             digits: "Please enter only digits.",
             equalTo: "Please enter the same value again.",
-            maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-            minlength: $.validator.format( "Please enter at least {0} characters." ),
-            rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-            range: $.validator.format( "Please enter a value between {0} and {1}." ),
-            max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-            min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
-            step: $.validator.format( "Please enter a multiple of {0}." )
+            maxlength: $.validator.format("Please enter no more than {0} characters."),
+            minlength: $.validator.format("Please enter at least {0} characters."),
+            rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
+            range: $.validator.format("Please enter a value between {0} and {1}."),
+            max: $.validator.format("Please enter a value less than or equal to {0}."),
+            min: $.validator.format("Please enter a value greater than or equal to {0}."),
+            step: $.validator.format("Please enter a multiple of {0}.")
         },
 
         autoCreateRanges: false,
 
         prototype: {
 
-            init: function() {
-                this.labelContainer = $( this.settings.errorLabelContainer );
-                this.errorContext = this.labelContainer.length && this.labelContainer || $( this.currentForm );
-                this.containers = $( this.settings.errorContainer ).add( this.settings.errorLabelContainer );
+            init: function () {
+                this.labelContainer = $(this.settings.errorLabelContainer);
+                this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
+                this.containers = $(this.settings.errorContainer).add(this.settings.errorLabelContainer);
                 this.submitted = {};
                 this.valueCache = {};
                 this.pendingRequest = 0;
@@ -13925,370 +12883,358 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 this.invalid = {};
                 this.reset();
 
-                var groups = ( this.groups = {} ),
+                var groups = this.groups = {},
                     rules;
-                $.each( this.settings.groups, function( key, value ) {
-                    if ( typeof value === "string" ) {
-                        value = value.split( /\s/ );
+                $.each(this.settings.groups, function (key, value) {
+                    if (typeof value === "string") {
+                        value = value.split(/\s/);
                     }
-                    $.each( value, function( index, name ) {
-                        groups[ name ] = key;
-                    } );
-                } );
+                    $.each(value, function (index, name) {
+                        groups[name] = key;
+                    });
+                });
                 rules = this.settings.rules;
-                $.each( rules, function( key, value ) {
-                    rules[ key ] = $.validator.normalizeRule( value );
-                } );
+                $.each(rules, function (key, value) {
+                    rules[key] = $.validator.normalizeRule(value);
+                });
 
-                function delegate( event ) {
+                function delegate(event) {
 
                     // Set form expando on contenteditable
-                    if ( !this.form && this.hasAttribute( "contenteditable" ) ) {
-                        this.form = $( this ).closest( "form" )[ 0 ];
+                    if (!this.form && this.hasAttribute("contenteditable")) {
+                        this.form = $(this).closest("form")[0];
                     }
 
-                    var validator = $.data( this.form, "validator" ),
-                        eventType = "on" + event.type.replace( /^validate/, "" ),
+                    var validator = $.data(this.form, "validator"),
+                        eventType = "on" + event.type.replace(/^validate/, ""),
                         settings = validator.settings;
-                    if ( settings[ eventType ] && !$( this ).is( settings.ignore ) ) {
-                        settings[ eventType ].call( validator, this, event );
+                    if (settings[eventType] && !$(this).is(settings.ignore)) {
+                        settings[eventType].call(validator, this, event);
                     }
                 }
 
-                $( this.currentForm )
-                    .on( "focusin.validate focusout.validate keyup.validate",
-                        ":text, [type='password'], [type='file'], select, textarea, [type='number'], [type='search'], " +
-                        "[type='tel'], [type='url'], [type='email'], [type='datetime'], [type='date'], [type='month'], " +
-                        "[type='week'], [type='time'], [type='datetime-local'], [type='range'], [type='color'], " +
-                        "[type='radio'], [type='checkbox'], [contenteditable], [type='button']", delegate )
+                $(this.currentForm).on("focusin.validate focusout.validate keyup.validate", ":text, [type='password'], [type='file'], select, textarea, [type='number'], [type='search'], " + "[type='tel'], [type='url'], [type='email'], [type='datetime'], [type='date'], [type='month'], " + "[type='week'], [type='time'], [type='datetime-local'], [type='range'], [type='color'], " + "[type='radio'], [type='checkbox'], [contenteditable], [type='button']", delegate)
 
-                    // Support: Chrome, oldIE
-                    // "select" is provided as event.target when clicking a option
-                    .on( "click.validate", "select, option, [type='radio'], [type='checkbox']", delegate );
+                // Support: Chrome, oldIE
+                // "select" is provided as event.target when clicking a option
+                .on("click.validate", "select, option, [type='radio'], [type='checkbox']", delegate);
 
-                if ( this.settings.invalidHandler ) {
-                    $( this.currentForm ).on( "invalid-form.validate", this.settings.invalidHandler );
+                if (this.settings.invalidHandler) {
+                    $(this.currentForm).on("invalid-form.validate", this.settings.invalidHandler);
                 }
 
                 // Add aria-required to any Static/Data/Class required fields before first validation
                 // Screen readers require this attribute to be present before the initial submission http://www.w3.org/TR/WCAG-TECHS/ARIA2.html
-                $( this.currentForm ).find( "[required], [data-rule-required], .required" ).attr( "aria-required", "true" );
+                $(this.currentForm).find("[required], [data-rule-required], .required").attr("aria-required", "true");
             },
 
             // http://jqueryvalidation.org/Validator.form/
-            form: function() {
+            form: function () {
                 this.checkForm();
-                $.extend( this.submitted, this.errorMap );
-                this.invalid = $.extend( {}, this.errorMap );
-                if ( !this.valid() ) {
-                    $( this.currentForm ).triggerHandler( "invalid-form", [ this ] );
+                $.extend(this.submitted, this.errorMap);
+                this.invalid = $.extend({}, this.errorMap);
+                if (!this.valid()) {
+                    $(this.currentForm).triggerHandler("invalid-form", [this]);
                 }
                 this.showErrors();
                 return this.valid();
             },
 
-            checkForm: function() {
+            checkForm: function () {
                 this.prepareForm();
-                for ( var i = 0, elements = ( this.currentElements = this.elements() ); elements[ i ]; i++ ) {
-                    this.check( elements[ i ] );
+                for (var i = 0, elements = this.currentElements = this.elements(); elements[i]; i++) {
+                    this.check(elements[i]);
                 }
                 return this.valid();
             },
 
             // http://jqueryvalidation.org/Validator.element/
-            element: function( element ) {
-                var cleanElement = this.clean( element ),
-                    checkElement = this.validationTargetFor( cleanElement ),
+            element: function (element) {
+                var cleanElement = this.clean(element),
+                    checkElement = this.validationTargetFor(cleanElement),
                     v = this,
                     result = true,
-                    rs, group;
+                    rs,
+                    group;
 
-                if ( checkElement === undefined ) {
-                    delete this.invalid[ cleanElement.name ];
+                if (checkElement === undefined) {
+                    delete this.invalid[cleanElement.name];
                 } else {
-                    this.prepareElement( checkElement );
-                    this.currentElements = $( checkElement );
+                    this.prepareElement(checkElement);
+                    this.currentElements = $(checkElement);
 
                     // If this element is grouped, then validate all group elements already
                     // containing a value
-                    group = this.groups[ checkElement.name ];
-                    if ( group ) {
-                        $.each( this.groups, function( name, testgroup ) {
-                            if ( testgroup === group && name !== checkElement.name ) {
-                                cleanElement = v.validationTargetFor( v.clean( v.findByName( name ) ) );
-                                if ( cleanElement && cleanElement.name in v.invalid ) {
-                                    v.currentElements.push( cleanElement );
-                                    result = v.check( cleanElement ) && result;
+                    group = this.groups[checkElement.name];
+                    if (group) {
+                        $.each(this.groups, function (name, testgroup) {
+                            if (testgroup === group && name !== checkElement.name) {
+                                cleanElement = v.validationTargetFor(v.clean(v.findByName(name)));
+                                if (cleanElement && cleanElement.name in v.invalid) {
+                                    v.currentElements.push(cleanElement);
+                                    result = v.check(cleanElement) && result;
                                 }
                             }
-                        } );
+                        });
                     }
 
-                    rs = this.check( checkElement ) !== false;
+                    rs = this.check(checkElement) !== false;
                     result = result && rs;
-                    if ( rs ) {
-                        this.invalid[ checkElement.name ] = false;
+                    if (rs) {
+                        this.invalid[checkElement.name] = false;
                     } else {
-                        this.invalid[ checkElement.name ] = true;
+                        this.invalid[checkElement.name] = true;
                     }
 
-                    if ( !this.numberOfInvalids() ) {
+                    if (!this.numberOfInvalids()) {
 
                         // Hide error containers on last error
-                        this.toHide = this.toHide.add( this.containers );
+                        this.toHide = this.toHide.add(this.containers);
                     }
                     this.showErrors();
 
                     // Add aria-invalid status for screen readers
-                    $( element ).attr( "aria-invalid", !rs );
+                    $(element).attr("aria-invalid", !rs);
                 }
 
                 return result;
             },
 
             // http://jqueryvalidation.org/Validator.showErrors/
-            showErrors: function( errors ) {
-                if ( errors ) {
+            showErrors: function (errors) {
+                if (errors) {
                     var validator = this;
 
                     // Add items to error list and map
-                    $.extend( this.errorMap, errors );
-                    this.errorList = $.map( this.errorMap, function( message, name ) {
+                    $.extend(this.errorMap, errors);
+                    this.errorList = $.map(this.errorMap, function (message, name) {
                         return {
                             message: message,
-                            element: validator.findByName( name )[ 0 ]
+                            element: validator.findByName(name)[0]
                         };
-                    } );
+                    });
 
                     // Remove items from success list
-                    this.successList = $.grep( this.successList, function( element ) {
-                        return !( element.name in errors );
-                    } );
+                    this.successList = $.grep(this.successList, function (element) {
+                        return !(element.name in errors);
+                    });
                 }
-                if ( this.settings.showErrors ) {
-                    this.settings.showErrors.call( this, this.errorMap, this.errorList );
+                if (this.settings.showErrors) {
+                    this.settings.showErrors.call(this, this.errorMap, this.errorList);
                 } else {
                     this.defaultShowErrors();
                 }
             },
 
             // http://jqueryvalidation.org/Validator.resetForm/
-            resetForm: function() {
-                if ( $.fn.resetForm ) {
-                    $( this.currentForm ).resetForm();
+            resetForm: function () {
+                if ($.fn.resetForm) {
+                    $(this.currentForm).resetForm();
                 }
                 this.invalid = {};
                 this.submitted = {};
                 this.prepareForm();
                 this.hideErrors();
-                var elements = this.elements()
-                    .removeData( "previousValue" )
-                    .removeAttr( "aria-invalid" );
+                var elements = this.elements().removeData("previousValue").removeAttr("aria-invalid");
 
-                this.resetElements( elements );
+                this.resetElements(elements);
             },
 
-            resetElements: function( elements ) {
+            resetElements: function (elements) {
                 var i;
 
-                if ( this.settings.unhighlight ) {
-                    for ( i = 0; elements[ i ]; i++ ) {
-                        this.settings.unhighlight.call( this, elements[ i ],
-                            this.settings.errorClass, "" );
-                        this.findByName( elements[ i ].name ).removeClass( this.settings.validClass );
+                if (this.settings.unhighlight) {
+                    for (i = 0; elements[i]; i++) {
+                        this.settings.unhighlight.call(this, elements[i], this.settings.errorClass, "");
+                        this.findByName(elements[i].name).removeClass(this.settings.validClass);
                     }
                 } else {
-                    elements
-                        .removeClass( this.settings.errorClass )
-                        .removeClass( this.settings.validClass );
+                    elements.removeClass(this.settings.errorClass).removeClass(this.settings.validClass);
                 }
             },
 
-            numberOfInvalids: function() {
-                return this.objectLength( this.invalid );
+            numberOfInvalids: function () {
+                return this.objectLength(this.invalid);
             },
 
-            objectLength: function( obj ) {
-				/* jshint unused: false */
+            objectLength: function (obj) {
+                /* jshint unused: false */
                 var count = 0,
                     i;
-                for ( i in obj ) {
-                    if ( obj[ i ] ) {
+                for (i in obj) {
+                    if (obj[i]) {
                         count++;
                     }
                 }
                 return count;
             },
 
-            hideErrors: function() {
-                this.hideThese( this.toHide );
+            hideErrors: function () {
+                this.hideThese(this.toHide);
             },
 
-            hideThese: function( errors ) {
-                errors.not( this.containers ).text( "" );
-                this.addWrapper( errors ).hide();
+            hideThese: function (errors) {
+                errors.not(this.containers).text("");
+                this.addWrapper(errors).hide();
             },
 
-            valid: function() {
+            valid: function () {
                 return this.size() === 0;
             },
 
-            size: function() {
+            size: function () {
                 return this.errorList.length;
             },
 
-            focusInvalid: function() {
-                if ( this.settings.focusInvalid ) {
+            focusInvalid: function () {
+                if (this.settings.focusInvalid) {
                     try {
-                        $( this.findLastActive() || this.errorList.length && this.errorList[ 0 ].element || [] )
-                            .filter( ":visible" )
-                            .focus()
+                        $(this.findLastActive() || this.errorList.length && this.errorList[0].element || []).filter(":visible").focus()
 
-                            // Manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
-                            .trigger( "focusin" );
-                    } catch ( e ) {
+                        // Manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+                        .trigger("focusin");
+                    } catch (e) {
 
                         // Ignore IE throwing errors when focusing hidden elements
                     }
                 }
             },
 
-            findLastActive: function() {
+            findLastActive: function () {
                 var lastActive = this.lastActive;
-                return lastActive && $.grep( this.errorList, function( n ) {
-                        return n.element.name === lastActive.name;
-                    } ).length === 1 && lastActive;
+                return lastActive && $.grep(this.errorList, function (n) {
+                    return n.element.name === lastActive.name;
+                }).length === 1 && lastActive;
             },
 
-            elements: function() {
+            elements: function () {
                 var validator = this,
                     rulesCache = {};
 
                 // Select all valid inputs inside the form (no submit or reset buttons)
-                return $( this.currentForm )
-                    .find( "input, select, textarea, [contenteditable]" )
-                    .not( ":submit, :reset, :image, :disabled" )
-                    .not( this.settings.ignore )
-                    .filter( function() {
-                        var name = this.name || $( this ).attr( "name" ); // For contenteditable
-                        if ( !name && validator.settings.debug && window.console ) {
-                            console.error( "%o has no name assigned", this );
-                        }
+                return $(this.currentForm).find("input, select, textarea, [contenteditable]").not(":submit, :reset, :image, :disabled").not(this.settings.ignore).filter(function () {
+                    var name = this.name || $(this).attr("name"); // For contenteditable
+                    if (!name && validator.settings.debug && window.console) {
+                        console.error("%o has no name assigned", this);
+                    }
 
-                        // Set form expando on contenteditable
-                        if ( this.hasAttribute( "contenteditable" ) ) {
-                            this.form = $( this ).closest( "form" )[ 0 ];
-                        }
+                    // Set form expando on contenteditable
+                    if (this.hasAttribute("contenteditable")) {
+                        this.form = $(this).closest("form")[0];
+                    }
 
-                        // Select only the first element for each name, and only those with rules specified
-                        if ( name in rulesCache || !validator.objectLength( $( this ).rules() ) ) {
-                            return false;
-                        }
+                    // Select only the first element for each name, and only those with rules specified
+                    if (name in rulesCache || !validator.objectLength($(this).rules())) {
+                        return false;
+                    }
 
-                        rulesCache[ name ] = true;
-                        return true;
-                    } );
+                    rulesCache[name] = true;
+                    return true;
+                });
             },
 
-            clean: function( selector ) {
-                return $( selector )[ 0 ];
+            clean: function (selector) {
+                return $(selector)[0];
             },
 
-            errors: function() {
-                var errorClass = this.settings.errorClass.split( " " ).join( "." );
-                return $( this.settings.errorElement + "." + errorClass, this.errorContext );
+            errors: function () {
+                var errorClass = this.settings.errorClass.split(" ").join(".");
+                return $(this.settings.errorElement + "." + errorClass, this.errorContext);
             },
 
-            resetInternals: function() {
+            resetInternals: function () {
                 this.successList = [];
                 this.errorList = [];
                 this.errorMap = {};
-                this.toShow = $( [] );
-                this.toHide = $( [] );
+                this.toShow = $([]);
+                this.toHide = $([]);
             },
 
-            reset: function() {
+            reset: function () {
                 this.resetInternals();
-                this.currentElements = $( [] );
+                this.currentElements = $([]);
             },
 
-            prepareForm: function() {
+            prepareForm: function () {
                 this.reset();
-                this.toHide = this.errors().add( this.containers );
+                this.toHide = this.errors().add(this.containers);
             },
 
-            prepareElement: function( element ) {
+            prepareElement: function (element) {
                 this.reset();
-                this.toHide = this.errorsFor( element );
+                this.toHide = this.errorsFor(element);
             },
 
-            elementValue: function( element ) {
-                var $element = $( element ),
+            elementValue: function (element) {
+                var $element = $(element),
                     type = element.type,
-                    val, idx;
+                    val,
+                    idx;
 
-                if ( type === "radio" || type === "checkbox" ) {
-                    return this.findByName( element.name ).filter( ":checked" ).val();
-                } else if ( type === "number" && typeof element.validity !== "undefined" ) {
+                if (type === "radio" || type === "checkbox") {
+                    return this.findByName(element.name).filter(":checked").val();
+                } else if (type === "number" && typeof element.validity !== "undefined") {
                     return element.validity.badInput ? "NaN" : $element.val();
                 }
 
-                if ( element.hasAttribute( "contenteditable" ) ) {
+                if (element.hasAttribute("contenteditable")) {
                     val = $element.text();
                 } else {
                     val = $element.val();
                 }
 
-                if ( type === "file" ) {
+                if (type === "file") {
 
                     // Modern browser (chrome & safari)
-                    if ( val.substr( 0, 12 ) === "C:\\fakepath\\" ) {
-                        return val.substr( 12 );
+                    if (val.substr(0, 12) === "C:\\fakepath\\") {
+                        return val.substr(12);
                     }
 
                     // Legacy browsers
                     // Unix-based path
-                    idx = val.lastIndexOf( "/" );
-                    if ( idx >= 0 ) {
-                        return val.substr( idx + 1 );
+                    idx = val.lastIndexOf("/");
+                    if (idx >= 0) {
+                        return val.substr(idx + 1);
                     }
 
                     // Windows-based path
-                    idx = val.lastIndexOf( "\\" );
-                    if ( idx >= 0 ) {
-                        return val.substr( idx + 1 );
+                    idx = val.lastIndexOf("\\");
+                    if (idx >= 0) {
+                        return val.substr(idx + 1);
                     }
 
                     // Just the file name
                     return val;
                 }
 
-                if ( typeof val === "string" ) {
-                    return val.replace( /\r/g, "" );
+                if (typeof val === "string") {
+                    return val.replace(/\r/g, "");
                 }
                 return val;
             },
 
-            check: function( element ) {
-                element = this.validationTargetFor( this.clean( element ) );
+            check: function (element) {
+                element = this.validationTargetFor(this.clean(element));
 
-                var rules = $( element ).rules(),
-                    rulesCount = $.map( rules, function( n, i ) {
-                        return i;
-                    } ).length,
+                var rules = $(element).rules(),
+                    rulesCount = $.map(rules, function (n, i) {
+                    return i;
+                }).length,
                     dependencyMismatch = false,
-                    val = this.elementValue( element ),
-                    result, method, rule;
+                    val = this.elementValue(element),
+                    result,
+                    method,
+                    rule;
 
                 // If a normalizer is defined for this element, then
                 // call it to retreive the changed value instead
                 // of using the real one.
                 // Note that `this` in the normalizer is `element`.
-                if ( typeof rules.normalizer === "function" ) {
-                    val = rules.normalizer.call( element, val );
+                if (typeof rules.normalizer === "function") {
+                    val = rules.normalizer.call(element, val);
 
-                    if ( typeof val !== "string" ) {
-                        throw new TypeError( "The normalizer should return a string value." );
+                    if (typeof val !== "string") {
+                        throw new TypeError("The normalizer should return a string value.");
                     }
 
                     // Delete the normalizer from rules to avoid treating
@@ -14296,44 +13242,44 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     delete rules.normalizer;
                 }
 
-                for ( method in rules ) {
-                    rule = { method: method, parameters: rules[ method ] };
+                for (method in rules) {
+                    rule = { method: method, parameters: rules[method] };
                     try {
-                        result = $.validator.methods[ method ].call( this, val, element, rule.parameters );
+                        result = $.validator.methods[method].call(this, val, element, rule.parameters);
 
                         // If a method indicates that the field is optional and therefore valid,
                         // don't mark it as valid when there are no other rules
-                        if ( result === "dependency-mismatch" && rulesCount === 1 ) {
+                        if (result === "dependency-mismatch" && rulesCount === 1) {
                             dependencyMismatch = true;
                             continue;
                         }
                         dependencyMismatch = false;
 
-                        if ( result === "pending" ) {
-                            this.toHide = this.toHide.not( this.errorsFor( element ) );
+                        if (result === "pending") {
+                            this.toHide = this.toHide.not(this.errorsFor(element));
                             return;
                         }
 
-                        if ( !result ) {
-                            this.formatAndAdd( element, rule );
+                        if (!result) {
+                            this.formatAndAdd(element, rule);
                             return false;
                         }
-                    } catch ( e ) {
-                        if ( this.settings.debug && window.console ) {
-                            console.log( "Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.", e );
+                    } catch (e) {
+                        if (this.settings.debug && window.console) {
+                            console.log("Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.", e);
                         }
-                        if ( e instanceof TypeError ) {
+                        if (e instanceof TypeError) {
                             e.message += ".  Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.";
                         }
 
                         throw e;
                     }
                 }
-                if ( dependencyMismatch ) {
+                if (dependencyMismatch) {
                     return;
                 }
-                if ( this.objectLength( rules ) ) {
-                    this.successList.push( element );
+                if (this.objectLength(rules)) {
+                    this.successList.push(element);
                 }
                 return true;
             },
@@ -14341,22 +13287,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             // Return the custom message for the given element and validation method
             // specified in the element's HTML5 data attribute
             // return the generic message if present and no method specific message is present
-            customDataMessage: function( element, method ) {
-                return $( element ).data( "msg" + method.charAt( 0 ).toUpperCase() +
-                        method.substring( 1 ).toLowerCase() ) || $( element ).data( "msg" );
+            customDataMessage: function (element, method) {
+                return $(element).data("msg" + method.charAt(0).toUpperCase() + method.substring(1).toLowerCase()) || $(element).data("msg");
             },
 
             // Return the custom message for the given element name and validation method
-            customMessage: function( name, method ) {
-                var m = this.settings.messages[ name ];
-                return m && ( m.constructor === String ? m : m[ method ] );
+            customMessage: function (name, method) {
+                var m = this.settings.messages[name];
+                return m && (m.constructor === String ? m : m[method]);
             },
 
             // Return the first defined argument, allowing empty strings
-            findDefined: function() {
-                for ( var i = 0; i < arguments.length; i++ ) {
-                    if ( arguments[ i ] !== undefined ) {
-                        return arguments[ i ];
+            findDefined: function () {
+                for (var i = 0; i < arguments.length; i++) {
+                    if (arguments[i] !== undefined) {
+                        return arguments[i];
                     }
                 }
                 return undefined;
@@ -14371,294 +13316,281 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             //
             // The old behavior still supported, kept to maintain backward compatibility with
             // old code, and will be removed in the next major release.
-            defaultMessage: function( element, rule ) {
-                if ( typeof rule === "string" ) {
+            defaultMessage: function (element, rule) {
+                if (typeof rule === "string") {
                     rule = { method: rule };
                 }
 
-                var message = this.findDefined(
-                    this.customMessage( element.name, rule.method ),
-                    this.customDataMessage( element, rule.method ),
+                var message = this.findDefined(this.customMessage(element.name, rule.method), this.customDataMessage(element, rule.method),
 
-                    // 'title' is never undefined, so handle empty string as undefined
-                        !this.settings.ignoreTitle && element.title || undefined,
-                    $.validator.messages[ rule.method ],
-                        "<strong>Warning: No message defined for " + element.name + "</strong>"
-                    ),
+                // 'title' is never undefined, so handle empty string as undefined
+                !this.settings.ignoreTitle && element.title || undefined, $.validator.messages[rule.method], "<strong>Warning: No message defined for " + element.name + "</strong>"),
                     theregex = /\$?\{(\d+)\}/g;
-                if ( typeof message === "function" ) {
-                    message = message.call( this, rule.parameters, element );
-                } else if ( theregex.test( message ) ) {
-                    message = $.validator.format( message.replace( theregex, "{$1}" ), rule.parameters );
+                if (typeof message === "function") {
+                    message = message.call(this, rule.parameters, element);
+                } else if (theregex.test(message)) {
+                    message = $.validator.format(message.replace(theregex, "{$1}"), rule.parameters);
                 }
 
                 return message;
             },
 
-            formatAndAdd: function( element, rule ) {
-                var message = this.defaultMessage( element, rule );
+            formatAndAdd: function (element, rule) {
+                var message = this.defaultMessage(element, rule);
 
-                this.errorList.push( {
+                this.errorList.push({
                     message: message,
                     element: element,
                     method: rule.method
-                } );
+                });
 
-                this.errorMap[ element.name ] = message;
-                this.submitted[ element.name ] = message;
+                this.errorMap[element.name] = message;
+                this.submitted[element.name] = message;
             },
 
-            addWrapper: function( toToggle ) {
-                if ( this.settings.wrapper ) {
-                    toToggle = toToggle.add( toToggle.parent( this.settings.wrapper ) );
+            addWrapper: function (toToggle) {
+                if (this.settings.wrapper) {
+                    toToggle = toToggle.add(toToggle.parent(this.settings.wrapper));
                 }
                 return toToggle;
             },
 
-            defaultShowErrors: function() {
+            defaultShowErrors: function () {
                 var i, elements, error;
-                for ( i = 0; this.errorList[ i ]; i++ ) {
-                    error = this.errorList[ i ];
-                    if ( this.settings.highlight ) {
-                        this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+                for (i = 0; this.errorList[i]; i++) {
+                    error = this.errorList[i];
+                    if (this.settings.highlight) {
+                        this.settings.highlight.call(this, error.element, this.settings.errorClass, this.settings.validClass);
                     }
-                    this.showLabel( error.element, error.message );
+                    this.showLabel(error.element, error.message);
                 }
-                if ( this.errorList.length ) {
-                    this.toShow = this.toShow.add( this.containers );
+                if (this.errorList.length) {
+                    this.toShow = this.toShow.add(this.containers);
                 }
-                if ( this.settings.success ) {
-                    for ( i = 0; this.successList[ i ]; i++ ) {
-                        this.showLabel( this.successList[ i ] );
-                    }
-                }
-                if ( this.settings.unhighlight ) {
-                    for ( i = 0, elements = this.validElements(); elements[ i ]; i++ ) {
-                        this.settings.unhighlight.call( this, elements[ i ], this.settings.errorClass, this.settings.validClass );
+                if (this.settings.success) {
+                    for (i = 0; this.successList[i]; i++) {
+                        this.showLabel(this.successList[i]);
                     }
                 }
-                this.toHide = this.toHide.not( this.toShow );
+                if (this.settings.unhighlight) {
+                    for (i = 0, elements = this.validElements(); elements[i]; i++) {
+                        this.settings.unhighlight.call(this, elements[i], this.settings.errorClass, this.settings.validClass);
+                    }
+                }
+                this.toHide = this.toHide.not(this.toShow);
                 this.hideErrors();
-                this.addWrapper( this.toShow ).show();
+                this.addWrapper(this.toShow).show();
             },
 
-            validElements: function() {
-                return this.currentElements.not( this.invalidElements() );
+            validElements: function () {
+                return this.currentElements.not(this.invalidElements());
             },
 
-            invalidElements: function() {
-                return $( this.errorList ).map( function() {
+            invalidElements: function () {
+                return $(this.errorList).map(function () {
                     return this.element;
-                } );
+                });
             },
 
-            showLabel: function( element, message ) {
-                var place, group, errorID, v,
-                    error = this.errorsFor( element ),
-                    elementID = this.idOrName( element ),
-                    describedBy = $( element ).attr( "aria-describedby" );
+            showLabel: function (element, message) {
+                var place,
+                    group,
+                    errorID,
+                    v,
+                    error = this.errorsFor(element),
+                    elementID = this.idOrName(element),
+                    describedBy = $(element).attr("aria-describedby");
 
-                if ( error.length ) {
+                if (error.length) {
 
                     // Refresh error/success class
-                    error.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
+                    error.removeClass(this.settings.validClass).addClass(this.settings.errorClass);
 
                     // Replace message on existing label
-                    error.html( message );
+                    error.html(message);
                 } else {
 
                     // Create error element
-                    error = $( "<" + this.settings.errorElement + ">" )
-                        .attr( "id", elementID + "-error" )
-                        .addClass( this.settings.errorClass )
-                        .html( message || "" );
+                    error = $("<" + this.settings.errorElement + ">").attr("id", elementID + "-error").addClass(this.settings.errorClass).html(message || "");
 
                     // Maintain reference to the element to be placed into the DOM
                     place = error;
-                    if ( this.settings.wrapper ) {
+                    if (this.settings.wrapper) {
 
                         // Make sure the element is visible, even in IE
                         // actually showing the wrapped element is handled elsewhere
-                        place = error.hide().show().wrap( "<" + this.settings.wrapper + "/>" ).parent();
+                        place = error.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
                     }
-                    if ( this.labelContainer.length ) {
-                        this.labelContainer.append( place );
-                    } else if ( this.settings.errorPlacement ) {
-                        this.settings.errorPlacement.call( this, place, $( element ) );
+                    if (this.labelContainer.length) {
+                        this.labelContainer.append(place);
+                    } else if (this.settings.errorPlacement) {
+                        this.settings.errorPlacement.call(this, place, $(element));
                     } else {
-                        place.insertAfter( element );
+                        place.insertAfter(element);
                     }
 
                     // Link error back to the element
-                    if ( error.is( "label" ) ) {
+                    if (error.is("label")) {
 
                         // If the error is a label, then associate using 'for'
-                        error.attr( "for", elementID );
+                        error.attr("for", elementID);
 
                         // If the element is not a child of an associated label, then it's necessary
                         // to explicitly apply aria-describedby
-                    } else if ( error.parents( "label[for='" + this.escapeCssMeta( elementID ) + "']" ).length === 0 ) {
-                        errorID = error.attr( "id" );
+                    } else if (error.parents("label[for='" + this.escapeCssMeta(elementID) + "']").length === 0) {
+                        errorID = error.attr("id");
 
                         // Respect existing non-error aria-describedby
-                        if ( !describedBy ) {
+                        if (!describedBy) {
                             describedBy = errorID;
-                        } else if ( !describedBy.match( new RegExp( "\\b" + this.escapeCssMeta( errorID ) + "\\b" ) ) ) {
+                        } else if (!describedBy.match(new RegExp("\\b" + this.escapeCssMeta(errorID) + "\\b"))) {
 
                             // Add to end of list if not already present
                             describedBy += " " + errorID;
                         }
-                        $( element ).attr( "aria-describedby", describedBy );
+                        $(element).attr("aria-describedby", describedBy);
 
                         // If this element is grouped, then assign to all elements in the same group
-                        group = this.groups[ element.name ];
-                        if ( group ) {
+                        group = this.groups[element.name];
+                        if (group) {
                             v = this;
-                            $.each( v.groups, function( name, testgroup ) {
-                                if ( testgroup === group ) {
-                                    $( "[name='" + v.escapeCssMeta( name ) + "']", v.currentForm )
-                                        .attr( "aria-describedby", error.attr( "id" ) );
+                            $.each(v.groups, function (name, testgroup) {
+                                if (testgroup === group) {
+                                    $("[name='" + v.escapeCssMeta(name) + "']", v.currentForm).attr("aria-describedby", error.attr("id"));
                                 }
-                            } );
+                            });
                         }
                     }
                 }
-                if ( !message && this.settings.success ) {
-                    error.text( "" );
-                    if ( typeof this.settings.success === "string" ) {
-                        error.addClass( this.settings.success );
+                if (!message && this.settings.success) {
+                    error.text("");
+                    if (typeof this.settings.success === "string") {
+                        error.addClass(this.settings.success);
                     } else {
-                        this.settings.success( error, element );
+                        this.settings.success(error, element);
                     }
                 }
-                this.toShow = this.toShow.add( error );
+                this.toShow = this.toShow.add(error);
             },
 
-            errorsFor: function( element ) {
-                var name = this.escapeCssMeta( this.idOrName( element ) ),
-                    describer = $( element ).attr( "aria-describedby" ),
+            errorsFor: function (element) {
+                var name = this.escapeCssMeta(this.idOrName(element)),
+                    describer = $(element).attr("aria-describedby"),
                     selector = "label[for='" + name + "'], label[for='" + name + "'] *";
 
                 // 'aria-describedby' should directly reference the error element
-                if ( describer ) {
-                    selector = selector + ", #" + this.escapeCssMeta( describer )
-                            .replace( /\s+/g, ", #" );
+                if (describer) {
+                    selector = selector + ", #" + this.escapeCssMeta(describer).replace(/\s+/g, ", #");
                 }
 
-                return this
-                    .errors()
-                    .filter( selector );
+                return this.errors().filter(selector);
             },
 
             // See https://api.jquery.com/category/selectors/, for CSS
             // meta-characters that should be escaped in order to be used with JQuery
             // as a literal part of a name/id or any selector.
-            escapeCssMeta: function( string ) {
-                return string.replace( /([\\!"#$%&'()*+,./:;<=>?@\[\]^`{|}~])/g, "\\$1" );
+            escapeCssMeta: function (string) {
+                return string.replace(/([\\!"#$%&'()*+,./:;<=>?@\[\]^`{|}~])/g, "\\$1");
             },
 
-            idOrName: function( element ) {
-                return this.groups[ element.name ] || ( this.checkable( element ) ? element.name : element.id || element.name );
+            idOrName: function (element) {
+                return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
             },
 
-            validationTargetFor: function( element ) {
+            validationTargetFor: function (element) {
 
                 // If radio/checkbox, validate first element in group instead
-                if ( this.checkable( element ) ) {
-                    element = this.findByName( element.name );
+                if (this.checkable(element)) {
+                    element = this.findByName(element.name);
                 }
 
                 // Always apply ignore filter
-                return $( element ).not( this.settings.ignore )[ 0 ];
+                return $(element).not(this.settings.ignore)[0];
             },
 
-            checkable: function( element ) {
-                return ( /radio|checkbox/i ).test( element.type );
+            checkable: function (element) {
+                return (/radio|checkbox/i.test(element.type)
+                );
             },
 
-            findByName: function( name ) {
-                return $( this.currentForm ).find( "[name='" + this.escapeCssMeta( name ) + "']" );
+            findByName: function (name) {
+                return $(this.currentForm).find("[name='" + this.escapeCssMeta(name) + "']");
             },
 
-            getLength: function( value, element ) {
-                switch ( element.nodeName.toLowerCase() ) {
+            getLength: function (value, element) {
+                switch (element.nodeName.toLowerCase()) {
                     case "select":
-                        return $( "option:selected", element ).length;
+                        return $("option:selected", element).length;
                     case "input":
-                        if ( this.checkable( element ) ) {
-                            return this.findByName( element.name ).filter( ":checked" ).length;
+                        if (this.checkable(element)) {
+                            return this.findByName(element.name).filter(":checked").length;
                         }
                 }
                 return value.length;
             },
 
-            depend: function( param, element ) {
-                return this.dependTypes[ typeof param ] ? this.dependTypes[ typeof param ]( param, element ) : true;
+            depend: function (param, element) {
+                return this.dependTypes[typeof param] ? this.dependTypes[typeof param](param, element) : true;
             },
 
             dependTypes: {
-                "boolean": function( param ) {
+                "boolean": function (param) {
                     return param;
                 },
-                "string": function( param, element ) {
-                    return !!$( param, element.form ).length;
+                "string": function (param, element) {
+                    return !!$(param, element.form).length;
                 },
-                "function": function( param, element ) {
-                    return param( element );
+                "function": function (param, element) {
+                    return param(element);
                 }
             },
 
-            optional: function( element ) {
-                var val = this.elementValue( element );
-                return !$.validator.methods.required.call( this, val, element ) && "dependency-mismatch";
+            optional: function (element) {
+                var val = this.elementValue(element);
+                return !$.validator.methods.required.call(this, val, element) && "dependency-mismatch";
             },
 
-            startRequest: function( element ) {
-                if ( !this.pending[ element.name ] ) {
+            startRequest: function (element) {
+                if (!this.pending[element.name]) {
                     this.pendingRequest++;
-                    $( element ).addClass( this.settings.pendingClass );
-                    this.pending[ element.name ] = true;
+                    $(element).addClass(this.settings.pendingClass);
+                    this.pending[element.name] = true;
                 }
             },
 
-            stopRequest: function( element, valid ) {
+            stopRequest: function (element, valid) {
                 this.pendingRequest--;
 
                 // Sometimes synchronization fails, make sure pendingRequest is never < 0
-                if ( this.pendingRequest < 0 ) {
+                if (this.pendingRequest < 0) {
                     this.pendingRequest = 0;
                 }
-                delete this.pending[ element.name ];
-                $( element ).removeClass( this.settings.pendingClass );
-                if ( valid && this.pendingRequest === 0 && this.formSubmitted && this.form() ) {
-                    $( this.currentForm ).submit();
+                delete this.pending[element.name];
+                $(element).removeClass(this.settings.pendingClass);
+                if (valid && this.pendingRequest === 0 && this.formSubmitted && this.form()) {
+                    $(this.currentForm).submit();
                     this.formSubmitted = false;
-                } else if ( !valid && this.pendingRequest === 0 && this.formSubmitted ) {
-                    $( this.currentForm ).triggerHandler( "invalid-form", [ this ] );
+                } else if (!valid && this.pendingRequest === 0 && this.formSubmitted) {
+                    $(this.currentForm).triggerHandler("invalid-form", [this]);
                     this.formSubmitted = false;
                 }
             },
 
-            previousValue: function( element, method ) {
+            previousValue: function (element, method) {
                 method = typeof method === "string" && method || "remote";
 
-                return $.data( element, "previousValue" ) || $.data( element, "previousValue", {
-                        old: null,
-                        valid: true,
-                        message: this.defaultMessage( element, { method: method } )
-                    } );
+                return $.data(element, "previousValue") || $.data(element, "previousValue", {
+                    old: null,
+                    valid: true,
+                    message: this.defaultMessage(element, { method: method })
+                });
             },
 
             // Cleans up all forms and elements, removes validator-specific events
-            destroy: function() {
+            destroy: function () {
                 this.resetForm();
 
-                $( this.currentForm )
-                    .off( ".validate" )
-                    .removeData( "validator" )
-                    .find( ".validate-equalTo-blur" )
-                    .off( ".validate-equalTo" )
-                    .removeClass( "validate-equalTo-blur" );
+                $(this.currentForm).off(".validate").removeData("validator").find(".validate-equalTo-blur").off(".validate-equalTo").removeClass("validate-equalTo-blur");
             }
 
         },
@@ -14674,171 +13606,173 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             creditcard: { creditcard: true }
         },
 
-        addClassRules: function( className, rules ) {
-            if ( className.constructor === String ) {
-                this.classRuleSettings[ className ] = rules;
+        addClassRules: function (className, rules) {
+            if (className.constructor === String) {
+                this.classRuleSettings[className] = rules;
             } else {
-                $.extend( this.classRuleSettings, className );
+                $.extend(this.classRuleSettings, className);
             }
         },
 
-        classRules: function( element ) {
+        classRules: function (element) {
             var rules = {},
-                classes = $( element ).attr( "class" );
+                classes = $(element).attr("class");
 
-            if ( classes ) {
-                $.each( classes.split( " " ), function() {
-                    if ( this in $.validator.classRuleSettings ) {
-                        $.extend( rules, $.validator.classRuleSettings[ this ] );
+            if (classes) {
+                $.each(classes.split(" "), function () {
+                    if (this in $.validator.classRuleSettings) {
+                        $.extend(rules, $.validator.classRuleSettings[this]);
                     }
-                } );
+                });
             }
             return rules;
         },
 
-        normalizeAttributeRule: function( rules, type, method, value ) {
+        normalizeAttributeRule: function (rules, type, method, value) {
 
             // Convert the value to a number for number inputs, and for text for backwards compability
             // allows type="date" and others to be compared as strings
-            if ( /min|max|step/.test( method ) && ( type === null || /number|range|text/.test( type ) ) ) {
-                value = Number( value );
+            if (/min|max|step/.test(method) && (type === null || /number|range|text/.test(type))) {
+                value = Number(value);
 
                 // Support Opera Mini, which returns NaN for undefined minlength
-                if ( isNaN( value ) ) {
+                if (isNaN(value)) {
                     value = undefined;
                 }
             }
 
-            if ( value || value === 0 ) {
-                rules[ method ] = value;
-            } else if ( type === method && type !== "range" ) {
+            if (value || value === 0) {
+                rules[method] = value;
+            } else if (type === method && type !== "range") {
 
                 // Exception: the jquery validate 'range' method
                 // does not test for the html5 'range' type
-                rules[ method ] = true;
+                rules[method] = true;
             }
         },
 
-        attributeRules: function( element ) {
+        attributeRules: function (element) {
             var rules = {},
-                $element = $( element ),
-                type = element.getAttribute( "type" ),
-                method, value;
+                $element = $(element),
+                type = element.getAttribute("type"),
+                method,
+                value;
 
-            for ( method in $.validator.methods ) {
+            for (method in $.validator.methods) {
 
                 // Support for <input required> in both html5 and older browsers
-                if ( method === "required" ) {
-                    value = element.getAttribute( method );
+                if (method === "required") {
+                    value = element.getAttribute(method);
 
                     // Some browsers return an empty string for the required attribute
                     // and non-HTML5 browsers might have required="" markup
-                    if ( value === "" ) {
+                    if (value === "") {
                         value = true;
                     }
 
                     // Force non-HTML5 browsers to return bool
                     value = !!value;
                 } else {
-                    value = $element.attr( method );
+                    value = $element.attr(method);
                 }
 
-                this.normalizeAttributeRule( rules, type, method, value );
+                this.normalizeAttributeRule(rules, type, method, value);
             }
 
             // 'maxlength' may be returned as -1, 2147483647 ( IE ) and 524288 ( safari ) for text inputs
-            if ( rules.maxlength && /-1|2147483647|524288/.test( rules.maxlength ) ) {
+            if (rules.maxlength && /-1|2147483647|524288/.test(rules.maxlength)) {
                 delete rules.maxlength;
             }
 
             return rules;
         },
 
-        dataRules: function( element ) {
+        dataRules: function (element) {
             var rules = {},
-                $element = $( element ),
-                type = element.getAttribute( "type" ),
-                method, value;
+                $element = $(element),
+                type = element.getAttribute("type"),
+                method,
+                value;
 
-            for ( method in $.validator.methods ) {
-                value = $element.data( "rule" + method.charAt( 0 ).toUpperCase() + method.substring( 1 ).toLowerCase() );
-                this.normalizeAttributeRule( rules, type, method, value );
+            for (method in $.validator.methods) {
+                value = $element.data("rule" + method.charAt(0).toUpperCase() + method.substring(1).toLowerCase());
+                this.normalizeAttributeRule(rules, type, method, value);
             }
             return rules;
         },
 
-        staticRules: function( element ) {
+        staticRules: function (element) {
             var rules = {},
-                validator = $.data( element.form, "validator" );
+                validator = $.data(element.form, "validator");
 
-            if ( validator.settings.rules ) {
-                rules = $.validator.normalizeRule( validator.settings.rules[ element.name ] ) || {};
+            if (validator.settings.rules) {
+                rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
             }
             return rules;
         },
 
-        normalizeRules: function( rules, element ) {
+        normalizeRules: function (rules, element) {
 
             // Handle dependency check
-            $.each( rules, function( prop, val ) {
+            $.each(rules, function (prop, val) {
 
                 // Ignore rule when param is explicitly false, eg. required:false
-                if ( val === false ) {
-                    delete rules[ prop ];
+                if (val === false) {
+                    delete rules[prop];
                     return;
                 }
-                if ( val.param || val.depends ) {
+                if (val.param || val.depends) {
                     var keepRule = true;
-                    switch ( typeof val.depends ) {
+                    switch (typeof val.depends) {
                         case "string":
-                            keepRule = !!$( val.depends, element.form ).length;
+                            keepRule = !!$(val.depends, element.form).length;
                             break;
                         case "function":
-                            keepRule = val.depends.call( element, element );
+                            keepRule = val.depends.call(element, element);
                             break;
                     }
-                    if ( keepRule ) {
-                        rules[ prop ] = val.param !== undefined ? val.param : true;
+                    if (keepRule) {
+                        rules[prop] = val.param !== undefined ? val.param : true;
                     } else {
-                        $.data( element.form, "validator" ).resetElements( $( element ) );
-                        delete rules[ prop ];
+                        $.data(element.form, "validator").resetElements($(element));
+                        delete rules[prop];
                     }
                 }
-            } );
+            });
 
             // Evaluate parameters
-            $.each( rules, function( rule, parameter ) {
-                rules[ rule ] = $.isFunction( parameter ) && rule !== "normalizer" ? parameter( element ) : parameter;
-            } );
+            $.each(rules, function (rule, parameter) {
+                rules[rule] = $.isFunction(parameter) && rule !== "normalizer" ? parameter(element) : parameter;
+            });
 
             // Clean number parameters
-            $.each( [ "minlength", "maxlength" ], function() {
-                if ( rules[ this ] ) {
-                    rules[ this ] = Number( rules[ this ] );
+            $.each(["minlength", "maxlength"], function () {
+                if (rules[this]) {
+                    rules[this] = Number(rules[this]);
                 }
-            } );
-            $.each( [ "rangelength", "range" ], function() {
+            });
+            $.each(["rangelength", "range"], function () {
                 var parts;
-                if ( rules[ this ] ) {
-                    if ( $.isArray( rules[ this ] ) ) {
-                        rules[ this ] = [ Number( rules[ this ][ 0 ] ), Number( rules[ this ][ 1 ] ) ];
-                    } else if ( typeof rules[ this ] === "string" ) {
-                        parts = rules[ this ].replace( /[\[\]]/g, "" ).split( /[\s,]+/ );
-                        rules[ this ] = [ Number( parts[ 0 ] ), Number( parts[ 1 ] ) ];
+                if (rules[this]) {
+                    if ($.isArray(rules[this])) {
+                        rules[this] = [Number(rules[this][0]), Number(rules[this][1])];
+                    } else if (typeof rules[this] === "string") {
+                        parts = rules[this].replace(/[\[\]]/g, "").split(/[\s,]+/);
+                        rules[this] = [Number(parts[0]), Number(parts[1])];
                     }
                 }
-            } );
+            });
 
-            if ( $.validator.autoCreateRanges ) {
+            if ($.validator.autoCreateRanges) {
 
                 // Auto-create ranges
-                if ( rules.min != null && rules.max != null ) {
-                    rules.range = [ rules.min, rules.max ];
+                if (rules.min != null && rules.max != null) {
+                    rules.range = [rules.min, rules.max];
                     delete rules.min;
                     delete rules.max;
                 }
-                if ( rules.minlength != null && rules.maxlength != null ) {
-                    rules.rangelength = [ rules.minlength, rules.maxlength ];
+                if (rules.minlength != null && rules.maxlength != null) {
+                    rules.rangelength = [rules.minlength, rules.maxlength];
                     delete rules.minlength;
                     delete rules.maxlength;
                 }
@@ -14848,23 +13782,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         },
 
         // Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
-        normalizeRule: function( data ) {
-            if ( typeof data === "string" ) {
+        normalizeRule: function (data) {
+            if (typeof data === "string") {
                 var transformed = {};
-                $.each( data.split( /\s/ ), function() {
-                    transformed[ this ] = true;
-                } );
+                $.each(data.split(/\s/), function () {
+                    transformed[this] = true;
+                });
                 data = transformed;
             }
             return data;
         },
 
         // http://jqueryvalidation.org/jQuery.validator.addMethod/
-        addMethod: function( name, method, message ) {
-            $.validator.methods[ name ] = method;
-            $.validator.messages[ name ] = message !== undefined ? message : $.validator.messages[ name ];
-            if ( method.length < 3 ) {
-                $.validator.addClassRules( name, $.validator.normalizeRule( name ) );
+        addMethod: function (name, method, message) {
+            $.validator.methods[name] = method;
+            $.validator.messages[name] = message !== undefined ? message : $.validator.messages[name];
+            if (method.length < 3) {
+                $.validator.addClassRules(name, $.validator.normalizeRule(name));
             }
         },
 
@@ -14872,252 +13806,256 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         methods: {
 
             // http://jqueryvalidation.org/required-method/
-            required: function( value, element, param ) {
+            required: function (value, element, param) {
 
                 // Check if dependency is met
-                if ( !this.depend( param, element ) ) {
+                if (!this.depend(param, element)) {
                     return "dependency-mismatch";
                 }
-                if ( element.nodeName.toLowerCase() === "select" ) {
+                if (element.nodeName.toLowerCase() === "select") {
 
                     // Could be an array for select-multiple or a string, both are fine this way
-                    var val = $( element ).val();
+                    var val = $(element).val();
                     return val && val.length > 0;
                 }
-                if ( this.checkable( element ) ) {
-                    return this.getLength( value, element ) > 0;
+                if (this.checkable(element)) {
+                    return this.getLength(value, element) > 0;
                 }
                 return value.length > 0;
             },
 
             // http://jqueryvalidation.org/email-method/
-            email: function( value, element ) {
+            email: function (value, element) {
 
                 // From https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address
                 // Retrieved 2014-01-14
                 // If you have a problem with this implementation, report a bug against the above spec
                 // Or use custom methods to implement your own email validation
-                return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+                return this.optional(element) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value);
             },
 
             // http://jqueryvalidation.org/url-method/
-            url: function( value, element ) {
+            url: function (value, element) {
 
                 // Copyright (c) 2010-2013 Diego Perini, MIT licensed
                 // https://gist.github.com/dperini/729294
                 // see also https://mathiasbynens.be/demo/url-regex
                 // modified to allow protocol-relative URLs
-                return this.optional( element ) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( value );
+                return this.optional(element) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
             },
 
             // http://jqueryvalidation.org/date-method/
-            date: function( value, element ) {
-                return this.optional( element ) || !/Invalid|NaN/.test( new Date( value ).toString() );
+            date: function (value, element) {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value).toString());
             },
 
             // http://jqueryvalidation.org/dateISO-method/
-            dateISO: function( value, element ) {
-                return this.optional( element ) || /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test( value );
+            dateISO: function (value, element) {
+                return this.optional(element) || /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value);
             },
 
             // http://jqueryvalidation.org/number-method/
-            number: function( value, element ) {
-                return this.optional( element ) || /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( value );
+            number: function (value, element) {
+                return this.optional(element) || /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value);
             },
 
             // http://jqueryvalidation.org/digits-method/
-            digits: function( value, element ) {
-                return this.optional( element ) || /^\d+$/.test( value );
+            digits: function (value, element) {
+                return this.optional(element) || /^\d+$/.test(value);
             },
 
             // http://jqueryvalidation.org/minlength-method/
-            minlength: function( value, element, param ) {
-                var length = $.isArray( value ) ? value.length : this.getLength( value, element );
-                return this.optional( element ) || length >= param;
+            minlength: function (value, element, param) {
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
+                return this.optional(element) || length >= param;
             },
 
             // http://jqueryvalidation.org/maxlength-method/
-            maxlength: function( value, element, param ) {
-                var length = $.isArray( value ) ? value.length : this.getLength( value, element );
-                return this.optional( element ) || length <= param;
+            maxlength: function (value, element, param) {
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
+                return this.optional(element) || length <= param;
             },
 
             // http://jqueryvalidation.org/rangelength-method/
-            rangelength: function( value, element, param ) {
-                var length = $.isArray( value ) ? value.length : this.getLength( value, element );
-                return this.optional( element ) || ( length >= param[ 0 ] && length <= param[ 1 ] );
+            rangelength: function (value, element, param) {
+                var length = $.isArray(value) ? value.length : this.getLength(value, element);
+                return this.optional(element) || length >= param[0] && length <= param[1];
             },
 
             // http://jqueryvalidation.org/min-method/
-            min: function( value, element, param ) {
-                return this.optional( element ) || value >= param;
+            min: function (value, element, param) {
+                return this.optional(element) || value >= param;
             },
 
             // http://jqueryvalidation.org/max-method/
-            max: function( value, element, param ) {
-                return this.optional( element ) || value <= param;
+            max: function (value, element, param) {
+                return this.optional(element) || value <= param;
             },
 
             // http://jqueryvalidation.org/range-method/
-            range: function( value, element, param ) {
-                return this.optional( element ) || ( value >= param[ 0 ] && value <= param[ 1 ] );
+            range: function (value, element, param) {
+                return this.optional(element) || value >= param[0] && value <= param[1];
             },
 
             // http://jqueryvalidation.org/step-method/
-            step: function( value, element, param ) {
-                var type = $( element ).attr( "type" ),
+            step: function (value, element, param) {
+                var type = $(element).attr("type"),
                     errorMessage = "Step attribute on input type " + type + " is not supported.",
-                    supportedTypes = [ "text", "number", "range" ],
-                    re = new RegExp( "\\b" + type + "\\b" ),
-                    notSupported = type && !re.test( supportedTypes.join() ),
-                    decimalPlaces = function( num ) {
-                        var match = ( "" + num ).match( /(?:\.(\d+))?$/ );
-                        if ( !match ) {
-                            return 0;
-                        }
+                    supportedTypes = ["text", "number", "range"],
+                    re = new RegExp("\\b" + type + "\\b"),
+                    notSupported = type && !re.test(supportedTypes.join()),
+                    decimalPlaces = function (num) {
+                    var match = ("" + num).match(/(?:\.(\d+))?$/);
+                    if (!match) {
+                        return 0;
+                    }
 
-                        // Number of digits right of decimal point.
-                        return match[ 1 ] ? match[ 1 ].length : 0;
-                    },
-                    toInt = function( num ) {
-                        return Math.round( num * Math.pow( 10, decimals ) );
-                    },
+                    // Number of digits right of decimal point.
+                    return match[1] ? match[1].length : 0;
+                },
+                    toInt = function (num) {
+                    return Math.round(num * Math.pow(10, decimals));
+                },
                     valid = true,
                     decimals;
 
                 // Works only for text, number and range input types
                 // TODO find a way to support input types date, datetime, datetime-local, month, time and week
-                if ( notSupported ) {
-                    throw new Error( errorMessage );
+                if (notSupported) {
+                    throw new Error(errorMessage);
                 }
 
-                decimals = decimalPlaces( param );
+                decimals = decimalPlaces(param);
 
                 // Value can't have too many decimals
-                if ( decimalPlaces( value ) > decimals || toInt( value ) % toInt( param ) !== 0 ) {
+                if (decimalPlaces(value) > decimals || toInt(value) % toInt(param) !== 0) {
                     valid = false;
                 }
 
-                return this.optional( element ) || valid;
+                return this.optional(element) || valid;
             },
 
             // http://jqueryvalidation.org/equalTo-method/
-            equalTo: function( value, element, param ) {
+            equalTo: function (value, element, param) {
 
                 // Bind to the blur event of the target in order to revalidate whenever the target field is updated
-                var target = $( param );
-                if ( this.settings.onfocusout && target.not( ".validate-equalTo-blur" ).length ) {
-                    target.addClass( "validate-equalTo-blur" ).on( "blur.validate-equalTo", function() {
-                        $( element ).valid();
-                    } );
+                var target = $(param);
+                if (this.settings.onfocusout && target.not(".validate-equalTo-blur").length) {
+                    target.addClass("validate-equalTo-blur").on("blur.validate-equalTo", function () {
+                        $(element).valid();
+                    });
                 }
                 return value === target.val();
             },
 
             // http://jqueryvalidation.org/remote-method/
-            remote: function( value, element, param, method ) {
-                if ( this.optional( element ) ) {
+            remote: function (value, element, param, method) {
+                if (this.optional(element)) {
                     return "dependency-mismatch";
                 }
 
                 method = typeof method === "string" && method || "remote";
 
-                var previous = this.previousValue( element, method ),
-                    validator, data, optionDataString;
+                var previous = this.previousValue(element, method),
+                    validator,
+                    data,
+                    optionDataString;
 
-                if ( !this.settings.messages[ element.name ] ) {
-                    this.settings.messages[ element.name ] = {};
+                if (!this.settings.messages[element.name]) {
+                    this.settings.messages[element.name] = {};
                 }
-                previous.originalMessage = previous.originalMessage || this.settings.messages[ element.name ][ method ];
-                this.settings.messages[ element.name ][ method ] = previous.message;
+                previous.originalMessage = previous.originalMessage || this.settings.messages[element.name][method];
+                this.settings.messages[element.name][method] = previous.message;
 
                 param = typeof param === "string" && { url: param } || param;
-                optionDataString = $.param( $.extend( { data: value }, param.data ) );
-                if ( previous.old === optionDataString ) {
+                optionDataString = $.param($.extend({ data: value }, param.data));
+                if (previous.old === optionDataString) {
                     return previous.valid;
                 }
 
                 previous.old = optionDataString;
                 validator = this;
-                this.startRequest( element );
+                this.startRequest(element);
                 data = {};
-                data[ element.name ] = value;
-                $.ajax( $.extend( true, {
+                data[element.name] = value;
+                $.ajax($.extend(true, {
                     mode: "abort",
                     port: "validate" + element.name,
                     dataType: "json",
                     data: data,
                     context: validator.currentForm,
-                    success: function( response ) {
+                    success: function (response) {
                         var valid = response === true || response === "true",
-                            errors, message, submitted;
+                            errors,
+                            message,
+                            submitted;
 
-                        validator.settings.messages[ element.name ][ method ] = previous.originalMessage;
-                        if ( valid ) {
+                        validator.settings.messages[element.name][method] = previous.originalMessage;
+                        if (valid) {
                             // submitted = validator.formSubmitted;
                             // validator.resetInternals();
-                            validator.toHide = validator.errorsFor( element );
+                            validator.toHide = validator.errorsFor(element);
                             // validator.formSubmitted = submitted;
-                            validator.successList.push( element );
-                            validator.invalid[ element.name ] = false;
+                            validator.successList.push(element);
+                            validator.invalid[element.name] = false;
                             validator.showErrors();
                         } else {
                             errors = {};
-                            message = response || validator.defaultMessage( element, { method: method, parameters: value } );
-                            errors[ element.name ] = previous.message = message;
-                            validator.invalid[ element.name ] = true;
-                            validator.showErrors( errors );
+                            message = response || validator.defaultMessage(element, { method: method, parameters: value });
+                            errors[element.name] = previous.message = message;
+                            validator.invalid[element.name] = true;
+                            validator.showErrors(errors);
                         }
                         previous.valid = valid;
-                        validator.stopRequest( element, valid );
+                        validator.stopRequest(element, valid);
                     }
-                }, param ) );
+                }, param));
                 return "pending";
             }
         }
 
-    } );
+    });
 
-// Ajax mode: abort
-// usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
-// if mode:"abort" is used, the previous request on that port (port can be undefined) is aborted via XMLHttpRequest.abort()
+    // Ajax mode: abort
+    // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
+    // if mode:"abort" is used, the previous request on that port (port can be undefined) is aborted via XMLHttpRequest.abort()
 
     var pendingRequests = {},
         ajax;
 
-// Use a prefilter if available (1.5+)
-    if ( $.ajaxPrefilter ) {
-        $.ajaxPrefilter( function( settings, _, xhr ) {
+    // Use a prefilter if available (1.5+)
+    if ($.ajaxPrefilter) {
+        $.ajaxPrefilter(function (settings, _, xhr) {
             var port = settings.port;
-            if ( settings.mode === "abort" ) {
-                if ( pendingRequests[ port ] ) {
-                    pendingRequests[ port ].abort();
+            if (settings.mode === "abort") {
+                if (pendingRequests[port]) {
+                    pendingRequests[port].abort();
                 }
-                pendingRequests[ port ] = xhr;
+                pendingRequests[port] = xhr;
             }
-        } );
+        });
     } else {
 
         // Proxy ajax
         ajax = $.ajax;
-        $.ajax = function( settings ) {
-            var mode = ( "mode" in settings ? settings : $.ajaxSettings ).mode,
-                port = ( "port" in settings ? settings : $.ajaxSettings ).port;
-            if ( mode === "abort" ) {
-                if ( pendingRequests[ port ] ) {
-                    pendingRequests[ port ].abort();
+        $.ajax = function (settings) {
+            var mode = ("mode" in settings ? settings : $.ajaxSettings).mode,
+                port = ("port" in settings ? settings : $.ajaxSettings).port;
+            if (mode === "abort") {
+                if (pendingRequests[port]) {
+                    pendingRequests[port].abort();
                 }
-                pendingRequests[ port ] = ajax.apply( this, arguments );
-                return pendingRequests[ port ];
+                pendingRequests[port] = ajax.apply(this, arguments);
+                return pendingRequests[port];
             }
-            return ajax.apply( this, arguments );
+            return ajax.apply(this, arguments);
         };
     }
     return $;
-}));
+});
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/*!
@@ -15129,46 +14067,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
  * MIT Licensed
  */
 
-(function($) {
+(function ($) {
 
   // Cached vars
   var _iCheck = 'iCheck',
-    _iCheckHelper = _iCheck + '-helper',
-    _checkbox = 'checkbox',
-    _radio = 'radio',
-    _checked = 'checked',
-    _unchecked = 'un' + _checked,
-    _disabled = 'disabled',
-    _determinate = 'determinate',
-    _indeterminate = 'in' + _determinate,
-    _update = 'update',
-    _type = 'type',
-    _click = 'click',
-    _touch = 'touchbegin.i touchend.i',
-    _add = 'addClass',
-    _remove = 'removeClass',
-    _callback = 'trigger',
-    _label = 'label',
-    _cursor = 'cursor',
-    _mobile = /ipad|iphone|ipod|android|blackberry|windows phone|opera mini|silk/i.test(navigator.userAgent);
+      _iCheckHelper = _iCheck + '-helper',
+      _checkbox = 'checkbox',
+      _radio = 'radio',
+      _checked = 'checked',
+      _unchecked = 'un' + _checked,
+      _disabled = 'disabled',
+      _determinate = 'determinate',
+      _indeterminate = 'in' + _determinate,
+      _update = 'update',
+      _type = 'type',
+      _click = 'click',
+      _touch = 'touchbegin.i touchend.i',
+      _add = 'addClass',
+      _remove = 'removeClass',
+      _callback = 'trigger',
+      _label = 'label',
+      _cursor = 'cursor',
+      _mobile = /ipad|iphone|ipod|android|blackberry|windows phone|opera mini|silk/i.test(navigator.userAgent);
 
   // Plugin init
-  $.fn[_iCheck] = function(options, fire) {
+  $.fn[_iCheck] = function (options, fire) {
 
     // Walker
     var handle = 'input[type="' + _checkbox + '"], input[type="' + _radio + '"]',
-      stack = $(),
-      walker = function(object) {
-        object.each(function() {
-          var self = $(this);
+        stack = $(),
+        walker = function (object) {
+      object.each(function () {
+        var self = $(this);
 
-          if (self.is(handle)) {
-            stack = stack.add(self);
-          } else {
-            stack = stack.add(self.find(handle));
-          }
-        });
-      };
+        if (self.is(handle)) {
+          stack = stack.add(self);
+        } else {
+          stack = stack.add(self.find(handle));
+        }
+      });
+    };
 
     // Check if we should operate with some method
     if (/^(check|uncheck|toggle|indeterminate|determinate|disable|enable|update|destroy)$/i.test(options)) {
@@ -15179,7 +14117,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Find checkboxes and radio buttons
       walker(this);
 
-      return stack.each(function() {
+      return stack.each(function () {
         var self = $(this);
 
         if (options == 'destroy') {
@@ -15187,99 +14125,106 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         } else {
           operate(self, true, options);
         }
-          // Fire method's callback
+        // Fire method's callback
         if ($.isFunction(fire)) {
           fire();
         }
       });
 
-    // Customization
+      // Customization
     } else if (typeof options == 'object' || !options) {
 
       // Check if any options were passed
       var settings = $.extend({
-          checkedClass: _checked,
-          disabledClass: _disabled,
-          indeterminateClass: _indeterminate,
-          labelHover: true,
-          aria: false
-        }, options),
+        checkedClass: _checked,
+        disabledClass: _disabled,
+        indeterminateClass: _indeterminate,
+        labelHover: true,
+        aria: false
+      }, options),
+          selector = settings.handle,
+          hoverClass = settings.hoverClass || 'hover',
+          focusClass = settings.focusClass || 'focus',
+          activeClass = settings.activeClass || 'active',
+          labelHover = !!settings.labelHover,
+          labelHoverClass = settings.labelHoverClass || 'hover',
 
-        selector = settings.handle,
-        hoverClass = settings.hoverClass || 'hover',
-        focusClass = settings.focusClass || 'focus',
-        activeClass = settings.activeClass || 'active',
-        labelHover = !!settings.labelHover,
-        labelHoverClass = settings.labelHoverClass || 'hover',
 
-        // Setup clickable area
-        area = ('' + settings.increaseArea).replace('%', '') | 0;
+      // Setup clickable area
+      area = ('' + settings.increaseArea).replace('%', '') | 0;
 
       // Selector limit
       if (selector == _checkbox || selector == _radio) {
         handle = 'input[type="' + selector + '"]';
       }
-        // Clickable area limit
+      // Clickable area limit
       if (area < -50) {
         area = -50;
       }
-        // Walk around the selector
+      // Walk around the selector
       walker(this);
 
-      return stack.each(function() {
+      return stack.each(function () {
         var self = $(this);
 
         // If already customized
         tidy(self);
 
         var node = this,
-          id = node.id,
+            id = node.id,
 
-          // Layer styles
-          offset = -area + '%',
-          size = 100 + (area * 2) + '%',
-          layer = {
-            position: 'absolute',
-            top: offset,
-            left: offset,
-            display: 'block',
-            width: size,
-            height: size,
-            margin: 0,
-            padding: 0,
-            background: '#fff',
-            border: 0,
-            opacity: 0
-          },
 
-          // Choose how to hide input
-          hide = _mobile ? {
-            position: 'absolute',
-            visibility: 'hidden'
-          } : area ? layer : {
-            position: 'absolute',
-            opacity: 0
-          },
+        // Layer styles
+        offset = -area + '%',
+            size = 100 + area * 2 + '%',
+            layer = {
+          position: 'absolute',
+          top: offset,
+          left: offset,
+          display: 'block',
+          width: size,
+          height: size,
+          margin: 0,
+          padding: 0,
+          background: '#fff',
+          border: 0,
+          opacity: 0
+        },
 
-          // Get proper class
-          className = node[_type] == _checkbox ? settings.checkboxClass || 'i' + _checkbox : settings.radioClass || 'i' + _radio,
 
-          // Find assigned labels
-          label = $(_label + '[for="' + id + '"]').add(self.closest(_label)),
+        // Choose how to hide input
+        hide = _mobile ? {
+          position: 'absolute',
+          visibility: 'hidden'
+        } : area ? layer : {
+          position: 'absolute',
+          opacity: 0
+        },
 
-          // Check ARIA option
-          aria = !!settings.aria,
 
-          // Set ARIA placeholder
-          ariaID = _iCheck + '-' + Math.random().toString(36).replace('0.', ''),
+        // Get proper class
+        className = node[_type] == _checkbox ? settings.checkboxClass || 'i' + _checkbox : settings.radioClass || 'i' + _radio,
 
-          // Parent & helper
-          parent = '<div class="' + className + '" ' + (aria ? 'role="' + node[_type] + '" ' : ''),
-          helper;
+
+        // Find assigned labels
+        label = $(_label + '[for="' + id + '"]').add(self.closest(_label)),
+
+
+        // Check ARIA option
+        aria = !!settings.aria,
+
+
+        // Set ARIA placeholder
+        ariaID = _iCheck + '-' + Math.random().toString(36).replace('0.', ''),
+
+
+        // Parent & helper
+        parent = '<div class="' + className + '" ' + (aria ? 'role="' + node[_type] + '" ' : ''),
+            helper;
 
         // Set ARIA "labelledby"
         if (label.length && aria) {
-          label.each(function() {
+          label.each(function () {
             parent += 'aria-labelledby="';
 
             if (this.id) {
@@ -15292,14 +14237,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             parent += '"';
           });
         }
-          // Wrap input
+        // Wrap input
         parent = self.wrap(parent + '/>')[_callback]('ifCreated').parent().append(settings.insert);
 
         // Layer addition
         helper = $('<ins class="' + _iCheckHelper + '"/>').css(layer).appendTo(parent);
 
         // Finalize customization
-        self.data(_iCheck, {o: settings, s: self.attr('style')}).css(hide);
+        self.data(_iCheck, { o: settings, s: self.attr('style') }).css(hide);
         !!settings.inheritClass && parent[_add](node.className || '');
         !!settings.inheritID && id && parent.attr('id', _iCheck + '-' + id);
         parent.css('position') == 'static' && parent.css('position', 'relative');
@@ -15307,9 +14252,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
         // Label events
         if (label.length) {
-          label.on(_click + '.i mouseover.i mouseout.i ' + _touch, function(event) {
+          label.on(_click + '.i mouseover.i mouseout.i ' + _touch, function (event) {
             var type = event[_type],
-              item = $(this);
+                item = $(this);
 
             // Do nothing if input is disabled
             if (!node[_disabled]) {
@@ -15321,7 +14266,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 }
                 operate(self, false, true);
 
-              // Hover state
+                // Hover state
               } else if (labelHover) {
 
                 // mouseout|touchend
@@ -15333,7 +14278,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                   item[_add](labelHoverClass);
                 }
               }
-                if (_mobile) {
+              if (_mobile) {
                 event.stopPropagation();
               } else {
                 return false;
@@ -15341,16 +14286,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             }
           });
         }
-          // Input events
-        self.on(_click + '.i focus.i blur.i keyup.i keydown.i keypress.i', function(event) {
+        // Input events
+        self.on(_click + '.i focus.i blur.i keyup.i keydown.i keypress.i', function (event) {
           var type = event[_type],
-            key = event.keyCode;
+              key = event.keyCode;
 
           // Click
           if (type == _click) {
             return false;
 
-          // Keydown
+            // Keydown
           } else if (type == 'keydown' && key == 32) {
             if (!(node[_type] == _radio && node[_checked])) {
               if (node[_checked]) {
@@ -15359,24 +14304,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 on(self, _checked);
               }
             }
-              return false;
+            return false;
 
-          // Keyup
+            // Keyup
           } else if (type == 'keyup' && node[_type] == _radio) {
             !node[_checked] && on(self, _checked);
 
-          // Focus/blur
+            // Focus/blur
           } else if (/us|ur/.test(type)) {
             parent[type == 'blur' ? _remove : _add](focusClass);
           }
         });
 
         // Helper events
-        helper.on(_click + ' mousedown mouseup mouseover mouseout ' + _touch, function(event) {
+        helper.on(_click + ' mousedown mouseup mouseover mouseout ' + _touch, function (event) {
           var type = event[_type],
 
-            // mousedown|mouseup
-            toggle = /wn|up/.test(type) ? activeClass : hoverClass;
+
+          // mousedown|mouseup
+          toggle = /wn|up/.test(type) ? activeClass : hoverClass;
 
           // Do nothing if input is disabled
           if (!node[_disabled]) {
@@ -15385,7 +14331,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             if (type == _click) {
               operate(self, false, true);
 
-            // Active and hover states
+              // Active and hover states
             } else {
 
               // State is on
@@ -15394,18 +14340,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 // mousedown|mouseover|touchbegin
                 parent[_add](toggle);
 
-              // State is off
+                // State is off
               } else {
                 parent[_remove](toggle + ' ' + activeClass);
               }
-                // Label hover
+              // Label hover
               if (label.length && labelHover && toggle == hoverClass) {
 
                 // mouseout|touchend
                 label[/ut|nd/.test(type) ? _remove : _add](labelHoverClass);
               }
             }
-              if (_mobile) {
+            if (_mobile) {
               event.stopPropagation();
             } else {
               return false;
@@ -15421,22 +14367,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   // Do something with inputs
   function operate(input, direct, method) {
     var node = input[0],
-      state = /er/.test(method) ? _indeterminate : /bl/.test(method) ? _disabled : _checked,
-      active = method == _update ? {
-        checked: node[_checked],
-        disabled: node[_disabled],
-        indeterminate: input.attr(_indeterminate) == 'true' || input.attr(_determinate) == 'false'
-      } : node[state];
+        state = /er/.test(method) ? _indeterminate : /bl/.test(method) ? _disabled : _checked,
+        active = method == _update ? {
+      checked: node[_checked],
+      disabled: node[_disabled],
+      indeterminate: input.attr(_indeterminate) == 'true' || input.attr(_determinate) == 'false'
+    } : node[state];
 
     // Check, disable or indeterminate
     if (/^(ch|di|in)/.test(method) && !active) {
       on(input, state);
 
-    // Uncheck, enable or determinate
+      // Uncheck, enable or determinate
     } else if (/^(un|en|de)/.test(method) && active) {
       off(input, state);
 
-    // Update
+      // Update
     } else if (method == _update) {
 
       // Handle states
@@ -15453,7 +14399,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (!direct) {
         input[_callback]('ifClicked');
       }
-        // Toggle checked state
+      // Toggle checked state
       if (active) {
         if (node[_type] !== _radio) {
           off(input, state);
@@ -15463,16 +14409,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }
     }
   }
-    // Add checked, disabled or indeterminate state
+  // Add checked, disabled or indeterminate state
   function on(input, state, keep) {
     var node = input[0],
-      parent = input.parent(),
-      checked = state == _checked,
-      indeterminate = state == _indeterminate,
-      disabled = state == _disabled,
-      callback = indeterminate ? _determinate : checked ? _unchecked : 'enabled',
-      regular = option(input, callback + capitalize(node[_type])),
-      specific = option(input, state + capitalize(node[_type]));
+        parent = input.parent(),
+        checked = state == _checked,
+        indeterminate = state == _indeterminate,
+        disabled = state == _disabled,
+        callback = indeterminate ? _determinate : checked ? _unchecked : 'enabled',
+        regular = option(input, callback + capitalize(node[_type])),
+        specific = option(input, state + capitalize(node[_type]));
 
     // Prevent unnecessary actions
     if (node[state] !== true) {
@@ -15480,17 +14426,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Toggle assigned radio buttons
       if (!keep && state == _checked && node[_type] == _radio && node.name) {
         var form = input.closest('form'),
-          inputs = 'input[name="' + node.name + '"]';
+            inputs = 'input[name="' + node.name + '"]';
 
         inputs = form.length ? form.find(inputs) : $(inputs);
 
-        inputs.each(function() {
+        inputs.each(function () {
           if (this !== node && $(this).data(_iCheck)) {
             off($(this), state);
           }
         });
       }
-        // Indeterminate state
+      // Indeterminate state
       if (indeterminate) {
 
         // Add indeterminate state
@@ -15500,26 +14446,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         if (node[_checked]) {
           off(input, _checked, 'force');
         }
-          // Checked or disabled state
+        // Checked or disabled state
       } else {
 
         // Add checked or disabled state
         if (!keep) {
           node[state] = true;
         }
-          // Remove indeterminate state
+        // Remove indeterminate state
         if (checked && node[_indeterminate]) {
           off(input, _indeterminate, false);
         }
       }
-        // Trigger callbacks
+      // Trigger callbacks
       callbacks(input, checked, state, keep);
     }
-      // Add proper cursor
+    // Add proper cursor
     if (node[_disabled] && !!option(input, _cursor, true)) {
       parent.find('.' + _iCheckHelper).css(_cursor, 'default');
     }
-      // Add state class
+    // Add state class
     parent[_add](specific || option(input, state) || '');
 
     // Set ARIA attribute
@@ -15528,16 +14474,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Remove regular state class
     parent[_remove](regular || option(input, callback) || '');
   }
-    // Remove checked, disabled or indeterminate state
+  // Remove checked, disabled or indeterminate state
   function off(input, state, keep) {
     var node = input[0],
-      parent = input.parent(),
-      checked = state == _checked,
-      indeterminate = state == _indeterminate,
-      disabled = state == _disabled,
-      callback = indeterminate ? _determinate : checked ? _unchecked : 'enabled',
-      regular = option(input, callback + capitalize(node[_type])),
-      specific = option(input, state + capitalize(node[_type]));
+        parent = input.parent(),
+        checked = state == _checked,
+        indeterminate = state == _indeterminate,
+        disabled = state == _disabled,
+        callback = indeterminate ? _determinate : checked ? _unchecked : 'enabled',
+        regular = option(input, callback + capitalize(node[_type])),
+        specific = option(input, state + capitalize(node[_type]));
 
     // Prevent unnecessary actions
     if (node[state] !== false) {
@@ -15546,14 +14492,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (indeterminate || !keep || keep == 'force') {
         node[state] = false;
       }
-        // Trigger callbacks
+      // Trigger callbacks
       callbacks(input, checked, callback, keep);
     }
-      // Add proper cursor
+    // Add proper cursor
     if (!node[_disabled] && !!option(input, _cursor, true)) {
       parent.find('.' + _iCheckHelper).css(_cursor, 'pointer');
     }
-      // Remove state class
+    // Remove state class
     parent[_remove](specific || option(input, state) || '');
 
     // Set ARIA attribute
@@ -15562,7 +14508,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Add regular state class
     parent[_add](regular || option(input, callback) || '');
   }
-    // Remove all traces
+  // Remove all traces
   function tidy(input, callback) {
     if (input.data(_iCheck)) {
 
@@ -15573,153 +14519,144 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (callback) {
         input[_callback](callback);
       }
-        // Unbind events
+      // Unbind events
       input.off('.i').unwrap();
       $(_label + '[for="' + input[0].id + '"]').add(input.closest(_label)).off('.i');
     }
   }
-    // Get some option
+  // Get some option
   function option(input, state, regular) {
     if (input.data(_iCheck)) {
       return input.data(_iCheck).o[state + (regular ? '' : 'Class')];
     }
   }
-    // Capitalize some string
+  // Capitalize some string
   function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-    // Executable handlers
+  // Executable handlers
   function callbacks(input, checked, callback, keep) {
     if (!keep) {
       if (checked) {
         input[_callback]('ifToggled');
       }
-        input[_callback]('ifChanged')[_callback]('if' + capitalize(callback));
+      input[_callback]('ifChanged')[_callback]('if' + capitalize(callback));
     }
   }
 })(__webpack_provided_window_dot_jQuery || window.Zepto);
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
+/* 12 */,
+/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
 /* 17 */,
 /* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(app, $) {var jszip = __webpack_require__(28);
+/* WEBPACK VAR INJECTION */(function(app, $) {var jszip = __webpack_require__(20);
 var exportObj = {
     //params = {url:'',type:'',data:'Datatable query data',...}
-    loadData:function (params, successFn) {
-        app.appOption.ajax.url = app.appOption.url+params.url;
+    loadData: function (params, successFn) {
+        app.appOption.ajax.url = app.appOption.url + params.url;
         app.appOption.ajax.type = params.type;
         app.appOption.ajax.data = JSON.stringify(params.data);
-        app.appOption.ajax.asyncRequest(app.appOption.ajax.url,app.appOption.ajax.type,app.appOption.ajax.data,successFn,function (error) {
+        app.appOption.ajax.asyncRequest(app.appOption.ajax.url, app.appOption.ajax.type, app.appOption.ajax.data, successFn, function (error) {
             console.log(error);
         });
     },
     //data is the needed export data
     //opts = {header:[],subHeader:[],fieldNames:[],subFieldNames:[],subRowList:""
     //          ajaxParams:{url:'',type:'',data:'Datatable query data',...}}
-    customerExportData:function (data,opts) {
+    customerExportData: function (data, opts) {
         var hasSubTable = opts.subRowList;
         //set length -1 to disabled the paging
         opts.ajaxParams.data.length = -1;
-        this.loadData(opts.ajaxParams,function (result) {
+        this.loadData(opts.ajaxParams, function (result) {
             var tableData = result.data,
                 setRowData = function (rowObj) {
+                var rowDataArr = [];
+                for (var i in opts.fieldNames) {
+                    if (!opts.fieldNames) {
+                        rowDataArr.push("");
+                        continue;
+                    }
+                    rowDataArr.push(rowObj[opts.fieldNames[i]]);
+                }
+                return rowDataArr;
+            },
+                setSubRowData = function (subRowList) {
+                var dataArr = [];
+                for (var subRowIndex in subRowList) {
                     var rowDataArr = [];
-                    for(var i in opts.fieldNames) {
-                        if(!opts.fieldNames) {
+                    var item = subRowList[subRowIndex];
+                    for (var i in opts.subFieldNames) {
+                        if (!opts.subFieldNames) {
                             rowDataArr.push("");
                             continue;
                         }
-                        rowDataArr.push(rowObj[opts.fieldNames[i]]);
+                        rowDataArr.push(item[opts.subFieldNames[i]]);
                     }
-                    return rowDataArr;
-                },
-                setSubRowData = function (subRowList) {
-                    var dataArr = [];
-                    for(var subRowIndex in subRowList) {
-                        var rowDataArr = [];
-                        var item = subRowList[subRowIndex];
-                        for(var i in opts.subFieldNames) {
-                            if(!opts.subFieldNames) {
-                                rowDataArr.push("");
-                                continue;
-                            }
-                            rowDataArr.push(item[opts.subFieldNames[i]]);
-                        }
-                        dataArr.push(rowDataArr);
-                    }
-                    return dataArr;
-                },
-                fixColumn = function (len,arr) {
-                    for(var i=0;i<len;i++) {
-                        arr.push("");
-                    }
-                };
+                    dataArr.push(rowDataArr);
+                }
+                return dataArr;
+            },
+                fixColumn = function (len, arr) {
+                for (var i = 0; i < len; i++) {
+                    arr.push("");
+                }
+            };
 
             data.header = opts.header;
-            for(var index=0;index < tableData.length;index++) {
+            for (var index = 0; index < tableData.length; index++) {
                 var rowObj = {
-                    data:[],
-                    subTable:{
-                        header:opts.subHeader,
-                        body:[]
+                    data: [],
+                    subTable: {
+                        header: opts.subHeader,
+                        body: []
                     }
                 };
                 rowObj.data = setRowData(tableData[index]);
 
                 //set subRow if existed
-                if(hasSubTable) {
+                if (hasSubTable) {
                     var subRowDatas = tableData[index][opts.subRowList];
-                    if(subRowDatas && subRowDatas.length > 0) {
+                    if (subRowDatas && subRowDatas.length > 0) {
                         rowObj.subTable.body = setSubRowData(subRowDatas);
                     }
-
                 }
 
                 data.body.push(rowObj);
 
-                if(hasSubTable) {
+                if (hasSubTable) {
                     var len = data.body[0].subTable.header.length - data.header.length;
-                    fixColumn(len,rowObj.data);
+                    fixColumn(len, rowObj.data);
                 }
-
             }
 
-            if(hasSubTable) {
+            if (hasSubTable) {
                 var len = data.body[0].subTable.header.length - data.header.length;
-                fixColumn(len,data.header);
+                fixColumn(len, data.header);
             }
         });
     },
-    excelAction: function (_this, e, dt, button, config ) {
-        _this.processing( true );
+    excelAction: function (_this, e, dt, button, config) {
+        _this.processing(true);
 
         var that = _this;
         var rowPos = 0;
-        var getXml = function ( type ) {
-            var str = excelStrings[ type ];
+        var getXml = function (type) {
+            var str = excelStrings[type];
 
             //str = str.replace( /xmlns:/g, 'xmlns_' ).replace( /mc:/g, 'mc_' );
 
-            return $.parseXML( str );
+            return $.parseXML(str);
         };
         var rels = getXml('xl/worksheets/sheet1.xml');
-        var relsGet = rels.getElementsByTagName( "sheetData" )[0];
+        var relsGet = rels.getElementsByTagName("sheetData")[0];
 
         var xlsx = {
             _rels: {
@@ -15742,170 +14679,158 @@ var exportObj = {
         // var data = dt.buttons.exportData( config.exportOptions );
         //emps-change start
         var data = {
-            body:[],
-            header:[],
-            footer:null
+            body: [],
+            header: [],
+            footer: null
         };
         //emps-change end
         var currentRow, rowNode;
-        var addRow = function ( row ) {
-            currentRow = rowPos+1;
-            rowNode = _createNode( rels, "row", { attr: {r:currentRow} } );
+        var addRow = function (row) {
+            currentRow = rowPos + 1;
+            rowNode = _createNode(rels, "row", { attr: { r: currentRow } });
 
-            for ( var i=0, ien=row.length ; i<ien ; i++ ) {
+            for (var i = 0, ien = row.length; i < ien; i++) {
                 // Concat both the Cell Columns as a letter and the Row of the cell.
                 var cellId = createCellPos(i) + '' + currentRow;
                 var cell = null;
 
                 // For null, undefined of blank cell, continue so it doesn't create the _createNode
-                if ( row[i] === null || row[i] === undefined || row[i] === '' ) {
+                if (row[i] === null || row[i] === undefined || row[i] === '') {
                     continue;
                 }
 
-                row[i] = $.trim( row[i] );
+                row[i] = $.trim(row[i]);
 
                 // Special number formatting options
-                for ( var j=0, jen=_excelSpecials.length ; j<jen ; j++ ) {
+                for (var j = 0, jen = _excelSpecials.length; j < jen; j++) {
                     var special = _excelSpecials[j];
 
                     // TODO Need to provide the ability for the specials to say
                     // if they are returning a string, since at the moment it is
                     // assumed to be a number
-                    if ( row[i].match && ! row[i].match(/^0\d+/) && row[i].match( special.match ) ) {
+                    if (row[i].match && !row[i].match(/^0\d+/) && row[i].match(special.match)) {
                         var val = row[i].replace(/[^\d\.\-]/g, '');
 
-                        if ( special.fmt ) {
-                            val = special.fmt( val );
+                        if (special.fmt) {
+                            val = special.fmt(val);
                         }
 
-                        cell = _createNode( rels, 'c', {
+                        cell = _createNode(rels, 'c', {
                             attr: {
                                 r: cellId,
                                 s: special.style
                             },
-                            children: [
-                                _createNode( rels, 'v', { text: val } )
-                            ]
-                        } );
+                            children: [_createNode(rels, 'v', { text: val })]
+                        });
 
                         break;
                     }
                 }
 
-                if ( ! cell ) {
-                    if ( typeof row[i] === 'number' || (
-                        row[i].match &&
-                        row[i].match(/^-?\d+(\.\d+)?$/) &&
-                        ! row[i].match(/^0\d+/) )
-                    ) {
+                if (!cell) {
+                    if (typeof row[i] === 'number' || row[i].match && row[i].match(/^-?\d+(\.\d+)?$/) && !row[i].match(/^0\d+/)) {
                         // Detect numbers - don't match numbers with leading zeros
                         // or a negative anywhere but the start
-                        cell = _createNode( rels, 'c', {
+                        cell = _createNode(rels, 'c', {
                             attr: {
                                 t: 'n',
                                 r: cellId
                             },
-                            children: [
-                                _createNode( rels, 'v', { text: row[i] } )
-                            ]
-                        } );
-                    }
-                    else {
+                            children: [_createNode(rels, 'v', { text: row[i] })]
+                        });
+                    } else {
                         // String output - replace non standard characters for text output
-                        var text = ! row[i].replace ?
-                            row[i] :
-                            row[i].replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
+                        var text = !row[i].replace ? row[i] : row[i].replace(/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F-\x9F]/g, '');
 
-                        cell = _createNode( rels, 'c', {
+                        cell = _createNode(rels, 'c', {
                             attr: {
                                 t: 'inlineStr',
                                 r: cellId
                             },
-                            children:{
-                                row: _createNode( rels, 'is', {
+                            children: {
+                                row: _createNode(rels, 'is', {
                                     children: {
-                                        row: _createNode( rels, 't', {
+                                        row: _createNode(rels, 't', {
                                             text: text
-                                        } )
+                                        })
                                     }
-                                } )
+                                })
                             }
-                        } );
+                        });
                     }
                 }
 
-                rowNode.appendChild( cell );
+                rowNode.appendChild(cell);
             }
 
             relsGet.appendChild(rowNode);
             rowPos++;
         };
 
-        $( 'sheets sheet', xlsx.xl['workbook.xml'] ).attr( 'name', _sheetname( config ) );
+        $('sheets sheet', xlsx.xl['workbook.xml']).attr('name', _sheetname(config));
 
-        if ( config.customizeData ) {
-            config.customizeData( data );
+        if (config.customizeData) {
+            config.customizeData(data);
         }
 
-        if ( config.header ) {
-            addRow( data.header, rowPos );
+        if (config.header) {
+            addRow(data.header, rowPos);
             // $('row c', rels).attr( 's', '2' ); // bold
 
             //emps-change start
-            $('row c', rels).attr( 's', '32' ); // bold
+            $('row c', rels).attr('s', '32'); // bold
             //emps-change end
         }
 
-        for ( var n=0, ie=data.body.length ; n<ie ; n++ ) {
+        for (var n = 0, ie = data.body.length; n < ie; n++) {
             // addRow( data.body[n], rowPos );
 
             //emps-change start
-            if(data.body[n] instanceof Array) {
-                addRow( data.body[n], rowPos );
-                $('row:last c',rels).attr( 's', '30' ); //with backcolor
-            }else {
+            if (data.body[n] instanceof Array) {
+                addRow(data.body[n], rowPos);
+                $('row:last c', rels).attr('s', '30'); //with backcolor
+            } else {
                 var rowBody = data.body[n];
-                addRow(rowBody.data,rowPos);
-                $('row:last c',rels).attr( 's', '30' ); //with backcolor
-                if(rowBody.subTable.header && rowBody.subTable.header.length > 0){
-                    addRow(rowBody.subTable.header, rowPos );
-                    $('row:last c',rels).attr( 's', '27' );
+                addRow(rowBody.data, rowPos);
+                $('row:last c', rels).attr('s', '30'); //with backcolor
+                if (rowBody.subTable.header && rowBody.subTable.header.length > 0) {
+                    addRow(rowBody.subTable.header, rowPos);
+                    $('row:last c', rels).attr('s', '27');
                 }
                 var subBody = rowBody.subTable.body;
-                if(subBody && subBody.length > 0) {
-                    for(var index in subBody) {
+                if (subBody && subBody.length > 0) {
+                    for (var index in subBody) {
                         addRow(rowBody.subTable.body[index]);
-                        $('row:last c',rels).attr( 's', '25' );
+                        $('row:last c', rels).attr('s', '25');
                     }
                 }
             }
             //emps-change end
-
         }
 
-        if ( config.footer && data.footer ) {
-            addRow( data.footer, rowPos);
-            $('row:last c', rels).attr( 's', '2' ); // bold
+        if (config.footer && data.footer) {
+            addRow(data.footer, rowPos);
+            $('row:last c', rels).attr('s', '2'); // bold
         }
 
         // Set column widths
-        var cols = _createNode( rels, 'cols' );
-        $('worksheet', rels).prepend( cols );
+        var cols = _createNode(rels, 'cols');
+        $('worksheet', rels).prepend(cols);
 
-        for ( var i=0, ien=data.header.length ; i<ien ; i++ ) {
-            cols.appendChild( _createNode( rels, 'col', {
+        for (var i = 0, ien = data.header.length; i < ien; i++) {
+            cols.appendChild(_createNode(rels, 'col', {
                 attr: {
-                    min: i+1,
-                    max: i+1,
-                    width: _excelColWidth( data, i ),
+                    min: i + 1,
+                    max: i + 1,
+                    width: _excelColWidth(data, i),
                     customWidth: 1
                 }
-            } ) );
+            }));
         }
 
         // Let the developer customise the document if they want to
-        if ( config.customize ) {
-            config.customize( xlsx );
+        if (config.customize) {
+            config.customize(xlsx);
         }
 
         var jszip = _jsZip();
@@ -15915,48 +14840,42 @@ var exportObj = {
             mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         };
 
-        _addToZip( zip, xlsx );
+        _addToZip(zip, xlsx);
 
-        if ( zip.generateAsync ) {
+        if (zip.generateAsync) {
             // JSZip 3+
-            zip
-                .generateAsync( zipConfig )
-                .then( function ( blob ) {
-                    _saveAs( blob, _filename( config ) );
-                    that.processing( false );
-                } );
-        }
-        else {
+            zip.generateAsync(zipConfig).then(function (blob) {
+                _saveAs(blob, _filename(config));
+                that.processing(false);
+            });
+        } else {
             // JSZip 2.5
-            _saveAs(
-                zip.generate( zipConfig ),
-                _filename( config )
-            );
-            _this.processing( false );
+            _saveAs(zip.generate(zipConfig), _filename(config));
+            _this.processing(false);
         }
     },
     //pdf action
-    pdfAction: function ( _this,e, dt, button, config ) {
-        _this.processing( true );
+    pdfAction: function (_this, e, dt, button, config) {
+        _this.processing(true);
 
         var that = _this;
         // var data = dt.buttons.exportData( config.exportOptions );
 
         //emps-change start
         var data = {
-            body:[],
-            header:[],
-            footer:null
+            body: [],
+            header: [],
+            footer: null
         };
         //emps-change end
 
         var rows = [];
-        var addSpaceIfLetterIsTooLong = function (data,len) {
-            if(!data) return data;
+        var addSpaceIfLetterIsTooLong = function (data, len) {
+            if (!data) return data;
             var dataArr = data.split('');
             var str = '';
-            for(var i=0;i<dataArr.length;i++) {
-                if(i % len === 0) {
+            for (var i = 0; i < dataArr.length; i++) {
+                if (i % len === 0) {
                     str += ' ' + dataArr[i];
                     continue;
                 }
@@ -15965,20 +14884,20 @@ var exportObj = {
             return str;
         };
 
-        if ( config.customizeData ) {
+        if (config.customizeData) {
             config.customizeData(data);
         }
 
-        if ( config.header ) {
-            rows.push( $.map( data.header, function ( d ) {
+        if (config.header) {
+            rows.push($.map(data.header, function (d) {
                 return {
-                    text: typeof d === 'string' ? d : d+'',
+                    text: typeof d === 'string' ? d : d + '',
                     style: 'tableHeader'
                 };
-            } ) );
+            }));
         }
 
-        for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+        for (var i = 0, ien = data.body.length; i < ien; i++) {
             /*rows.push( $.map( data.body[i], function ( d ) {
              return {
              text: typeof d === 'string' ? d : d+'',
@@ -15987,73 +14906,70 @@ var exportObj = {
              } ) );*/
 
             //emps-change start
-            if(data.body[i] instanceof Array) {
-                rows.push( $.map( data.body[i], function ( d ) {
+            if (data.body[i] instanceof Array) {
+                rows.push($.map(data.body[i], function (d) {
                     return {
-                        text: typeof d === 'string' ? d : d+'',
+                        text: typeof d === 'string' ? d : d + '',
                         style: i % 2 ? 'tableBodyEven' : 'tableBodyOdd'
                     };
-                } ) );
-            }else {
+                }));
+            } else {
                 var rowBody = data.body[i];
-                rows.push( $.map( rowBody.data, function ( d ) {
-                    d = typeof d === 'string' ? d : d+'';
-                    d = addSpaceIfLetterIsTooLong(d,7);
+                rows.push($.map(rowBody.data, function (d) {
+                    d = typeof d === 'string' ? d : d + '';
+                    d = addSpaceIfLetterIsTooLong(d, 7);
                     return {
                         text: d,
                         style: 'tableBodyOdd'
                     };
-                } ) );
-                if(rowBody.subTable.header && rowBody.subTable.header.length > 0) {
-                    rows.push( $.map( rowBody.subTable.header, function ( d ) {
+                }));
+                if (rowBody.subTable.header && rowBody.subTable.header.length > 0) {
+                    rows.push($.map(rowBody.subTable.header, function (d) {
                         return {
-                            text: typeof d === 'string' ? d : d+'',
+                            text: typeof d === 'string' ? d : d + '',
                             style: 'tableBodyEven'
                         };
-                    } ) );
+                    }));
                 }
-                if(rowBody.subTable.body && rowBody.subTable.body.length > 0) {
-                    for(var subIdx in rowBody.subTable.body) {
-                        rows.push( $.map( rowBody.subTable.body[subIdx], function ( d ) {
-                            d = typeof d === 'string' ? d : d+'';
-                            d = addSpaceIfLetterIsTooLong(d,7);
+                if (rowBody.subTable.body && rowBody.subTable.body.length > 0) {
+                    for (var subIdx in rowBody.subTable.body) {
+                        rows.push($.map(rowBody.subTable.body[subIdx], function (d) {
+                            d = typeof d === 'string' ? d : d + '';
+                            d = addSpaceIfLetterIsTooLong(d, 7);
                             return {
                                 text: d,
                                 style: 'tableBodyEven'
                             };
-                        } ) );
+                        }));
                     }
                 }
             }
             //emps-change end
-
         }
 
-        if ( config.footer && data.footer) {
-            rows.push( $.map( data.footer, function ( d ) {
+        if (config.footer && data.footer) {
+            rows.push($.map(data.footer, function (d) {
                 return {
-                    text: typeof d === 'string' ? d : d+'',
+                    text: typeof d === 'string' ? d : d + '',
                     style: 'tableFooter'
                 };
-            } ) );
+            }));
         }
         var widths = [];
-        for(var index in data.header) {
+        for (var index in data.header) {
             widths.push("auto");
         }
         var doc = {
             pageSize: config.pageSize,
             pageOrientation: config.orientation,
-            content: [
-                {
-                    table: {
-                        headerRows: 1,
-                        widths: widths,
-                        body: rows
-                    },
-                    layout: 'borders'//'noBorders'
-                }
-            ],
+            content: [{
+                table: {
+                    headerRows: 1,
+                    widths: widths,
+                    body: rows
+                },
+                layout: 'borders' //'noBorders'
+            }],
             styles: {
                 tableHeader: {
                     bold: true,
@@ -16064,7 +14980,7 @@ var exportObj = {
                 },
                 tableBodyEven: {},
                 tableBodyOdd: {
-                    fillColor: '#cccccc'//'#f3f3f3'
+                    fillColor: '#cccccc' //'#f3f3f3'
                 },
                 tableFooter: {
                     bold: true,
@@ -16083,48 +14999,46 @@ var exportObj = {
             }
         };
 
-        if ( config.message ) {
-            doc.content.unshift( {
+        if (config.message) {
+            doc.content.unshift({
                 text: typeof config.message == 'function' ? config.message(dt, button, config) : config.message,
                 style: 'message',
-                margin: [ 0, 0, 0, 12 ]
-            } );
+                margin: [0, 0, 0, 12]
+            });
         }
 
-        if ( config.title ) {
-            doc.content.unshift( {
-                text: _title( config, false ),
+        if (config.title) {
+            doc.content.unshift({
+                text: _title(config, false),
                 style: 'title',
-                margin: [ 0, 0, 0, 12 ]
-            } );
+                margin: [0, 0, 0, 12]
+            });
         }
 
-        if ( config.customize ) {
-            config.customize( doc, config );
+        if (config.customize) {
+            config.customize(doc, config);
         }
 
-        var pdf = _pdfMake().createPdf( doc );
+        var pdf = _pdfMake().createPdf(doc);
 
-        if ( config.download === 'open' && ! _isDuffSafari() ) {
+        if (config.download === 'open' && !_isDuffSafari()) {
             pdf.open();
-            this.processing( false );
-        }
-        else {
-            pdf.getBuffer( function (buffer) {
-                var blob = new Blob( [buffer], {type:'application/pdf'} );
+            this.processing(false);
+        } else {
+            pdf.getBuffer(function (buffer) {
+                var blob = new Blob([buffer], { type: 'application/pdf' });
 
-                _saveAs( blob, _filename( config ) );
-                that.processing( false );
-            } );
+                _saveAs(blob, _filename(config));
+                that.processing(false);
+            });
         }
     }
 };
 
-
-function _jsZip () {
+function _jsZip() {
     return jszip || window.JSZip;
 }
-function _pdfMake () {
+function _pdfMake() {
     return window.pdfMake;
 }
 
@@ -16134,27 +15048,22 @@ function _pdfMake () {
  * @param {object}	config Button configuration
  * @param {boolean} incExtension Include the file name extension
  */
-var _filename = function ( config, incExtension )
-{
+var _filename = function (config, incExtension) {
     // Backwards compatibility
-    var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ?
-        config.title :
-        config.filename;
+    var filename = config.filename === '*' && config.title !== '*' && config.title !== undefined ? config.title : config.filename;
 
-    if ( typeof filename === 'function' ) {
+    if (typeof filename === 'function') {
         filename = filename();
     }
 
-    if ( filename.indexOf( '*' ) !== -1 ) {
-        filename = $.trim( filename.replace( '*', $('title').text() ) );
+    if (filename.indexOf('*') !== -1) {
+        filename = $.trim(filename.replace('*', $('title').text()));
     }
 
     // Strip characters which the OS will object to
     filename = filename.replace(/[^a-zA-Z0-9_\u00A1-\uFFFF\.,\-_ !\(\)]/g, "");
 
-    return incExtension === undefined || incExtension === true ?
-        filename+config.extension :
-        filename;
+    return incExtension === undefined || incExtension === true ? filename + config.extension : filename;
 };
 
 /**
@@ -16162,11 +15071,10 @@ var _filename = function ( config, incExtension )
  *
  * @param {object}	config Button configuration
  */
-var _sheetname = function ( config )
-{
+var _sheetname = function (config) {
     var sheetName = 'Sheet1';
 
-    if ( config.sheetName ) {
+    if (config.sheetName) {
         sheetName = config.sheetName.replace(/[\[\]\*\/\\\?\:]/g, '');
     }
 
@@ -16178,17 +15086,14 @@ var _sheetname = function ( config )
  *
  * @param {object} config	Button configuration
  */
-var _title = function ( config )
-{
+var _title = function (config) {
     var title = config.title;
 
-    if ( typeof title === 'function' ) {
+    if (typeof title === 'function') {
         title = title();
     }
 
-    return title.indexOf( '*' ) !== -1 ?
-        title.replace( '*', $('title').text() || 'Exported data' ) :
-        title;
+    return title.indexOf('*') !== -1 ? title.replace('*', $('title').text() || 'Exported data') : title;
 };
 
 /**
@@ -16197,13 +15102,8 @@ var _title = function ( config )
  * @param {object}	config Button configuration
  * @return {string}				Newline character
  */
-var _newLine = function ( config )
-{
-    return config.newline ?
-        config.newline :
-        navigator.userAgent.match(/Windows/) ?
-            '\r\n' :
-            '\n';
+var _newLine = function (config) {
+    return config.newline ? config.newline : navigator.userAgent.match(/Windows/) ? '\r\n' : '\n';
 };
 
 /**
@@ -16214,44 +15114,39 @@ var _newLine = function ( config )
  * @param	{object}				config Button configuration
  * @return {object}							 The data to export
  */
-var _exportData = function ( dt, config )
-{
-    var newLine = _newLine( config );
-    var data = dt.buttons.exportData( config.exportOptions );
+var _exportData = function (dt, config) {
+    var newLine = _newLine(config);
+    var data = dt.buttons.exportData(config.exportOptions);
     var boundary = config.fieldBoundary;
     var separator = config.fieldSeparator;
-    var reBoundary = new RegExp( boundary, 'g' );
-    var escapeChar = config.escapeChar !== undefined ?
-        config.escapeChar :
-        '\\';
-    var join = function ( a ) {
+    var reBoundary = new RegExp(boundary, 'g');
+    var escapeChar = config.escapeChar !== undefined ? config.escapeChar : '\\';
+    var join = function (a) {
         var s = '';
 
         // If there is a field boundary, then we might need to escape it in
         // the source data
-        for ( var i=0, ien=a.length ; i<ien ; i++ ) {
-            if ( i > 0 ) {
+        for (var i = 0, ien = a.length; i < ien; i++) {
+            if (i > 0) {
                 s += separator;
             }
 
-            s += boundary ?
-                boundary + ('' + a[i]).replace( reBoundary, escapeChar+boundary ) + boundary :
-                a[i];
+            s += boundary ? boundary + ('' + a[i]).replace(reBoundary, escapeChar + boundary) + boundary : a[i];
         }
 
         return s;
     };
 
-    var header = config.header ? join( data.header )+newLine : '';
-    var footer = config.footer && data.footer ? newLine+join( data.footer ) : '';
+    var header = config.header ? join(data.header) + newLine : '';
+    var footer = config.footer && data.footer ? newLine + join(data.footer) : '';
     var body = [];
 
-    for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
-        body.push( join( data.body[i] ) );
+    for (var i = 0, ien = data.body.length; i < ien; i++) {
+        body.push(join(data.body[i]));
     }
 
     return {
-        str: header + body.join( newLine ) + footer,
+        str: header + body.join(newLine) + footer,
         rows: body.length
     };
 };
@@ -16262,18 +15157,15 @@ var _exportData = function ( dt, config )
  *
  * @return {Boolean} `true` if old Safari
  */
-var _isDuffSafari = function ()
-{
-    var safari = navigator.userAgent.indexOf('Safari') !== -1 &&
-        navigator.userAgent.indexOf('Chrome') === -1 &&
-        navigator.userAgent.indexOf('Opera') === -1;
+var _isDuffSafari = function () {
+    var safari = navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1 && navigator.userAgent.indexOf('Opera') === -1;
 
-    if ( ! safari ) {
+    if (!safari) {
         return false;
     }
 
-    var version = navigator.userAgent.match( /AppleWebKit\/(\d+\.\d+)/ );
-    if ( version && version.length > 1 && version[1]*1 < 603.1 ) {
+    var version = navigator.userAgent.match(/AppleWebKit\/(\d+\.\d+)/);
+    if (version && version.length > 1 && version[1] * 1 < 603.1) {
         return true;
     }
 
@@ -16285,13 +15177,13 @@ var _isDuffSafari = function ()
  * @param  {int} n Column number
  * @return {string} Column letter(s) name
  */
-function createCellPos( n ){
+function createCellPos(n) {
     var ordA = 'A'.charCodeAt(0);
     var ordZ = 'Z'.charCodeAt(0);
     var len = ordZ - ordA + 1;
     var s = "";
 
-    while( n >= 0 ) {
+    while (n >= 0) {
         s = String.fromCharCode(n % len + ordA) + s;
         n = Math.floor(n / len) - 1;
     }
@@ -16302,8 +15194,7 @@ function createCellPos( n ){
 try {
     var _serialiser = new XMLSerializer();
     var _ieExcel;
-}
-catch (t) {}
+} catch (t) {}
 
 /**
  * Recursively add XML files from an object's structure to a ZIP file. This
@@ -16313,24 +15204,19 @@ catch (t) {}
  * @param {JSZip} zip ZIP package
  * @param {object} obj Object to add (recursive)
  */
-function _addToZip( zip, obj ) {
-    if ( _ieExcel === undefined ) {
+function _addToZip(zip, obj) {
+    if (_ieExcel === undefined) {
         // Detect if we are dealing with IE's _awful_ serialiser by seeing if it
         // drop attributes
-        _ieExcel = _serialiser
-                .serializeToString(
-                    $.parseXML( excelStrings['xl/worksheets/sheet1.xml'] )
-                )
-                .indexOf( 'xmlns:r' ) === -1;
+        _ieExcel = _serialiser.serializeToString($.parseXML(excelStrings['xl/worksheets/sheet1.xml'])).indexOf('xmlns:r') === -1;
     }
 
-    $.each( obj, function ( name, val ) {
-        if ( $.isPlainObject( val ) ) {
-            var newDir = zip.folder( name );
-            _addToZip( newDir, val );
-        }
-        else {
-            if ( _ieExcel ) {
+    $.each(obj, function (name, val) {
+        if ($.isPlainObject(val)) {
+            var newDir = zip.folder(name);
+            _addToZip(newDir, val);
+        } else {
+            if (_ieExcel) {
                 // IE's XML serialiser will drop some name space attributes from
                 // from the root node, so we need to save them. Do this by
                 // replacing the namespace nodes with a regular attribute that
@@ -16340,44 +15226,44 @@ function _addToZip( zip, obj ) {
                 var i, ien;
                 var attrs = [];
 
-                for ( i=worksheet.attributes.length-1 ; i>=0 ; i-- ) {
+                for (i = worksheet.attributes.length - 1; i >= 0; i--) {
                     var attrName = worksheet.attributes[i].nodeName;
                     var attrValue = worksheet.attributes[i].nodeValue;
 
-                    if ( attrName.indexOf( ':' ) !== -1 ) {
-                        attrs.push( { name: attrName, value: attrValue } );
+                    if (attrName.indexOf(':') !== -1) {
+                        attrs.push({ name: attrName, value: attrValue });
 
-                        worksheet.removeAttribute( attrName );
+                        worksheet.removeAttribute(attrName);
                     }
                 }
 
-                for ( i=0, ien=attrs.length ; i<ien ; i++ ) {
-                    var attr = val.createAttribute( attrs[i].name.replace( ':', '_dt_b_namespace_token_' ) );
+                for (i = 0, ien = attrs.length; i < ien; i++) {
+                    var attr = val.createAttribute(attrs[i].name.replace(':', '_dt_b_namespace_token_'));
                     attr.value = attrs[i].value;
-                    worksheet.setAttributeNode( attr );
+                    worksheet.setAttributeNode(attr);
                 }
             }
 
             var str = _serialiser.serializeToString(val);
 
             // Fix IE's XML
-            if ( _ieExcel ) {
+            if (_ieExcel) {
                 // IE doesn't include the XML declaration
-                if ( str.indexOf( '<?xml' ) === -1 ) {
-                    str = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+str;
+                if (str.indexOf('<?xml') === -1) {
+                    str = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + str;
                 }
 
                 // Return namespace attributes to being as such
-                str = str.replace( /_dt_b_namespace_token_/g, ':' );
+                str = str.replace(/_dt_b_namespace_token_/g, ':');
             }
 
             // Safari, IE and Edge will put empty name space attributes onto
             // various elements making them useless. This strips them out
-            str = str.replace( /<([^<>]*?) xmlns=""([^<>]*?)>/g, '<$1 $2>' );
+            str = str.replace(/<([^<>]*?) xmlns=""([^<>]*?)>/g, '<$1 $2>');
 
-            zip.file( name, str );
+            zip.file(name, str);
         }
-    } );
+    });
 }
 
 /**
@@ -16390,22 +15276,22 @@ function _addToZip( zip, obj ) {
  *   (child nodes) and `text` (text content)
  * @return {node}            Created node
  */
-function _createNode( doc, nodeName, opts ) {
-    var tempNode = doc.createElement( nodeName );
+function _createNode(doc, nodeName, opts) {
+    var tempNode = doc.createElement(nodeName);
 
-    if ( opts ) {
-        if ( opts.attr ) {
-            $(tempNode).attr( opts.attr );
+    if (opts) {
+        if (opts.attr) {
+            $(tempNode).attr(opts.attr);
         }
 
-        if( opts.children ) {
-            $.each( opts.children, function ( key, value ) {
-                tempNode.appendChild( value );
+        if (opts.children) {
+            $.each(opts.children, function (key, value) {
+                tempNode.appendChild(value);
             });
         }
 
-        if( opts.text ) {
-            tempNode.appendChild( doc.createTextNode( opts.text ) );
+        if (opts.text) {
+            tempNode.appendChild(doc.createTextNode(opts.text));
         }
     }
 
@@ -16418,40 +15304,37 @@ function _createNode( doc, nodeName, opts ) {
  * @param  {int}    col  Column index
  * @return {int}         Column width
  */
-function _excelColWidth( data, col ) {
+function _excelColWidth(data, col) {
     var max = data.header[col].length;
     var len, lineSplit, str;
 
-    if ( data.footer && data.footer[col].length > max ) {
+    if (data.footer && data.footer[col].length > max) {
         max = data.footer[col].length;
     }
 
-    for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
+    for (var i = 0, ien = data.body.length; i < ien; i++) {
         var point = data.body[i][col];
-        str = point !== null && point !== undefined ?
-            point.toString() :
-            '';
+        str = point !== null && point !== undefined ? point.toString() : '';
 
         // If there is a newline character, workout the width of the column
         // based on the longest line in the string
-        if ( str.indexOf('\n') !== -1 ) {
+        if (str.indexOf('\n') !== -1) {
             lineSplit = str.split('\n');
-            lineSplit.sort( function (a, b) {
+            lineSplit.sort(function (a, b) {
                 return b.length - a.length;
-            } );
+            });
 
             len = lineSplit[0].length;
-        }
-        else {
+        } else {
             len = str.length;
         }
 
-        if ( len > max ) {
+        if (len > max) {
             max = len;
         }
 
         // Max width rather than having potentially massive column widths
-        if ( max > 40 ) {
+        if (max > 40) {
             return 52; // 40 * 1.3
         }
     }
@@ -16462,139 +15345,142 @@ function _excelColWidth( data, col ) {
     return max > 6 ? max : 6;
 }
 
-var _saveAs = (function(view) {
+var _saveAs = function (view) {
     "use strict";
     // IE <10 is explicitly unsupported
+
     if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
         return;
     }
-    var
-        doc = view.document
-        // only get URL when necessary in case Blob.js hasn't overridden it yet
-        , get_URL = function() {
-            return view.URL || view.webkitURL || view;
-        }
-        , save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-        , can_use_save_link = "download" in save_link
-        , click = function(node) {
-            var event = new MouseEvent("click");
-            node.dispatchEvent(event);
-        }
-        , is_safari = /constructor/i.test(view.HTMLElement) || view.safari
-        , is_chrome_ios =/CriOS\/[\d]+/.test(navigator.userAgent)
-        , throw_outside = function(ex) {
-            (view.setImmediate || view.setTimeout)(function() {
-                throw ex;
-            }, 0);
-        }
-        , force_saveable_type = "application/octet-stream"
-        // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
-        , arbitrary_revoke_timeout = 1000 * 40 // in ms
-        , revoke = function(file) {
-            var revoker = function() {
-                if (typeof file === "string") { // file is an object URL
-                    get_URL().revokeObjectURL(file);
-                } else { // file is a File
-                    file.remove();
-                }
-            };
-            setTimeout(revoker, arbitrary_revoke_timeout);
-        }
-        , dispatch = function(filesaver, event_types, event) {
-            event_types = [].concat(event_types);
-            var i = event_types.length;
-            while (i--) {
-                var listener = filesaver["on" + event_types[i]];
-                if (typeof listener === "function") {
-                    try {
-                        listener.call(filesaver, event || filesaver);
-                    } catch (ex) {
-                        throw_outside(ex);
-                    }
+    var doc = view.document
+    // only get URL when necessary in case Blob.js hasn't overridden it yet
+    ,
+        get_URL = function () {
+        return view.URL || view.webkitURL || view;
+    },
+        save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a"),
+        can_use_save_link = "download" in save_link,
+        click = function (node) {
+        var event = new MouseEvent("click");
+        node.dispatchEvent(event);
+    },
+        is_safari = /constructor/i.test(view.HTMLElement) || view.safari,
+        is_chrome_ios = /CriOS\/[\d]+/.test(navigator.userAgent),
+        throw_outside = function (ex) {
+        (view.setImmediate || view.setTimeout)(function () {
+            throw ex;
+        }, 0);
+    },
+        force_saveable_type = "application/octet-stream"
+    // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+    ,
+        arbitrary_revoke_timeout = 1000 * 40 // in ms
+    ,
+        revoke = function (file) {
+        var revoker = function () {
+            if (typeof file === "string") {
+                // file is an object URL
+                get_URL().revokeObjectURL(file);
+            } else {
+                // file is a File
+                file.remove();
+            }
+        };
+        setTimeout(revoker, arbitrary_revoke_timeout);
+    },
+        dispatch = function (filesaver, event_types, event) {
+        event_types = [].concat(event_types);
+        var i = event_types.length;
+        while (i--) {
+            var listener = filesaver["on" + event_types[i]];
+            if (typeof listener === "function") {
+                try {
+                    listener.call(filesaver, event || filesaver);
+                } catch (ex) {
+                    throw_outside(ex);
                 }
             }
         }
-        , auto_bom = function(blob) {
-            // prepend BOM for UTF-8 XML and text/* types (including HTML)
-            // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
-            if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
-                return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
-            }
-            return blob;
+    },
+        auto_bom = function (blob) {
+        // prepend BOM for UTF-8 XML and text/* types (including HTML)
+        // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+        if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+            return new Blob([String.fromCharCode(0xFEFF), blob], { type: blob.type });
         }
-        , FileSaver = function(blob, name, no_auto_bom) {
-            if (!no_auto_bom) {
-                blob = auto_bom(blob);
-            }
-            // First try a.download, then web filesystem, then object URLs
-            var
-                filesaver = this
-                , type = blob.type
-                , force = type === force_saveable_type
-                , object_url
-                , dispatch_all = function() {
-                    dispatch(filesaver, "writestart progress write writeend".split(" "));
-                }
-                // on any filesys errors revert to saving with object URLs
-                , fs_error = function() {
-                    if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
-                        // Safari doesn't allow downloading of blob urls
-                        var reader = new FileReader();
-                        reader.onloadend = function() {
-                            var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
-                            var popup = view.open(url, '_blank');
-                            if(!popup) view.location.href = url;
-                            url=undefined; // release reference before dispatching
-                            filesaver.readyState = filesaver.DONE;
-                            dispatch_all();
-                        };
-                        reader.readAsDataURL(blob);
-                        filesaver.readyState = filesaver.INIT;
-                        return;
-                    }
-                    // don't create more object URLs than needed
-                    if (!object_url) {
-                        object_url = get_URL().createObjectURL(blob);
-                    }
-                    if (force) {
-                        view.location.href = object_url;
-                    } else {
-                        var opened = view.open(object_url, "_blank");
-                        if (!opened) {
-                            // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
-                            view.location.href = object_url;
-                        }
-                    }
+        return blob;
+    },
+        FileSaver = function (blob, name, no_auto_bom) {
+        if (!no_auto_bom) {
+            blob = auto_bom(blob);
+        }
+        // First try a.download, then web filesystem, then object URLs
+        var filesaver = this,
+            type = blob.type,
+            force = type === force_saveable_type,
+            object_url,
+            dispatch_all = function () {
+            dispatch(filesaver, "writestart progress write writeend".split(" "));
+        }
+        // on any filesys errors revert to saving with object URLs
+        ,
+            fs_error = function () {
+            if ((is_chrome_ios || force && is_safari) && view.FileReader) {
+                // Safari doesn't allow downloading of blob urls
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                    var popup = view.open(url, '_blank');
+                    if (!popup) view.location.href = url;
+                    url = undefined; // release reference before dispatching
                     filesaver.readyState = filesaver.DONE;
                     dispatch_all();
-                    revoke(object_url);
-                }
-            ;
-            filesaver.readyState = filesaver.INIT;
-
-            if (can_use_save_link) {
-                object_url = get_URL().createObjectURL(blob);
-                setTimeout(function() {
-                    save_link.href = object_url;
-                    save_link.download = name;
-                    click(save_link);
-                    dispatch_all();
-                    revoke(object_url);
-                    filesaver.readyState = filesaver.DONE;
-                });
+                };
+                reader.readAsDataURL(blob);
+                filesaver.readyState = filesaver.INIT;
                 return;
             }
+            // don't create more object URLs than needed
+            if (!object_url) {
+                object_url = get_URL().createObjectURL(blob);
+            }
+            if (force) {
+                view.location.href = object_url;
+            } else {
+                var opened = view.open(object_url, "_blank");
+                if (!opened) {
+                    // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+                    view.location.href = object_url;
+                }
+            }
+            filesaver.readyState = filesaver.DONE;
+            dispatch_all();
+            revoke(object_url);
+        };
+        filesaver.readyState = filesaver.INIT;
 
-            fs_error();
+        if (can_use_save_link) {
+            object_url = get_URL().createObjectURL(blob);
+            setTimeout(function () {
+                save_link.href = object_url;
+                save_link.download = name;
+                click(save_link);
+                dispatch_all();
+                revoke(object_url);
+                filesaver.readyState = filesaver.DONE;
+            });
+            return;
         }
-        , FS_proto = FileSaver.prototype
-        , saveAs = function(blob, name, no_auto_bom) {
-            return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
-        }
-    ;
+
+        fs_error();
+    },
+        FS_proto = FileSaver.prototype,
+        saveAs = function (blob, name, no_auto_bom) {
+        return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+    };
     // IE 10+ (native saveAs)
     if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
-        return function(blob, name, no_auto_bom) {
+        return function (blob, name, no_auto_bom) {
             name = name || blob.name || "download";
 
             if (!no_auto_bom) {
@@ -16604,253 +15490,30 @@ var _saveAs = (function(view) {
         };
     }
 
-    FS_proto.abort = function(){};
+    FS_proto.abort = function () {};
     FS_proto.readyState = FS_proto.INIT = 0;
     FS_proto.WRITING = 1;
     FS_proto.DONE = 2;
 
-    FS_proto.error =
-        FS_proto.onwritestart =
-            FS_proto.onprogress =
-                FS_proto.onwrite =
-                    FS_proto.onabort =
-                        FS_proto.onerror =
-                            FS_proto.onwriteend =
-                                null;
+    FS_proto.error = FS_proto.onwritestart = FS_proto.onprogress = FS_proto.onwrite = FS_proto.onabort = FS_proto.onerror = FS_proto.onwriteend = null;
 
     return saveAs;
-}(
-    typeof self !== "undefined" && self
-    || typeof window !== "undefined" && window
-    || this.content
-));
+}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content);
 
 // Excel - Pre-defined strings to build a basic XLSX file
 var excelStrings = {
-    "_rels/.rels":
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
-    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'+
-    '</Relationships>',
+    "_rels/.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' + '</Relationships>',
 
-    "xl/_rels/workbook.xml.rels":
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
-    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'+
-    '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'+
-    '</Relationships>',
+    "xl/_rels/workbook.xml.rels": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>' + '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' + '</Relationships>',
 
-    "[Content_Types].xml":
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
-    '<Default Extension="xml" ContentType="application/xml" />'+
-    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml" />'+
-    '<Default Extension="jpeg" ContentType="image/jpeg" />'+
-    '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml" />'+
-    '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml" />'+
-    '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml" />'+
-    '</Types>',
+    "[Content_Types].xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' + '<Default Extension="xml" ContentType="application/xml" />' + '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml" />' + '<Default Extension="jpeg" ContentType="image/jpeg" />' + '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml" />' + '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml" />' + '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml" />' + '</Types>',
 
-    "xl/workbook.xml":
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+
-    '<fileVersion appName="xl" lastEdited="5" lowestEdited="5" rupBuild="24816"/>'+
-    '<workbookPr showInkAnnotation="0" autoCompressPictures="0"/>'+
-    '<bookViews>'+
-    '<workbookView xWindow="0" yWindow="0" windowWidth="25600" windowHeight="19020" tabRatio="500"/>'+
-    '</bookViews>'+
-    '<sheets>'+
-    '<sheet name="" sheetId="1" r:id="rId1"/>'+
-    '</sheets>'+
-    '</workbook>',
+    "xl/workbook.xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' + '<fileVersion appName="xl" lastEdited="5" lowestEdited="5" rupBuild="24816"/>' + '<workbookPr showInkAnnotation="0" autoCompressPictures="0"/>' + '<bookViews>' + '<workbookView xWindow="0" yWindow="0" windowWidth="25600" windowHeight="19020" tabRatio="500"/>' + '</bookViews>' + '<sheets>' + '<sheet name="" sheetId="1" r:id="rId1"/>' + '</sheets>' + '</workbook>',
 
-    "xl/worksheets/sheet1.xml":
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-    '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac">'+
-    '<sheetData/>'+
-    '</worksheet>',
+    "xl/worksheets/sheet1.xml": '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' + '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac">' + '<sheetData/>' + '</worksheet>',
 
-    "xl/styles.xml":
-    '<?xml version="1.0" encoding="UTF-8"?>'+
-    '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac">'+
-    '<numFmts count="6">'+
-    '<numFmt numFmtId="164" formatCode="#,##0.00_-\ [$$-45C]"/>'+
-    '<numFmt numFmtId="165" formatCode="&quot;£&quot;#,##0.00"/>'+
-    '<numFmt numFmtId="166" formatCode="[$€-2]\ #,##0.00"/>'+
-    '<numFmt numFmtId="167" formatCode="0.0%"/>'+
-    '<numFmt numFmtId="168" formatCode="#,##0;(#,##0)"/>'+
-    '<numFmt numFmtId="169" formatCode="#,##0.00;(#,##0.00)"/>'+
-    '</numFmts>'+
-    '<fonts count="5" x14ac:knownFonts="1">'+
-    '<font>'+
-    '<sz val="11" />'+
-    '<name val="Calibri" />'+
-    '</font>'+
-    '<font>'+
-    '<sz val="11" />'+
-    '<name val="Calibri" />'+
-    '<color rgb="FFFFFFFF" />'+
-    '</font>'+
-    '<font>'+
-    '<sz val="11" />'+
-    '<name val="Calibri" />'+
-    '<b />'+
-    '</font>'+
-    '<font>'+
-    '<sz val="11" />'+
-    '<name val="Calibri" />'+
-    '<i />'+
-    '</font>'+
-    '<font>'+
-    '<sz val="11" />'+
-    '<name val="Calibri" />'+
-    '<u />'+
-    '</font>'+
-    '</fonts>'+
-    '<fills count="6">'+
-    '<fill>'+
-    '<patternFill patternType="none" />'+
-    '</fill>'+
-    '<fill/>'+ // Excel appears to use this as a dotted background regardless of values
-    '<fill>'+
-    '<patternFill patternType="solid">'+
-    '<fgColor rgb="FFD9D9D9" />'+
-    '<bgColor indexed="64" />'+
-    '</patternFill>'+
-    '</fill>'+
-    '<fill>'+
-    '<patternFill patternType="solid">'+
-    '<fgColor rgb="FFD99795" />'+
-    '<bgColor indexed="64" />'+
-    '</patternFill>'+
-    '</fill>'+
-    '<fill>'+
-    '<patternFill patternType="solid">'+
-    '<fgColor rgb="ffc6efce" />'+
-    '<bgColor indexed="64" />'+
-    '</patternFill>'+
-    '</fill>'+
-    '<fill>'+
-    '<patternFill patternType="solid">'+
-    '<fgColor rgb="ffc6cfef" />'+
-    '<bgColor indexed="64" />'+
-    '</patternFill>'+
-    '</fill>'+
-    '</fills>'+
-    '<borders count="2">'+
-    '<border>'+
-    '<left />'+
-    '<right />'+
-    '<top />'+
-    '<bottom />'+
-    '<diagonal />'+
-    '</border>'+
-    '<border diagonalUp="false" diagonalDown="false">'+
-    '<left style="thin">'+
-    '<color auto="1" />'+
-    '</left>'+
-    '<right style="thin">'+
-    '<color auto="1" />'+
-    '</right>'+
-    '<top style="thin">'+
-    '<color auto="1" />'+
-    '</top>'+
-    '<bottom style="thin">'+
-    '<color auto="1" />'+
-    '</bottom>'+
-    '<diagonal />'+
-    '</border>'+
-    '</borders>'+
-    '<cellStyleXfs count="1">'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" />'+
-    '</cellStyleXfs>'+
-    '<cellXfs count="67">'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="1" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="2" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="3" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="4" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment horizontal="left"/>'+
-    '</xf>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment horizontal="center"/>'+
-    '</xf>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment horizontal="right"/>'+
-    '</xf>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment horizontal="fill"/>'+
-    '</xf>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment textRotation="90"/>'+
-    '</xf>'+
-    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">'+
-    '<alignment wrapText="1"/>'+
-    '</xf>'+
-    '<xf numFmtId="9"   fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="166" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="167" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="168" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="169" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="4" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="1" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '<xf numFmtId="2" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>'+
-    '</cellXfs>'+
-    '<cellStyles count="1">'+
-    '<cellStyle name="Normal" xfId="0" builtinId="0" />'+
-    '</cellStyles>'+
-    '<dxfs count="0" />'+
-    '<tableStyles count="0" defaultTableStyle="TableStyleMedium9" defaultPivotStyle="PivotStyleMedium4" />'+
-    '</styleSheet>'
+    "xl/styles.xml": '<?xml version="1.0" encoding="UTF-8"?>' + '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="x14ac" xmlns:x14ac="http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac">' + '<numFmts count="6">' + '<numFmt numFmtId="164" formatCode="#,##0.00_-\ [$$-45C]"/>' + '<numFmt numFmtId="165" formatCode="&quot;£&quot;#,##0.00"/>' + '<numFmt numFmtId="166" formatCode="[$€-2]\ #,##0.00"/>' + '<numFmt numFmtId="167" formatCode="0.0%"/>' + '<numFmt numFmtId="168" formatCode="#,##0;(#,##0)"/>' + '<numFmt numFmtId="169" formatCode="#,##0.00;(#,##0.00)"/>' + '</numFmts>' + '<fonts count="5" x14ac:knownFonts="1">' + '<font>' + '<sz val="11" />' + '<name val="Calibri" />' + '</font>' + '<font>' + '<sz val="11" />' + '<name val="Calibri" />' + '<color rgb="FFFFFFFF" />' + '</font>' + '<font>' + '<sz val="11" />' + '<name val="Calibri" />' + '<b />' + '</font>' + '<font>' + '<sz val="11" />' + '<name val="Calibri" />' + '<i />' + '</font>' + '<font>' + '<sz val="11" />' + '<name val="Calibri" />' + '<u />' + '</font>' + '</fonts>' + '<fills count="6">' + '<fill>' + '<patternFill patternType="none" />' + '</fill>' + '<fill/>' + // Excel appears to use this as a dotted background regardless of values
+    '<fill>' + '<patternFill patternType="solid">' + '<fgColor rgb="FFD9D9D9" />' + '<bgColor indexed="64" />' + '</patternFill>' + '</fill>' + '<fill>' + '<patternFill patternType="solid">' + '<fgColor rgb="FFD99795" />' + '<bgColor indexed="64" />' + '</patternFill>' + '</fill>' + '<fill>' + '<patternFill patternType="solid">' + '<fgColor rgb="ffc6efce" />' + '<bgColor indexed="64" />' + '</patternFill>' + '</fill>' + '<fill>' + '<patternFill patternType="solid">' + '<fgColor rgb="ffc6cfef" />' + '<bgColor indexed="64" />' + '</patternFill>' + '</fill>' + '</fills>' + '<borders count="2">' + '<border>' + '<left />' + '<right />' + '<top />' + '<bottom />' + '<diagonal />' + '</border>' + '<border diagonalUp="false" diagonalDown="false">' + '<left style="thin">' + '<color auto="1" />' + '</left>' + '<right style="thin">' + '<color auto="1" />' + '</right>' + '<top style="thin">' + '<color auto="1" />' + '</top>' + '<bottom style="thin">' + '<color auto="1" />' + '</bottom>' + '<diagonal />' + '</border>' + '</borders>' + '<cellStyleXfs count="1">' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" />' + '</cellStyleXfs>' + '<cellXfs count="67">' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="2" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="3" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="4" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="5" borderId="0" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="0" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="2" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="3" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="4" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="1" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="2" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="3" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="4" fillId="5" borderId="1" applyFont="1" applyFill="1" applyBorder="1"/>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment horizontal="left"/>' + '</xf>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment horizontal="center"/>' + '</xf>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment horizontal="right"/>' + '</xf>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment horizontal="fill"/>' + '</xf>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment textRotation="90"/>' + '</xf>' + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyAlignment="1">' + '<alignment wrapText="1"/>' + '</xf>' + '<xf numFmtId="9"   fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="166" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="167" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="168" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="169" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="3" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="4" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="1" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '<xf numFmtId="2" fontId="0" fillId="0" borderId="0" applyFont="1" applyFill="1" applyBorder="1" xfId="0" applyNumberFormat="1"/>' + '</cellXfs>' + '<cellStyles count="1">' + '<cellStyle name="Normal" xfId="0" builtinId="0" />' + '</cellStyles>' + '<dxfs count="0" />' + '<tableStyles count="0" defaultTableStyle="TableStyleMedium9" defaultPivotStyle="PivotStyleMedium4" />' + '</styleSheet>'
 };
 // Note we could use 3 `for` loops for the styles, but when gzipped there is
 // virtually no difference in size, since the above can be easily compressed
@@ -16859,164 +15522,149 @@ var excelStrings = {
 // via an API in future?
 // Ref: section 3.8.30 - built in formatters in open spreadsheet
 //   https://www.ecma-international.org/news/TC45_current_work/Office%20Open%20XML%20Part%204%20-%20Markup%20Language%20Reference.pdf
-var _excelSpecials = [
-    { match: /^\-?\d+\.\d%$/,       style: 60, fmt: function (d) { return d/100; } }, // Precent with d.p.
-    { match: /^\-?\d+\.?\d*%$/,     style: 56, fmt: function (d) { return d/100; } }, // Percent
-    { match: /^\-?\$[\d,]+.?\d*$/,  style: 57 }, // Dollars
-    { match: /^\-?£[\d,]+.?\d*$/,   style: 58 }, // Pounds
-    { match: /^\-?€[\d,]+.?\d*$/,   style: 59 }, // Euros
-    { match: /^\-?\d+$/,            style: 65 }, // Numbers without thousand separators
-    { match: /^\-?\d+\.\d{2}$/,     style: 66 }, // Numbers 2 d.p. without thousands separators
-    { match: /^\([\d,]+\)$/,        style: 61, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets
-    { match: /^\([\d,]+\.\d{2}\)$/, style: 62, fmt: function (d) { return -1 * d.replace(/[\(\)]/g, ''); } },  // Negative numbers indicated by brackets - 2d.p.
-    { match: /^\-?[\d,]+$/,         style: 63 }, // Numbers with thousand separators
-    { match: /^\-?[\d,]+\.\d{2}$/,  style: 64 }  // Numbers with 2 d.p. and thousands separators
-];
-
+var _excelSpecials = [{ match: /^\-?\d+\.\d%$/, style: 60, fmt: function (d) {
+        return d / 100;
+    } }, // Precent with d.p.
+{ match: /^\-?\d+\.?\d*%$/, style: 56, fmt: function (d) {
+        return d / 100;
+    } }, // Percent
+{ match: /^\-?\$[\d,]+.?\d*$/, style: 57 }, // Dollars
+{ match: /^\-?£[\d,]+.?\d*$/, style: 58 }, // Pounds
+{ match: /^\-?€[\d,]+.?\d*$/, style: 59 }, // Euros
+{ match: /^\-?\d+$/, style: 65 }, // Numbers without thousand separators
+{ match: /^\-?\d+\.\d{2}$/, style: 66 }, // Numbers 2 d.p. without thousands separators
+{ match: /^\([\d,]+\)$/, style: 61, fmt: function (d) {
+        return -1 * d.replace(/[\(\)]/g, '');
+    } }, // Negative numbers indicated by brackets
+{ match: /^\([\d,]+\.\d{2}\)$/, style: 62, fmt: function (d) {
+        return -1 * d.replace(/[\(\)]/g, '');
+    } }, // Negative numbers indicated by brackets - 2d.p.
+{ match: /^\-?[\d,]+$/, style: 63 }, // Numbers with thousand separators
+{ match: /^\-?[\d,]+\.\d{2}$/, style: 64 // Numbers with 2 d.p. and thousands separators
+}];
 
 module.exports = {
-    exportObj:exportObj
-}
+    exportObj: exportObj
+};
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0)))
 
 /***/ }),
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
 /* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($, app, btExtend, Vue, commonMsg) {var auctionTable;
 $(document).ready(function () {
-	auctionTable = $("#auction-table").dataTable($.fn.extend(true,{},app.appOption.datatables.defaultOptions,{
-	    order:[],
+    auctionTable = $("#auction-table").dataTable($.fn.extend(true, {}, app.appOption.datatables.defaultOptions, {
+        order: [],
         dom: 'Bfrtip',
-        buttons: [
-            {
-                text: vm.message.viewTransporterComplete.button.exportExcel,
-                extend:"excel",
-                className:"btn btn-app-primary pull-left margin-bottom",
-                customizeData:function (data) {
-                    btExtend.exportObj.customerExportData(data,{
-                        header:[vm.message.auctionProfitReport.table.auctionNo,
-                                vm.message.auctionProfitReport.table.shipperTotal,
-                                vm.message.auctionProfitReport.table.transporterTotal,
-                                vm.message.auctionProfitReport.table.profitAmount,
-                                vm.message.auctionProfitReport.table.margin],
-                        subHeader:[],
-                        fieldNames:["auctionNo","shipperTotal","transporterTotal","auctionProfit","profitMargin"],
-                        subFieldNames:[],
-                        subRowList:null,
-                        ajaxParams:{
-                            url:"v1/api/auction/viewAuctionProfitReport",
-                            type:"post",
-                            data:auctionProfit.searchData
-                        }
-                    });
-                },
-                action:function (e,dt,button,config) {
-                    btExtend.exportObj.excelAction(this,e,dt,button,config);
-                },
-                exportOptions: {
-                    modifier: {
-                        page: 'all'
+        buttons: [{
+            text: vm.message.viewTransporterComplete.button.exportExcel,
+            extend: "excel",
+            className: "btn btn-app-primary pull-left margin-bottom",
+            customizeData: function (data) {
+                btExtend.exportObj.customerExportData(data, {
+                    header: [vm.message.auctionProfitReport.table.auctionNo, vm.message.auctionProfitReport.table.shipperTotal, vm.message.auctionProfitReport.table.transporterTotal, vm.message.auctionProfitReport.table.profitAmount, vm.message.auctionProfitReport.table.margin],
+                    subHeader: [],
+                    fieldNames: ["auctionNo", "shipperTotal", "transporterTotal", "auctionProfit", "profitMargin"],
+                    subFieldNames: [],
+                    subRowList: null,
+                    ajaxParams: {
+                        url: "v1/api/auction/viewAuctionProfitReport",
+                        type: "post",
+                        data: auctionProfit.searchData
                     }
-                }
+                });
             },
-            {
-                text: vm.message.viewTransporterComplete.button.exportPdf,
-                extend:"pdf",
-                className:"btn btn-app-primary pull-left margin-left-15 margin-bottom",
-                customizeData:function (data) {
-                    btExtend.exportObj.customerExportData(data,{
-                        header:[vm.message.auctionProfitReport.table.auctionNo,
-                            vm.message.auctionProfitReport.table.shipperTotal,
-                            vm.message.auctionProfitReport.table.transporterTotal,
-                            vm.message.auctionProfitReport.table.profitAmount,
-                            vm.message.auctionProfitReport.table.margin],
-                        subHeader:[],
-                        fieldNames:["auctionNo","shipperTotal","transporterTotal","auctionProfit","profitMargin"],
-                        subFieldNames:[],
-                        subRowList:null,
-                        ajaxParams:{
-                            url:"v1/api/auction/viewAuctionProfitReport",
-                            type:"post",
-                            data:auctionProfit.searchData
-                        }
-                    });
-                },
-                action:function (e,dt,button,config) {
-                    btExtend.exportObj.pdfAction(this,e,dt,button,config);
-                },
-                exportOptions: {
-                    modifier: {
-                        page: 'all'
-                    }
+            action: function (e, dt, button, config) {
+                btExtend.exportObj.excelAction(this, e, dt, button, config);
+            },
+            exportOptions: {
+                modifier: {
+                    page: 'all'
                 }
             }
-        ],
-        ajax:function (data,callback,settings) {
-        	 data.columns[0].search.value = $("#auction-no-value").val();
-        	 auctionProfit.searchData = data;
+        }, {
+            text: vm.message.viewTransporterComplete.button.exportPdf,
+            extend: "pdf",
+            className: "btn btn-app-primary pull-left margin-left-15 margin-bottom",
+            customizeData: function (data) {
+                btExtend.exportObj.customerExportData(data, {
+                    header: [vm.message.auctionProfitReport.table.auctionNo, vm.message.auctionProfitReport.table.shipperTotal, vm.message.auctionProfitReport.table.transporterTotal, vm.message.auctionProfitReport.table.profitAmount, vm.message.auctionProfitReport.table.margin],
+                    subHeader: [],
+                    fieldNames: ["auctionNo", "shipperTotal", "transporterTotal", "auctionProfit", "profitMargin"],
+                    subFieldNames: [],
+                    subRowList: null,
+                    ajaxParams: {
+                        url: "v1/api/auction/viewAuctionProfitReport",
+                        type: "post",
+                        data: auctionProfit.searchData
+                    }
+                });
+            },
+            action: function (e, dt, button, config) {
+                btExtend.exportObj.pdfAction(this, e, dt, button, config);
+            },
+            exportOptions: {
+                modifier: {
+                    page: 'all'
+                }
+            }
+        }],
+        ajax: function (data, callback, settings) {
+            data.columns[0].search.value = $("#auction-no-value").val();
+            auctionProfit.searchData = data;
             app.appOption.ajax.url = app.appOption.url + "v1/api/auction/viewAuctionProfitReport";
             app.appOption.ajax.type = "post";
             app.appOption.ajax.data = JSON.stringify(data);
-            app.appOption.ajax.request(app.appOption.ajax.url,app.appOption.ajax.type,app.appOption.ajax.data,function (result) {
+            app.appOption.ajax.request(app.appOption.ajax.url, app.appOption.ajax.type, app.appOption.ajax.data, function (result) {
                 callback(result);
-            },function (error) {
+            }, function (error) {
                 console.log(error);
-            })
+            });
         },
-        columns:[
-            {
-                orderable:false,
-                data:"auctionNo"
-            },
-            {
-                orderable:false,
-                data:"shipperTotal"
-            },
-            {
-                orderable:false,
-                data:"transporterTotal"
-            },
-            {
-                orderable:false,
-                data:"auctionProfit"
-            },
-            {
-                orderable:false,
-                data:"profitMargin"
-            }
-        ]
+        columns: [{
+            orderable: false,
+            data: "auctionNo"
+        }, {
+            orderable: false,
+            data: "shipperTotal"
+        }, {
+            orderable: false,
+            data: "transporterTotal"
+        }, {
+            orderable: false,
+            data: "auctionProfit"
+        }, {
+            orderable: false,
+            data: "profitMargin"
+        }]
     })).api();
-    $("#search").bind("click",function () {
-    	auctionTable.draw();
+    $("#search").bind("click", function () {
+        auctionTable.draw();
     });
 });
 
 var auctionProfit = {
-    searchData:{}
+    searchData: {}
 };
 window.auctionProfit = auctionProfit;
 var vm = new Vue({
-    i18n:commonMsg.i18n,
-    el:".content",
-    data:{
-        message:commonMsg.messages
+    i18n: commonMsg.i18n,
+    el: ".content",
+    data: {
+        message: commonMsg.messages
     }
-})
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(27), __webpack_require__(1), __webpack_require__(2)))
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(19), __webpack_require__(1), __webpack_require__(2)))
 
 /***/ })
-],[40]);
+],[29]);
